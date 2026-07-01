@@ -9,4 +9,29 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
   <link href="dashboardRepositor.css" rel="stylesheet"/>
 </head>
+
+<body>
+ 
+  <div class="navbar-movil">
+    <span class="brand">StockFlow</span>
+    <button onclick="abrirMenu()">
+      <i class="bi bi-list"></i>
+    </button>
+  </div>
+ 
+  <div class="menu-movil" id="menuMovil">
+    <button class="cerrar-menu" onclick="cerrarMenu()">
+      <i class="bi bi-x"></i>
+    </button>
+    <a href="#" class="activo" onclick="cerrarMenu()">Dashboard</a>
+    <a href="#" onclick="cerrarMenu()">Productos</a>
+    <a href="#" onclick="cerrarMenu()">Reposiciones</a>
+    <a href="#" onclick="cerrarMenu()">Alerta de Stock</a>
+    <a href="#" onclick="cerrarMenu()">Ajustes</a>
+    <a href="login.html" style="margin-top:auto; color:rgba(255,255,255,0.60);" onclick="cerrarMenu()">
+      Cerrar sesión
+    </a>
+  </div>
+ 
+</body>
 </html>
