@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@600;700&display=swap');
+
+/* pa que quede bien XD */
+* {  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* COLORES PRINCIPALES - SIDEBAR Y BOTONES */
+  --azul-primario: #1a237e;
+  --azul-activo: #283593;
+  --azul-link: #1565c0;
+
+  /* FONDOS Y SUPERFICIES */
+  --gris-fondo: #f4f5f9;
+  --blanco: #ffffff;
+  --celeste: #87ceeb;
+  --gris-borde: #e0e0e0;
+
+  /* TEXTOS */
+  --texto-oscuro: #1a1a1a;
+  --texto-gris: #6c757d;
+
+  /* COLORES SEMANTICOS */
+  --verde-ingreso: #2e7d32;
+  --rojo-alerta: #c62828;
+  --fondo-alerta: #ffdee4;
+  --borde-alerta: #ef9a9a;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--gris-fondo);
+  color: var(--texto-oscuro);
+}
+
+.titulo {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--texto-oscuro);
+}
+
+.texto {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--texto-gris);
+}
