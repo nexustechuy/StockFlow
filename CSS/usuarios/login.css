@@ -1,23 +1,4 @@
-/* Colores */
-:root {
-  --azul-primario: #1a237e;
-  --azul-claro:    #90caf9;
-  --fondo:         #87ceeb;
-  --blanco:        #ffffff;
-  --gris-input:    #e0e0e0;
-  --texto-oscuro:  #1a1a1a;
-  --link-color:    #1565c0;
-}
- /* Fondo celeste */
-body {
-  background-color: var(--fondo);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Segoe UI', Arial, sans-serif;
-}
- 
+
 /* Tarjeta blanca login */
 .card-login {
   background-color: var(--blanco);
@@ -95,8 +76,3 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
 }
- 
-.btn-ingresar:hover {
-  background-color: #283593;
-}
- 
