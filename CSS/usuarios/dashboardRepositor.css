@@ -1,10 +1,19 @@
-.contenido {
-  margin-left: var(--sidebar-width);
-  padding: 32px 36px;
-  min-height: 100vh;
-}
+/*FONDOS Y TEXTO*/
+@import url(/CSS/root/colores.css);
+@import url(/CSS/root/fuentes.css);
+
+/*CUERPO DE LA PAGINA*/
+@import url(/CSS/root/reset.css);
+@import url(/CSS/root/cuerpo.css);
+
+/*ELEMENTOS*/
+@import url(/CSS/componentes/botones.css);
+@import url(/CSS/componentes/navbar.css);
+@import url(/CSS/componentes/sidebar.css);
+@import url(/CSS/componentes/cards.css);
 
 .encabezado h2 {
+  font-family: 'Poppins', Arial, sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 2px;
@@ -104,10 +113,22 @@
 }
  
 @media (max-width: 768px) {
-  .sidebar        { display: none; }
-  .navbar-movil  { display: flex; }
-  .contenido      { margin-left: 0; padding: 20px 16px; }
-  .tarjetas       { grid-template-columns: 1fr 1fr; gap: 12px; }
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .navbar-movil {
+    display: flex;
+    width: 100%;
+  }
+
+  .contenido {
+      margin-left: 0;
+  }
 }
  
 @media (max-width: 480px) {

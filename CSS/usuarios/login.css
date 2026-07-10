@@ -1,3 +1,14 @@
+@import url(/CSS/root/colores.css);
+@import url(/CSS/root/fuentes.css);
+
+body {
+  background-color: var(--celeste);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
 
 /* Tarjeta blanca login */
 .card-login {
@@ -11,6 +22,7 @@
  
 /* Título StockFlow */
 .card-login h1 {
+  font-family: 'Poppins',Arial, sans-serif;
   font-size: 2rem;
   font-weight: 800;
   color: var(--texto-oscuro);
@@ -21,6 +33,7 @@
  
 /* Títulos de los campos */
 .card-login label {
+  font-family: 'Inter', Arial, sans-serif;
   font-weight: 600;
   color: var(--texto-oscuro);
   margin-bottom: 6px;
@@ -42,7 +55,7 @@
  
 .card-login input:focus {
   box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.20);
-  background-color: #f5f5f5;
+  background-color: var(--gris-input);
 }
  
 /* Links del formulario */
@@ -54,7 +67,7 @@
 }
  
 .links-form a {
-  color: var(--link-color);
+  color: var(--azul-link);
   font-size: 0.85rem;
   text-decoration: none;
 }
@@ -65,6 +78,7 @@
  
 /* Botón Ingresar */
 .btn-ingresar {
+  font-family: 'Inter',Arial, sans-serif;
   background-color: var(--azul-primario);
   color: var(--blanco);
   border: none;

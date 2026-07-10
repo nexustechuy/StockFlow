@@ -1,10 +1,15 @@
+@import url(/CSS/root/cuerpo.css);
+
+:root{
+  --sidebar-width: 220px;
+}
+
 .sidebar {
-  position: fixed;
   top: 0;
   left: 0;
   width: var(--sidebar-width);
   height: 100vh;
-  background-color: var(--azul-sidebar);
+  background-color: var(--azul-primario);
   display: flex;
   flex-direction: column;
   padding: 0;

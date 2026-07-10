@@ -1,10 +1,22 @@
-    /* Contenido principal */
-    .contenido {
-      margin-left: var(--sidebar-width);
-      padding: 32px 36px;
-      min-height: 100vh;
+   /*Fondos y Texto*/
+    @import url(/CSS/root/colores.css);
+    @import url(/CSS/root/fuentes.css);
+   
+   /*CUERPO*/
+   @import url(/CSS/root/cuerpo.css);
+
+   /*Elementos*/
+    @import url(/CSS/componentes/sidebar.css);
+    @import url(/CSS/componentes/navbar.css);
+    @import url(/CSS/componentes/cards.css);
+    
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: var(--gris-fondo);
+      color: var(--texto-oscuro);
     }
- 
+    
     /* Encabezado */
     .encabezado h2 {
       font-size: 1.5rem;
@@ -22,10 +34,10 @@
     .tarjetas {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 28px;
+      gap: 30px;
+      margin-bottom: 35px;
     }
- 
+
     .tarjeta {
       background-color: var(--gris-tarjeta);
       border-radius: 12px;
@@ -54,7 +66,7 @@
  
     .tarjeta .ver-detalle {
       font-size: 0.82rem;
-      color: var(--link-azul);
+      color: var(--azul-link);
       text-decoration: none;
     }
  
@@ -62,8 +74,8 @@
       text-decoration: underline;
     }
  
-    .valor-verde { color: var(--verde-ingreso); }
-    .valor-rojo  { color: var(--rojo-stock); }
+    .ingreso { color: var(--verde-ingreso) !important; }
+    .alerta { color: var(--rojo-alerta) !important; }
  
     /* Tablas inferiores */
     .paneles {
@@ -226,11 +238,23 @@
     }
  
     @media (max-width: 768px) {
-      .sidebar { display: none; }
-      .contenido { margin-left: 0; padding: 20px 16px; }
-      .navbar-movil { display: flex; }
-      .tarjetas { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .paneles { grid-template-columns: 1fr; }
+
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+          display: none;
+      }
+
+      .navbar-movil {
+          display: flex;
+          width: 100%;
+      }
+
+      .contenido {
+          margin-left: 0;
+      }
     }
  
     @media (max-width: 480px) {
