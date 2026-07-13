@@ -1,29 +1,18 @@
 /*FONDOS Y TEXTO*/
-@import url(/CSS/root/colores.css);
-@import url(/CSS/root/fuentes.css);
+@import url(/css/base/colores.css);
+@import url(/css/base/fuentes.css);
 
-/*CUERPO DE LA PAGINA*/
-@import url(/CSS/root/reset.css);
-@import url(/CSS/root/cuerpo.css);
+/*LAYOUT DE LA PAGINA*/
+@import url(/css/base/reset.css);
+@import url(/css/base/layout.css);
 
 /*ELEMENTOS*/
-@import url(/CSS/componentes/botones.css);
-@import url(/CSS/componentes/navbar.css);
-@import url(/CSS/componentes/sidebar.css);
-@import url(/CSS/componentes/cards.css);
+@import url(/css/componentes/botones.css);
+@import url(/css/componentes/navbar.css);
+@import url(/css/componentes/sidebar.css);
+@import url(/css/componentes/cards.css);
+@import url(/css/componentes/iconos.css);
 
-.encabezado h2 {
-  font-family: 'Poppins', Arial, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
- 
-.encabezado p {
-  color: var(--texto-gris);
-  font-size: 0.92rem;
-  margin-bottom: 20px;
-}
  
 /* ALERTA DE STOCK */
 .alerta-stock {
@@ -55,8 +44,11 @@
   gap: 20px;
   margin-bottom: 28px;
 }
- 
 
+/*TEXTO SEMANTICOS*/
+.atencion{color: var(--amarillo-atencion)!important;}
+.alerta{color: var(--rojo-alerta)!important;}
+.ingreso{color: var(--verde-ingreso)!important;}
  
 /* PANEL TABLA BAJO STOCK */
 .panel {
@@ -104,33 +96,33 @@
   text-align: right;
 }
  
- 
-/*Responsive*/
+ /*RESPONSIVE*/
 @media (max-width: 992px) {
   .tarjetas {
     grid-template-columns: repeat(2, 1fr);
   }
 }
- 
+
 @media (max-width: 768px) {
+
   body {
     flex-direction: column;
   }
 
   .sidebar {
-    display: none;
+      display: none;
   }
 
   .navbar-movil {
-    display: flex;
-    width: 100%;
+      display: flex;
+      width: 100%;
   }
 
   .contenido {
       margin-left: 0;
   }
 }
- 
+
 @media (max-width: 480px) {
   .tarjetas { grid-template-columns: 1fr; }
 }

@@ -19,6 +19,7 @@
   /* COLORES SEMANTICOS */
   --verde-ingreso: #2e7d32;
   --rojo-alerta: #c62828;
+  --amarillo-atencion: rgb(219, 168, 57);
   --fondo-alerta: #ffdee4;
   --borde-alerta: #ef9a9a;
 }

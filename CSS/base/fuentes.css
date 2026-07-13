@@ -14,3 +14,15 @@
   line-height: 1.5;
   color: var(--texto-gris);
 }
+
+.encabezado h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.encabezado p {
+  color: var(--texto-gris);
+  font-size: 0.92rem;
+  margin-bottom: 28px;
+}
