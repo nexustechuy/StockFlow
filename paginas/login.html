@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Inicio de secion</title>
     
+
   <!-- Estilos Bootsrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -12,30 +13,35 @@
   <link rel="stylesheet" href="/css/styles-paginas/login.css"> 
   
 
+  <!--SCRIPTS-->
+   <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS PROPIO-->
+  <script src="/js/componentes/script-login.js" defer></script>
+
 </head>
 
 <body>
   <div class="card-login">
     <h1 class="titulo">StockFlow</h1>
- 
-    <div>
-      <label for="correo">Usuario/Correo</label>
-        <input type="email" id="correo" placeholder="usuario/correo@ejemplo.com" />
- 
+
+    <form id="form-login" novalidate>
+      <label for="correo">Correo</label>
+      <input type="email" id="correo" name="correo" placeholder="juan@gmail.com" required />
+
       <label for="contrasena">Contraseña</label>
-        <input type="password" id="contrasena" placeholder="••••••••" />
- 
+      <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required />
+
       <div class="links-form">
         <a href="#">¿No tenés cuenta? Creá una</a>
         <a href="#">¿Olvidaste tu contraseña?</a>
       </div>
- 
-      <button class="btn-ingresar" onclick="window.location.href='dashboardVendedor.html'">Ingresar</button>
-    </div>
+
+      <div id="error" class="mensaje-error" style="display: none;"></div>
+
+      <button type="submit" class="btn-ingresar">Ingresar</button>
+    </form>
   </div>
-  
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
- 
 </body>
 </html>
