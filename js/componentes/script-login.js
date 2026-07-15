@@ -1,7 +1,7 @@
 const usuarios = [
-    {mail: "vendedor@gmail.com",         password: "1234",    rol:"vendedor"},
-    {mail: "repositor@gmail.com",        password: "1234",    rol:"repositor"},
-    {mail: "administrador@gmail.com",    password: "1234",    rol:"administrador"}
+    {mail: "vendedor@gmail.com",         password: "vendedor",          rol:"vendedor"},
+    {mail: "repositor@gmail.com",        password: "repositor",         rol:"repositor"},
+    {mail: "administrador@gmail.com",    password: "administrador",     rol:"administrador"}
 ];
 
 function iniciarSesion(event){
