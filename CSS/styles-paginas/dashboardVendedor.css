@@ -10,6 +10,7 @@
 @import url(/css/componentes/sidebar.css);
 @import url(/css/componentes/navbar.css);
 @import url(/css/componentes/cards.css);
+@import url(/css/componentes/tablas.css);
     
 
 body {
@@ -22,8 +23,6 @@ body {
 .tarjetas {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-  margin-bottom: 35px;
 }
 
 .tarjeta {

@@ -12,6 +12,7 @@
 @import url(/css/componentes/sidebar.css);
 @import url(/css/componentes/cards.css);
 @import url(/css/componentes/iconos.css);
+@import url(/css/componentes/tablas.css);
 
  
 /* ALERTA DE STOCK */
@@ -41,8 +42,6 @@
 .tarjetas {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-bottom: 28px;
 }
 
 /*TEXTO SEMANTICOS*/
