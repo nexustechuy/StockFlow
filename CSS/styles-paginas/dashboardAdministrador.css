@@ -47,9 +47,7 @@
 
 .valor-verde { color: var(--verde-ingreso); }
 
-/* ════════════════════════════════
-   FILA 2 — 2 paneles grandes
-════════════════════════════════ */
+/*FILA 2 — 2 paneles grandes*/
 .fila-paneles {
   display: grid;
   grid-template-columns: 1fr 1fr;
