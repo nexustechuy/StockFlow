@@ -1,104 +1,125 @@
 <!DOCTYPE html>
-<html lang="es" lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard Admin</title>
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="/css/styles-paginas/dashboardAdministrador.css"/>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow - Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/styles-paginas/dashboardAdministrador.css">
 </head>
 <body> 
 
   <aside class="sidebar">
-    <div class="sidebar-brand">
-      <h2>StockFlow</h2>
-    </div>
+    <div class="sidebar-brand">StockFlow</div>
     
     <div class="sidebar-usuario">
-      <p>Administrador</p>
+      Administrador
       <span>Juan Perez</span>
     </div>
     
     <nav>
-      <a href="#" class="activo">Dashboard</a>
-      <a href="#">Usuarios</a>
-      <a href="#">Categorías</a>
-      <a href="#">Productos</a>
-      <a href="login.html">Cerrar sesión</a>
+      <a href="#" class="activo">
+        <i class="bi bi-grid-1x2"></i>Dashboard
+      </a>
+      <a href="#">
+        <i class="bi bi-people"></i>Usuarios
+      </a>
+      <a href="#">
+        <i class="bi bi-tag"></i>Categorías
+      </a>
+      <a href="#">
+        <i class="bi bi-box-seam"></i>Productos
+      </a>
     </nav>
+    
+    <div class="sidebar-footer">
+      <a href="login.html">
+        <i class="bi bi-box-arrow-left"></i>Cerrar sesión
+      </a>
+    </div>
   </aside>
 
   <main class="contenido">
     
-    <div class="encabezado mb-4">
+    <div class="encabezado">
       <h2>¡Buenos días, Juan!</h2>
       <p>Vista general del negocio</p>
     </div>
 
-    <div class="row g-3 mb-4">
+    <div class="tarjetas">
       
-      <div class="col-md-4">
-        <div class="card p-3 shadow-sm">
-          <h5 class="text-muted">Ventas del Día</h5>
-          <p class="fs-2 fw-bold text-success mb-1">$45.000</p>
-          <small class="text-muted">Registradas automáticamente</small>
-        </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Ventas del Día</div>
+        <div class="valor verde">$45.000</div>
+        <div class="unidad">Registradas automáticamente</div>
+        <a href="#" class="ver-detalle">Ver detalle</a>
       </div>
 
-      <div class="col-md-4">
-        <div class="card p-3 shadow-sm">
-          <h5 class="text-muted">Usuarios</h5>
-          <p class="fs-2 fw-bold text-primary mb-1">5 Activos</p>
-          <small class="text-muted">Vendedores y repositores</small>
-        </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Usuarios</div>
+        <div class="valor azul">5 Activos</div>
+        <div class="unidad">Vendedores y repositores</div>
+        <a href="#" class="ver-detalle">Ver detalle</a>
       </div>
 
-      <div class="col-md-4">
-        <div class="card p-3 shadow-sm">
-          <h5 class="text-muted">Productos</h5>
-          <p class="fs-2 fw-bold text-dark mb-1">120 artículos</p>
-          <small class="text-muted">En 6 categorías distintas</small>
-        </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Productos</div>
+        <div class="valor">120 artículos</div>
+        <div class="unidad">En 6 categorías distintas</div>
+        <a href="#" class="ver-detalle">Ver detalle</a>
+      </div>
+
+      <div class="tarjeta">
+        <div class="etiqueta">Sin Stock</div>
+        <div class="valor rojo">4</div>
+        <div class="unidad">productos</div>
+        <a href="#" class="ver-detalle">Ver detalle</a>
       </div>
 
     </div>
 
-    <div class="card p-4 shadow-sm">
-      <h4 class="mb-2">Ventas en tiempo real</h4>
-      <p class="text-muted small">Lista de ventas automáticas que ingresan al sistema</p>
-      
-      <div class="table-responsive">
-        <table class="table table-hover mt-2">
+    <div class="paneles">
+      <div class="panel">
+        <h5>Historial de ventas</h5>
+        
+        <table class="tabla-historial">
           <thead>
             <tr>
-              <th>Vendedor</th>
+              <th>Hora</th>
+              <th>Cliente</th>
               <th>Productos</th>
               <th>Total</th>
-              <th>Hora</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Lucas</td>
-              <td>3 Yerba, 1 Azúcar</td>
-              <td class="fw-bold text-success">$14.200</td>
-              <td>19:30</td>
+              <td>09:15</td>
+              <td>Ana López</td>
+              <td>3</td>
+              <td class="txt-verde">$4.200</td>
             </tr>
             <tr>
-              <td>Mariana</td>
-              <td>1 Aceite de Girasol</td>
-              <td class="fw-bold text-success">$3.500</td>
-              <td>19:15</td>
+              <td>10:02</td>
+              <td>Carlos Ruiz</td>
+              <td>1</td>
+              <td class="txt-verde">$1.500</td>
             </tr>
             <tr>
-              <td>Lucas</td>
-              <td>2 Harinas 000</td>
-              <td class="fw-bold text-success">$4.800</td>
-              <td>18:50</td>
+              <td>11:20</td>
+              <td>María García</td>
+              <td>5</td>
+              <td class="txt-verde">$8.750</td>
+            </tr>
+            <tr>
+              <td>12:45</td>
+              <td>Pedro Díaz</td>
+              <td>2</td>
+              <td class="txt-verde">$3.100</td>
             </tr>
           </tbody>
         </table>
+        
+        <a href="#" class="ver-todo-btn">Ver todo</a>
       </div>
     </div>
 
