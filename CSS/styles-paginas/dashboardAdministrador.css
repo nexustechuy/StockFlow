@@ -7,55 +7,17 @@
 @import url(/css/base/layout.css);
 
 /*ELEMENTOS*/
-@import url(/css/componentes/botones.css);
 @import url(/css/componentes/navbar.css);
 @import url(/css/componentes/sidebar.css);
 @import url(/css/componentes/iconos.css);
 @import url(/css/componentes/cards.css);
 @import url(/css/componentes/tablas.css);
 
-/* BARRA DE SCROLL */
-html {
-  overflow-y: scroll;
-}
-
-body {
-  font-family: 'Inter', Arial, sans-serif;
-  background-color: var(--gris-fondo);
-  color: var(--texto-oscuro);
-}
-.sidebar nav a i {
-  display: inline-block !important;
-  width: 28px !important;       /* El contenedor fijo para que no se desalineen */
-  font-size: 16px !important;   /* TAMAÑO UNIFICADO: esto hace que todos se vean iguales */
-  text-align: center !important;
-  margin-right: 12px !important;
-}
 
 /* TARJETAS */
 .tarjetas {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-}
-
-.tarjeta {
-  background-color: var(--gris-tarjeta);
-  border-radius: 12px;
-  padding: 20px 22px;
-  border: 1px solid var(--gris-borde);
-}
-
-.tarjeta .etiqueta {
-  font-size: 0.80rem;
-  color: var(--texto-gris);
-  margin-bottom: 6px;
-}
-
-.tarjeta .valor {
-  font-size: 1.9rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 4px;
 }
 
 .tarjeta .unidad {
@@ -66,12 +28,12 @@ body {
 
 .tarjeta .ver-detalle {
   font-size: 0.82rem;
-  color: var(--azul-link) !important;
-  text-decoration: underline !important;
+  color: var(--azul-link);
+  text-decoration: none;
 }
 
 .tarjeta .ver-detalle:hover {
-  text-decoration: underline !important;
+  text-decoration: underline;
 }
 
 .ingreso { color: var(--verde-ingreso) !important; }
@@ -125,20 +87,14 @@ body {
   display: block;
   text-align: center;
   margin-top: 16px;
-  color: var(--link-azul);
+  color: var(--azul-link);
   font-size: 0.88rem;
   text-decoration: none;
   font-weight: 600;
-  outline: none;
-  border: none;
 }
-
-.ver-todo:focus, .ver-todo:active {
-  outline: none !important;
-  box-shadow: none !important;
+.ver-todo:hover{
+  text-decoration: underline;
 }
-
-.ver-todo:hover { text-decoration: underline !important; }
 
 /* RESPONSIVE */
 @media (max-width: 992px) {
@@ -156,6 +112,10 @@ body {
   }
   .contenido {
     margin-left: 0;
+  }
+  .navbar-movil {
+      display: flex;
+      width: 100%;
   }
 }
 

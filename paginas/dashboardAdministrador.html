@@ -4,9 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StockFlow - Admin</title>
+
+  <!--CSS BOOTSRSAP-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+
+  <!--CSS PROPIO-->
   <link rel="stylesheet" href="../css/styles-paginas/dashboardAdministrador.css">
+  
 </head>
+
+
 <body> 
 
   <aside class="sidebar">
@@ -14,28 +22,30 @@
     
     <div class="sidebar-usuario">
       Administrador
-      <span>Juan Perez</span>
+      <span>Juan Pérez</span>
     </div>
     
     <nav>
       <a href="#" class="activo">
-        <i class="bi bi-grid-1x2"></i>Dashboard
+        <i class="bi bi-grid me-2"></i>Dashboard
       </a>
       <a href="#">
-        <i class="bi bi-people"></i>Usuarios
+        <i class="bi bi-people me-2"></i>Usuarios
       </a>
       <a href="#">
-        <i class="bi bi-tag"></i>Categorías
+        <i class="bi bi-tag me-2"></i>Categorías
       </a>
       <a href="#">
-        <i class="bi bi-box-seam"></i>Productos
+        <i class="bi bi-box-seam me-2"></i>Productos
       </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+      
     </nav>
     
     <div class="sidebar-footer">
-      <a href="login.html">
-        <i class="bi bi-box-arrow-left"></i>Cerrar sesión
-      </a>
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
     </div>
   </aside>
 
@@ -50,28 +60,28 @@
       
       <div class="tarjeta">
         <div class="etiqueta">Ventas del Día</div>
-        <div class="valor verde">$45.000</div>
+        <div class="valor ingreso">$45.000</div>
         <div class="unidad">Registradas automáticamente</div>
         <a href="#" class="ver-detalle">Ver detalle</a>
       </div>
 
       <div class="tarjeta">
         <div class="etiqueta">Usuarios</div>
-        <div class="valor azul">5 Activos</div>
+        <div class="valor">5</div>
         <div class="unidad">Vendedores y repositores</div>
         <a href="#" class="ver-detalle">Ver detalle</a>
       </div>
 
       <div class="tarjeta">
         <div class="etiqueta">Productos</div>
-        <div class="valor">120 artículos</div>
+        <div class="valor">120</div>
         <div class="unidad">En 6 categorías distintas</div>
         <a href="#" class="ver-detalle">Ver detalle</a>
       </div>
 
       <div class="tarjeta">
         <div class="etiqueta">Sin Stock</div>
-        <div class="valor rojo">4</div>
+        <div class="valor alerta">4</div>
         <div class="unidad">productos</div>
         <a href="#" class="ver-detalle">Ver detalle</a>
       </div>
@@ -96,34 +106,39 @@
               <td>09:15</td>
               <td>Ana López</td>
               <td>3</td>
-              <td class="txt-verde">$4.200</td>
+              <td class="ingreso">$4.200</td>
             </tr>
             <tr>
               <td>10:02</td>
               <td>Carlos Ruiz</td>
               <td>1</td>
-              <td class="txt-verde">$1.500</td>
+              <td class="ingreso">$1.500</td>
             </tr>
             <tr>
               <td>11:20</td>
               <td>María García</td>
               <td>5</td>
-              <td class="txt-verde">$8.750</td>
+              <td class="ingreso">$8.750</td>
             </tr>
             <tr>
               <td>12:45</td>
               <td>Pedro Díaz</td>
               <td>2</td>
-              <td class="txt-verde">$3.100</td>
+              <td class="ingreso">$3.100</td>
             </tr>
           </tbody>
         </table>
         
-        <a href="#" class="ver-todo-btn">Ver todo</a>
+        <a href="#" class="ver-todo">Ver todo</a>
       </div>
     </div>
 
   </main>
+
+  <!--JS PROPIO-->
+  <script src="/js/componentes/menu-responsive.js"></script>
+  <script src="/js/componentes/sidebar-script.js"></script>
+  <script src="/js/js-paginas/navAdministrador.js"></script>
 
 </body>
 </html>

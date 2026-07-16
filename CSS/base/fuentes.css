@@ -15,10 +15,13 @@
   color: var(--texto-gris);
 }
 
+.encabezado{
+  padding: 10px 10px;
+}
 .encabezado h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 2px;
+  margin-bottom: 2px; 
 }
 
 .encabezado p {

@@ -14,7 +14,6 @@
 @import url(/css/componentes/iconos.css);
 @import url(/css/componentes/tablas.css);
 
- 
 /* ALERTA DE STOCK */
 .alerta-stock {
   background-color: var(--fondo-alerta);
