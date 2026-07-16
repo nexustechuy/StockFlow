@@ -1,18 +1,18 @@
 /*FONDOS Y TEXTO*/
-@import url(/css/base/colores.css);
-@import url(/css/base/fuentes.css);
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
 
 /*LAYOUT DE LA PAGINA*/
-@import url(/css/base/reset.css);
-@import url(/css/base/layout.css);
+@import url(../base/reset.css);
+@import url(../base/layout.css);
 
 /*ELEMENTOS*/
-@import url(/css/componentes/botones.css);
-@import url(/css/componentes/navbar.css);
-@import url(/css/componentes/sidebar.css);
-@import url(/css/componentes/cards.css);
-@import url(/css/componentes/iconos.css);
-@import url(/css/componentes/tablas.css);
+@import url(../componentes/botones.css);
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/cards.css);
+@import url(../componentes/iconos.css);
+@import url(../componentes/tablas.css);
 
 /* ALERTA DE STOCK */
 .alerta-stock {

@@ -1,5 +1,5 @@
-@import url(/css/base/colores.css);
-@import url(/css/base/fuentes.css);
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
 
 body {
   background-color: var(--celeste);
