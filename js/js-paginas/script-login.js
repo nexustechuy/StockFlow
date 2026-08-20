@@ -46,7 +46,6 @@ function iniciarSesion(event){
         }
 
     } catch (error) {
-        // Mostramos el mensaje de error al usuario
         mensajeError.textContent = error.message;
         mensajeError.style.display = "block";
     }

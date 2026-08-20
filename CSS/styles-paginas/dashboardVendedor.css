@@ -1,183 +1,24 @@
 /*FONDOS Y TEXTO*/
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
-   
+
 /*LAYOUT*/
+@import url(../base/reset.css);
 @import url(../base/layout.css);
 
-
 /*ELEMENTOS*/
-@import url(../componentes/sidebar.css);
+/* Importante: navbar.css debe cargarse ANTES que sidebar.css, porque
+   sidebar.css define el media query que muestra la navbar-móvil en
+   pantallas chicas, y necesita ganarle en la cascada a la regla por
+   defecto (display:none) de navbar.css. */
 @import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
 @import url(../componentes/cards.css);
 @import url(../componentes/tablas.css);
-    
 
-body {
-  font-family: 'Inter', Arial, sans-serif;
-  background-color: var(--gris-fondo);
-  color: var(--texto-oscuro);
-}
-
-/* Tarjetas de métricas */
-.tarjetas {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.tarjeta {
-  background-color: var(--gris-tarjeta);
-  border-radius: 12px;
-  padding: 20px 22px;
-  border: 1px solid var(--gris-borde);
-}
-
-.tarjeta .etiqueta {
-  font-size: 0.80rem;
-  color: var(--texto-gris);
-  margin-bottom: 6px;
-}
-
-.tarjeta .valor {
-  font-size: 1.9rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 4px;
-}
-
-.tarjeta .unidad {
-  font-size: 0.78rem;
-  color: var(--texto-gris);
-  margin-bottom: 10px;
-}
-
-.tarjeta .ver-detalle {
-  font-size: 0.82rem;
-  color: var(--azul-link);
-  text-decoration: none;
-}
-
-.tarjeta .ver-detalle:hover {
-  text-decoration: underline;
-}
-
-.ingreso { color: var(--verde-ingreso) !important; }
-.alerta { color: var(--rojo-alerta) !important; }
-
-/* Tablas inferiores */
-.paneles {
-  display: grid;
-  grid-template-columns:1fr;
-}
-
-.panel {
-  background-color: var(--gris-tarjeta);
-  border-radius: 12px;
-  padding: 22px 24px;
-  border: 1px solid var(--gris-borde);
-}
-
-.panel h5 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--texto-oscuro);
-}
-
-/* Tabla historial */
-.tabla-historial {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
-}
-
-.tabla-historial th {
-  text-align: left;
-  color: var(--texto-gris);
-  font-weight: 600;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--gris-borde);
-}
-
-.tabla-historial td {
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-  color: var(--texto-oscuro);
-}
-
-.tabla-historial tr:last-child td {
-  border-bottom: none;
-}
-
-/* Tabla productos más vendidos */
-.tabla-productos {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
-}
-
-.tabla-productos th {
-  text-align: left;
-  color: var(--texto-gris);
-  font-weight: 600;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--gris-borde);
-}
-
-.tabla-productos td {
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
+/* ===== Específico de esta página: alinear a la derecha la columna
+   de cantidad en la tabla de productos más vendidos ===== */
 .tabla-productos th:last-child,
 .tabla-productos td:last-child {
   text-align: right;
-}
-
-.tabla-productos tr:last-child td {
-  border-bottom: none;
-}
-
-.ver-todo {
-  display: block;
-  text-align: center;
-  margin-top: 16px;
-  color: var(--azul-link);
-  font-size: 0.88rem;
-  text-decoration: none;
-  font-weight: 600;
-}
-.ver-todo:hover{
-  text-decoration: underline;
-}
-
-/*RESPONSIVE*/
-@media (max-width: 992px) {
-  .tarjetas {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-
-  body {
-    flex-direction: column;
-  }
-
-  .sidebar {
-      display: none;
-  }
-
-  .navbar-movil {
-      display: flex;
-      width: 100%;
-  }
-
-  .contenido {
-      margin-left: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .tarjetas { grid-template-columns: 1fr; }
 }

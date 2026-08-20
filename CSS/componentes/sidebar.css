@@ -1,5 +1,3 @@
-@import url(/CSS/root/cuerpo.css);
-
 :root{
   --sidebar-width: 220px;
 }
@@ -86,4 +84,27 @@
  
 .sidebar-footer a:hover {
   color: var(--blanco);
+}
+
+/* ===== RESPONSIVE ===== */
+/* En mobile se oculta el sidebar y aparece la navbar-móvil (ver navbar.css
+   y js/componentes/menu-responsive.js). Este bloque era idéntico en los
+   3 dashboards; ahora vive en un solo lugar. */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .contenido {
+    margin-left: 0;
+  }
+
+  .navbar-movil {
+    display: flex;
+    width: 100%;
+  }
 }

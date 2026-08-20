@@ -7,6 +7,7 @@
 @import url(../base/layout.css);
 
 /*ELEMENTOS*/
+/* navbar.css antes que sidebar.css: ver nota en dashboardVendedor.css */
 @import url(../componentes/botones.css);
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
@@ -14,7 +15,7 @@
 @import url(../componentes/iconos.css);
 @import url(../componentes/tablas.css);
 
-/* ALERTA DE STOCK */
+/* ===== Específico de esta página: bloque de alerta de stock ===== */
 .alerta-stock {
   background-color: var(--fondo-alerta);
   border: 1px solid var(--borde-alerta);
@@ -32,95 +33,15 @@
   color: var(--rojo-alerta);
   margin-bottom: 2px;
 }
- 
+
 .alerta-stock .alerta-texto {
   font-size: 0.85rem;
   color: var(--rojo-alerta);
 }
 
-.tarjetas {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-
-/*TEXTO SEMANTICOS*/
-.atencion{color: var(--amarillo-atencion)!important;}
-.alerta{color: var(--rojo-alerta)!important;}
-.ingreso{color: var(--verde-ingreso)!important;}
- 
-/* PANEL TABLA BAJO STOCK */
-.panel {
-  background-color: var(--gris-tarjeta);
-  border-radius: 12px;
-  padding: 22px 24px;
-  border: 1px solid var(--gris-borde);
-}
- 
-.panel h5 {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--texto-oscuro);
-}
- 
-/* ── Tabla bajo stock ── */
-.tabla-stock {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
-}
- 
-.tabla-stock th {
-  text-align: left;
-  color: var(--texto-gris);
-  font-weight: 600;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--gris-borde);
-}
- 
-.tabla-stock td {
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
-  color: var(--texto-oscuro);
-  vertical-align: middle;
-}
- 
-.tabla-stock tr:last-child td {
-  border-bottom: none;
-}
- 
+/* ===== Específico de esta página: alinear a la derecha la columna
+   de "Acción" en la tabla de bajo stock ===== */
 .tabla-stock th:last-child,
 .tabla-stock td:last-child {
   text-align: right;
-}
- 
- /*RESPONSIVE*/
-@media (max-width: 992px) {
-  .tarjetas {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-
-  body {
-    flex-direction: column;
-  }
-
-  .sidebar {
-      display: none;
-  }
-
-  .navbar-movil {
-      display: flex;
-      width: 100%;
-  }
-
-  .contenido {
-      margin-left: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .tarjetas { grid-template-columns: 1fr; }
 }
