@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StockFlow - Productos</title>
+
+  <!-- Estilos Bootstrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <!-- Iconos de Bootsrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <!-- Estilos Propios-->
+  <link rel="stylesheet" href="../css/styles-paginas/dashboardVendedor.css">
+  <link rel="stylesheet" href="../css/styles-paginas/productosVendedor.css">
+
+</head>
+
+<body>
+
+  <!--SIDEBAR-->
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+    <div class="sidebar-usuario">
+      Vendedor
+      <span>Juan Pérez</span>
+    </div>
+    <nav>
+      <a href="dashboardVendedor.html" class="activo">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="#">
+        <i class="bi bi-cart-plus me-2"></i>Registrar venta
+      </a>
+      <a href="productosVendedor.html" >
+        <i class="bi bi-box-seam me-2"></i>Productos
+      </a>
+      <a href="#">
+        <i class="bi bi-clock-history me-2"></i>Historial
+      </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <!--CONTENIDO DE LA DERECHA-->
+  <main class="contenido">
+
+    <!--Encabezado-->
+    <div class="encabezado">
+      <h2>Productos</h2>
+      <p>Consultá la disponibilidad y el stock de los productos</p>
+    </div>
+
+    <!-- Buscador -->
+    <div class="buscador-productos">
+      <input type="text" id="buscadorProductos" placeholder="Buscá un producto...">
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros-productos">
+      <button class="btn-filtro activo" data-filtro="todos">Todos</button>
+      <button class="btn-filtro" data-filtro="disponible">Disponibles</button>
+      <button class="btn-filtro" data-filtro="sinstock">Sin stock</button>
+    </div>
+
+    <!-- Panel con la tabla -->
+    <div class="panel">
+      <table class="tabla-productos" id="tablaProductos">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Disponibilidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-estado="bajo">
+            <td>Mouse G203</td>
+            <td>Periféricos</td>
+            <td>$1120</td>
+            <td>6</td>
+            <td class="estado-bajo">Stock bajo</td>
+          </tr>
+          <tr data-estado="sinstock">
+            <td>Teclado USB</td>
+            <td>Periféricos</td>
+            <td>$2190</td>
+            <td>0</td>
+            <td class="estado-sinstock">Sin stock</td>
+          </tr>
+          <tr data-estado="disponible">
+            <td>Monitor 24"</td>
+            <td>Pantallas</td>
+            <td>$5790</td>
+            <td>12</td>
+            <td class="estado-disponible">Disponible</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!--JS Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS Propio-->
+  <script src="../js/js-paginas/navVendedor.js"></script>
+  <script src="../js/componentes/sidebar-script.js"></script>
+  <script src="../js/componentes/menu-responsive.js"></script>
+  <script src="../js/js-paginas/script-productos.js"></script>
+</body>
+</html>

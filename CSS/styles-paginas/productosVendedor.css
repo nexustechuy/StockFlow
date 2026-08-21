@@ -1,0 +1,88 @@
+/*FONDOS Y TEXTO*/
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/*LAYOUT*/
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/tablas.css);
+
+/* Buscador de productos */
+
+
+.buscador-productos {
+  margin-bottom: 16px;
+}
+
+.buscador-productos input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--gris-borde);
+  background-color: var(--gris-tarjeta);
+  color: var(--texto-oscuro);
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.buscador-productos input:focus {
+  outline: none;
+  border-color: var(--azul-link);
+}
+
+/* Filtros tipo pill */
+.filtros-productos {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-filtro {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: 1px solid var(--gris-borde);
+  background-color: var(--gris-tarjeta);
+  color: var(--texto-oscuro);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-filtro.activo {
+  background-color: #1e1b4b;
+  color: #ffffff;
+  border-color: #1e1b4b;
+}
+
+/* Estados de disponibilidad en la tabla */
+.estado-disponible {
+  color: var(--verde-ingreso);
+  font-weight: 600;
+}
+
+.estado-bajo {
+  color: #d9a441;
+  font-weight: 600;
+}
+
+.estado-sinstock {
+  color: var(--rojo-alerta);
+  font-weight: 600;
+}
+
+/* Oculta filas cuando el JS filtra */
+.tabla-productos tr.oculto {
+  display: none;
+}
+
+.sin-resultados {
+  text-align: center;
+  color: var(--texto-gris);
+  padding: 20px 0;
+  font-size: 0.88rem;
+}
