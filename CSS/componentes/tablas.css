@@ -6,6 +6,7 @@
   border: 1px solid var(--gris-borde);
   margin-bottom: 28px;
   gap: 20px;
+  overflow-x: auto;
 }
 
 .panel h5 {
@@ -22,7 +23,8 @@
    se agrega esa regla puntual en el CSS de la página correspondiente. */
 .tabla-historial,
 .tabla-productos,
-.tabla-stock {
+.tabla-stock,
+.tabla-usuarios {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.88rem;
@@ -30,7 +32,8 @@
 
 .tabla-historial th,
 .tabla-productos th,
-.tabla-stock th {
+.tabla-stock th,
+.tabla-usuarios th {
   text-align: left;
   color: var(--texto-gris);
   font-weight: 600;
@@ -40,7 +43,8 @@
 
 .tabla-historial td,
 .tabla-productos td,
-.tabla-stock td {
+.tabla-stock td,
+.tabla-usuarios td {
   padding: 10px 0;
   border-bottom: 1px solid #f0f0f0;
   color: var(--texto-oscuro);
@@ -49,7 +53,8 @@
 
 .tabla-historial tr:last-child td,
 .tabla-productos tr:last-child td,
-.tabla-stock tr:last-child td {
+.tabla-stock tr:last-child td,
+.tabla-usuarios tr:last-child td {
   border-bottom: none;
 }
 

@@ -14,6 +14,7 @@
   <!-- Estilos Propios-->
   <link rel="stylesheet" href="../css/styles-paginas/dashboardVendedor.css">
   <link rel="stylesheet" href="../css/styles-paginas/productosVendedor.css">
+  <link rel="stylesheet" href="../CSS/componentes/cards.css">
 
 </head>
 
@@ -27,13 +28,13 @@
       <span>Juan Pérez</span>
     </div>
     <nav>
-      <a href="dashboardVendedor.html" class="activo">
+      <a href="dashboardVendedor.html">
         <i class="bi bi-grid me-2"></i>Dashboard
       </a>
       <a href="#">
         <i class="bi bi-cart-plus me-2"></i>Registrar venta
       </a>
-      <a href="productosVendedor.html" >
+      <a href="productosVendedor.html" class="activo">
         <i class="bi bi-box-seam me-2"></i>Productos
       </a>
       <a href="#">
@@ -87,21 +88,21 @@
             <td>Periféricos</td>
             <td>$1120</td>
             <td>6</td>
-            <td class="estado-bajo">Stock bajo</td>
+            <td class="atencion">Stock bajo</td>
           </tr>
           <tr data-estado="sinstock">
             <td>Teclado USB</td>
             <td>Periféricos</td>
             <td>$2190</td>
             <td>0</td>
-            <td class="estado-sinstock">Sin stock</td>
+            <td class="alerta">Sin stock</td>
           </tr>
           <tr data-estado="disponible">
             <td>Monitor 24"</td>
             <td>Pantallas</td>
             <td>$5790</td>
             <td>12</td>
-            <td class="estado-disponible">Disponible</td>
+            <td class="ingreso">Disponible</td>
           </tr>
         </tbody>
       </table>

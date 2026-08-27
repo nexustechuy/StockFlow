@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     links: [
       { texto: 'Dashboard',         href: 'dashboardVendedor.html' },
       { texto: 'Registrar venta',   href: '#' },
-      { texto: 'Productos',         href: 'productosVendedor.html' },
+      { texto: 'Productos',         href: '#' },
       { texto: 'Historial',         href: '#' },
       { texto: 'Ajustes',           href: '#' },
-      { texto: 'Cerrar sesión',     href: 'login.html', cerrarSesion: true }
+      { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }
     ]
   });
 });

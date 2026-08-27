@@ -1,4 +1,14 @@
-
+/**
+ * Componente reutilizable: menú móvil (navbar hamburguesa) para todos los dashboards.
+ *
+ * Cómo se usa desde cada página:
+ *   1. Este archivo se incluye SIEMPRE (es genérico, no sabe nada de roles).
+ *   2. Cada página define ANTES su propia configuración (ver js/js-paginas/nav*.js),
+ *      llamando a inicializarMenuMovil(config) con sus links y su página por defecto.
+ *
+ * Esto reemplaza la lógica que antes estaba copiada y pegada en
+ * navAdministrador.js, navRepositor.js y navVendedor.js.
+ */
 
 function inicializarMenuMovil(config) {
   // config = {

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow - Usuarios</title>
+
+  <!--CSS BOOTSRSAP-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+
+  <!--CSS PROPIO-->
+  <link rel="stylesheet" href="../CSS/styles-paginas/usuariosAdministrador.css">
+
+</head>
+
+
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+
+    <div class="sidebar-usuario">
+      Administrador
+      <span>Juan Pérez</span>
+    </div>
+
+    <nav>
+      <a href="dashboardAdministrador.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="#">
+        <i class="bi bi-cart-check me-2"></i>Ventas
+      </a>
+      <a href="#">
+        <i class="bi bi-box-seam me-2"></i>Inventario
+      </a>
+      <a href="#">
+        <i class="bi bi-graph-up-arrow me-2"></i>Ganancias
+      </a>
+      <a href="usuariosAdministrador.html" class="activo">
+        <i class="bi bi-people me-2"></i>Usuarios
+      </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <main class="contenido">
+
+    <div class="encabezado">
+      <h2>Usuarios</h2>
+      <p>Gestioná los usuarios y sus roles en el sistema</p>
+    </div>
+
+    <div class="barra-usuarios">
+      <input
+        type="text"
+        id="buscarUsuario"
+        class="input-busqueda"
+        placeholder="Buscá un usuario...">
+
+      <div class="filtros">
+        <button type="button" class="filtro-chip activo" data-filtro="todos">Todos</button>
+        <button type="button" class="filtro-chip" data-filtro="vendedor">Vendedores</button>
+        <button type="button" class="filtro-chip" data-filtro="repositor">Repositores</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <table class="tabla-usuarios">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaUsuarios">
+          <tr data-rol="vendedor">
+            <td>
+              <div class="celda-usuario">
+                <span class="avatar-usuario">JP</span>
+                Juan Pérez
+              </div>
+            </td>
+            <td>vendedor@stockflow.com</td>
+            <td>Vendedor</td>
+            <td><span class="ingreso">Activo</span></td>
+            <td>
+              <div class="dropdown">
+                <button class="btn-accion" data-bs-toggle="dropdown" aria-expanded="false">•••</button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
+                  <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr data-rol="repositor">
+            <td>
+              <div class="celda-usuario">
+                <span class="avatar-usuario">JP</span>
+                Juan Pérez
+              </div>
+            </td>
+            <td>repositor@stockflow.com</td>
+            <td>Repositor</td>
+            <td><span class="ingreso">Activo</span></td>
+            <td>
+              <div class="dropdown">
+                <button class="btn-accion" data-bs-toggle="dropdown" aria-expanded="false">•••</button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
+                  <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr data-rol="administrador">
+            <td>
+              <div class="celda-usuario">
+                <span class="avatar-usuario">JP</span>
+                Juan Pérez
+              </div>
+            </td>
+            <td>administrador@stockflow.com</td>
+            <td>Administrador</td>
+            <td><span class="alerta">Inactivo</span></td>
+            <td>
+              <div class="dropdown">
+                <button class="btn-accion" data-bs-toggle="dropdown" aria-expanded="false">•••</button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
+                  <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pie-tabla-usuarios">
+      <button type="button" class="btn-primario" data-bs-toggle="modal" data-bs-target="#modalNuevoUsuario">
+        <i class="bi bi-plus-lg me-1"></i>Nuevo usuario
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ===== MODAL: NUEVO USUARIO ===== -->
+  <div class="modal fade modal-usuario" id="modalNuevoUsuario" tabindex="-1" aria-labelledby="modalNuevoUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalNuevoUsuarioLabel">Nuevo usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <form id="formNuevoUsuario" novalidate>
+          <div class="modal-body">
+
+            <div id="errorNuevoUsuario" class="mensaje-error" style="display: none;"></div>
+
+            <div class="form-usuario-columnas">
+
+              <!-- Columna izquierda: información personal -->
+              <div class="seccion-formulario">
+                <div class="encabezado-seccion">
+                  <h6>Información personal</h6>
+                  <span class="nota-obligatorios">* Campos obligatorios</span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="nombreCompleto">Nombre completo <span class="obligatorio">*</span></label>
+                  <input type="text" id="nombreCompleto" name="nombreCompleto" placeholder="Ej: Martín Peña" required>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="emailNuevoUsuario">Email <span class="obligatorio">*</span></label>
+                  <input type="email" id="emailNuevoUsuario" name="email" placeholder="usuario@stockflow.com" required>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="contrasenaNuevoUsuario">Contraseña <span class="obligatorio">*</span></label>
+                  <input type="password" id="contrasenaNuevoUsuario" name="contrasena" placeholder="••••••••" required>
+                </div>
+
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="confirmarContrasena">Confirmar contraseña <span class="obligatorio">*</span></label>
+                  <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="••••••••" required>
+                </div>
+              </div>
+
+              <!-- Columna derecha: roles y estado -->
+              <div class="seccion-formulario">
+                <h6>Roles asignados</h6>
+
+                <div class="lista-roles" id="listaRoles">
+                  <label class="rol-item seleccionado">
+                    <input type="checkbox" name="roles" value="administrador" checked>
+                    <span>Administrador</span>
+                  </label>
+                  <label class="rol-item">
+                    <input type="checkbox" name="roles" value="vendedor">
+                    <span>Vendedor</span>
+                  </label>
+                  <label class="rol-item">
+                    <input type="checkbox" name="roles" value="repositor">
+                    <span>Repositor</span>
+                  </label>
+                </div>
+
+                <h6>Estado inicial</h6>
+                <div class="estado-toggle" id="estadoToggle">
+                  <button type="button" class="seleccionado" data-estado="activo">Activo</button>
+                  <button type="button" data-estado="inactivo">Inactivo</button>
+                </div>
+                <input type="hidden" id="estadoInicial" name="estadoInicial" value="activo">
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn-primario">Guardar usuario</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!--JS Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS PROPIO-->
+  <script src="../js/componentes/menu-responsive.js"></script>
+  <script src="../js/js-paginas/navAdministrador.js"></script>
+  <script src="../js/js-paginas/usuariosAdministrador.js"></script>
+
+</body>
+</html>

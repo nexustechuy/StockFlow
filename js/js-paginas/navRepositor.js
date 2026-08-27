@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
       { texto: 'Reposiciones',     href: '#' },
       { texto: 'Alerta de Stock',  href: '#' },
       { texto: 'Ajustes',          href: '#' },
-      { texto: 'Cerrar sesión',    href: 'login.html', cerrarSesion: true }
+      { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }
     ]
   });
 });

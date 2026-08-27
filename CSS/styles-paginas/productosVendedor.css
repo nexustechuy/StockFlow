@@ -59,22 +59,6 @@
   border-color: #1e1b4b;
 }
 
-/* Estados de disponibilidad en la tabla */
-.estado-disponible {
-  color: var(--verde-ingreso);
-  font-weight: 600;
-}
-
-.estado-bajo {
-  color: #d9a441;
-  font-weight: 600;
-}
-
-.estado-sinstock {
-  color: var(--rojo-alerta);
-  font-weight: 600;
-}
-
 /* Oculta filas cuando el JS filtra */
 .tabla-productos tr.oculto {
   display: none;

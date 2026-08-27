@@ -13,3 +13,23 @@
 .btn-accion:hover {
   background-color: var(--azul-activo);
 }
+
+/* Botón primario grande: para acciones principales de una pantalla
+   (ej. "+ Nuevo usuario", "Guardar usuario"). Mismo color que
+   .btn-accion pero con más padding y tamaño de fuente mayor. */
+.btn-primario {
+  background-color: var(--azul-primario);
+  color: var(--blanco);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primario:hover {
+  background-color: var(--azul-activo);
+  color: var(--blanco);
+}
