@@ -89,9 +89,7 @@
 }
 
 /* ===== RESPONSIVE ===== */
-/* En mobile se oculta el sidebar y aparece la navbar-móvil (ver navbar.css
-   y js/componentes/menu-responsive.js). Este bloque era idéntico en los
-   3 dashboards; ahora vive en un solo lugar. */
+/* En mobile se oculta el sidebar y aparece la navbar-móvil*/
 @media (max-width: 768px) {
   body {
     flex-direction: column;
