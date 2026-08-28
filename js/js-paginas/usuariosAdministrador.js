@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const filas = document.querySelectorAll('#cuerpoTablaUsuarios tr');
 
     filas.forEach(function (fila) {
-      const coincideRol = filtroActual === 'todos' || fila.dataset.rol === filtroActual;
+      const coincideRol = filtroActual === 'todos' ||
+        fila.dataset.rol.split(' ').includes(filtroActual);
 
       // Se busca tanto en el texto visible como en los "title" (ej. el
       // email completo, que en la celda se muestra truncado).
@@ -131,6 +132,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!regexEmail.test(email)) {
+        mostrarError('Ingresá un email válido (ej: usuario@stockflow.com).');
+        return;
+      }
+
       if (contrasena !== confirmar) {
         mostrarError('Las contraseñas no coinciden.');
         return;
@@ -142,13 +149,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const estado = estadoInicialInput.value; // 'activo' | 'inactivo'
-      const rolPrincipal = rolesSeleccionados[0];
       const textoRoles = rolesSeleccionados
         .map(function (r) { return r.charAt(0).toUpperCase() + r.slice(1); })
         .join(' / ');
 
       const nuevaFila = document.createElement('tr');
-      nuevaFila.dataset.rol = rolPrincipal;
+      // Se guardan TODOS los roles (separados por espacio) para que el
+      // filtro por rol encuentre al usuario sin importar cuál sea el
+      // primero que se le asignó. Ej: "administrador vendedor".
+      nuevaFila.dataset.rol = rolesSeleccionados.join(' ');
       nuevaFila.innerHTML =
         '<td><div class="celda-usuario"><span class="avatar-usuario">' + iniciales(nombre) + '</span>' + nombre + '</div></td>' +
         '<td title="' + email + '">' + truncarTexto(email, 4) + '</td>' +
