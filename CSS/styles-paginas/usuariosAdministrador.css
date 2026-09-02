@@ -45,7 +45,6 @@
 }
 
 .barra-usuarios .filtros {
-  display: flex;
   gap: 8px;
 }
 
@@ -153,5 +152,16 @@
 @media (max-width: 700px) {
   .form-usuario-columnas {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-usuario-columnas {
+    grid-template-columns: 1fr;
+  }
+
+  .filtros{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
