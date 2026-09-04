@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
   inicializarMenuMovil({
     paginaDefault: 'dashboardVendedor.html',
     links: [
-      { texto: 'Dashboard',         href: 'dashboardVendedor.html' },
-      { texto: 'Registrar venta',   href: '#' },
-      { texto: 'Productos',         href: '#' },
-      { texto: 'Historial',         href: '#' },
-      { texto: 'Ajustes',           href: '#' },
+      { texto: 'Dashboard', href: 'dashboardVendedor.html' },
+      { texto: 'Registrar venta', href: '#' },
+      { texto: 'Productos', href: '#' },
+      { texto: 'Historial', href: '#' },
+      { texto: 'Ajustes', href: '#' },
       { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }
     ]
   });

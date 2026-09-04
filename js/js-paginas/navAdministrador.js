@@ -6,7 +6,7 @@
  *
  * Debe reflejar los mismos links que el <nav> del sidebar de escritorio
  * en cada página (ver dashboardAdministrador.html / usuariosAdministrador.html /
- * ventasAdministrador.html).
+ * ventasAdministrador.html / inventarioAdministrador.html).
  */
 document.addEventListener('DOMContentLoaded', function () {
   inicializarMenuMovil({
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     links: [
       { texto: 'Dashboard',  href: 'dashboardAdministrador.html' },
       { texto: 'Ventas',     href: 'ventasAdministrador.html' },
-      { texto: 'Inventario', href: '#' },
+      { texto: 'Inventario', href: 'inventarioAdministrador.html' },
       { texto: 'Ganancias',  href: '#' },
       { texto: 'Usuarios',   href: 'usuariosAdministrador.html' },
       { texto: 'Ajustes',    href: '#' },

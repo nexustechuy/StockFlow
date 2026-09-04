@@ -9,7 +9,7 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
- 
+
 .btn-accion:hover {
   background-color: var(--azul-activo);
 }

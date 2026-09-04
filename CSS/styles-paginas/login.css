@@ -19,10 +19,10 @@ body {
   max-width: 420px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
 }
- 
+
 /* Título StockFlow */
 .card-login h1 {
-  font-family: 'Poppins',Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   font-size: 2rem;
   font-weight: 800;
   color: var(--texto-oscuro);
@@ -30,7 +30,7 @@ body {
   margin-bottom: 32px;
   letter-spacing: -0.5px;
 }
- 
+
 /* Títulos de los campos */
 .card-login label {
   font-family: 'Inter', Arial, sans-serif;
@@ -39,7 +39,7 @@ body {
   margin-bottom: 6px;
   display: block;
 }
- 
+
 /* Campos de texto */
 .card-login input {
   background-color: var(--gris-input);
@@ -52,12 +52,12 @@ body {
   outline: none;
   transition: box-shadow 0.2s;
 }
- 
+
 .card-login input:focus {
   box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.20);
   background-color: var(--gris-input);
 }
- 
+
 /* Links del formulario */
 .links-form {
   display: flex;
@@ -65,17 +65,17 @@ body {
   margin-top: -8px;
   margin-bottom: 28px;
 }
- 
+
 .links-form a {
   color: var(--azul-link);
   font-size: 0.85rem;
   text-decoration: none;
 }
- 
+
 .links-form a:hover {
   text-decoration: underline;
 }
- 
+
 /* Formulario */
 .card-login form {
   display: flex;
@@ -94,7 +94,7 @@ body {
 
 /* Botón Ingresar */
 .btn-ingresar {
-  font-family: 'Inter',Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   background-color: var(--azul-primario);
   color: var(--blanco);
   border: none;

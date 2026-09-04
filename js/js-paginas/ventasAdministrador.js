@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const disparador = evento.relatedTarget; // el link "Ver detalle" clickeado
       const fila = disparador.closest('tr');
 
+      document.getElementById('detalleNumero').textContent = fila.dataset.numero;
       document.getElementById('detalleFecha').textContent = fila.dataset.fecha;
       document.getElementById('detalleHora').textContent = fila.dataset.hora;
       document.getElementById('detalleVendedor').textContent = fila.dataset.vendedor;

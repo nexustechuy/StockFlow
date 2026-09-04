@@ -182,7 +182,7 @@
   transition: background-color 0.2s, color 0.2s;
 }
 
-.estado-toggle button + button {
+.estado-toggle button+button {
   border-left: 1px solid var(--gris-borde);
 }
 

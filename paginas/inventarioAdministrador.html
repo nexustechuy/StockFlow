@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow - Inventario</title>
+
+  <!--CSS BOOTSRSAP-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+  <!--CSS PROPIO-->
+  <link rel="stylesheet" href="../CSS/styles-paginas/inventarioAdministrador.css">
+
+</head>
+
+
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+
+    <div class="sidebar-usuario">
+      Administrador
+      <span>Juan Pérez</span>
+    </div>
+
+    <nav>
+      <a href="dashboardAdministrador.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="ventasAdministrador.html">
+        <i class="bi bi-cart-check me-2"></i>Ventas
+      </a>
+      <a href="inventarioAdministrador.html" class="activo">
+        <i class="bi bi-box-seam me-2"></i>Inventario
+      </a>
+      <a href="#">
+        <i class="bi bi-graph-up-arrow me-2"></i>Ganancias
+      </a>
+      <a href="usuariosAdministrador.html">
+        <i class="bi bi-people me-2"></i>Usuarios
+      </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <main class="contenido">
+
+    <div class="encabezado">
+      <h2>Inventario</h2>
+      <p>Gestioná los productos, categorías y alertas de stock</p>
+    </div>
+
+    <div class="pestanas">
+      <button type="button" class="pestana activa" data-pestana="productos">Productos</button>
+      <button type="button" class="pestana" data-pestana="categorias">Categorías</button>
+      <button type="button" class="pestana" data-pestana="alertas">Alertas de stock</button>
+    </div>
+
+    <!-- ===== PESTAÑA 1: PRODUCTOS ===== -->
+    <section class="panel-pestana" data-panel="productos">
+
+      <div class="barra-usuarios">
+        <input type="text" id="buscarProducto" class="input-busqueda" placeholder="Buscá un producto...">
+
+        <div class="filtros">
+          <button type="button" class="filtro-chip activo" data-filtro="todos">Todos</button>
+          <button type="button" class="filtro-chip" data-filtro="activo">Activos</button>
+          <button type="button" class="filtro-chip" data-filtro="sin-stock">Sin stock</button>
+          <button type="button" class="filtro-chip" data-filtro="critico">Stock crítico</button>
+        </div>
+
+        <button type="button" class="btn-primario" id="btnNuevoProducto">
+          <i class="bi bi-plus-lg me-1"></i>Nuevo producto
+        </button>
+      </div>
+
+      <div class="panel">
+        <table class="tabla-inventario tabla-productos-inv tabla-fija">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock actual</th>
+              <th>Stock mínimo</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTablaProductos">
+            <tr data-estado="activo">
+              <td>Mouse G203</td>
+              <td>Periféricos</td>
+              <td>$1.120</td>
+              <td>45</td>
+              <td>10</td>
+              <td><span class="badge-estado activo">Activo</span></td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn-accion" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">•••</button>
+                  <div class="dropdown-menu dropdown-menu-end popup-menu">
+                    <div class="vista-acciones">
+                      <div class="popup-header">Mouse G203</div>
+                      <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
+                        data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
+                      <a class="dropdown-item" href="#"><!-- TODO: crear página --><i
+                          class="bi bi-pencil me-2"></i>Editar producto</a>
+                      <a class="dropdown-item text-peligro btn-pedir-confirmacion" href="#"><i
+                          class="bi bi-trash me-2"></i>Eliminar producto</a>
+                    </div>
+                    <div class="vista-confirmacion oculto popup-confirmacion">
+                      <div class="popup-header">Eliminar producto</div>
+                      <p>¿Eliminar el producto Mouse G203? Esta acción no se puede deshacer.</p>
+                      <div class="acciones-confirmacion">
+                        <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                        <button type="button" class="btn-confirmar-eliminar-producto">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr data-estado="sin-stock">
+              <td>Teclado USB</td>
+              <td>Periféricos</td>
+              <td>$2.190</td>
+              <td>0</td>
+              <td>8</td>
+              <td><span class="badge-estado sin-stock">Sin stock</span></td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn-accion" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">•••</button>
+                  <div class="dropdown-menu dropdown-menu-end popup-menu">
+                    <div class="vista-acciones">
+                      <div class="popup-header">Teclado USB</div>
+                      <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
+                        data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
+                      <a class="dropdown-item" href="#"><!-- TODO: crear página --><i
+                          class="bi bi-pencil me-2"></i>Editar producto</a>
+                      <a class="dropdown-item text-peligro btn-pedir-confirmacion" href="#"><i
+                          class="bi bi-trash me-2"></i>Eliminar producto</a>
+                    </div>
+                    <div class="vista-confirmacion oculto popup-confirmacion">
+                      <div class="popup-header">Eliminar producto</div>
+                      <p>¿Eliminar el producto Teclado USB? Esta acción no se puede deshacer.</p>
+                      <div class="acciones-confirmacion">
+                        <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                        <button type="button" class="btn-confirmar-eliminar-producto">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr data-estado="activo">
+              <td>Monitor 24"</td>
+              <td>Monitores</td>
+              <td>$5.790</td>
+              <td>12</td>
+              <td>5</td>
+              <td><span class="badge-estado activo">Activo</span></td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn-accion" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">•••</button>
+                  <div class="dropdown-menu dropdown-menu-end popup-menu">
+                    <div class="vista-acciones">
+                      <div class="popup-header">Monitor 24"</div>
+                      <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
+                        data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
+                      <a class="dropdown-item" href="#"><!-- TODO: crear página --><i
+                          class="bi bi-pencil me-2"></i>Editar producto</a>
+                      <a class="dropdown-item text-peligro btn-pedir-confirmacion" href="#"><i
+                          class="bi bi-trash me-2"></i>Eliminar producto</a>
+                    </div>
+                    <div class="vista-confirmacion oculto popup-confirmacion">
+                      <div class="popup-header">Eliminar producto</div>
+                      <p>¿Eliminar el producto Monitor 24"? Esta acción no se puede deshacer.</p>
+                      <div class="acciones-confirmacion">
+                        <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                        <button type="button" class="btn-confirmar-eliminar-producto">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr data-estado="critico">
+              <td>Monitor 27" 4K</td>
+              <td>Monitores</td>
+              <td>$12.300</td>
+              <td>3</td>
+              <td>5</td>
+              <td><span class="badge-estado critico">Stock crítico</span></td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn-accion" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">•••</button>
+                  <div class="dropdown-menu dropdown-menu-end popup-menu">
+                    <div class="vista-acciones">
+                      <div class="popup-header">Monitor 27" 4K</div>
+                      <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
+                        data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
+                      <a class="dropdown-item" href="#"><!-- TODO: crear página --><i
+                          class="bi bi-pencil me-2"></i>Editar producto</a>
+                      <a class="dropdown-item text-peligro btn-pedir-confirmacion" href="#"><i
+                          class="bi bi-trash me-2"></i>Eliminar producto</a>
+                    </div>
+                    <div class="vista-confirmacion oculto popup-confirmacion">
+                      <div class="popup-header">Eliminar producto</div>
+                      <p>¿Eliminar el producto Monitor 27" 4K? Esta acción no se puede deshacer.</p>
+                      <div class="acciones-confirmacion">
+                        <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                        <button type="button" class="btn-confirmar-eliminar-producto">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr data-estado="critico">
+              <td>Auriculares Bluetooth</td>
+              <td>Audio</td>
+              <td>$3.400</td>
+              <td>6</td>
+              <td>6</td>
+              <td><span class="badge-estado critico">Stock crítico</span></td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn-accion" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">•••</button>
+                  <div class="dropdown-menu dropdown-menu-end popup-menu">
+                    <div class="vista-acciones">
+                      <div class="popup-header">Auriculares Bluetooth</div>
+                      <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
+                        data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
+                      <a class="dropdown-item" href="#"><!-- TODO: crear página --><i
+                          class="bi bi-pencil me-2"></i>Editar producto</a>
+                      <a class="dropdown-item text-peligro btn-pedir-confirmacion" href="#"><i
+                          class="bi bi-trash me-2"></i>Eliminar producto</a>
+                    </div>
+                    <div class="vista-confirmacion oculto popup-confirmacion">
+                      <div class="popup-header">Eliminar producto</div>
+                      <p>¿Eliminar el producto Auriculares Bluetooth? Esta acción no se puede deshacer.</p>
+                      <div class="acciones-confirmacion">
+                        <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                        <button type="button" class="btn-confirmar-eliminar-producto">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr data-estado="sin-stock">
+              <td>Cable HDMI 2m</td>
+              <td>Accesorios</td>
+              <td>$890</td>
+              <td>0</td>
+              <td>15</td>
+              <td><span class="badge-estado sin-stock">Sin stock</span></td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn-accion" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">•••</button>
+                  <div class="dropdown-menu dropdown-menu-end popup-menu">
+                    <div class="vista-acciones">
+                      <div class="popup-header">Cable HDMI 2m</div>
+                      <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
+                        data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
+                      <a class="dropdown-item" href="#"><!-- TODO: crear página --><i
+                          class="bi bi-pencil me-2"></i>Editar producto</a>
+                      <a class="dropdown-item text-peligro btn-pedir-confirmacion" href="#"><i
+                          class="bi bi-trash me-2"></i>Eliminar producto</a>
+                    </div>
+                    <div class="vista-confirmacion oculto popup-confirmacion">
+                      <div class="popup-header">Eliminar producto</div>
+                      <p>¿Eliminar el producto Cable HDMI 2m? Esta acción no se puede deshacer.</p>
+                      <div class="acciones-confirmacion">
+                        <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                        <button type="button" class="btn-confirmar-eliminar-producto">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ===== PESTAÑA 2: CATEGORIAS ===== -->
+    <section class="panel-pestana oculto" data-panel="categorias">
+
+      <div class="barra-usuarios">
+        <input type="text" id="buscarCategoria" class="input-busqueda" placeholder="Buscá una categoría...">
+
+        <button type="button" class="btn-primario" id="btnNuevaCategoria">
+          <i class="bi bi-plus-lg me-1"></i>Nueva categoría
+        </button>
+      </div>
+
+      <div class="layout-categorias sin-panel" id="layoutCategorias">
+
+        <div class="lista-categorias" id="listaCategorias">
+          <div class="categoria-item" data-categoria="Periféricos">
+            <div class="categoria-info">
+              <div class="nombre">Periféricos</div>
+              <div class="cantidad">2 productos</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Periféricos"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Monitores">
+            <div class="categoria-info">
+              <div class="nombre">Monitores</div>
+              <div class="cantidad">2 productos</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Monitores"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Audio">
+            <div class="categoria-info">
+              <div class="nombre">Audio</div>
+              <div class="cantidad">1 producto</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Audio"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Accesorios">
+            <div class="categoria-info">
+              <div class="nombre">Accesorios</div>
+              <div class="cantidad">1 producto</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Accesorios"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Almacenamiento">
+            <div class="categoria-info">
+              <div class="nombre">Almacenamiento</div>
+              <div class="cantidad">0 productos</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Almacenamiento"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Networking">
+            <div class="categoria-info">
+              <div class="nombre">Networking</div>
+              <div class="cantidad">0 productos</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Networking"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-nueva-categoria oculto" id="panelNuevaCategoria">
+          <h6>Nueva categoría</h6>
+          <form id="formNuevaCategoria">
+            <div class="campo-formulario">
+              <label for="nombreCategoria">Nombre <span class="obligatorio">*</span></label>
+              <input type="text" id="nombreCategoria" name="nombre" placeholder="Ej: Almacenamiento" required>
+            </div>
+            <div class="campo-formulario" style="margin-bottom: 18px;">
+              <label for="descripcionCategoria">Descripción</label>
+              <textarea id="descripcionCategoria" name="descripcion" placeholder="Opcional"></textarea>
+            </div>
+            <button type="submit" class="btn-primario">Guardar categoría</button>
+          </form>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== PESTAÑA 3: ALERTAS DE STOCK ===== -->
+    <section class="panel-pestana oculto" data-panel="alertas">
+
+      <div class="alerta-stock">
+        <div class="alerta-icono">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <div>
+          <div class="alerta-titulo">Atención requerida</div>
+          <div class="alerta-texto">Tenés 2 productos sin stock y 2 con stock crítico</div>
+        </div>
+        <a href="#" class="ver-inventario" id="linkVerEnInventario">Ver en inventario →</a>
+      </div>
+
+      <section class="tarjetas tarjetas-alertas">
+        <div class="tarjeta">
+          <div class="valor alerta">2</div>
+          <div class="etiqueta">Sin stock</div>
+        </div>
+        <div class="tarjeta">
+          <div class="valor atencion">2</div>
+          <div class="etiqueta">Stock crítico</div>
+        </div>
+        <div class="tarjeta">
+          <div class="valor">4</div>
+          <div class="etiqueta">A reponer</div>
+        </div>
+      </section>
+
+      <div class="panel">
+        <table class="tabla-inventario tabla-stock tabla-fija">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Stock actual</th>
+              <th>Stock mínimo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTablaAlertas">
+            <tr>
+              <td>Teclado USB</td>
+              <td>Periféricos</td>
+              <td>0</td>
+              <td>8</td>
+              <td><span class="badge-estado sin-stock">Sin stock</span></td>
+            </tr>
+            <tr>
+              <td>Monitor 27" 4K</td>
+              <td>Monitores</td>
+              <td>3</td>
+              <td>5</td>
+              <td><span class="badge-estado critico">Stock crítico</span></td>
+            </tr>
+            <tr>
+              <td>Auriculares Bluetooth</td>
+              <td>Audio</td>
+              <td>6</td>
+              <td>6</td>
+              <td><span class="badge-estado critico">Stock crítico</span></td>
+            </tr>
+            <tr>
+              <td>Cable HDMI 2m</td>
+              <td>Accesorios</td>
+              <td>0</td>
+              <td>15</td>
+              <td><span class="badge-estado sin-stock">Sin stock</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ===== MODAL: DETALLE DE PRODUCTO ===== -->
+  <div class="modal fade modal-stockflow" id="modalDetalleProducto" tabindex="-1"
+    aria-labelledby="modalDetalleProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalDetalleProductoLabel">Detalle de producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="seccion-formulario detalle-producto">
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Producto</span>
+              <span class="detalle-producto-valor" id="detalleProductoNombre">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Categoría</span>
+              <span class="detalle-producto-valor" id="detalleProductoCategoria">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Precio</span>
+              <span class="detalle-producto-valor" id="detalleProductoPrecio">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Stock actual</span>
+              <span class="detalle-producto-valor" id="detalleProductoStockActual">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Stock mínimo</span>
+              <span class="detalle-producto-valor" id="detalleProductoStockMinimo">-</span>
+            </div>
+            <div class="detalle-producto-fila sin-borde">
+              <span class="detalle-producto-label">Estado</span>
+              <span class="detalle-producto-valor" id="detalleProductoEstado">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-primario" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--JS Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS PROPIO-->
+  <script src="../js/componentes/menu-responsive.js"></script>
+  <script src="../js/js-paginas/navAdministrador.js"></script>
+  <script src="../js/js-paginas/inventarioAdministrador.js"></script>
+
+</body>
+
+</html>

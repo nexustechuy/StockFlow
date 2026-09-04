@@ -1,0 +1,429 @@
+/*FONDOS Y TEXTO*/
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/*LAYOUT*/
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/*ELEMENTOS*/
+/* navbar.css antes que sidebar.css: ver nota en dashboardVendedor.css */
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/cards.css);
+@import url(../componentes/tablas.css);
+@import url(../componentes/iconos.css);
+@import url(../componentes/modales.css);
+
+/* ===== ENCABEZADO DE LA PAGINA ===== */
+.encabezado h2 {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--texto-oscuro);
+  margin-bottom: 4px;
+}
+
+.encabezado p {
+  color: var(--texto-gris);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+/* ===== PESTAÑAS ===== */
+.pestanas {
+  display: flex;
+  gap: 28px;
+  border-bottom: 1.5px solid var(--gris-borde);
+  margin-bottom: 24px;
+}
+
+.pestana {
+  background: none;
+  border: none;
+  padding: 10px 2px 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.pestana:hover {
+  color: var(--texto-oscuro);
+}
+
+.pestana.activa {
+  color: var(--azul-primario);
+  border-bottom: 2px solid var(--azul-primario);
+}
+
+.panel-pestana.oculto {
+  display: none;
+}
+
+/* ===== BARRA DE BUSQUEDA Y FILTROS (mismo patrón que Usuarios/Ventas) ===== */
+.barra-usuarios {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.barra-usuarios .input-busqueda {
+  flex: 1;
+  min-width: 200px;
+}
+
+.barra-usuarios .filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.barra-usuarios .btn-primario {
+  white-space: nowrap;
+}
+
+/* ===== BADGES DE ESTADO ===== */
+.badge-estado {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.badge-estado.activo {
+  background-color: #e8f5e9;
+  color: var(--verde-ingreso);
+}
+
+.badge-estado.sin-stock {
+  background-color: var(--fondo-alerta);
+  color: var(--rojo-alerta);
+}
+
+.badge-estado.critico {
+  background-color: #fff8e1;
+  color: var(--amarillo-atencion);
+}
+
+/* ===== TABLA DE PRODUCTOS: filas con más espacio y columna de acciones centrada ===== */
+/* Un poco más de padding vertical que el resto de las tablas del sistema:
+   con pocas filas mock (5-6) queda mucho más limpia y menos amontonada,
+   sobre todo en la columna de Acciones donde hay un botón por fila. */
+.tabla-inventario td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.tabla-productos-inv th:last-child,
+.tabla-productos-inv td:last-child {
+  text-align: center;
+}
+
+/* ===== POPUP DE ACCIONES (···) ===== */
+/* Reestiliza el dropdown de Bootstrap para que se vea como el popup
+   contextual descripto en CLAUDE.md: header con el nombre del ítem,
+   luego las acciones, con la destructiva en rojo. */
+.popup-menu {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.85rem;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+  min-width: 200px;
+}
+
+.popup-header {
+  padding: 6px 12px 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--texto-oscuro);
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 4px;
+}
+
+.popup-menu .dropdown-item {
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.popup-menu .dropdown-item:hover {
+  background-color: var(--gris-fondo);
+}
+
+.popup-menu .dropdown-item.text-peligro {
+  color: var(--rojo-alerta);
+}
+
+.popup-menu .dropdown-item.text-peligro:hover {
+  background-color: var(--fondo-alerta);
+}
+
+/* El popup de un producto tiene dos vistas (acciones / confirmar borrado)
+   dentro del mismo dropdown; se muestra una por vez con esta clase. */
+.popup-menu .oculto {
+  display: none;
+}
+
+/* Fila resaltada mientras su popup de acciones está abierto */
+.tabla-inventario tr.fila-activa {
+  background-color: #f0f4ff;
+}
+
+/* ===== MODAL: DETALLE DE PRODUCTO ===== */
+.detalle-producto-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.detalle-producto-fila.sin-borde {
+  border-bottom: none;
+}
+
+.detalle-producto-label {
+  font-size: 0.85rem;
+  color: var(--texto-gris);
+  font-weight: 600;
+}
+
+.detalle-producto-valor {
+  font-size: 0.9rem;
+  color: var(--texto-oscuro);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* ===== PESTAÑA CATEGORIAS ===== */
+.layout-categorias {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+.layout-categorias.sin-panel {
+  grid-template-columns: 1fr;
+}
+
+.lista-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.categoria-item {
+  background-color: var(--gris-tarjeta);
+  border: 1px solid var(--gris-borde);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.categoria-info .nombre {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--texto-oscuro);
+}
+
+.categoria-info .cantidad {
+  font-size: 0.8rem;
+  color: var(--texto-gris);
+}
+
+.btn-eliminar-categoria {
+  background: none;
+  border: 1px solid var(--gris-borde);
+  color: var(--rojo-alerta);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-eliminar-categoria:hover {
+  background-color: var(--fondo-alerta);
+  border-color: var(--borde-alerta);
+}
+
+/* Popup de confirmación al eliminar una categoría */
+.popup-confirmacion {
+  min-width: 230px;
+}
+
+.popup-confirmacion p {
+  padding: 6px 12px 10px;
+  font-size: 0.85rem;
+  color: var(--texto-oscuro);
+  margin: 0;
+}
+
+.popup-confirmacion .acciones-confirmacion {
+  display: flex;
+  gap: 8px;
+  padding: 0 6px 4px;
+}
+
+.popup-confirmacion .acciones-confirmacion button {
+  flex: 1;
+  border-radius: 6px;
+  border: 1px solid var(--gris-borde);
+  background-color: var(--blanco);
+  color: var(--texto-oscuro);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 7px 0;
+  cursor: pointer;
+}
+
+.popup-confirmacion .acciones-confirmacion .btn-confirmar-eliminar,
+.popup-confirmacion .acciones-confirmacion .btn-confirmar-eliminar-producto {
+  background-color: var(--rojo-alerta);
+  border-color: var(--rojo-alerta);
+  color: var(--blanco);
+}
+
+/* Panel lateral: nueva categoría */
+/* Con el mismo borde que .categoria-item para que no quede "flotando" */
+.panel-nueva-categoria {
+  background-color: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.panel-nueva-categoria.oculto {
+  display: none;
+}
+
+.panel-nueva-categoria h6 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--texto-gris);
+  margin-bottom: 16px;
+}
+
+.panel-nueva-categoria textarea {
+  width: 100%;
+  background-color: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-family: 'Inter', Arial, sans-serif;
+  outline: none;
+  resize: vertical;
+  min-height: 70px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.panel-nueva-categoria textarea:focus {
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.15);
+}
+
+.panel-nueva-categoria .btn-primario {
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .layout-categorias {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== PESTAÑA ALERTAS DE STOCK ===== */
+/* Esta pestaña tiene 3 tarjetas en vez de las 4 del dashboard general */
+.tarjetas-alertas {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 992px) {
+  .tarjetas-alertas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .tarjetas-alertas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.alerta-stock {
+  background-color: var(--fondo-alerta);
+  border: 1px solid var(--borde-alerta);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.alerta-stock .alerta-icono {
+  font-size: 1.8rem;
+  color: var(--rojo-alerta);
+  flex-shrink: 0;
+}
+
+.alerta-stock .alerta-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--rojo-alerta);
+  margin-bottom: 2px;
+}
+
+.alerta-stock .alerta-texto {
+  font-size: 0.85rem;
+  color: var(--rojo-alerta);
+}
+
+.alerta-stock .ver-inventario {
+  margin-left: auto;
+  color: var(--rojo-alerta);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.alerta-stock .ver-inventario:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .filtros {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .alerta-stock {
+    flex-wrap: wrap;
+  }
+
+  .alerta-stock .ver-inventario {
+    margin-left: 0;
+  }
+}

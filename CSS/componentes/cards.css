@@ -47,11 +47,21 @@
 }
 
 /* ===== COLORES SEMANTICOS (se usan en tarjetas y tablas) ===== */
-.ingreso  { color: var(--verde-ingreso) !important;}
-.alerta   { color: var(--rojo-alerta) !important; }
-.atencion { color: var(--amarillo-atencion) !important; }
+.ingreso {
+  color: var(--verde-ingreso) !important;
+}
 
-.alerta, .ingreso, .atencion{
+.alerta {
+  color: var(--rojo-alerta) !important;
+}
+
+.atencion {
+  color: var(--amarillo-atencion) !important;
+}
+
+.alerta,
+.ingreso,
+.atencion {
   font-weight: bold;
 }
 

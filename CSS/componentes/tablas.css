@@ -25,7 +25,8 @@
 .tabla-productos,
 .tabla-stock,
 .tabla-usuarios,
-.tabla-ventas {
+.tabla-ventas,
+.tabla-inventario {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.88rem;
@@ -35,7 +36,8 @@
 .tabla-productos th,
 .tabla-stock th,
 .tabla-usuarios th,
-.tabla-ventas th {
+.tabla-ventas th,
+.tabla-inventario th {
   text-align: left;
   color: var(--texto-gris);
   font-weight: 600;
@@ -47,7 +49,8 @@
 .tabla-productos td,
 .tabla-stock td,
 .tabla-usuarios td,
-.tabla-ventas td {
+.tabla-ventas td,
+.tabla-inventario td {
   padding: 10px 0;
   border-bottom: 1px solid #f0f0f0;
   color: var(--texto-oscuro);
@@ -58,7 +61,8 @@
 .tabla-productos tr:last-child td,
 .tabla-stock tr:last-child td,
 .tabla-usuarios tr:last-child td,
-.tabla-ventas tr:last-child td {
+.tabla-ventas tr:last-child td,
+.tabla-inventario tr:last-child td {
   border-bottom: none;
 }
 

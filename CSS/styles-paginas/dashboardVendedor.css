@@ -20,5 +20,5 @@
    de cantidad en la tabla de productos más vendidos ===== */
 .tabla-productos th:last-child,
 .tabla-productos td:last-child {
-  text-align: right;
+   text-align: right;
 }

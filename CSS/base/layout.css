@@ -1,10 +1,7 @@
 /*POR DEFECTO*/
-body{
+body {
   display: flex;
   font-family: 'Inter', Arial, sans-serif;
   background-color: var(--gris-fondo);
   color: var(--texto-oscuro);
 }
-
-
-

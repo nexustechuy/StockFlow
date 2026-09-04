@@ -163,16 +163,16 @@ document.addEventListener('DOMContentLoaded', function () {
         '<td title="' + email + '">' + truncarTexto(email, 4) + '</td>' +
         '<td>' + textoRoles + '</td>' +
         '<td><span class="' + (estado === 'activo' ? 'ingreso' : 'alerta') + '">' +
-          (estado === 'activo' ? 'Activo' : 'Inactivo') + '</span></td>' +
+        (estado === 'activo' ? 'Activo' : 'Inactivo') + '</span></td>' +
         '<td>' +
-          '<div class="dropdown">' +
-            '<button class="btn-accion" data-bs-toggle="dropdown" aria-expanded="false">•••</button>' +
-            '<ul class="dropdown-menu dropdown-menu-end">' +
-              '<li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>' +
-              '<li><a class="dropdown-item" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>' +
-              '<li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>' +
-            '</ul>' +
-          '</div>' +
+        '<div class="dropdown">' +
+        '<button class="btn-accion" data-bs-toggle="dropdown" aria-expanded="false">•••</button>' +
+        '<ul class="dropdown-menu dropdown-menu-end">' +
+        '<li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>' +
+        '<li><a class="dropdown-item" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>' +
+        '<li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>' +
+        '</ul>' +
+        '</div>' +
         '</td>';
 
       cuerpoTabla.appendChild(nuevaFila);

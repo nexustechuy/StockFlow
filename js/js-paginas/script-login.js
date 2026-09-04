@@ -1,10 +1,10 @@
 const usuarios = [
-    {mail: "vendedor@gmail.com",         password: "vendedor",          rol:"vendedor"},
-    {mail: "repositor@gmail.com",        password: "repositor",         rol:"repositor"},
-    {mail: "administrador@gmail.com",    password: "administrador",     rol:"administrador"}
+    { mail: "vendedor@gmail.com", password: "vendedor", rol: "vendedor" },
+    { mail: "repositor@gmail.com", password: "repositor", rol: "repositor" },
+    { mail: "administrador@gmail.com", password: "administrador", rol: "administrador" }
 ];
 
-function iniciarSesion(event){
+function iniciarSesion(event) {
     event.preventDefault();
 
     const correoIngresado = document.getElementById("correo").value.trim();
@@ -14,7 +14,7 @@ function iniciarSesion(event){
     mensajeError.style.display = "none";
     mensajeError.textContent = "";
 
-    try{
+    try {
         if (correoIngresado === "" || contrasenaIngresado === "") {
             throw new Error("Por favor completa todos los campos");
         }
