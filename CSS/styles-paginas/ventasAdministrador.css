@@ -1,0 +1,112 @@
+/*FONDOS Y TEXTO*/
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/*LAYOUT*/
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/*ELEMENTOS*/
+/* navbar.css antes que sidebar.css: ver nota en dashboardVendedor.css */
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/cards.css);
+@import url(../componentes/tablas.css);
+@import url(../componentes/iconos.css);
+@import url(../componentes/modales.css);
+
+/* ===== ENCABEZADO DE LA PAGINA ===== */
+.encabezado h2 {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--texto-oscuro);
+  margin-bottom: 4px;
+}
+
+.encabezado p {
+  color: var(--texto-gris);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+/* Esta página tiene 4 tarjetas en vez de las 3 del dashboard general */
+.tarjetas-ventas {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 992px) {
+  .tarjetas-ventas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .tarjetas-ventas {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== BARRA DE BUSQUEDA Y FILTROS (mismo patrón que Usuarios) ===== */
+.barra-usuarios {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.barra-usuarios .input-busqueda {
+  flex: 1;
+  min-width: 200px;
+}
+
+.barra-usuarios .filtros {
+  display: flex;
+  gap: 8px;
+}
+
+/* ===== TABLA DE VENTAS ===== */
+/* La columna de "Acciones" (Ver detalle) va PRIMERO en vez de al final,
+   a pedido: queda más a mano para abrir el detalle sin tener que
+   scrollear toda la fila. */
+.tabla-ventas .ver-detalle-venta {
+  color: var(--azul-link);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tabla-ventas .ver-detalle-venta:hover {
+  text-decoration: underline;
+}
+
+/* ===== MODAL: DETALLE DE VENTA ===== */
+.detalle-venta-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.detalle-venta-fila.sin-borde {
+  border-bottom: none;
+}
+
+.detalle-venta-label {
+  font-size: 0.85rem;
+  color: var(--texto-gris);
+  font-weight: 600;
+}
+
+.detalle-venta-valor {
+  font-size: 0.9rem;
+  color: var(--texto-oscuro);
+  font-weight: 700;
+  text-align: right;
+}

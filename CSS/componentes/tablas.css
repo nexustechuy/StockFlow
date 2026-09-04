@@ -24,7 +24,8 @@
 .tabla-historial,
 .tabla-productos,
 .tabla-stock,
-.tabla-usuarios {
+.tabla-usuarios,
+.tabla-ventas {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.88rem;
@@ -33,7 +34,8 @@
 .tabla-historial th,
 .tabla-productos th,
 .tabla-stock th,
-.tabla-usuarios th {
+.tabla-usuarios th,
+.tabla-ventas th {
   text-align: left;
   color: var(--texto-gris);
   font-weight: 600;
@@ -44,7 +46,8 @@
 .tabla-historial td,
 .tabla-productos td,
 .tabla-stock td,
-.tabla-usuarios td {
+.tabla-usuarios td,
+.tabla-ventas td {
   padding: 10px 0;
   border-bottom: 1px solid #f0f0f0;
   color: var(--texto-oscuro);
@@ -54,8 +57,24 @@
 .tabla-historial tr:last-child td,
 .tabla-productos tr:last-child td,
 .tabla-stock tr:last-child td,
-.tabla-usuarios tr:last-child td {
+.tabla-usuarios tr:last-child td,
+.tabla-ventas tr:last-child td {
   border-bottom: none;
+}
+
+/* ===== TABLAS QUE NO SE COMPRIMEN (scroll horizontal en vez de achicarse) ===== */
+/* Por defecto una tabla con width:100% va comprimiendo sus columnas al
+   angostarse la pantalla, hasta que el texto se superpone o se hace
+   ilegible. Con .tabla-fija se le pone un ancho mínimo: si no entra,
+   el .panel que la contiene (que ya tiene overflow-x:auto) muestra una
+   scrollbar horizontal en vez de aplastar las columnas. */
+.tabla-fija {
+  min-width: 760px;
+}
+
+.tabla-fija th,
+.tabla-fija td {
+  white-space: nowrap;
 }
 
 /* ===== LINK "VER TODO" AL PIE DE UN PANEL ===== */

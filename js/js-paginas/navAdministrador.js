@@ -5,14 +5,15 @@
  * qué links le corresponden a este rol.
  *
  * Debe reflejar los mismos links que el <nav> del sidebar de escritorio
- * en cada página (ver dashboardAdministrador.html / usuariosAdministrador.html).
+ * en cada página (ver dashboardAdministrador.html / usuariosAdministrador.html /
+ * ventasAdministrador.html).
  */
 document.addEventListener('DOMContentLoaded', function () {
   inicializarMenuMovil({
     paginaDefault: 'dashboardAdministrador.html',
     links: [
       { texto: 'Dashboard',  href: 'dashboardAdministrador.html' },
-      { texto: 'Ventas',     href: '#' },
+      { texto: 'Ventas',     href: 'ventasAdministrador.html' },
       { texto: 'Inventario', href: '#' },
       { texto: 'Ganancias',  href: '#' },
       { texto: 'Usuarios',   href: 'usuariosAdministrador.html' },

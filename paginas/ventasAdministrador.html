@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow - Ventas</title>
+
+  <!--CSS BOOTSRSAP-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+
+  <!--CSS PROPIO-->
+  <link rel="stylesheet" href="../CSS/styles-paginas/ventasAdministrador.css">
+
+</head>
+
+
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+
+    <div class="sidebar-usuario">
+      Administrador
+      <span>Juan Pérez</span>
+    </div>
+
+    <nav>
+      <a href="dashboardAdministrador.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="ventasAdministrador.html" class="activo">
+        <i class="bi bi-cart-check me-2"></i>Ventas
+      </a>
+      <a href="#">
+        <i class="bi bi-box-seam me-2"></i>Inventario
+      </a>
+      <a href="#">
+        <i class="bi bi-graph-up-arrow me-2"></i>Ganancias
+      </a>
+      <a href="usuariosAdministrador.html">
+        <i class="bi bi-people me-2"></i>Usuarios
+      </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <main class="contenido">
+
+    <div class="encabezado">
+      <h2>Ventas</h2>
+      <p>Todas las ventas registradas en el sistema</p>
+    </div>
+
+    <div class="tarjetas tarjetas-ventas">
+      <div class="tarjeta">
+        <div class="etiqueta">Ventas de hoy</div>
+        <div class="valor">24</div>
+        <div class="unidad">ventas</div>
+      </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Ingresos de hoy</div>
+        <div class="valor ingreso">$45.000</div>
+        <div class="unidad">pesos</div>
+      </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Ganancia bruta</div>
+        <div class="valor ingreso">$12.400</div>
+        <div class="unidad">pesos</div>
+      </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Vendedores activos</div>
+        <div class="valor">3</div>
+        <div class="unidad">ahora</div>
+      </div>
+    </div>
+
+    <div class="barra-usuarios">
+      <input
+        type="text"
+        id="buscarVenta"
+        class="input-busqueda"
+        placeholder="Buscá por cliente o vendedor...">
+
+      <div class="filtros">
+        <button type="button" class="filtro-chip activo" data-filtro="hoy">Hoy</button>
+        <button type="button" class="filtro-chip" data-filtro="semana">Esta semana</button>
+        <button type="button" class="filtro-chip" data-filtro="mes">Este mes</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <table class="tabla-ventas tabla-fija">
+        <thead>
+          <tr>
+            <th>Acciones</th>
+            <th>Hora</th>
+            <th>Vendedor</th>
+            <th>Cliente</th>
+            <th>Productos</th>
+            <th>Total</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaVentas">
+          <tr
+            data-fecha="27/08/2026"
+            data-hora="09:15"
+            data-vendedor="Juan Pérez"
+            data-cliente="Ana López"
+            data-productos="Mouse x2, Teclado"
+            data-total="4200"
+            data-rentabilidad="1260"
+            data-estado="Completada">
+            <td>
+              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver detalle</a>
+            </td>
+            <td>09:15</td>
+            <td>Juan Pérez</td>
+            <td>Ana López</td>
+            <td>Mouse x2, Teclado</td>
+            <td>$4.200</td>
+            <td><span class="ingreso">Completada</span></td>
+          </tr>
+          <tr
+            data-fecha="27/08/2026"
+            data-hora="18:33"
+            data-vendedor="Juan Pérez"
+            data-cliente="Carlos Ruiz"
+            data-productos="Monitor 24&quot;"
+            data-total="33000"
+            data-rentabilidad="9900"
+            data-estado="Completada">
+            <td>
+              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver detalle</a>
+            </td>
+            <td>18:33</td>
+            <td>Juan Pérez</td>
+            <td>Carlos Ruiz</td>
+            <td>Monitor 24"</td>
+            <td>$33.000</td>
+            <td><span class="ingreso">Completada</span></td>
+          </tr>
+          <tr
+            data-fecha="27/08/2026"
+            data-hora="14:21"
+            data-vendedor="Juan Pérez"
+            data-cliente="María García"
+            data-productos="Auriculares x2"
+            data-total="7000"
+            data-rentabilidad="2100"
+            data-estado="Completada">
+            <td>
+              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver detalle</a>
+            </td>
+            <td>14:21</td>
+            <td>Juan Pérez</td>
+            <td>María García</td>
+            <td>Auriculares x2</td>
+            <td>$7.000</td>
+            <td><span class="ingreso">Completada</span></td>
+          </tr>
+          <tr
+            data-fecha="27/08/2026"
+            data-hora="21:19"
+            data-vendedor="Juan Pérez"
+            data-cliente="Pedro Díaz"
+            data-productos="Teclado x1, Mouse"
+            data-total="2300"
+            data-rentabilidad="690"
+            data-estado="Pendiente">
+            <td>
+              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver detalle</a>
+            </td>
+            <td>21:19</td>
+            <td>Juan Pérez</td>
+            <td>Pedro Díaz</td>
+            <td>Teclado x1, Mouse</td>
+            <td>$2.300</td>
+            <td><span class="alerta">Pendiente</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- ===== MODAL: DETALLE DE VENTA ===== -->
+  <div class="modal fade modal-stockflow" id="modalDetalleVenta" tabindex="-1" aria-labelledby="modalDetalleVentaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalDetalleVentaLabel">Detalle de venta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="seccion-formulario detalle-venta">
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Fecha</span>
+              <span class="detalle-venta-valor" id="detalleFecha">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Hora</span>
+              <span class="detalle-venta-valor" id="detalleHora">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Vendedor</span>
+              <span class="detalle-venta-valor" id="detalleVendedor">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Cliente</span>
+              <span class="detalle-venta-valor" id="detalleCliente">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Productos</span>
+              <span class="detalle-venta-valor" id="detalleProductos">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Total vendido</span>
+              <span class="detalle-venta-valor" id="detalleTotal">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Rentabilidad</span>
+              <span class="detalle-venta-valor ingreso" id="detalleRentabilidad">-</span>
+            </div>
+            <div class="detalle-venta-fila sin-borde">
+              <span class="detalle-venta-label">Estado</span>
+              <span class="detalle-venta-valor" id="detalleEstado">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-primario" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--JS Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS PROPIO-->
+  <script src="../js/componentes/menu-responsive.js"></script>
+  <script src="../js/js-paginas/navAdministrador.js"></script>
+  <script src="../js/js-paginas/ventasAdministrador.js"></script>
+
+</body>
+</html>
