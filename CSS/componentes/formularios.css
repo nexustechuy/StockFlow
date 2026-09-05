@@ -35,6 +35,47 @@
   box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.15);
 }
 
+.campo-formulario select,
+.campo-formulario textarea {
+  width: 100%;
+  background-color: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-family: 'Inter', Arial, sans-serif;
+  outline: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.15);
+}
+
+.campo-formulario textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.error-campo {
+  display: block;
+  color: var(--rojo-alerta);
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+
+.error-campo:empty {
+  display: none;
+}
+
+.campo-formulario.campo-invalido input,
+.campo-formulario.campo-invalido select,
+.campo-formulario.campo-invalido textarea {
+  border-color: var(--rojo-alerta);
+}
+
 /* ===== MENSAJE DE ERROR DE FORMULARIO ===== */
 /* Misma idea que .mensaje-error en login.css, centralizada acá para
    que cualquier formulario fuera del login pueda reutilizarla. */

@@ -206,6 +206,120 @@
   text-align: right;
 }
 
+.modal-producto .modal-header {
+  align-items: flex-start;
+}
+
+.modal-producto .modal-subtitulo {
+  font-size: 0.85rem;
+  color: var(--texto-gris);
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+
+.modal-producto .oculto {
+  display: none;
+}
+
+.modal-producto.modal-static .modal-dialog {
+  transform: none;
+}
+
+.form-producto-columnas {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-producto-columnas>.seccion-formulario {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-producto-columnas>.seccion-formulario>.campo-formulario:last-child {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-producto-columnas>.seccion-formulario>.campo-formulario:last-child textarea {
+  flex: 1;
+  min-height: 70px;
+}
+
+.columna-derecha-producto {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.zona-carga-imagen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 110px;
+  border: 1.5px dashed var(--gris-borde);
+  border-radius: 10px;
+  background-color: var(--blanco);
+  color: var(--texto-gris);
+  font-size: 0.82rem;
+  text-align: center;
+  padding: 14px;
+}
+
+.zona-carga-imagen i {
+  font-size: 1.4rem;
+}
+
+#stockInicial::-webkit-outer-spin-button,
+#stockInicial::-webkit-inner-spin-button,
+#stockMinimo::-webkit-outer-spin-button,
+#stockMinimo::-webkit-inner-spin-button,
+#precioCompra::-webkit-outer-spin-button,
+#precioCompra::-webkit-inner-spin-button,
+#precioVenta::-webkit-outer-spin-button,
+#precioVenta::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#stockInicial,
+#stockMinimo,
+#precioCompra,
+#precioVenta {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.seccion-variantes {
+  margin-top: 20px;
+}
+
+.fila-variante {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.detalle-variante {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--texto-gris);
+}
+
+@media (max-width: 700px) {
+  .form-producto-columnas {
+    grid-template-columns: 1fr;
+  }
+
+  .fila-variante {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== PESTAÑA CATEGORIAS ===== */
 .layout-categorias {
   display: grid;

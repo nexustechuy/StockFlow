@@ -78,7 +78,8 @@
           <button type="button" class="filtro-chip" data-filtro="critico">Stock crítico</button>
         </div>
 
-        <button type="button" class="btn-primario" id="btnNuevoProducto">
+        <button type="button" class="btn-primario" id="btnNuevoProducto" data-bs-toggle="modal"
+          data-bs-target="#modalNuevoProducto">
           <i class="bi bi-plus-lg me-1"></i>Nuevo producto
         </button>
       </div>
@@ -88,6 +89,7 @@
           <thead>
             <tr>
               <th>Producto</th>
+              <th>Código</th>
               <th>Categoría</th>
               <th>Precio</th>
               <th>Stock actual</th>
@@ -99,6 +101,7 @@
           <tbody id="cuerpoTablaProductos">
             <tr data-estado="activo">
               <td>Mouse G203</td>
+              <td>1001</td>
               <td>Periféricos</td>
               <td>$1.120</td>
               <td>45</td>
@@ -132,6 +135,7 @@
             </tr>
             <tr data-estado="sin-stock">
               <td>Teclado USB</td>
+              <td>1002</td>
               <td>Periféricos</td>
               <td>$2.190</td>
               <td>0</td>
@@ -165,6 +169,7 @@
             </tr>
             <tr data-estado="activo">
               <td>Monitor 24"</td>
+              <td>1003</td>
               <td>Monitores</td>
               <td>$5.790</td>
               <td>12</td>
@@ -198,6 +203,7 @@
             </tr>
             <tr data-estado="critico">
               <td>Monitor 27" 4K</td>
+              <td>1004</td>
               <td>Monitores</td>
               <td>$12.300</td>
               <td>3</td>
@@ -231,6 +237,7 @@
             </tr>
             <tr data-estado="critico">
               <td>Auriculares Bluetooth</td>
+              <td>1005</td>
               <td>Audio</td>
               <td>$3.400</td>
               <td>6</td>
@@ -264,6 +271,7 @@
             </tr>
             <tr data-estado="sin-stock">
               <td>Cable HDMI 2m</td>
+              <td>1006</td>
               <td>Accesorios</td>
               <td>$890</td>
               <td>0</td>
@@ -445,10 +453,11 @@
 
         <div class="panel-nueva-categoria oculto" id="panelNuevaCategoria">
           <h6>Nueva categoría</h6>
-          <form id="formNuevaCategoria">
+          <form id="formNuevaCategoria" novalidate>
             <div class="campo-formulario">
               <label for="nombreCategoria">Nombre <span class="obligatorio">*</span></label>
               <input type="text" id="nombreCategoria" name="nombre" placeholder="Ej: Almacenamiento" required>
+              <span class="error-campo"></span>
             </div>
             <div class="campo-formulario" style="margin-bottom: 18px;">
               <label for="descripcionCategoria">Descripción</label>
@@ -556,6 +565,10 @@
               <span class="detalle-producto-valor" id="detalleProductoNombre">-</span>
             </div>
             <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Código</span>
+              <span class="detalle-producto-valor" id="detalleProductoCodigo">-</span>
+            </div>
+            <div class="detalle-producto-fila">
               <span class="detalle-producto-label">Categoría</span>
               <span class="detalle-producto-valor" id="detalleProductoCategoria">-</span>
             </div>
@@ -581,6 +594,132 @@
         <div class="modal-footer">
           <button type="button" class="btn-primario" data-bs-dismiss="modal">Cerrar</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-stockflow modal-producto" id="modalNuevoProducto" tabindex="-1"
+    aria-labelledby="modalNuevoProductoLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h1 class="modal-title" id="modalNuevoProductoLabel">Nuevo producto</h1>
+            <p class="modal-subtitulo">Completá todos los campos obligatorios</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <form id="formNuevoProducto" novalidate>
+          <div class="modal-body">
+
+            <div class="form-producto-columnas">
+
+              <div class="seccion-formulario">
+                <div class="encabezado-seccion">
+                  <h6>Información</h6>
+                  <span class="nota-obligatorios">* Campos obligatorios</span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="nombreProducto">Nombre del producto <span class="obligatorio">*</span></label>
+                  <input type="text" id="nombreProducto" name="nombreProducto" placeholder='Ej: Monitor 24"' required>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="codigoBarras">Código de barras <span class="obligatorio">*</span></label>
+                  <input type="text" id="codigoBarras" name="codigoBarras" inputmode="numeric" pattern="[0-9]*"
+                    placeholder="Ej: 7891..." required>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="categoriaProducto">Categoría <span class="obligatorio">*</span></label>
+                  <select id="categoriaProducto" name="categoriaProducto" required>
+                    <option value="">Seleccioná una categoría</option>
+                  </select>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="descripcionProducto">Descripción <span class="obligatorio">*</span></label>
+                  <textarea id="descripcionProducto" name="descripcionProducto"
+                    placeholder="Describí el producto..." required></textarea>
+                  <span class="error-campo"></span>
+                </div>
+              </div>
+
+              <div class="columna-derecha-producto">
+
+                <div class="seccion-formulario">
+                  <h6>Imagen</h6>
+                  <div class="zona-carga-imagen">
+                    <i class="bi bi-cloud-arrow-up"></i><br>
+                    Arrastrá o hacé click para subir
+                  </div>
+                </div>
+
+                <div class="seccion-formulario">
+                  <h6>Stock</h6>
+                  <div class="campo-formulario">
+                    <label for="stockInicial">Stock inicial <span class="obligatorio">*</span></label>
+                    <input type="number" id="stockInicial" name="stockInicial" min="0" placeholder="Ej: 20" required>
+                    <span class="error-campo"></span>
+                  </div>
+                  <div class="campo-formulario" style="margin-bottom: 0;">
+                    <label for="stockMinimo">Stock mínimo <span class="obligatorio">*</span></label>
+                    <input type="number" id="stockMinimo" name="stockMinimo" min="0" placeholder="Ej: 5" required>
+                    <span class="error-campo"></span>
+                  </div>
+                </div>
+
+                <div class="seccion-formulario">
+                  <h6>Precio</h6>
+                  <div class="campo-formulario">
+                    <label for="precioCompra">Precio de compra <span class="obligatorio">*</span></label>
+                    <input type="number" id="precioCompra" name="precioCompra" min="0" step="0.01"
+                      placeholder="0.00" required>
+                    <span class="error-campo"></span>
+                  </div>
+                  <div class="campo-formulario" style="margin-bottom: 0;">
+                    <label for="precioVenta">Precio de venta <span class="obligatorio">*</span></label>
+                    <input type="number" id="precioVenta" name="precioVenta" min="0" step="0.01" placeholder="0.00"
+                      required>
+                    <span class="error-campo"></span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="seccion-formulario seccion-variantes">
+              <h6>Variantes (opcional)</h6>
+              <div class="fila-variante">
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="tipoVariante">Tipo de variante</label>
+                  <select id="tipoVariante" name="tipoVariante">
+                    <option value="">Sin variante</option>
+                    <option value="Color">Color</option>
+                    <option value="Modelo">Modelo</option>
+                    <option value="Almacenamiento">Almacenamiento</option>
+                  </select>
+                </div>
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="valorVariante">Variante</label>
+                  <input type="text" id="valorVariante" name="valorVariante" placeholder="Ej: Rojo, 128GB...">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn-primario">Guardar producto</button>
+          </div>
+        </form>
+
       </div>
     </div>
   </div>
