@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StockFlow - Registrar venta</title>
+
+  <!-- Estilos Bootstrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <!-- Iconos de Bootsrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <!-- Estilos Propios-->
+  <link rel="stylesheet" href="../CSS/componentes/botones.css">
+  <link rel="stylesheet" href="../CSS/componentes/formularios.css">
+  <link rel="stylesheet" href="../CSS/styles-paginas/registrarVentaVendedor.css">
+</head>
+
+<body>
+
+  <!--SIDEBAR-->
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+    <div class="sidebar-usuario">
+      Vendedor
+      <span>Juan Pérez</span>
+    </div>
+    <nav>
+      <a href="dashboardVendedor.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="registrarVentaVendedor.html" class="activo">
+        <i class="bi bi-cart-plus me-2"></i>Registrar venta
+      </a>
+      <a href="productosVendedor.html">
+        <i class="bi bi-box-seam me-2"></i>Productos
+      </a>
+     <a href="detalleVentaVendedor.html">
+        <i class="bi bi-clock-history me-2"></i>Historial
+      </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <!--CONTENIDO DE LA DERECHA-->
+  <main class="contenido">
+
+    <!--Encabezado-->
+    <div class="encabezado">
+      <h2>Registrar venta</h2>
+      <p>Registrá ventas de forma sencilla</p>
+    </div>
+
+    <!-- Mensaje de éxito al confirmar (oculto por defecto) -->
+    <div class="mensaje-exito" id="mensajeExito" style="display:none;">
+      <i class="bi bi-check-circle-fill me-2"></i>
+      <span id="textoMensajeExito">¡Venta registrada con éxito!</span>
+    </div>
+
+    <div class="venta-grid">
+
+      <!-- Columna 1: Catálogo de productos -->
+      <div class="panel">
+        <h5>Productos</h5>
+        <input type="text" class="input-busqueda" id="buscadorCatalogo" placeholder="Buscar productos...">
+
+        <div class="lista-productos-venta" id="listaProductos">
+
+          <div class="producto-item" data-id="1" data-nombre="Auriculares Gamer" data-precio="2000" data-stock="10">
+            <div class="icono-producto"><i class="bi bi-headset"></i></div>
+            <div class="info-producto">
+              <div class="nombre">Auriculares Gamer</div>
+              <div class="stock">Stock: 10</div>
+            </div>
+            <div class="precio">$2000</div>
+            <button type="button" class="btn-agregar" title="Agregar a la venta">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+
+          <div class="producto-item" data-id="2" data-nombre="Teclado HyperX" data-precio="2790" data-stock="14">
+            <div class="icono-producto"><i class="bi bi-keyboard"></i></div>
+            <div class="info-producto">
+              <div class="nombre">Teclado HyperX</div>
+              <div class="stock">Stock: 14</div>
+            </div>
+            <div class="precio">$2790</div>
+            <button type="button" class="btn-agregar" title="Agregar a la venta">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+
+          <div class="producto-item" data-id="3" data-nombre="Mouse Logitech G203" data-precio="1120" data-stock="32">
+            <div class="icono-producto"><i class="bi bi-mouse2"></i></div>
+            <div class="info-producto">
+              <div class="nombre">Mouse Logitech G203</div>
+              <div class="stock">Stock: 32</div>
+            </div>
+            <div class="precio">$1120</div>
+            <button type="button" class="btn-agregar" title="Agregar a la venta">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+
+          <div class="producto-item" data-id="4" data-nombre="Monitor LED 27&quot; IPS Full HD" data-precio="4890" data-stock="6">
+            <div class="icono-producto"><i class="bi bi-display"></i></div>
+            <div class="info-producto">
+              <div class="nombre">Monitor LED 27" IPS Full HD</div>
+              <div class="stock">Stock: 6</div>
+            </div>
+            <div class="precio">$4890</div>
+            <button type="button" class="btn-agregar" title="Agregar a la venta">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+
+          <p class="sin-resultados" id="sinResultadosCatalogo" style="display:none;">No se encontraron productos.</p>
+
+        </div>
+      </div>
+
+      <!-- Columna 2: Productos agregados a la venta -->
+      <div class="panel">
+        <h5>Productos en Venta</h5>
+        <div class="tabla-venta-wrapper">
+          <table class="tabla-productos tabla-venta" id="tablaVenta">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoCarrito">
+              <!-- Las filas se generan dinámicamente desde registrarVentaVendedor.js -->
+            </tbody>
+          </table>
+          <p class="carrito-vacio" id="carritoVacio">
+            Todavía no agregaste productos. Usá el <strong>+</strong> del catálogo para sumarlos acá.
+          </p>
+        </div>
+      </div>
+
+      <!-- Columna 3: Resumen y confirmación -->
+      <div class="panel resumen-venta">
+        <h5>Resumen de venta</h5>
+        <div class="fila">
+          <span>Subtotal</span>
+          <span id="resumenSubtotal">$0</span>
+        </div>
+        <div class="fila fila-total">
+          <span>Total</span>
+          <span id="resumenTotal">$0</span>
+        </div>
+        <button type="button" class="btn-primario" id="btnConfirmarVenta" disabled>
+          Confirmar Venta
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!--JS Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS Propio-->
+  <script src="../js/componentes/menu-responsive.js"></script>
+  <script src="../js/js-paginas/navVendedor.js"></script>
+  <script src="../js/js-paginas/registrarVentaVendedor.js"></script>
+</body>
+</html>

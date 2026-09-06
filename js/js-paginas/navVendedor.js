@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
     paginaDefault: 'dashboardVendedor.html',
     links: [
       { texto: 'Dashboard', href: 'dashboardVendedor.html' },
-      { texto: 'Registrar venta', href: '#' },
+      { texto: 'Registrar venta', href: 'registrarVentaVendedor.html' },
       { texto: 'Productos', href: 'productosVendedor.html' },
-      { texto: 'Historial', href: '#' },
+      { texto: 'Historial', href: 'detalleVentaVendedor.html' },
       { texto: 'Ajustes', href: '#' },
       { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }
     ]

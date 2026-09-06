@@ -1,0 +1,209 @@
+/*FONDOS Y TEXTO*/
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/*LAYOUT*/
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/*ELEMENTOS*/
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/tablas.css);
+
+/* ===== GRID DE 3 COLUMNAS: Catálogo / Carrito / Resumen ===== */
+.venta-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.3fr 0.9fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .venta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* El panel ya viene de tablas.css, acá solo le sacamos el margin-bottom
+   para que las 3 columnas queden a la misma altura */
+.venta-grid .panel {
+  margin-bottom: 0;
+}
+
+.venta-grid .input-busqueda {
+  width: 100%;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+/* ===== LISTADO DE PRODUCTOS DEL CATÁLOGO (columna 1) ===== */
+.lista-productos-venta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.producto-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 10px;
+  padding: 10px 12px;
+  transition: border-color 0.2s;
+}
+
+.producto-item:hover {
+  border-color: var(--azul-primario);
+}
+
+.producto-item .icono-producto {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background-color: var(--gris-fondo);
+  color: var(--azul-primario);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.producto-item .info-producto {
+  flex: 1;
+  min-width: 0;
+}
+
+.producto-item .info-producto .nombre {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--texto-oscuro);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.producto-item .info-producto .stock {
+  font-size: 0.76rem;
+  color: var(--texto-gris);
+}
+
+.producto-item .precio {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--texto-oscuro);
+  white-space: nowrap;
+}
+
+.producto-item .btn-agregar {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--azul-primario);
+  color: var(--blanco);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.producto-item .btn-agregar:hover {
+  background-color: var(--azul-activo);
+}
+
+/* Producto sin stock: se deshabilita visualmente y no se puede agregar */
+.producto-item.sin-stock {
+  opacity: 0.55;
+}
+
+.producto-item.sin-stock .btn-agregar {
+  background-color: var(--gris-borde);
+  cursor: not-allowed;
+}
+
+/* ===== TABLA "PRODUCTOS EN VENTA" (columna 2) ===== */
+.tabla-venta input[type="number"] {
+  width: 56px;
+  padding: 4px 6px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 6px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.tabla-venta .btn-quitar {
+  background: none;
+  border: none;
+  color: var(--rojo-alerta);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.carrito-vacio {
+  text-align: center;
+  color: var(--texto-gris);
+  font-size: 0.85rem;
+  padding: 30px 10px;
+}
+
+/* Se alternan según haya o no productos en el carrito (ver JS) */
+.tabla-venta-wrapper.con-productos .carrito-vacio {
+  display: none;
+}
+
+.tabla-venta-wrapper:not(.con-productos) .tabla-venta {
+  display: none;
+}
+
+/* ===== PANEL "RESUMEN DE VENTA" (columna 3) ===== */
+.resumen-venta .fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: var(--texto-gris);
+}
+
+.resumen-venta .fila-total {
+  border-bottom: none;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--texto-oscuro);
+}
+
+.resumen-venta .fila-total span:last-child {
+  color: var(--verde-ingreso);
+}
+
+.resumen-venta .btn-primario {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.resumen-venta .btn-primario:disabled {
+  background-color: var(--gris-borde);
+  cursor: not-allowed;
+}
+
+/* ===== MENSAJE DE ÉXITO AL CONFIRMAR LA VENTA ===== */
+.mensaje-exito {
+  background-color: #e0f2e9;
+  color: var(--verde-ingreso);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}

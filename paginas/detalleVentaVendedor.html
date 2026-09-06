@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StockFlow - Detalle de venta</title>
+
+  <!-- Estilos Bootstrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <!-- Iconos de Bootsrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <!-- Estilos Propios-->
+  <link rel="stylesheet" href="../CSS/styles-paginas/detalleVentaVendedor.css">
+</head>
+
+<body>
+
+  <!--SIDEBAR-->
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+    <div class="sidebar-usuario">
+      Vendedor
+      <span>Juan Pérez</span>
+    </div>
+    <nav>
+      <a href="dashboardVendedor.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="registrarVentaVendedor.html">
+        <i class="bi bi-cart-plus me-2"></i>Registrar venta
+      </a>
+      <a href="productosVendedor.html">
+        <i class="bi bi-box-seam me-2"></i>Productos
+      </a>
+      <a href="detalleVentaVendedor.html" class="activo">
+        <i class="bi bi-clock-history me-2"></i>Historial
+      </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <!--CONTENIDO DE LA DERECHA-->
+  <main class="contenido">
+
+    <!--Encabezado-->
+    <div class="encabezado">
+      <a href="#" class="link-volver" onclick="history.back(); return false;">
+        <i class="bi bi-arrow-left"></i> Volver
+      </a>
+      <h2 id="tituloVenta">Venta #0021</h2>
+      <p id="subtituloVenta">13 de julio - 09:15hs</p>
+    </div>
+
+    <!-- Información de la venta + Resumen económico -->
+    <div class="paneles">
+
+      <div class="panel">
+        <h5>Información de la venta</h5>
+        <dl class="detalle-info">
+          <div class="fila">
+            <dt>Número de venta</dt>
+            <dd>#0021</dd>
+          </div>
+          <div class="fila">
+            <dt>Cliente</dt>
+            <dd>Carlos Gómez</dd>
+          </div>
+          <div class="fila">
+            <dt>Fecha</dt>
+            <dd>13/07/2026</dd>
+          </div>
+          <div class="fila">
+            <dt>Hora</dt>
+            <dd>09:15hs</dd>
+          </div>
+          <div class="fila">
+            <dt>Estado</dt>
+            <dd><span class="badge-estado completada">Completada</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="panel">
+        <h5>Resumen económico</h5>
+        <dl class="detalle-info">
+          <div class="fila">
+            <dt>Cantidad</dt>
+            <dd>3 un.</dd>
+          </div>
+          <div class="fila">
+            <dt>Subtotal</dt>
+            <dd>$4.200</dd>
+          </div>
+          <div class="fila fila-total">
+            <dt>Total</dt>
+            <dd class="ingreso">$4.200</dd>
+          </div>
+        </dl>
+      </div>
+
+    </div>
+
+    <!-- Productos vendidos -->
+    <div class="panel">
+      <h5>Productos vendidos</h5>
+      <table class="tabla-productos">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unit.</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>7891</td>
+            <td>Mouse G203</td>
+            <td>2</td>
+            <td>$650</td>
+            <td>$1.800</td>
+          </tr>
+          <tr>
+            <td>4332</td>
+            <td>Teclado HyperX</td>
+            <td>1</td>
+            <td>$1.990</td>
+            <td>$1.990</td>
+          </tr>
+          <tr>
+            <td>0998</td>
+            <td>Monitor OLED 30"</td>
+            <td>1</td>
+            <td>$7.990</td>
+            <td>$7.990</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!--JS Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS Propio-->
+  <script src="../js/componentes/menu-responsive.js"></script>
+  <script src="../js/js-paginas/navVendedor.js"></script>
+</body>
+</html>
