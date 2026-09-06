@@ -14,6 +14,7 @@
 @import url(../componentes/formularios.css);
 @import url(../componentes/tablas.css);
 @import url(../componentes/iconos.css);
+@import url(../componentes/modales.css);
 
 /* ===== ENCABEZADO DE LA PAGINA ===== */
 .encabezado h2 {
@@ -109,39 +110,10 @@
 }
 
 /* ===== MODAL "NUEVO USUARIO" ===== */
-/* Se reestiliza por completo el modal de Bootstrap para que no se vea
-   genérico: tipografía, radios y colores propios de StockFlow. */
-.modal-usuario .modal-content {
-  border: none;
-  border-radius: 16px;
-  font-family: 'Inter', Arial, sans-serif;
-}
-
-.modal-usuario .modal-header {
-  border-bottom: none;
-  padding: 24px 28px 8px;
-}
-
-.modal-usuario .modal-title {
-  font-family: 'Poppins', Arial, sans-serif;
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: var(--texto-oscuro);
-}
-
-.modal-usuario .modal-body {
-  padding: 8px 28px 4px;
-}
-
-.modal-usuario .modal-footer {
-  border-top: none;
-  padding: 8px 28px 28px;
-}
-
-.modal-usuario .modal-footer .btn-primario {
-  width: 100%;
-}
-
+/* Estilos generales del modal (header, radios, tipografía) viven en
+   CSS/componentes/modales.css (.modal-stockflow), reutilizados también
+   por los modales de Ventas e Inventario. Acá solo queda el layout
+   propio de este formulario en particular. */
 .form-usuario-columnas {
   display: grid;
   grid-template-columns: 1.1fr 1fr;

@@ -18,23 +18,9 @@
   color: var(--rojo-alerta);
 }
 
-.campo-formulario input {
-  width: 100%;
-  background-color: var(--blanco);
-  border: 1px solid var(--gris-borde);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 0.9rem;
-  font-family: 'Inter', Arial, sans-serif;
-  outline: none;
-  transition: box-shadow 0.2s, border-color 0.2s;
-}
-
-.campo-formulario input:focus {
-  border-color: var(--azul-primario);
-  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.15);
-}
-
+/* input, select y textarea comparten exactamente el mismo look —
+   un solo bloque en vez de repetirlo tres veces. */
+.campo-formulario input,
 .campo-formulario select,
 .campo-formulario textarea {
   width: 100%;
@@ -48,10 +34,8 @@
   transition: box-shadow 0.2s, border-color 0.2s;
 }
 
-.campo-formulario select:focus,
-.campo-formulario textarea:focus {
-  border-color: var(--azul-primario);
-  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.15);
+.campo-formulario select {
+  cursor: pointer;
 }
 
 .campo-formulario textarea {
@@ -59,6 +43,14 @@
   min-height: 70px;
 }
 
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.15);
+}
+
+/* ===== VALIDACION DE CAMPOS ===== */
 .error-campo {
   display: block;
   color: var(--rojo-alerta);
@@ -102,7 +94,7 @@
 
 .input-busqueda:focus {
   border-color: var(--azul-primario);
-  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.15);
+  box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.15);
 }
 
 /* ===== CHIPS DE FILTRO (ej: Todos / Vendedores / Repositores) ===== */
@@ -200,7 +192,7 @@
 
 .rol-item.seleccionado {
   border-color: var(--azul-primario);
-  background-color: rgba(26, 35, 126, 0.06);
+  background-color: rgba(6, 11, 68, 0.06);
 }
 
 /* ===== TOGGLE DE ESTADO (Activo / Inactivo) ===== */
@@ -223,7 +215,7 @@
   transition: background-color 0.2s, color 0.2s;
 }
 
-.estado-toggle button+button {
+.estado-toggle button + button {
   border-left: 1px solid var(--gris-borde);
 }
 

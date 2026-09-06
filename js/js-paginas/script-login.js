@@ -38,11 +38,11 @@ function iniciarSesion(event) {
         }
 
         if (usuarioEncontrado.rol === "vendedor") {
-            window.location.href = "../paginas/dashboardVendedor.html";
+            window.location.href = "dashboardVendedor.html";
         } else if (usuarioEncontrado.rol === "repositor") {
-            window.location.href = "../paginas/dashboardRepositor.html";
+            window.location.href = "dashboardRepositor.html";
         } else if (usuarioEncontrado.rol === "administrador") {
-            window.location.href = "../paginas/dashboardAdministrador.html";
+            window.location.href = "dashboardAdministrador.html";
         }
 
     } catch (error) {

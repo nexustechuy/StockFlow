@@ -32,22 +32,8 @@
   margin-bottom: 24px;
 }
 
-/* Esta página tiene 4 tarjetas en vez de las 3 del dashboard general */
-.tarjetas-ventas {
-  grid-template-columns: repeat(4, 1fr);
-}
-
-@media (max-width: 992px) {
-  .tarjetas-ventas {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .tarjetas-ventas {
-    grid-template-columns: 1fr;
-  }
-}
+/* Esta página usa 4 tarjetas, que ya es la cantidad por defecto de
+   .tarjetas (ver cards.css) — no hace falta ningún override acá. */
 
 /* ===== BARRA DE BUSQUEDA Y FILTROS (mismo patrón que Usuarios) ===== */
 .barra-usuarios {

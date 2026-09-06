@@ -65,15 +65,25 @@
   font-weight: bold;
 }
 
+/* Variante de 3 columnas (ej. tarjetas de "Alertas de stock" en Inventario).
+   Las de 4 columnas ya son el default de .tarjetas más arriba. */
+.tarjetas-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 992px) {
-  .tarjetas {
+
+  .tarjetas,
+  .tarjetas-3 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  .tarjetas {
+
+  .tarjetas,
+  .tarjetas-3 {
     grid-template-columns: 1fr;
   }
 }

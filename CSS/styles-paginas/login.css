@@ -54,7 +54,7 @@ body {
 }
 
 .card-login input:focus {
-  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.20);
+  box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.20);
   background-color: var(--gris-input);
 }
 

@@ -54,9 +54,9 @@
 }
 
 .btn-filtro.activo {
-  background-color: #1e1b4b;
-  color: #ffffff;
-  border-color: #1e1b4b;
+  background-color: var(--azul-primario);
+  color: var(--blanco);
+  border-color: var(--azul-primario);
 }
 
 /* Oculta filas cuando el JS filtra */
