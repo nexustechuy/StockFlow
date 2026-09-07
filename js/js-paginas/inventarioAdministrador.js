@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('detalleProductoStockActual').textContent = celdas[4].textContent.trim();
       document.getElementById('detalleProductoStockMinimo').textContent = celdas[5].textContent.trim();
 
-      const badgeEstado = celdas[6].querySelector('.badge-estado');
+      const badgeEstado = celdas[6].querySelector('.ingreso, .alerta, .atencion');
       const estadoEl = document.getElementById('detalleProductoEstado');
       estadoEl.innerHTML = '';
       estadoEl.appendChild(badgeEstado.cloneNode(true));
@@ -201,6 +201,12 @@ document.addEventListener('DOMContentLoaded', function () {
     return 'Activo';
   }
 
+  function claseEstadoProducto(estado) {
+    if (estado === 'sin-stock') return 'alerta';
+    if (estado === 'critico') return 'atencion';
+    return 'ingreso';
+  }
+
   function agregarProductoATabla(datos) {
     const estado = calcularEstadoProducto(datos.stockInicial, datos.stockMinimo);
     let nombreCelda = datos.nombre;
@@ -217,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '<td>' + formatearMoneda(datos.precioVenta) + '</td>' +
       '<td>' + datos.stockInicial + '</td>' +
       '<td>' + datos.stockMinimo + '</td>' +
-      '<td><span class="badge-estado ' + estado + '">' + textoEstadoProducto(estado) + '</span></td>' +
+      '<td><span class="' + claseEstadoProducto(estado) + '">' + textoEstadoProducto(estado) + '</span></td>' +
       '<td>' +
       '<div class="dropdown">' +
       '<button class="btn-accion" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">•••</button>' +

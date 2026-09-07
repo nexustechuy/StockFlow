@@ -398,12 +398,6 @@ contenido por un `border-bottom: 2px solid var(--color-borde-fuerte)`.
 `font-size: 10px` en uppercase para `<th>`, `font-size: 11–12px` para `<td>`. Bordes solo
 en `border-bottom: 1px solid #f0f0f0`. La última fila no tiene borde inferior.
 
-**Badges de estado**:
-- Verde: `background: #e8f5e9; color: #2e7d32`
-- Rojo: `background: #fdecea; color: #c62828`
-- Amarillo/naranja: `background: #fff8e1; color: #e65100`
-- `border-radius: 20px`, `padding: 2px 8px`, `font-size: 10px`, `font-weight: 600`
-
 **Botón primario**: `background: var(--color-sidebar)`, `color: #fff`, `border: none`,
 `border-radius: 8px`, `font-weight: 600`. Hover: `background: var(--color-activo)`.
 
