@@ -7,17 +7,12 @@
 @import url(../base/layout.css);
 
 /*ELEMENTOS*/
-/* Importante: navbar.css debe cargarse ANTES que sidebar.css, porque
-   sidebar.css define el media query que muestra la navbar-móvil en
-   pantallas chicas, y necesita ganarle en la cascada a la regla por
-   defecto (display:none) de navbar.css. */
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
 @import url(../componentes/cards.css);
 @import url(../componentes/tablas.css);
 
-/* ===== Específico de esta página: alinear a la derecha la columna
-   de cantidad en la tabla de productos más vendidos ===== */
+/* Alinear a la derecha la columna de Cantidad en la tabla de productos más vendidos */
 .tabla-productos th:last-child,
 .tabla-productos td:last-child {
    text-align: right;
