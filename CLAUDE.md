@@ -419,55 +419,58 @@ alineado a la derecha.
 `border-bottom: 2px solid var(--color-sidebar)` y `color: var(--color-sidebar)`.
 Las inactivas en `color: #888`.
 
-## Pantalla en desarrollo: Editar producto (Administrador)
+## Pantalla en desarrollo: Historial de ventas (Vendedor)
 
-No se crea una página independiente. El formulario de editar producto se implementa como un
-**modal overlay** dentro de `paginas/inventarioAdministrador.html`, exactamente igual a como
-están hechos los modales "Nuevo usuario" y "Nuevo producto" en sus respectivas páginas.
-Reutilizá esa misma estructura HTML, CSS y JS como base — no inventes un patrón nuevo.
+Se reorganiza el flujo actual: hoy la ruta/menú "Historial" muestra directamente la pantalla
+de **Detalle de venta** como página independiente. Eso cambia: "Historial" debe mostrar el
+**listado de ventas**, y el detalle pasa a ser un **modal overlay** que se abre al hacer clic
+en una fila, igual al patrón de modales ya usado en el resto del sistema (mismo tipo de
+estructura que "Nuevo producto"/"Nuevo usuario", aunque acá sea de solo lectura). Reutilizá
+esa misma estructura de modal como base — no inventes un patrón nuevo.
 
-El modal se abre al hacer clic en "Editar producto" dentro del popup de acciones (`···`)
-de cualquier fila de la tabla de productos en la pestaña Productos.
-No se crean archivos nuevos — todo va en los archivos existentes de inventario:
-- HTML: dentro de `paginas/inventarioAdministrador.html`
-- CSS: dentro de `CSS/styles-paginas/inventarioAdministrador.css`
-- JS: dentro de `js/js-paginas/inventarioAdministrador.js`
+No se crean archivos nuevos — todo va en los archivos existentes del historial:
+- HTML: dentro de `paginas/historialVentas.html` (o el archivo actual que hoy tiene el detalle,
+  renombrando su rol de página de detalle a página de listado)
+- CSS: dentro de `CSS/styles-paginas/historialVentas.css`
+- JS: dentro de `js/js-paginas/historialVentas.js`
 
-### Contenido del modal — misma estructura que Nuevo producto, campos prellenados
+### Contenido de la pantalla — listado (según Figma, captura adjunta)
 
-**Columna izquierda — Información general**
-- Nombre del producto (obligatorio) — prellenado con el valor actual
-- Código de barras (obligatorio) — prellenado con el valor actual
-- Categoría (select, obligatorio) — seleccionada la categoría actual del producto
-- Descripción (textarea, obligatorio) — prellenada con el valor actual
+**Card "Historial de ventas"**
+- Tabla con columnas: Fecha, Hora, Cliente, Total, Estado
+- Cada fila corresponde a una venta; clic en la fila abre el modal de detalle
+- Mismo estilo visual que el resto del sistema (cards gris/blanco, tipografía y colores
+  consistentes con Registrar Venta)
+- Filas de altura uniforme — usar `table-layout: fixed` y anchos de columna definidos, no
+  dejar que el contenido deforme el alto de las filas
 
-**Columna derecha — arriba: Imagen**
-- Zona de carga tipo "arrastrá o hacé clic para subir" — si el producto tiene imagen mostrarla, si no el placeholder vacío
+### Contenido del modal — Detalle de venta, misma información que la pantalla actual
 
-**Columna derecha — medio: Stock**
-- Stock actual (obligatorio) — prellenado con el valor actual
-- Stock mínimo (obligatorio) — prellenado con el valor actual
+**Información de la venta**
+- Número de venta
+- Cliente
+- Fecha
+- Hora
+- Estado (badge "Completada" u otro estado correspondiente)
 
-**Columna derecha — abajo: Precio**
-- Precio de compra (obligatorio) — prellenado con el valor actual
-- Precio de venta (obligatorio) — prellenado con el valor actual
-- Si precio de venta es menor al de compra, mostrar advertencia debajo del campo — no bloqueante
+**Resumen económico**
+- Cantidad total de unidades
+- Subtotal
+- Total
 
-**Fila inferior ancha — Variantes (opcional)**
-- Select con tipo (Color, Modelo, Almacenamiento) + input de valor
-- Prellenado si el producto tiene variantes, vacío si no tiene
-- No bloquea el guardado si se deja vacío
-
-### Validación y guardado
-- Campos obligatorios marcados con * — mostrar error debajo del campo si se intenta guardar vacío
-- Sin `alert()` genérico
-- Al guardar: actualizar el producto en el array mock y reflejar los cambios en la fila
-  correspondiente de la tabla sin recargar la página, cerrar el modal
-- No redirige a ninguna página — todo ocurre dentro de inventarioAdministrador.html
+**Productos vendidos**
+- Tabla: Código, Producto, Cantidad, Precio Unit., Subtotal
 
 ### Comportamiento del modal
-- Título del modal: "Editar producto" (a diferencia de "Nuevo producto")
+- Título del modal: "Venta #{número}"
 - Fondo oscurecido detrás (overlay)
-- X para cerrar arriba a la derecha
-- Al cerrar sin guardar, no aplicar ningún cambio — los campos vuelven a los valores originales
-- Botón principal: "Guardar cambios" (no "Guardar producto")
+- X para cerrar arriba a la derecha (reemplaza el actual "← Volver")
+- Es de solo lectura — no tiene botón de guardar ni edita nada
+- No redirige a ninguna página — todo ocurre dentro de `historialVentas.html`
+- El modal recibe el ID de la venta clickeada y trae/muestra sus datos correspondientes desde
+  el array/fuente de datos ya usada en el proyecto
+
+### Validación de datos
+- Antes de dar por cerrada la pantalla, chequear que el Subtotal/Total del resumen económico
+  coincida con la suma real de "Productos vendidos" — hay un caso de datos de prueba (Venta
+  #0021) donde no coinciden

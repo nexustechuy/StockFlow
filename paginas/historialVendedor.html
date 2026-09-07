@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockFlow - Historial</title>
+
+  <!-- Estilos Bootstrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <!-- Iconos de Bootsrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <!-- Estilos Propios-->
+  <link rel="stylesheet" href="../CSS/styles-paginas/historialVendedor.css">
+</head>
+
+<body>
+
+  <!--SIDEBAR-->
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+    <div class="sidebar-usuario">
+      Vendedor
+      <span>Juan Pérez</span>
+    </div>
+    <nav>
+      <a href="dashboardVendedor.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="registrarVentaVendedor.html">
+        <i class="bi bi-cart-plus me-2"></i>Registrar venta
+      </a>
+      <a href="productosVendedor.html">
+        <i class="bi bi-box-seam me-2"></i>Productos
+      </a>
+      <a href="historialVendedor.html" class="activo">
+        <i class="bi bi-clock-history me-2"></i>Historial
+      </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <!--CONTENIDO DE LA DERECHA-->
+  <main class="contenido">
+
+    <!--Encabezado-->
+    <div class="encabezado">
+      <h2>Historial</h2>
+      <p>Todas tus ventas hasta el momento</p>
+    </div>
+
+    <!--Tarjetas-->
+    <section class="tarjetas">
+
+      <div class="tarjeta">
+        <div class="etiqueta">Ventas de hoy</div>
+        <div class="valor">24</div>
+        <div class="unidad">ventas</div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="etiqueta">Total vendido hoy</div>
+        <div class="valor ingreso">$45.000</div>
+        <div class="unidad">pesos</div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="etiqueta">Total este mes</div>
+        <div class="valor ingreso">$312.500</div>
+        <div class="unidad">pesos</div>
+      </div>
+
+    </section>
+
+    <!-- Buscador y filtros -->
+    <div class="barra-historial">
+      <input type="text" id="buscarHistorial" class="input-busqueda" placeholder="Buscá por cliente o producto...">
+
+      <div class="filtros">
+        <button type="button" class="filtro-chip activo" data-filtro="hoy">Hoy</button>
+        <button type="button" class="filtro-chip" data-filtro="semana">Semana</button>
+        <button type="button" class="filtro-chip" data-filtro="mes">Mes</button>
+      </div>
+    </div>
+
+    <!-- Tabla de historial -->
+    <div class="panel">
+      <table class="tabla-historial">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Cliente</th>
+            <th>Productos</th>
+            <th>Total</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaHistorial">
+          <tr data-numero="1031" data-fecha="15/07/2026" data-hora="18:05" data-cliente="María Gómez"
+            data-estado="Completada" data-productos="7891|Mouse G203|2|2250">
+            <td>15/07/2026</td>
+            <td>18:05</td>
+            <td>María Gómez</td>
+            <td>Mouse x2</td>
+            <td class="ingreso">$4.500</td>
+            <td>
+              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
+                detalle</a>
+            </td>
+          </tr>
+          <tr data-numero="1032" data-fecha="24/07/2026" data-hora="19:32" data-cliente="Pedro Sánchez"
+            data-estado="Completada" data-productos="4332|Teclado HyperX|1|2790">
+            <td>24/07/2026</td>
+            <td>19:32</td>
+            <td>Pedro Sánchez</td>
+            <td>Teclado x1</td>
+            <td class="ingreso">$2.790</td>
+            <td>
+              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
+                detalle</a>
+            </td>
+          </tr>
+          <tr data-numero="1033" data-fecha="19/07/2026" data-hora="11:53" data-cliente="Sebastián Morales"
+            data-estado="Completada" data-productos="0998|Monitor OLED 24&quot;|1|2500;7891|Mouse G203|2|895">
+            <td>19/07/2026</td>
+            <td>11:53</td>
+            <td>Sebastián Morales</td>
+            <td>Monitor x1, Mouse x2</td>
+            <td class="ingreso">$4.290</td>
+            <td>
+              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
+                detalle</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- ===== MODAL: DETALLE DE VENTA ===== -->
+  <div class="modal fade modal-stockflow" id="modalDetalleVenta" tabindex="-1" aria-labelledby="modalDetalleVentaLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalDetalleVentaLabel">Detalle de venta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="detalle-venta-columnas">
+
+            <div class="seccion-formulario">
+              <h6>Información de la venta</h6>
+              <dl class="detalle-info">
+                <div class="fila">
+                  <dt>Número de venta</dt>
+                  <dd id="detalleNumero">-</dd>
+                </div>
+                <div class="fila">
+                  <dt>Cliente</dt>
+                  <dd id="detalleCliente">-</dd>
+                </div>
+                <div class="fila">
+                  <dt>Fecha</dt>
+                  <dd id="detalleFecha">-</dd>
+                </div>
+                <div class="fila">
+                  <dt>Hora</dt>
+                  <dd id="detalleHora">-</dd>
+                </div>
+                <div class="fila">
+                  <dt>Estado</dt>
+                  <dd><span class="badge-estado" id="detalleEstado">-</span></dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="seccion-formulario">
+              <h6>Resumen económico</h6>
+              <dl class="detalle-info">
+                <div class="fila">
+                  <dt>Cantidad</dt>
+                  <dd id="detalleCantidad">-</dd>
+                </div>
+                <div class="fila">
+                  <dt>Subtotal</dt>
+                  <dd id="detalleSubtotal">-</dd>
+                </div>
+                <div class="fila fila-total">
+                  <dt>Total</dt>
+                  <dd class="ingreso" id="detalleTotal">-</dd>
+                </div>
+              </dl>
+            </div>
+
+          </div>
+
+          <div class="seccion-formulario">
+            <h6>Productos vendidos</h6>
+            <table class="tabla-productos">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unit.</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody id="detalleProductosBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-primario" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--JS Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS Propio-->
+  <script src="../js/componentes/menu-responsive.js"></script>
+  <script src="../js/js-paginas/navVendedor.js"></script>
+  <script src="../js/js-paginas/historialVendedor.js"></script>
+</body>
+
+</html>
