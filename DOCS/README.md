@@ -13,3 +13,6 @@ Actualmente la contraseña y correos de los usuarios son:
 usuario: Administrdor       correo: administrador@gmail.com         contraseña:administrador
 usuario: Repositor          correo: repositor@gmail.com             contraseña:repositor
 usuario: Vendedor           correo: vendedor@gmail.com              contraseña:vendedor
+
+# v0.2.0 [Es]
+Se creó la pantalla independiente de Historial (Vendedor), con tarjetas de resumen, búsqueda, filtros por período y la tabla de ventas. El detalle de una venta ahora se abre como modal desde esa pantalla, en vez de ser una página aparte.
