@@ -145,17 +145,15 @@ document.addEventListener('DOMContentLoaded', function () {
     return '$' + Number(valor).toLocaleString('es-UY');
   }
 
-  function poblarSelectCategorias() {
-    const valorActual = categoriaProductoSelect.value;
-    categoriaProductoSelect.innerHTML = '<option value="">Seleccioná una categoría</option>';
+  function poblarSelectCategorias(select) {
+    select.innerHTML = '<option value="">Seleccioná una categoría</option>';
     document.querySelectorAll('#listaCategorias .categoria-item').forEach(function (item) {
       const nombre = item.dataset.categoria;
       const opcion = document.createElement('option');
       opcion.value = nombre;
       opcion.textContent = nombre;
-      categoriaProductoSelect.appendChild(opcion);
+      select.appendChild(opcion);
     });
-    categoriaProductoSelect.value = valorActual;
   }
 
   const codigoBarrasInput = document.getElementById('codigoBarras');
@@ -297,12 +295,129 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     modalNuevoProductoEl.addEventListener('show.bs.modal', function () {
-      poblarSelectCategorias();
+      poblarSelectCategorias(categoriaProductoSelect);
     });
 
     modalNuevoProductoEl.addEventListener('hidden.bs.modal', function () {
       formNuevoProducto.reset();
       limpiarErroresProducto();
+    });
+  }
+
+  const modalEditarProductoEl = document.getElementById('modalEditarProducto');
+  const formEditarProducto = document.getElementById('formEditarProducto');
+  const categoriaProductoEditarSelect = document.getElementById('categoriaProductoEditar');
+  let filaEnEdicion = null;
+
+  const codigoBarrasEditarInput = document.getElementById('codigoBarrasEditar');
+  if (codigoBarrasEditarInput) {
+    codigoBarrasEditarInput.addEventListener('input', function () {
+      codigoBarrasEditarInput.value = codigoBarrasEditarInput.value.replace(/\D/g, '');
+    });
+  }
+
+  function limpiarErroresEditar() {
+    formEditarProducto.querySelectorAll('.campo-formulario').forEach(function (campo) {
+      campo.classList.remove('campo-invalido');
+      const error = campo.querySelector('.error-campo');
+      if (error) error.textContent = '';
+    });
+  }
+
+  if (formEditarProducto) {
+    modalEditarProductoEl.addEventListener('show.bs.modal', function (evento) {
+      const disparador = evento.relatedTarget;
+      filaEnEdicion = disparador.closest('tr');
+      const celdas = filaEnEdicion.querySelectorAll('td');
+
+      const celdaNombre = celdas[0].cloneNode(true);
+      const spanVariante = celdaNombre.querySelector('.detalle-variante');
+      if (spanVariante) spanVariante.remove();
+
+      poblarSelectCategorias(categoriaProductoEditarSelect);
+
+      document.getElementById('nombreProductoEditar').value = celdaNombre.textContent.trim();
+      document.getElementById('codigoBarrasEditar').value = celdas[1].textContent.trim();
+      categoriaProductoEditarSelect.value = celdas[2].textContent.trim();
+      document.getElementById('descripcionProductoEditar').value = filaEnEdicion.dataset.descripcion || '';
+      document.getElementById('stockActualEditar').value = celdas[4].textContent.trim();
+      document.getElementById('stockMinimoEditar').value = celdas[5].textContent.trim();
+      document.getElementById('precioCompraEditar').value = filaEnEdicion.dataset.precioCompra || '';
+      document.getElementById('precioVentaEditar').value = celdas[3].textContent.replace(/\D/g, '');
+      document.getElementById('tipoVarianteEditar').value = filaEnEdicion.dataset.tipoVariante || '';
+      document.getElementById('valorVarianteEditar').value = filaEnEdicion.dataset.valorVariante || '';
+
+      const botonAcciones = filaEnEdicion.querySelector('.btn-accion');
+      const dropdownInstancia = bootstrap.Dropdown.getInstance(botonAcciones);
+      if (dropdownInstancia) dropdownInstancia.hide();
+    });
+
+    modalEditarProductoEl.addEventListener('hidden.bs.modal', function () {
+      formEditarProducto.reset();
+      limpiarErroresEditar();
+      filaEnEdicion = null;
+    });
+
+    formEditarProducto.addEventListener('submit', function (evento) {
+      evento.preventDefault();
+      limpiarErroresEditar();
+
+      const nombreEditarInput = document.getElementById('nombreProductoEditar');
+      const codigoEditarInput = document.getElementById('codigoBarrasEditar');
+      const descripcionEditarInput = document.getElementById('descripcionProductoEditar');
+      const stockActualEditarInput = document.getElementById('stockActualEditar');
+      const stockMinimoEditarInput = document.getElementById('stockMinimoEditar');
+      const precioCompraEditarInput = document.getElementById('precioCompraEditar');
+      const precioVentaEditarInput = document.getElementById('precioVentaEditar');
+
+      let formularioValido = true;
+
+      function validarObligatorio(input, mensaje) {
+        if (!input.value.trim()) {
+          mostrarErrorCampo(input, mensaje);
+          formularioValido = false;
+        }
+      }
+
+      validarObligatorio(nombreEditarInput, 'Ingresá el nombre del producto.');
+      validarObligatorio(codigoEditarInput, 'Ingresá el código de barras.');
+      validarObligatorio(categoriaProductoEditarSelect, 'Seleccioná una categoría.');
+      validarObligatorio(descripcionEditarInput, 'Ingresá una descripción.');
+      validarObligatorio(stockActualEditarInput, 'Ingresá el stock actual.');
+      validarObligatorio(stockMinimoEditarInput, 'Ingresá el stock mínimo.');
+      validarObligatorio(precioCompraEditarInput, 'Ingresá el precio de compra.');
+      validarObligatorio(precioVentaEditarInput, 'Ingresá el precio de venta.');
+
+      if (!formularioValido) return;
+
+      const tipoVariante = document.getElementById('tipoVarianteEditar').value;
+      const valorVariante = document.getElementById('valorVarianteEditar').value.trim();
+      const stockActual = Number(stockActualEditarInput.value);
+      const stockMinimo = Number(stockMinimoEditarInput.value);
+      const estado = calcularEstadoProducto(stockActual, stockMinimo);
+
+      let nombreCelda = nombreEditarInput.value.trim();
+      if (tipoVariante && valorVariante) {
+        nombreCelda += ' <span class="detalle-variante">(' + tipoVariante + ': ' + valorVariante + ')</span>';
+      }
+
+      const celdas = filaEnEdicion.querySelectorAll('td');
+      celdas[0].innerHTML = nombreCelda;
+      celdas[1].textContent = codigoEditarInput.value.trim();
+      celdas[2].textContent = categoriaProductoEditarSelect.value;
+      celdas[3].textContent = formatearMoneda(Number(precioVentaEditarInput.value));
+      celdas[4].textContent = stockActual;
+      celdas[5].textContent = stockMinimo;
+      celdas[6].innerHTML = '<span class="' + claseEstadoProducto(estado) + '">' + textoEstadoProducto(estado) + '</span>';
+
+      filaEnEdicion.dataset.estado = estado;
+      filaEnEdicion.dataset.descripcion = descripcionEditarInput.value.trim();
+      filaEnEdicion.dataset.precioCompra = precioCompraEditarInput.value;
+      filaEnEdicion.dataset.tipoVariante = tipoVariante;
+      filaEnEdicion.dataset.valorVariante = valorVariante;
+
+      const modal = bootstrap.Modal.getInstance(modalEditarProductoEl);
+      modal.hide();
     });
   }
 

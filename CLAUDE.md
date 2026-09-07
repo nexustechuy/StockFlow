@@ -419,50 +419,55 @@ alineado a la derecha.
 `border-bottom: 2px solid var(--color-sidebar)` y `color: var(--color-sidebar)`.
 Las inactivas en `color: #888`.
 
-## Pantalla en desarrollo: Nuevo producto (Administrador)
+## Pantalla en desarrollo: Editar producto (Administrador)
 
-No se crea una página independiente. El formulario de nuevo producto se implementa como un
+No se crea una página independiente. El formulario de editar producto se implementa como un
 **modal overlay** dentro de `paginas/inventarioAdministrador.html`, exactamente igual a como
-está hecho el modal "Nuevo usuario" en `paginas/usuariosAdministrador.html`. Reutilizá esa
-misma estructura HTML, CSS y JS como base — no inventes un patrón nuevo.
+están hechos los modales "Nuevo usuario" y "Nuevo producto" en sus respectivas páginas.
+Reutilizá esa misma estructura HTML, CSS y JS como base — no inventes un patrón nuevo.
 
-El modal se abre al hacer clic en el botón "Nuevo producto" de la pestaña Productos.
+El modal se abre al hacer clic en "Editar producto" dentro del popup de acciones (`···`)
+de cualquier fila de la tabla de productos en la pestaña Productos.
 No se crean archivos nuevos — todo va en los archivos existentes de inventario:
 - HTML: dentro de `paginas/inventarioAdministrador.html`
 - CSS: dentro de `CSS/styles-paginas/inventarioAdministrador.css`
 - JS: dentro de `js/js-paginas/inventarioAdministrador.js`
 
-### Contenido del modal — formulario dividido en 2 columnas
+### Contenido del modal — misma estructura que Nuevo producto, campos prellenados
 
 **Columna izquierda — Información general**
-- Nombre del producto (obligatorio)
-- Código de barras (obligatorio)
-- Categoría (select, obligatorio) — poblado con las mismas categorías mock de la pestaña Categorías
-- Descripción (textarea, obligatorio)
+- Nombre del producto (obligatorio) — prellenado con el valor actual
+- Código de barras (obligatorio) — prellenado con el valor actual
+- Categoría (select, obligatorio) — seleccionada la categoría actual del producto
+- Descripción (textarea, obligatorio) — prellenada con el valor actual
 
 **Columna derecha — arriba: Imagen**
-- Zona de carga tipo "arrastrá o hacé clic para subir" (placeholder visual, sin subida real)
+- Zona de carga tipo "arrastrá o hacé clic para subir" — si el producto tiene imagen mostrarla, si no el placeholder vacío
 
 **Columna derecha — medio: Stock**
-- Stock inicial (obligatorio)
-- Stock mínimo (obligatorio)
+- Stock actual (obligatorio) — prellenado con el valor actual
+- Stock mínimo (obligatorio) — prellenado con el valor actual
 
 **Columna derecha — abajo: Precio**
-- Precio de compra (obligatorio)
-- Precio de venta (obligatorio)
+- Precio de compra (obligatorio) — prellenado con el valor actual
+- Precio de venta (obligatorio) — prellenado con el valor actual
 - Si precio de venta es menor al de compra, mostrar advertencia debajo del campo — no bloqueante
 
 **Fila inferior ancha — Variantes (opcional)**
 - Select con tipo (Color, Modelo, Almacenamiento) + input de valor
+- Prellenado si el producto tiene variantes, vacío si no tiene
 - No bloquea el guardado si se deja vacío
 
 ### Validación y guardado
 - Campos obligatorios marcados con * — mostrar error debajo del campo si se intenta guardar vacío
 - Sin `alert()` genérico
-- Al guardar: agregar el producto al array mock y a la tabla de la pestaña Productos, cerrar el modal
+- Al guardar: actualizar el producto en el array mock y reflejar los cambios en la fila
+  correspondiente de la tabla sin recargar la página, cerrar el modal
 - No redirige a ninguna página — todo ocurre dentro de inventarioAdministrador.html
 
 ### Comportamiento del modal
+- Título del modal: "Editar producto" (a diferencia de "Nuevo producto")
 - Fondo oscurecido detrás (overlay)
 - X para cerrar arriba a la derecha
-- Al cerrar sin guardar, limpiar todos los campos
+- Al cerrar sin guardar, no aplicar ningún cambio — los campos vuelven a los valores originales
+- Botón principal: "Guardar cambios" (no "Guardar producto")

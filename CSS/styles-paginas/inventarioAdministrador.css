@@ -253,7 +253,11 @@
 #stockInicial,
 #stockMinimo,
 #precioCompra,
-#precioVenta {
+#precioVenta,
+#stockActualEditar,
+#stockMinimoEditar,
+#precioCompraEditar,
+#precioVentaEditar {
   appearance: textfield;
   -moz-appearance: textfield;
 }
