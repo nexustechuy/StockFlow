@@ -66,6 +66,12 @@
 }
 
 /* MODAL DETALLE DE VENTA */
+/* Sin footer (la X del header ya cierra el modal): le devolvemos
+   el padding inferior que antes aportaba el modal-footer. */
+#modalDetalleVenta .modal-body {
+  padding-bottom: 28px;
+}
+
 .detalle-venta-columnas {
   display: grid;
   grid-template-columns: 1fr 1fr;
