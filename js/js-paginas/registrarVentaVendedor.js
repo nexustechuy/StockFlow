@@ -4,7 +4,8 @@
  *  - Agregar productos al carrito ("Productos en Venta") desde el catálogo.
  *  - Editar cantidad o quitar un producto directamente desde la tabla del carrito.
  *  - Recalcular Subtotal / Total del resumen en cada cambio.
- *  - Confirmar venta: valida que haya al menos un producto y limpia el carrito
+ *  - Confirmar venta: valida que haya al menos un producto y que se haya cargado
+ *    el nombre del cliente, arma la venta con esos datos y limpia el carrito
  *    (no persiste en ningún backend; es solo para la maqueta).
  */
 
@@ -22,6 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const btnConfirmarVenta = document.getElementById('btnConfirmarVenta');
 
   const mensajeExito = document.getElementById('mensajeExito');
+  const textoMensajeExito = document.getElementById('textoMensajeExito');
+
+  const campoNombreCliente = document.getElementById('campoNombreCliente');
+  const nombreClienteInput = document.getElementById('nombreCliente');
 
   // Carrito en memoria: clave = id del producto, valor = { nombre, precio, stock, cantidad }
   const carrito = {};
@@ -29,6 +34,21 @@ document.addEventListener('DOMContentLoaded', function () {
   function formatearPrecio(numero) {
     return '$' + numero.toLocaleString('es-AR');
   }
+
+  /* ===== Validación del campo "Nombre del cliente" ===== */
+  function mostrarErrorCampo(campo, mensaje) {
+    campo.classList.add('campo-invalido');
+    campo.querySelector('.error-campo').textContent = mensaje;
+  }
+
+  function limpiarErrorCampo(campo) {
+    campo.classList.remove('campo-invalido');
+    campo.querySelector('.error-campo').textContent = '';
+  }
+
+  nombreClienteInput.addEventListener('input', function () {
+    limpiarErrorCampo(campoNombreCliente);
+  });
 
   /* ===== Búsqueda en el catálogo ===== */
   buscador.addEventListener('input', function () {
@@ -147,8 +167,29 @@ document.addEventListener('DOMContentLoaded', function () {
   btnConfirmarVenta.addEventListener('click', function () {
     if (Object.keys(carrito).length === 0) return;
 
-    // Aca, cuando haya backend, se mandaria el carrito al servidor.
-    // Por ahora solo mostramos el mensaje de éxito y limpiamos todo.
+    const nombreCliente = nombreClienteInput.value.trim();
+    if (nombreCliente === '') {
+      mostrarErrorCampo(campoNombreCliente, 'Ingresá el nombre del cliente.');
+      nombreClienteInput.focus();
+      return;
+    }
+    limpiarErrorCampo(campoNombreCliente);
+
+    // Se arma la venta con el cliente, los productos y el total (mock: no hay backend)
+    let total = 0;
+    const productosVenta = Object.keys(carrito).map(function (id) {
+      total += carrito[id].precio * carrito[id].cantidad;
+      return carrito[id];
+    });
+    const venta = {
+      cliente: nombreCliente,
+      productos: productosVenta,
+      total: total
+    };
+
+    // Aca, cuando haya backend, se mandaria "venta" al servidor.
+    // Por ahora solo mostramos el mensaje de éxito con el cliente y limpiamos todo.
+    textoMensajeExito.textContent = 'Venta registrada con éxito para ' + venta.cliente + ' (' + formatearPrecio(venta.total) + ').';
     mensajeExito.style.display = 'block';
     setTimeout(function () {
       mensajeExito.style.display = 'none';
@@ -158,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderizarCarrito();
     buscador.value = '';
     buscador.dispatchEvent(new Event('input'));
+    nombreClienteInput.value = '';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
