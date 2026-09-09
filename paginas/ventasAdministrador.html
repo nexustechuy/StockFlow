@@ -96,7 +96,6 @@
       <table class="tabla-ventas tabla-fija">
         <thead>
           <tr>
-            <th>Acciones</th>
             <th>Número de venta</th>
             <th>Hora</th>
             <th>Vendedor</th>
@@ -104,16 +103,13 @@
             <th>Productos</th>
             <th>Total</th>
             <th>Estado</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody id="cuerpoTablaVentas">
           <tr data-fecha="27/08/2026" data-hora="09:15" data-vendedor="Juan Pérez" data-cliente="Ana López"
             data-productos="Mouse x2, Teclado" data-total="4200" data-rentabilidad="1260" data-estado="Completada"
             data-numero="1021">
-            <td>
-              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
-                detalle</a>
-            </td>
             <td>1021</td>
             <td>09:15</td>
             <td>Juan Pérez</td>
@@ -121,14 +117,14 @@
             <td>Mouse x2, Teclado</td>
             <td>$4.200</td>
             <td><span class="ingreso">Completada</span></td>
-          </tr>
-          <tr data-fecha="27/08/2026" data-hora="18:33" data-vendedor="Juan Pérez" data-cliente="Carlos Ruiz"
-            data-productos="Monitor 24&quot;" data-total="33000" data-rentabilidad="9900" data-estado="Completada"
-            data-numero="1022">
             <td>
               <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
                 detalle</a>
             </td>
+          </tr>
+          <tr data-fecha="27/08/2026" data-hora="18:33" data-vendedor="Juan Pérez" data-cliente="Carlos Ruiz"
+            data-productos="Monitor 24&quot;" data-total="33000" data-rentabilidad="9900" data-estado="Completada"
+            data-numero="1022">
             <td>1022</td>
             <td>18:33</td>
             <td>Juan Pérez</td>
@@ -136,14 +132,14 @@
             <td>Monitor 24"</td>
             <td>$33.000</td>
             <td><span class="ingreso">Completada</span></td>
-          </tr>
-          <tr data-fecha="27/08/2026" data-hora="14:21" data-vendedor="Juan Pérez" data-cliente="María García"
-            data-productos="Auriculares x2" data-total="7000" data-rentabilidad="2100" data-estado="Completada"
-            data-numero="1023">
             <td>
               <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
                 detalle</a>
             </td>
+          </tr>
+          <tr data-fecha="27/08/2026" data-hora="14:21" data-vendedor="Juan Pérez" data-cliente="María García"
+            data-productos="Auriculares x2" data-total="7000" data-rentabilidad="2100" data-estado="Completada"
+            data-numero="1023">
             <td>1023</td>
             <td>14:21</td>
             <td>Juan Pérez</td>
@@ -151,14 +147,14 @@
             <td>Auriculares x2</td>
             <td>$7.000</td>
             <td><span class="ingreso">Completada</span></td>
-          </tr>
-          <tr data-fecha="27/08/2026" data-hora="21:19" data-vendedor="Juan Pérez" data-cliente="Pedro Díaz"
-            data-productos="Teclado x1, Mouse" data-total="2300" data-rentabilidad="690" data-estado="Pendiente"
-            data-numero="1024">
             <td>
               <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
                 detalle</a>
             </td>
+          </tr>
+          <tr data-fecha="27/08/2026" data-hora="21:19" data-vendedor="Juan Pérez" data-cliente="Pedro Díaz"
+            data-productos="Teclado x1, Mouse" data-total="2300" data-rentabilidad="690" data-estado="Pendiente"
+            data-numero="1024">
             <td>1024</td>
             <td>21:19</td>
             <td>Juan Pérez</td>
@@ -166,6 +162,10 @@
             <td>Teclado x1, Mouse</td>
             <td>$2.300</td>
             <td><span class="alerta">Pendiente</span></td>
+            <td>
+              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
+                detalle</a>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -222,10 +222,6 @@
               <span class="detalle-venta-valor" id="detalleEstado">-</span>
             </div>
           </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn-primario" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

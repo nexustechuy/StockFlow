@@ -156,6 +156,12 @@
 }
 
 /* ===== MODAL: DETALLE DE PRODUCTO ===== */
+/* Sin footer (la X del header ya cierra el modal): le devolvemos
+   el padding inferior que antes aportaba el modal-footer. */
+#modalDetalleProducto .modal-body {
+  padding-bottom: 28px;
+}
+
 .detalle-producto-fila {
   display: flex;
   align-items: center;
