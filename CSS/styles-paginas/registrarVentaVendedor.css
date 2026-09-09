@@ -11,6 +11,43 @@
 @import url(../componentes/sidebar.css);
 @import url(../componentes/tablas.css);
 
+/* La página ya incluye formularios.css directamente en el <head>,
+   por eso acá solo agregamos los ajustes propios de este layout */
+
+/* ===== CARD "DATOS DEL CLIENTE" (arriba de todo, ancho completo) ===== */
+.panel-cliente {
+  margin-bottom: 20px;
+}
+
+.panel-cliente .campo-formulario {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 0;
+}
+
+.panel-cliente .campo-formulario label {
+  margin-bottom: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.panel-cliente .campo-input-wrapper {
+  flex: 1;
+  max-width: 420px;
+}
+
+@media (max-width: 576px) {
+  .panel-cliente .campo-formulario {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .panel-cliente .campo-input-wrapper {
+    max-width: none;
+  }
+}
+
 /* ===== GRID DE 3 COLUMNAS: Catálogo / Carrito / Resumen ===== */
 .venta-grid {
   display: grid;
