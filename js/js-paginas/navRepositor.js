@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     links: [
       { texto: 'Dashboard', href: 'dashboardRepositor.html' },
       { texto: 'Productos', href: '#' },
-      { texto: 'Reposiciones', href: '#' },
+      { texto: 'Reposiciones', href: 'reposicionesRepositor.html' },
       { texto: 'Alerta de Stock', href: '#' },
       { texto: 'Ajustes', href: '#' },
       { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }

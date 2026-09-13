@@ -16,3 +16,6 @@ usuario: Vendedor           correo: vendedor@gmail.com              contraseña:
 
 # v0.2.0 [Es]
 Se creó la pantalla independiente de Historial (Vendedor), con tarjetas de resumen, búsqueda, filtros por período y la tabla de ventas. El detalle de una venta ahora se abre como modal desde esa pantalla, en vez de ser una página aparte.
+
+# v0.3.0 [Es]
+Se creó la pantalla independiente de Reposiciones (Repositor), con un formulario para registrar nuevas reposiciones (buscador de productos con sugerencias, cantidad y comentario) y una tabla con el historial de reposiciones realizadas.
