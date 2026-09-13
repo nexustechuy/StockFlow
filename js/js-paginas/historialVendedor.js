@@ -91,8 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const estadoEl = document.getElementById('detalleEstado');
       estadoEl.textContent = fila.dataset.estado;
-      estadoEl.className = 'badge-estado ' +
-        (fila.dataset.estado === 'Completada' ? 'completada' : 'pendiente');
+      estadoEl.className = fila.dataset.estado === 'Completada' ? 'ingreso' : 'atencion';
     });
   }
 
