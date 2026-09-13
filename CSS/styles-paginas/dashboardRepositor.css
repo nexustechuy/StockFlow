@@ -23,3 +23,59 @@
 .tabla-stock td:last-child {
   text-align: right;
 }
+
+/* ===== Tablas acotadas: solo se ven 4-5 filas y el resto aparece
+   haciendo scroll adentro de la card, sin agrandar el dashboard ===== */
+.tabla-acotada {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+/* Ancho fijo de columnas para que ninguna fila cambie de alto */
+.tabla-stock {
+  table-layout: fixed;
+}
+
+.tabla-stock th:nth-child(1),
+.tabla-stock td:nth-child(1) {
+  width: 35%;
+}
+
+.tabla-stock th:nth-child(2),
+.tabla-stock td:nth-child(2) {
+  width: 25%;
+}
+
+.tabla-stock th:nth-child(3),
+.tabla-stock td:nth-child(3) {
+  width: 20%;
+}
+
+.tabla-stock th:nth-child(4),
+.tabla-stock td:nth-child(4) {
+  width: 20%;
+}
+
+.tabla-historial {
+  table-layout: fixed;
+}
+
+.tabla-historial th:nth-child(1),
+.tabla-historial td:nth-child(1) {
+  width: 30%;
+}
+
+.tabla-historial th:nth-child(2),
+.tabla-historial td:nth-child(2) {
+  width: 15%;
+}
+
+.tabla-historial th:nth-child(3),
+.tabla-historial td:nth-child(3) {
+  width: 20%;
+}
+
+.tabla-historial th:nth-child(4),
+.tabla-historial td:nth-child(4) {
+  width: 35%;
+}
