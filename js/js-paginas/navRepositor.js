@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
       { texto: 'Dashboard', href: 'dashboardRepositor.html' },
       { texto: 'Productos', href: 'productosRepositor.html' },
       { texto: 'Reposiciones', href: 'reposicionesRepositor.html' },
-      { texto: 'Alerta de Stock', href: '#' },
+      { texto: 'Alerta de Stock', href: 'alertasStockRepositor.html' },
       { texto: 'Ajustes', href: '#' },
       { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }
     ]
