@@ -20,5 +20,4 @@ Se creó la pantalla independiente de Reposiciones (Repositor) con un formulario
 
 Se creó la pantalla independiente de Productos (Repositor) con buscador en tiempo real, filtros por estado (Disponible/Stock bajo/Sin stock) que se combinan con el buscador, estado en color y un botón "Reponer" por fila que lleva a la pantalla de Reposiciones.
 
-# v0.1.2 [Es]
-Se creó la pantalla de Ganancias (Administrador), con filtro de período (Hoy/Esta semana/Este mes/Este año), tarjetas de Total vendido, Costo total, Rentabilidad y Ventas realizadas, un gráfico de barras de ganancia por categoría y una tabla de productos más vendidos. Todo se recalcula dinámicamente al cambiar el filtro. Se conectó el link "Ganancias" del sidebar y del menú móvil en todas las pantallas de Administrador, que hasta ahora era un placeholder.
+Se creó la pantalla de Ganancias (Administrador), con filtro de período (Hoy/Esta semana/Este mes/Este año), métricas de Total vendido, Costo total, Rentabilidad y Ventas realizadas, un gráfico de barras de ganancia por categoría y una tabla de productos más vendidos. Todo se recalcula al cambiar el filtro. Se conectó el link "Ganancias" del sidebar y del menú móvil en todas las pantallas de Administrador.
