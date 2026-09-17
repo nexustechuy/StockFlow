@@ -511,6 +511,120 @@ app.get("/detalle-ventas", async (req, res) => {
 });
 
 
+// VENTAS - CREAR (valida stock, descuenta stock y calcula el total con los precios reales)
+app.post("/ventas", async (req, res) => {
+    let conn;
+
+    try {
+        const { nombre_cliente, id_usuario, productos } = req.body;
+
+        if (!nombre_cliente || !Array.isArray(productos) || productos.length === 0) {
+            return res.status(400).json({
+                error: "Faltan datos obligatorios para registrar la venta."
+            });
+        }
+
+        for (const item of productos) {
+            if (!item.id_producto || !item.cantidad || Number(item.cantidad) < 1) {
+                return res.status(400).json({
+                    error: "Cada producto de la venta necesita id_producto y cantidad válidos."
+                });
+            }
+        }
+
+        conn = await pool.getConnection();
+        await conn.beginTransaction();
+
+        const idsProductos = productos.map(item => item.id_producto);
+        const productosDb = await conn.query(
+            `SELECT id_producto, nombre, precio_venta, stock
+             FROM producto
+             WHERE id_producto IN (${idsProductos.map(() => "?").join(",")})`,
+            idsProductos
+        );
+
+        let total = 0;
+        const detalle = [];
+
+        for (const item of productos) {
+            const productoDb = productosDb.find(p => Number(p.id_producto) === Number(item.id_producto));
+
+            if (!productoDb) {
+                throw new Error(`El producto ${item.id_producto} no existe.`);
+            }
+
+            if (Number(productoDb.stock) < Number(item.cantidad)) {
+                throw new Error(`Stock insuficiente para "${productoDb.nombre}".`);
+            }
+
+            const precioUnitario = Number(productoDb.precio_venta);
+            const subtotal = precioUnitario * Number(item.cantidad);
+            total += subtotal;
+
+            detalle.push({
+                id_producto: productoDb.id_producto,
+                nombre: productoDb.nombre,
+                cantidad: Number(item.cantidad),
+                precio_unitario: precioUnitario,
+                subtotal
+            });
+        }
+
+        const resultadoVenta = await conn.query(
+            `INSERT INTO venta (fecha_hora, total, id_usuario, id_cliente, nombre_cliente)
+             VALUES (NOW(), ?, ?, NULL, ?)`,
+            [total, id_usuario || null, nombre_cliente]
+        );
+
+        const idVenta = Number(resultadoVenta.insertId);
+
+        for (const item of detalle) {
+            await conn.query(
+                `INSERT INTO detalle_venta (id_venta, id_producto, cantidad, precio_unitario, subtotal)
+                 VALUES (?, ?, ?, ?, ?)`,
+                [idVenta, item.id_producto, item.cantidad, item.precio_unitario, item.subtotal]
+            );
+
+            await conn.query(
+                `UPDATE producto SET stock = stock - ? WHERE id_producto = ?`,
+                [item.cantidad, item.id_producto]
+            );
+        }
+
+        await conn.commit();
+
+        res.status(201).json({
+            id_venta: idVenta,
+            fecha_hora: new Date(),
+            total,
+            nombre_cliente,
+            id_usuario: id_usuario || null,
+            productos: detalle
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        if (conn) {
+            try {
+                await conn.rollback();
+            } catch (rollbackError) {
+                console.error(rollbackError);
+            }
+        }
+
+        res.status(400).json({
+            error: error.message || "Error al registrar la venta."
+        });
+
+    } finally {
+        if (conn) {
+            conn.release();
+        }
+    }
+});
+
+
 // REPOSICIONES - LISTAR
 app.get("/reposiciones", async (req, res) => {
     let conn;
