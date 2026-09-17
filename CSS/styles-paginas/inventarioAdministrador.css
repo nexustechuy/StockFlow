@@ -441,24 +441,6 @@
   }
 }
 
-/* ===== PESTAÑA ALERTAS DE STOCK ===== */
-/* Esta pestaña tiene 3 tarjetas en vez de las 4 del dashboard general */
-.tarjetas-alertas {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-@media (max-width: 992px) {
-  .tarjetas-alertas {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .tarjetas-alertas {
-    grid-template-columns: 1fr;
-  }
-}
-
 .alerta-stock {
   background-color: var(--fondo-alerta);
   border: 1px solid var(--borde-alerta);
