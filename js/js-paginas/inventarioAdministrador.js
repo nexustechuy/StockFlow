@@ -84,8 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="popup-header">${producto.nombre}</div>
                                 <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
                                     data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
-                                <a class="dropdown-item btn-editar-producto" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#modalEditarProducto"><i class="bi bi-pencil me-2"></i>Editar producto</a>
+                                <a class="dropdown-item disabled" href="#" aria-disabled="true" tabindex="-1"
+                                    title="Disponible próximamente"><i class="bi bi-pencil me-2"></i>Editar producto</a>
                                 <a class="dropdown-item text-peligro btn-pedir-confirmacion" href="#"><i
                                         class="bi bi-trash me-2"></i>Eliminar producto</a>
                             </div>
@@ -403,9 +403,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const id = fila.dataset.id;
 
             fetch(`http://localhost:3000/productos/${id}`, { method: "DELETE" })
-                .then(res => {
-                    if (!res.ok) throw new Error("Error al eliminar el producto.");
-                    return res.json();
+                .then(async res => {
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || "Error al eliminar el producto.");
+                    return data;
                 })
                 .then(() => {
                     productos = productos.filter(p => String(p.id_producto) !== String(id));
@@ -413,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .catch(error => {
                     console.error("Error al eliminar producto:", error);
-                    alert("No se pudo eliminar el producto. Intentá de nuevo.");
+                    alert(error.message);
                 });
             return;
         }
@@ -498,9 +499,10 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(nuevoProducto)
         })
-            .then(res => {
-                if (!res.ok) throw new Error("Error al guardar el producto.");
-                return res.json();
+            .then(async res => {
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || "Error al guardar el producto.");
+                return data;
             })
             .then(productoGuardado => {
 
@@ -536,7 +538,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => {
                 console.error("Error al guardar producto:", error);
-                alert("No se pudo guardar el producto. Revisá los datos e intentá de nuevo.");
+                alert(error.message);
             });
     });
 
