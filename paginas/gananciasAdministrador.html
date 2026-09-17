@@ -69,57 +69,29 @@
     <div class="tarjetas">
       <div class="tarjeta">
         <div class="etiqueta">Total vendido</div>
-        <div class="valor ingreso">$18.900</div>
+        <div class="valor ingreso" id="totalVendidoValor">$0</div>
         <div class="unidad">pesos</div>
       </div>
       <div class="tarjeta">
         <div class="etiqueta">Costo total</div>
-        <div class="valor">$12.150</div>
+        <div class="valor" id="costoTotalValor">$0</div>
         <div class="unidad">pesos</div>
       </div>
       <div class="tarjeta">
         <div class="etiqueta">Rentabilidad</div>
-        <div class="valor ingreso">$6.750</div>
+        <div class="valor ingreso" id="rentabilidadValor">$0</div>
         <div class="unidad">pesos</div>
       </div>
       <div class="tarjeta">
         <div class="etiqueta">Ventas realizadas</div>
-        <div class="valor">6</div>
+        <div class="valor" id="ventasRealizadasValor">0</div>
         <div class="unidad">ventas</div>
       </div>
     </div>
 
     <div class="panel">
       <h5>Ganancia por categoría</h5>
-      <div class="grafico-categorias">
-        <div class="fila-barra">
-          <span class="etiqueta-barra">Monitores</span>
-          <div class="barra-fondo">
-            <div class="barra-relleno" style="width: 100%;"></div>
-          </div>
-          <span class="valor-barra">$2.800</span>
-        </div>
-        <div class="fila-barra">
-          <span class="etiqueta-barra">Periféricos</span>
-          <div class="barra-fondo">
-            <div class="barra-relleno" style="width: 75%;"></div>
-          </div>
-          <span class="valor-barra">$2.100</span>
-        </div>
-        <div class="fila-barra">
-          <span class="etiqueta-barra">Audio</span>
-          <div class="barra-fondo">
-            <div class="barra-relleno" style="width: 39%;"></div>
-          </div>
-          <span class="valor-barra">$1.100</span>
-        </div>
-        <div class="fila-barra">
-          <span class="etiqueta-barra">Accesorios</span>
-          <div class="barra-fondo">
-            <div class="barra-relleno" style="width: 27%;"></div>
-          </div>
-          <span class="valor-barra">$750</span>
-        </div>
+      <div class="grafico-categorias" id="graficoCategorias">
       </div>
     </div>
 
@@ -134,43 +106,7 @@
             <th>Ganancia</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Cable HDMI 2m</td>
-            <td>12</td>
-            <td>$500</td>
-            <td class="ingreso">$4.680</td>
-          </tr>
-          <tr>
-            <td>Mouse G203</td>
-            <td>9</td>
-            <td>$750</td>
-            <td class="ingreso">$3.330</td>
-          </tr>
-          <tr>
-            <td>Auriculares Bluetooth</td>
-            <td>6</td>
-            <td>$2.300</td>
-            <td class="ingreso">$6.600</td>
-          </tr>
-          <tr>
-            <td>Teclado USB</td>
-            <td>5</td>
-            <td>$1.400</td>
-            <td class="ingreso">$3.950</td>
-          </tr>
-          <tr>
-            <td>Monitor 24"</td>
-            <td>3</td>
-            <td>$4.200</td>
-            <td class="ingreso">$4.770</td>
-          </tr>
-          <tr>
-            <td>Monitor 27" 4K</td>
-            <td>1</td>
-            <td>$9.500</td>
-            <td class="ingreso">$2.800</td>
-          </tr>
+        <tbody id="cuerpoProductosMasVendidos">
         </tbody>
       </table>
     </div>
