@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const chipsFiltro = document.querySelectorAll(".filtro-chip");
     const selectCategoria = document.getElementById("categoriaProducto");
     const formNuevoProducto = document.getElementById("formNuevoProducto");
+    const btnGuardarProducto = document.getElementById("btnGuardarProducto");
     const modalNuevoProductoEl = document.getElementById("modalNuevoProducto");
     const modalNuevoProducto = new bootstrap.Modal(modalNuevoProductoEl);
     const modalDetalleProductoEl = document.getElementById("modalDetalleProducto");
@@ -427,8 +428,55 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ===== NUEVO PRODUCTO (guarda también la variante, si se completó) =====
-    formNuevoProducto.addEventListener("submit", (e) => {
-        e.preventDefault();
+    function mostrarErrorCampo(campo, mensaje) {
+        campo.classList.add("campo-invalido");
+        campo.querySelector(".error-campo").textContent = mensaje;
+    }
+
+    function limpiarErrorCampo(campo) {
+        campo.classList.remove("campo-invalido");
+        campo.querySelector(".error-campo").textContent = "";
+    }
+
+    const camposNuevoProducto = [
+        "nombreProducto",
+        "codigoBarras",
+        "categoriaProducto",
+        "descripcionProducto",
+        "stockInicial",
+        "stockMinimo",
+        "precioCompra",
+        "precioVenta"
+    ].map(id => document.getElementById(id));
+
+    camposNuevoProducto.forEach(input => {
+        input.addEventListener("input", () => limpiarErrorCampo(input.closest(".campo-formulario")));
+    });
+
+    modalNuevoProductoEl.addEventListener("hidden.bs.modal", () => {
+        camposNuevoProducto.forEach(input => limpiarErrorCampo(input.closest(".campo-formulario")));
+    });
+
+    btnGuardarProducto.addEventListener("click", () => {
+
+        let hayError = false;
+
+        camposNuevoProducto.forEach(input => {
+            const campo = input.closest(".campo-formulario");
+            const valor = input.value.trim();
+
+            if (valor === "") {
+                mostrarErrorCampo(campo, "Este campo es obligatorio.");
+                hayError = true;
+            } else if (input.type === "number" && Number(valor) < 0) {
+                mostrarErrorCampo(campo, "Ingresá un valor válido.");
+                hayError = true;
+            } else {
+                limpiarErrorCampo(campo);
+            }
+        });
+
+        if (hayError) return;
 
         const tipoVariante = document.getElementById("tipoVariante").value;
         const valorVariante = document.getElementById("valorVariante").value.trim();
