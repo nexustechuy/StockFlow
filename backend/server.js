@@ -222,6 +222,14 @@ app.delete("/productos/:id", async (req, res) => {
     } catch (error) {
         console.error(error);
 
+        // Si el producto tiene ventas, reposiciones o variantes asociadas,
+        // MariaDB rechaza el borrado por las claves foráneas.
+        if (error.code === "ER_ROW_IS_REFERENCED_2" || error.errno === 1451) {
+            return res.status(409).json({
+                error: "No se puede eliminar: el producto tiene ventas, reposiciones o variantes asociadas."
+            });
+        }
+
         res.status(500).json({
             error: "Error al eliminar el producto."
         });
