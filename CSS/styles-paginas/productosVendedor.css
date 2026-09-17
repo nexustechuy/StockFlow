@@ -59,6 +59,12 @@
   border-color: var(--azul-primario);
 }
 
+/* Ancho de columna fijo: evita que la tabla se reacomode "rara"
+   cuando el filtro oculta filas y quedan pocos productos visibles */
+#tablaProductos {
+  table-layout: fixed;
+}
+
 /* Oculta filas cuando el JS filtra */
 .tabla-productos tr.oculto {
   display: none;

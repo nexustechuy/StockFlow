@@ -118,29 +118,9 @@
   font-weight: 700;
 }
 
-/* Badge de estado */
-.badge-estado {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.badge-estado.completada {
-  background-color: #e0f2e9;
-  color: var(--verde-ingreso);
-}
-
-.badge-estado.pendiente {
-  background-color: #fff3d6;
-  color: var(--amarillo-atencion);
-}
-
-.badge-estado.cancelada {
-  background-color: var(--fondo-alerta);
-  color: var(--rojo-alerta);
-}
+/* El estado del detalle de venta usa las mismas clases .ingreso/.atencion
+   que el resto del proyecto (ver ventasAdministrador), definidas en
+   componentes/cards.css (ya importado más arriba). */
 
 /* TABLA: números a la derecha */
 #modalDetalleVenta .tabla-productos th:nth-child(3),

@@ -15,12 +15,7 @@
 @import url(../componentes/tablas.css);
 @import url(../componentes/alertas.css);
 
-.tabla-acotada {
-  max-height: 220px;
-  overflow-y: auto;
-}
-
-.tabla-stock {
-  max-width: 100%;
-  table-layout: fixed;
+.tabla-stock th:last-child,
+.tabla-stock td:last-child {
+  text-align: right;
 }

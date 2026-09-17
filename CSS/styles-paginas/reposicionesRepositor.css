@@ -1,0 +1,77 @@
+/* FONDOS Y TEXTO */
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/* LAYOUT DE LA PAGINA */
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/* ELEMENTOS */
+@import url(../componentes/botones.css);
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/tablas.css);
+
+/* Fila de "Nueva reposición": 3 campos en fila */
+.fila-reposicion {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.btn-registrar-reposicion {
+  width: 100%;
+}
+
+/* Buscador de productos con lista desplegable */
+.campo-buscador {
+  position: relative;
+}
+
+.lista-sugerencias {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  padding: 4px 0;
+  list-style: none;
+  background-color: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.lista-sugerencias li {
+  padding: 8px 14px;
+  font-size: 0.88rem;
+  color: var(--texto-oscuro);
+  cursor: pointer;
+}
+
+.lista-sugerencias li:hover {
+  background-color: var(--gris-fondo);
+}
+
+/* Scrollbar que aparece cuando hay muchos productos */
+.tabla-historial-wrapped {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+/* Ajuste de la tabla del historial para que ocupe todo el ancho disponible y no se deforme */
+.tabla-historial {
+  width: 100%;
+  table-layout: fixed;
+}
+
+@media (max-width: 768px) {
+  .fila-reposicion {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,56 @@
+/* FONDOS Y TEXTO */
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/* LAYOUT DE LA PAGINA */
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/* ELEMENTOS */
+@import url(../componentes/botones.css);
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/tablas.css);
+
+/* Buscador de productos */
+.buscador-productos {
+  margin-bottom: 16px;
+}
+
+.buscador-productos .input-busqueda {
+  width: 100%;
+}
+
+.filtros-productos {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#tablaProductos {
+  table-layout: fixed;
+}
+
+/* Oculta filas cuando el JS filtra por texto o por estado */
+.tabla-productos tr.oculto {
+  display: none;
+}
+
+.sin-resultados {
+  text-align: center;
+  color: var(--texto-gris);
+  padding: 20px 0;
+  font-size: 0.88rem;
+}
+
+/* Responsive: en pantallas chicas los filtros pasan a dos columnas */
+@media (max-width: 480px) {
+  .filtros-productos {
+    flex-wrap: wrap;
+  }
+
+  .filtros-productos .filtro-chip {
+    flex: 1 1 calc(50% - 5px);
+  }
+}

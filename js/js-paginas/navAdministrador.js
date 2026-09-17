@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
       { texto: 'Dashboard',  href: 'dashboardAdministrador.html' },
       { texto: 'Ventas',     href: 'ventasAdministrador.html' },
       { texto: 'Inventario', href: 'inventarioAdministrador.html' },
-      { texto: 'Ganancias',  href: '#' },
+      { texto: 'Ganancias',  href: 'gananciasAdministrador.html' },
       { texto: 'Usuarios',   href: 'usuariosAdministrador.html' },
       { texto: 'Ajustes',    href: '#' },
       { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }

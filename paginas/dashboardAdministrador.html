@@ -36,7 +36,7 @@
       <a href="inventarioAdministrador.html">
         <i class="bi bi-box-seam me-2"></i>Inventario
       </a>
-      <a href="#">
+      <a href="gananciasAdministrador.html">
         <i class="bi bi-graph-up-arrow me-2"></i>Ganancias
       </a>
       <a href="usuariosAdministrador.html">
@@ -66,28 +66,28 @@
         <div class="etiqueta">Ventas del Día</div>
         <div class="valor ingreso">$45.000</div>
         <div class="unidad">Registradas automáticamente</div>
-        <a href="/paginas/ventasAdministrador.html" class="ver-detalle">Ver detalle</a>
+        <a href="../paginas/ventasAdministrador.html" class="ver-detalle">Ver detalle</a>
       </div>
 
       <div class="tarjeta">
         <div class="etiqueta">Usuarios</div>
         <div class="valor">5</div>
         <div class="unidad">Vendedores y repositores</div>
-        <a href="/paginas/usuariosAdministrador.html" class="ver-detalle">Ver detalle</a>
+        <a href="../paginas/usuariosAdministrador.html" class="ver-detalle">Ver detalle</a>
       </div>
 
       <div class="tarjeta">
         <div class="etiqueta">Productos</div>
         <div class="valor">120</div>
         <div class="unidad">En 6 categorías distintas</div>
-        <a href="/paginas/inventarioAdministrador.html" class="ver-detalle">Ver detalle</a>
+        <a href="../paginas/inventarioAdministrador.html" class="ver-detalle">Ver detalle</a>
       </div>
 
       <div class="tarjeta">
         <div class="etiqueta">Sin Stock</div>
         <div class="valor alerta">4</div>
         <div class="unidad">productos</div>
-        <a href="/paginas/inventarioAdministrador.html" class="ver-detalle">Ver detalle</a>
+        <a href="../paginas/inventarioAdministrador.html" class="ver-detalle">Ver detalle</a>
       </div>
 
     </section>
@@ -105,35 +105,11 @@
               <th>Total</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>09:15</td>
-              <td>Ana López</td>
-              <td>3</td>
-              <td class="ingreso">$4.200</td>
-            </tr>
-            <tr>
-              <td>10:02</td>
-              <td>Carlos Ruiz</td>
-              <td>1</td>
-              <td class="ingreso">$1.500</td>
-            </tr>
-            <tr>
-              <td>11:20</td>
-              <td>María García</td>
-              <td>5</td>
-              <td class="ingreso">$8.750</td>
-            </tr>
-            <tr>
-              <td>12:45</td>
-              <td>Pedro Díaz</td>
-              <td>2</td>
-              <td class="ingreso">$3.100</td>
-            </tr>
+          <tbody id="cuerpoHistorialVentas">
           </tbody>
         </table>
 
-        <a href="/paginas/ventasAdministrador.html" class="ver-todo">Ver todo</a>
+        <a href="../paginas/ventasAdministrador.html" class="ver-todo">Ver todo</a>
       </div>
     </div>
 
@@ -145,6 +121,7 @@
   <!--JS PROPIO-->
   <script src="../js/componentes/menu-responsive.js"></script>
   <script src="../js/js-paginas/navAdministrador.js"></script>
+  <script src="../js/js-paginas/dashboardAdministrador.js"></script>
 
 </body>
 

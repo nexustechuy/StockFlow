@@ -1,10 +1,4 @@
-const usuarios = [
-    { mail: "vendedor@gmail.com", password: "vendedor", rol: "vendedor" },
-    { mail: "repositor@gmail.com", password: "repositor", rol: "repositor" },
-    { mail: "administrador@gmail.com", password: "administrador", rol: "administrador" }
-];
-
-function iniciarSesion(event) {
+async function iniciarSesion(event) {
     event.preventDefault();
 
     const correoIngresado = document.getElementById("correo").value.trim();
@@ -20,40 +14,57 @@ function iniciarSesion(event) {
         }
 
         const formatoMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         if (!formatoMail.test(correoIngresado)) {
             throw new Error("El correo ingresado no tiene un formato válido.");
         }
 
         const caracteresInvalidos = /[<>'"]/;
+
         if (caracteresInvalidos.test(contrasenaIngresado)) {
             throw new Error("La contraseña contiene caracteres no permitidos.");
         }
 
-        const usuarioEncontrado = usuarios.find(
-            u => u.mail === correoIngresado && u.password === contrasenaIngresado
-        );
+        const respuesta = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                mail: correoIngresado,
+                password: contrasenaIngresado
+            })
+        });
 
-        if (!usuarioEncontrado) {
-            throw new Error("El correo o la contraseña son incorrectos.");
+        const datos = await respuesta.json();
+
+        if (!respuesta.ok) {
+            throw new Error(datos.error);
         }
 
-        if (usuarioEncontrado.rol === "vendedor") {
-            window.location.href = "dashboardVendedor.html";
-        } else if (usuarioEncontrado.rol === "repositor") {
-            window.location.href = "dashboardRepositor.html";
-        } else if (usuarioEncontrado.rol === "administrador") {
-            window.location.href = "dashboardAdministrador.html";
+        if (datos.rol === "vendedor") {
+            window.location.href = "../paginas/dashboardVendedor.html";
+
+        } else if (datos.rol === "repositor") {
+            window.location.href = "../paginas/dashboardRepositor.html";
+
+        } else if (datos.rol === "administrador") {
+            window.location.href = "../paginas/dashboardAdministrador.html";
+
+        } else {
+            throw new Error("El usuario no tiene un rol válido.");
         }
 
     } catch (error) {
-        // Mostramos el mensaje de error al usuario
         mensajeError.textContent = error.message;
         mensajeError.style.display = "block";
     }
 }
 
+
 document.addEventListener("DOMContentLoaded", function () {
     const formLogin = document.getElementById("form-login");
+
     if (formLogin) {
         formLogin.addEventListener("submit", iniciarSesion);
     }

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockFlow - Reposiciones</title>
+
+  <!--Estilos Bootsrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+  <!--Iconos de Bootsrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+  <!--Estilos Propios-->
+  <link rel="stylesheet" href="../CSS/styles-paginas/reposicionesRepositor.css">
+
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">StockFlow</div>
+
+    <div class="sidebar-usuario">
+      Repositor
+      <span>Juan Pérez</span>
+    </div>
+
+    <nav>
+      <a href="dashboardRepositor.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="productosRepositor.html">
+        <i class="bi bi-box-seam me-2"></i>Productos
+      </a>
+      <a href="reposicionesRepositor.html" class="activo">
+        <i class="bi bi-arrow-repeat me-2"></i>Reposiciones
+      </a>
+      <a href="alertasStockRepositor.html">
+        <i class="bi bi-exclamation-triangle me-2"></i>Alertas de Stock
+      </a>
+      <a href="#">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html">
+        <i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión
+      </a>
+    </div>
+
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="contenido">
+
+    <!-- Encabezado -->
+    <div class="encabezado">
+      <h2>Reposiciones</h2>
+      <p>Registrá reposiciones de stock y consultá el historial</p>
+    </div>
+
+    <!-- Nueva reposición -->
+    <section class="panel">
+      <h5>Nueva reposición</h5>
+
+      <div class="fila-reposicion">
+
+        <div class="campo-formulario campo-buscador" id="campoProducto">
+          <label for="inputProducto">Producto<span class="obligatorio">*</span></label>
+          <input type="text" id="inputProducto" placeholder="Buscá un producto..." autocomplete="off">
+          <ul class="lista-sugerencias" id="listaSugerenciasProducto"></ul>
+          <span class="error-campo"></span>
+        </div>
+
+        <div class="campo-formulario" id="campoCantidad">
+          <label for="inputCantidad">Cantidad<span class="obligatorio">*</span></label>
+          <input type="number" id="inputCantidad" min="1" placeholder="Ej: 10">
+          <span class="error-campo"></span>
+        </div>
+
+        <div class="campo-formulario">
+          <label for="inputComentario">Comentario</label>
+          <input type="text" id="inputComentario" placeholder="Opcional">
+        </div>
+
+      </div>
+
+      <button type="button" class="btn-primario btn-registrar-reposicion" id="btnRegistrarReposicion">
+        Registrar reposición
+      </button>
+    </section>
+
+    <!-- Historial de reposiciones -->
+    <section class="panel">
+      <h5>Historial de reposiciones</h5>
+      <div class="tabla-historial-wrapped">
+        <table class="tabla-historial tabla-fija">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
+              <th>Comentario</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoHistorial">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!--JS Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--JS Propio-->
+  <script src="../js/componentes/menu-responsive.js"></script>
+  <script src="../js/js-paginas/navRepositor.js"></script>
+  <script src="../js/js-paginas/reposicionesRepositor.js"></script>
+
+</body>
+
+</html>

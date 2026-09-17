@@ -32,13 +32,13 @@
       <a href="#" class="activo">
         <i class="bi bi-grid me-2"></i>Dashboard
       </a>
-      <a href="#">
+      <a href="productosRepositor.html">
         <i class="bi bi-box-seam me-2"></i>Productos
       </a>
-      <a href="#">
+      <a href="reposicionesRepositor.html">
         <i class="bi bi-arrow-repeat me-2"></i>Reposiciones
       </a>
-      <a href="#">
+      <a href="alertasStockRepositor.html">
         <i class="bi bi-exclamation-triangle me-2"></i>Alertas de Stock
       </a>
       <a href="#">
@@ -99,48 +99,118 @@
     <!-- Tabla productos con bajo stock -->
     <section class="panel">
       <h5>Productos con bajo stock</h5>
-      <table class="tabla-stock">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Categoría</th>
-            <th>Stock mínimo</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Mouse inalámbrico</td>
-            <td>Periféricos</td>
-            <td>10</td>
-            <td><button class="btn-accion">Reponer</button></td>
-          </tr>
-          <tr>
-            <td>Teclado USB</td>
-            <td>Periféricos</td>
-            <td>8</td>
-            <td><button class="btn-accion">Reponer</button></td>
-          </tr>
-          <tr>
-            <td>Monitor 24"</td>
-            <td>Pantallas</td>
-            <td>5</td>
-            <td><button class="btn-accion">Reponer</button></td>
-          </tr>
-          <tr>
-            <td>Cable HDMI</td>
-            <td>Accesorios</td>
-            <td>15</td>
-            <td><button class="btn-accion">Reponer</button></td>
-          </tr>
-          <tr>
-            <td>Auriculares Bluetooth</td>
-            <td>Audio</td>
-            <td>6</td>
-            <td><button class="btn-accion">Reponer</button></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="tabla-acotada">
+        <table class="tabla-stock tabla-fija">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Stock mínimo</th>
+              <th>Stock actual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mouse inalámbrico</td>
+              <td>Periféricos</td>
+              <td>10</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>Teclado USB</td>
+              <td>Periféricos</td>
+              <td>8</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>Monitor 24"</td>
+              <td>Pantallas</td>
+              <td>5</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>Cable HDMI</td>
+              <td>Accesorios</td>
+              <td>15</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>Auriculares Bluetooth</td>
+              <td>Audio</td>
+              <td>6</td>
+              <td>4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <a href="../paginas/productosRepositor.html" class="ver-todo">Ver todo</a>
+    </section>
+
+    <section class="panel">
+      <h5>Historial de reposiciones</h5>
+      <div class="tabla-acotada">
+        <table class="tabla-historial tabla-fija">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
+              <th>Comentario</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mouse inalámbrico</td>
+              <td>15</td>
+              <td>10/09/2026</td>
+              <td>Reposición semanal</td>
+            </tr>
+            <tr>
+              <td>Auriculares BT</td>
+              <td>12</td>
+              <td>12/09/2026</td>
+              <td>Nuevo ingreso</td>
+            </tr>
+            <tr>
+              <td>Tarjeta Gráfica MSI</td>
+              <td>8</td>
+              <td>13/09/2026</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Cable USB-C</td>
+              <td>20</td>
+              <td>11/09/2026</td>
+              <td>Nuevo ingreso</td>
+            </tr>
+            <tr>
+              <td>Pad Gamer</td>
+              <td>11</td>
+              <td>08/09/2026</td>
+              <td>Reposición semanal</td>
+            </tr>
+            <tr>
+              <td>Teclado USB</td>
+              <td>8</td>
+              <td>08/09/2026</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Monitor 24"</td>
+              <td>3</td>
+              <td>05/09/2026</td>
+              <td>Pedido urgente</td>
+            </tr>
+            <tr>
+              <td>Cable HDMI</td>
+              <td>20</td>
+              <td>01/09/2026</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <a href="../paginas/reposicionesRepositor.html" class="ver-todo">Ver todo</a>
     </section>
 
   </main>
@@ -151,6 +221,7 @@
   <!--JS Propio-->
   <script src="../js/componentes/menu-responsive.js"></script>
   <script src="../js/js-paginas/navRepositor.js"></script>
+  <script src="../js/js-paginas/dashboardRepositor.js"></script>
 
 </body>
 

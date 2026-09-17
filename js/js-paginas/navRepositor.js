@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
     paginaDefault: 'dashboardRepositor.html',
     links: [
       { texto: 'Dashboard', href: 'dashboardRepositor.html' },
-      { texto: 'Productos', href: '#' },
-      { texto: 'Reposiciones', href: '#' },
-      { texto: 'Alerta de Stock', href: '#' },
+      { texto: 'Productos', href: 'productosRepositor.html' },
+      { texto: 'Reposiciones', href: 'reposicionesRepositor.html' },
+      { texto: 'Alerta de Stock', href: 'alertasStockRepositor.html' },
       { texto: 'Ajustes', href: '#' },
       { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }
     ]

@@ -1,0 +1,99 @@
+/*FONDOS Y TEXTO*/
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/*LAYOUT*/
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/*ELEMENTOS*/
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/cards.css);
+@import url(../componentes/tablas.css);
+@import url(../componentes/iconos.css);
+@import url(../componentes/modales.css);
+
+/* ENCABEZADO DE LA PAGINA */
+.encabezado h2 {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--texto-oscuro);
+  margin-bottom: 4px;
+}
+
+.encabezado p {
+  color: var(--texto-gris);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+/* FILTRO DE PERIODO */
+.filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* GRAFICO DE GANANCIA POR CATEGORIA */
+.grafico-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fila-barra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.etiqueta-barra {
+  width: 110px;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: var(--texto-oscuro);
+}
+
+.barra-fondo {
+  flex: 1;
+  height: 16px;
+  background-color: #bdbdbd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.barra-relleno {
+  height: 100%;
+  background-color: var(--azul-primario);
+  border-radius: 8px;
+}
+
+.valor-barra {
+  width: 90px;
+  flex-shrink: 0;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--texto-oscuro);
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .filtros {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .etiqueta-barra {
+    width: 80px;
+  }
+
+  .valor-barra {
+    width: 70px;
+  }
+}
