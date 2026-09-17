@@ -1,15 +1,6 @@
-/**
- * Logica de la pantalla Registrar Venta (Vendedor):
- *  - Búsqueda en vivo dentro del catálogo de productos.
- *  - Agregar productos al carrito ("Productos en Venta") desde el catálogo.
- *  - Editar cantidad o quitar un producto directamente desde la tabla del carrito.
- *  - Recalcular Subtotal / Total del resumen en cada cambio.
- *  - Confirmar venta: valida que haya al menos un producto y que se haya cargado
- *    el nombre del cliente, arma la venta con esos datos y limpia el carrito
- *    (no persiste en ningún backend; es solo para la maqueta).
- */
-
 document.addEventListener('DOMContentLoaded', function () {
+
+  const ID_USUARIO_VENDEDOR = 1;
 
   const listaProductos = document.getElementById('listaProductos');
   const buscador = document.getElementById('buscadorCatalogo');
@@ -28,14 +19,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const campoNombreCliente = document.getElementById('campoNombreCliente');
   const nombreClienteInput = document.getElementById('nombreCliente');
 
-  // Carrito en memoria: clave = id del producto, valor = { nombre, precio, stock, cantidad }
+  let productos = [];
   const carrito = {};
 
   function formatearPrecio(numero) {
-    return '$' + numero.toLocaleString('es-AR');
+    return '$' + Number(numero).toLocaleString('es-AR');
   }
 
-  /* ===== Validación del campo "Nombre del cliente" ===== */
   function mostrarErrorCampo(campo, mensaje) {
     campo.classList.add('campo-invalido');
     campo.querySelector('.error-campo').textContent = mensaje;
@@ -50,8 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     limpiarErrorCampo(campoNombreCliente);
   });
 
-  /* ===== Búsqueda en el catálogo ===== */
-  buscador.addEventListener('input', function () {
+  function aplicarBusquedaCatalogo() {
     const texto = buscador.value.trim().toLowerCase();
     const items = listaProductos.querySelectorAll('.producto-item');
     let hayVisibles = false;
@@ -64,9 +53,42 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     sinResultadosCatalogo.style.display = hayVisibles ? 'none' : 'block';
-  });
+  }
 
-  /* ===== Agregar un producto al carrito desde el catálogo ===== */
+  buscador.addEventListener('input', aplicarBusquedaCatalogo);
+
+  function renderizarCatalogo() {
+    listaProductos.querySelectorAll('.producto-item').forEach(function (item) {
+      item.remove();
+    });
+
+    productos.forEach(function (producto) {
+      const stock = Number(producto.stock);
+      const item = document.createElement('div');
+      item.className = 'producto-item' + (stock === 0 ? ' sin-stock' : '');
+      item.dataset.id = producto.id_producto;
+      item.dataset.nombre = producto.nombre;
+      item.dataset.precio = producto.precio_venta;
+      item.dataset.stock = stock;
+
+      item.innerHTML = `
+        <div class="icono-producto"><i class="bi bi-box-seam"></i></div>
+        <div class="info-producto">
+          <div class="nombre">${producto.nombre}</div>
+          <div class="stock">Stock: ${stock}</div>
+        </div>
+        <div class="precio">${formatearPrecio(producto.precio_venta)}</div>
+        <button type="button" class="btn-agregar" title="Agregar a la venta">
+          <i class="bi bi-plus"></i>
+        </button>
+      `;
+
+      listaProductos.insertBefore(item, sinResultadosCatalogo);
+    });
+
+    aplicarBusquedaCatalogo();
+  }
+
   listaProductos.addEventListener('click', function (evento) {
     const boton = evento.target.closest('.btn-agregar');
     if (!boton) return;
@@ -78,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const stock = parseInt(item.dataset.stock, 10);
     const cantidadActual = carrito[id] ? carrito[id].cantidad : 0;
 
-    // No se puede agregar más unidades que el stock disponible
     if (cantidadActual >= stock) return;
 
     carrito[id] = {
@@ -91,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
     renderizarCarrito();
   });
 
-  /* ===== Cambiar cantidad o quitar un producto desde la tabla del carrito ===== */
   cuerpoCarrito.addEventListener('input', function (evento) {
     if (evento.target.matches('input[type="number"]')) {
       const fila = evento.target.closest('tr');
@@ -116,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
     renderizarCarrito();
   });
 
-  /* ===== Volver a dibujar la tabla del carrito + el resumen ===== */
   function renderizarCarrito() {
     const ids = Object.keys(carrito);
     cuerpoCarrito.innerHTML = '';
@@ -140,16 +159,13 @@ document.addEventListener('DOMContentLoaded', function () {
       cuerpoCarrito.appendChild(fila);
     });
 
-    // Muestra la tabla o el mensaje de "carrito vacio" según corresponda
     tablaVentaWrapper.classList.toggle('con-productos', ids.length > 0);
 
-    // Por ahora Subtotal y Total son iguales (no hay descuentos/impuestos en la maqueta)
     resumenSubtotal.textContent = formatearPrecio(subtotal);
     resumenTotal.textContent = formatearPrecio(subtotal);
 
     btnConfirmarVenta.disabled = ids.length === 0;
 
-    // Actualiza el stock visible en el catalogo (por si quedo en 0)
     Object.keys(carrito).forEach(function (id) {
       const item = listaProductos.querySelector('.producto-item[data-id="' + id + '"]');
       if (item) {
@@ -158,12 +174,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     listaProductos.querySelectorAll('.producto-item').forEach(function (item) {
       if (!carrito[item.dataset.id]) {
-        item.classList.remove('sin-stock');
+        const producto = productos.find(p => String(p.id_producto) === item.dataset.id);
+        item.classList.toggle('sin-stock', producto ? Number(producto.stock) === 0 : false);
       }
     });
   }
 
-  /* ===== Confirmar venta ===== */
   btnConfirmarVenta.addEventListener('click', function () {
     if (Object.keys(carrito).length === 0) return;
 
@@ -175,33 +191,70 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     limpiarErrorCampo(campoNombreCliente);
 
-    // Se arma la venta con el cliente, los productos y el total (mock: no hay backend)
-    let total = 0;
-    const productosVenta = Object.keys(carrito).map(function (id) {
-      total += carrito[id].precio * carrito[id].cantidad;
-      return carrito[id];
+    const itemsVenta = Object.keys(carrito).map(function (id) {
+      return { id_producto: Number(id), cantidad: carrito[id].cantidad };
     });
-    const venta = {
-      cliente: nombreCliente,
-      productos: productosVenta,
-      total: total
-    };
 
-    // Aca, cuando haya backend, se mandaria "venta" al servidor.
-    // Por ahora solo mostramos el mensaje de éxito con el cliente y limpiamos todo.
-    textoMensajeExito.textContent = 'Venta registrada con éxito para ' + venta.cliente + ' (' + formatearPrecio(venta.total) + ').';
-    mensajeExito.style.display = 'block';
-    setTimeout(function () {
-      mensajeExito.style.display = 'none';
-    }, 3500);
+    btnConfirmarVenta.disabled = true;
 
-    Object.keys(carrito).forEach(function (id) { delete carrito[id]; });
-    renderizarCarrito();
-    buscador.value = '';
-    buscador.dispatchEvent(new Event('input'));
-    nombreClienteInput.value = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetch('http://localhost:3000/ventas', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre_cliente: nombreCliente,
+        id_usuario: ID_USUARIO_VENDEDOR,
+        productos: itemsVenta
+      })
+    })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Error al registrar la venta.');
+        return data;
+      })
+      .then(ventaCreada => {
+        ventaCreada.productos.forEach(function (item) {
+          const producto = productos.find(p => Number(p.id_producto) === Number(item.id_producto));
+          if (producto) {
+            producto.stock = Number(producto.stock) - Number(item.cantidad);
+          }
+        });
+
+        textoMensajeExito.textContent =
+          'Venta registrada con éxito para ' + nombreCliente + ' (' + formatearPrecio(ventaCreada.total) + ').';
+        mensajeExito.style.display = 'block';
+        setTimeout(function () {
+          mensajeExito.style.display = 'none';
+        }, 3500);
+
+        Object.keys(carrito).forEach(function (id) { delete carrito[id]; });
+        renderizarCatalogo();
+        renderizarCarrito();
+        buscador.value = '';
+        nombreClienteInput.value = '';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(error => {
+        console.error('Error al registrar la venta:', error);
+        alert(error.message);
+      })
+      .finally(() => {
+        btnConfirmarVenta.disabled = Object.keys(carrito).length === 0;
+      });
   });
 
+  function cargarProductos() {
+    fetch('http://localhost:3000/productos')
+      .then(res => res.json())
+      .then(data => {
+        productos = data;
+        renderizarCatalogo();
+      })
+      .catch(error => {
+        console.error('Error al cargar productos:', error);
+        listaProductos.innerHTML = '<p class="sin-resultados">Error al cargar los productos.</p>';
+      });
+  }
+
+  cargarProductos();
   renderizarCarrito();
 });

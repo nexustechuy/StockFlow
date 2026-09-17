@@ -61,19 +61,19 @@
 
       <div class="tarjeta">
         <div class="etiqueta">Ventas de hoy</div>
-        <div class="valor">24</div>
+        <div class="valor" id="ventasHoyValor">0</div>
         <div class="unidad">ventas</div>
       </div>
 
       <div class="tarjeta">
         <div class="etiqueta">Total vendido hoy</div>
-        <div class="valor ingreso">$45.000</div>
+        <div class="valor ingreso" id="totalHoyValor">$0</div>
         <div class="unidad">pesos</div>
       </div>
 
       <div class="tarjeta">
         <div class="etiqueta">Total este mes</div>
-        <div class="valor ingreso">$312.500</div>
+        <div class="valor ingreso" id="totalMesValor">$0</div>
         <div class="unidad">pesos</div>
       </div>
 
@@ -104,42 +104,6 @@
           </tr>
         </thead>
         <tbody id="cuerpoTablaHistorial">
-          <tr data-numero="1031" data-fecha="15/07/2026" data-hora="18:05" data-cliente="María Gómez"
-            data-estado="Completada" data-productos="7891|Mouse G203|2|2250">
-            <td>15/07/2026</td>
-            <td>18:05</td>
-            <td>María Gómez</td>
-            <td>Mouse x2</td>
-            <td class="ingreso">$4.500</td>
-            <td>
-              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
-                detalle</a>
-            </td>
-          </tr>
-          <tr data-numero="1032" data-fecha="24/07/2026" data-hora="19:32" data-cliente="Pedro Sánchez"
-            data-estado="Completada" data-productos="4332|Teclado HyperX|1|2790">
-            <td>24/07/2026</td>
-            <td>19:32</td>
-            <td>Pedro Sánchez</td>
-            <td>Teclado x1</td>
-            <td class="ingreso">$2.790</td>
-            <td>
-              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
-                detalle</a>
-            </td>
-          </tr>
-          <tr data-numero="1033" data-fecha="19/07/2026" data-hora="11:53" data-cliente="Sebastián Morales"
-            data-estado="Completada" data-productos="0998|Monitor OLED 24&quot;|1|2500;7891|Mouse G203|2|895">
-            <td>19/07/2026</td>
-            <td>11:53</td>
-            <td>Sebastián Morales</td>
-            <td>Monitor x1, Mouse x2</td>
-            <td class="ingreso">$4.290</td>
-            <td>
-              <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
-                detalle</a>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -177,10 +141,6 @@
                 <div class="fila">
                   <dt>Hora</dt>
                   <dd id="detalleHora">-</dd>
-                </div>
-                <div class="fila">
-                  <dt>Estado</dt>
-                  <dd><span id="detalleEstado">-</span></dd>
                 </div>
               </dl>
             </div>
