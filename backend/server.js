@@ -429,6 +429,88 @@ app.delete("/categorias/:id", async (req, res) => {
 });
 
 
+// VENTAS - LISTAR
+app.get("/ventas", async (req, res) => {
+    let conn;
+
+    try {
+        conn = await pool.getConnection();
+
+        const ventas = await conn.query(
+            `SELECT
+                v.id_venta,
+                v.fecha_hora,
+                v.total,
+                v.id_usuario,
+                u.nombre AS vendedor,
+                v.id_cliente,
+                v.nombre_cliente,
+                c.nombre AS cliente_nombre,
+                c.apellido AS cliente_apellido
+             FROM venta v
+             LEFT JOIN usuarios u ON v.id_usuario = u.id_usuario
+             LEFT JOIN cliente c ON v.id_cliente = c.id_cliente
+             ORDER BY v.fecha_hora DESC`
+        );
+
+        res.json(ventas);
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            error: "Error al obtener las ventas."
+        });
+
+    } finally {
+        if (conn) {
+            conn.release();
+        }
+    }
+});
+
+
+// DETALLE DE VENTA - LISTAR
+app.get("/detalle-ventas", async (req, res) => {
+    let conn;
+
+    try {
+        conn = await pool.getConnection();
+
+        const detalle = await conn.query(
+            `SELECT
+                dv.id_detalle_venta,
+                dv.id_venta,
+                dv.id_producto,
+                dv.cantidad,
+                dv.precio_unitario,
+                dv.subtotal,
+                p.nombre AS producto_nombre,
+                p.precio_compra,
+                p.id_categoria,
+                cat.nombre AS categoria
+             FROM detalle_venta dv
+             INNER JOIN producto p ON dv.id_producto = p.id_producto
+             LEFT JOIN categoria cat ON p.id_categoria = cat.id_categoria`
+        );
+
+        res.json(detalle);
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            error: "Error al obtener el detalle de las ventas."
+        });
+
+    } finally {
+        if (conn) {
+            conn.release();
+        }
+    }
+});
+
+
 // INICIAR SERVIDOR
 app.listen(PORT, () => {
     console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
