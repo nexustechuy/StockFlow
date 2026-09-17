@@ -70,8 +70,8 @@
       </div>
       <div>
         <div class="alerta-titulo">Atención requerida</div>
-        <div class="alerta-texto">
-          Tienes 17 productos con bajo stock y 4 sin stock
+        <div class="alerta-texto" id="alertaTexto">
+          Tienes 0 productos con bajo stock y 0 sin stock
         </div>
       </div>
     </div>
@@ -80,17 +80,17 @@
     <section class="tarjetas tarjetas-3">
 
       <div class="tarjeta">
-        <div class="valor alerta">4</div>
+        <div class="valor alerta" id="sinStockValor">0</div>
         <div class="etiqueta">Productos sin stock</div>
       </div>
 
       <div class="tarjeta">
-        <div class="valor atencion">17</div>
+        <div class="valor atencion" id="stockCriticoValor">0</div>
         <div class="etiqueta">Productos con stock crítico</div>
       </div>
 
       <div class="tarjeta">
-        <div class="valor">63</div>
+        <div class="valor" id="aReponerValor">0</div>
         <div class="etiqueta">Productos a reponer</div>
       </div>
 
@@ -108,37 +108,7 @@
             <th>Acción</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Mouse inalámbrico</td>
-            <td>Periféricos</td>
-            <td>10</td>
-            <td><button class="btn-accion btn-reponer">Reponer</button></td>
-          </tr>
-          <tr>
-            <td>Teclado USB</td>
-            <td>Periféricos</td>
-            <td>8</td>
-            <td><button class="btn-accion btn-reponer">Reponer</button></td>
-          </tr>
-          <tr>
-            <td>Monitor 24"</td>
-            <td>Pantallas</td>
-            <td>5</td>
-            <td><button class="btn-accion btn-reponer">Reponer</button></td>
-          </tr>
-          <tr>
-            <td>Cable HDMI</td>
-            <td>Accesorios</td>
-            <td>15</td>
-            <td><button class="btn-accion btn-reponer">Reponer</button></td>
-          </tr>
-          <tr>
-            <td>Auriculares Bluetooth</td>
-            <td>Audio</td>
-            <td>6</td>
-            <td><button class="btn-accion btn-reponer">Reponer</button></td>
-          </tr>
+        <tbody id="cuerpoTablaAlertas">
         </tbody>
       </table>
     </section>

@@ -1,15 +1,6 @@
-/**
- * Lógica de la pantalla Reposiciones (Repositor):
- *  - Buscador de productos con lista desplegable de sugerencias.
- *  - Validación de los campos obligatorios (Producto y Cantidad).
- *  - Al registrar, se agrega una fila nueva arriba del historial con la fecha actual
- *    y se limpia el formulario (no hay backend, es solo para la maqueta).
- */
-
 document.addEventListener('DOMContentLoaded', function () {
 
-  // Productos mock para el buscador (mismos que usa el resto del proyecto)
-  const productos = ['Mouse inalámbrico', 'Teclado USB', 'Monitor 24"', 'Auriculares Bluetooth', 'Cable HDMI'];
+  const ID_USUARIO_REPOSITOR = 2;
 
   const campoProducto = document.getElementById('campoProducto');
   const inputProducto = document.getElementById('inputProducto');
@@ -23,7 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const btnRegistrar = document.getElementById('btnRegistrarReposicion');
   const cuerpoHistorial = document.getElementById('cuerpoHistorial');
 
-  /* ===== Mostrar / limpiar errores de un campo ===== */
+  let productos = [];
+  let productoSeleccionado = null;
+
   function mostrarErrorCampo(campo, mensaje) {
     campo.classList.add('campo-invalido');
     campo.querySelector('.error-campo').textContent = mensaje;
@@ -34,9 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
     campo.querySelector('.error-campo').textContent = '';
   }
 
-  /* ===== Buscador de productos con lista desplegable ===== */
+  function seleccionarProducto(producto) {
+    productoSeleccionado = producto;
+    inputProducto.value = producto.nombre;
+    listaSugerencias.innerHTML = '';
+    listaSugerencias.style.display = 'none';
+  }
+
   inputProducto.addEventListener('input', function () {
     limpiarErrorCampo(campoProducto);
+    productoSeleccionado = null;
 
     const texto = inputProducto.value.trim().toLowerCase();
     listaSugerencias.innerHTML = '';
@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    const coincidencias = productos.filter(function (nombre) {
-      return nombre.toLowerCase().includes(texto);
+    const coincidencias = productos.filter(function (producto) {
+      return producto.nombre.toLowerCase().includes(texto);
     });
 
     if (coincidencias.length === 0) {
@@ -55,13 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    coincidencias.forEach(function (nombre) {
+    coincidencias.forEach(function (producto) {
       const item = document.createElement('li');
-      item.textContent = nombre;
+      item.textContent = producto.nombre;
       item.addEventListener('click', function () {
-        inputProducto.value = nombre;
-        listaSugerencias.innerHTML = '';
-        listaSugerencias.style.display = 'none';
+        seleccionarProducto(producto);
       });
       listaSugerencias.appendChild(item);
     });
@@ -69,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
     listaSugerencias.style.display = 'block';
   });
 
-  // Cierra la lista de sugerencias al hacer clic fuera del buscador
   document.addEventListener('click', function (evento) {
     if (!campoProducto.contains(evento.target)) {
       listaSugerencias.style.display = 'none';
@@ -80,24 +77,30 @@ document.addEventListener('DOMContentLoaded', function () {
     limpiarErrorCampo(campoCantidad);
   });
 
-  /* ===== Fecha actual con formato DD/MM/AAAA ===== */
-  function obtenerFechaActual() {
-    const hoy = new Date();
-    const dia = String(hoy.getDate()).padStart(2, '0');
-    const mes = String(hoy.getMonth() + 1).padStart(2, '0');
-    return dia + '/' + mes + '/' + hoy.getFullYear();
+  function formatearFecha(fechaHora) {
+    const fecha = new Date(fechaHora);
+    return fecha.toLocaleDateString('es-UY');
   }
 
-  /* ===== Registrar una reposición nueva ===== */
+  function renderizarFilaHistorial(reposicion) {
+    return `
+      <tr>
+        <td>${reposicion.producto_nombre}</td>
+        <td>${reposicion.cantidad}</td>
+        <td>${formatearFecha(reposicion.fecha_hora)}</td>
+        <td>${reposicion.comentario ?? '-'}</td>
+      </tr>
+    `;
+  }
+
   btnRegistrar.addEventListener('click', function () {
-    const producto = inputProducto.value.trim();
     const cantidad = inputCantidad.value.trim();
     const comentario = inputComentario.value.trim();
 
     let hayError = false;
 
-    if (producto === '') {
-      mostrarErrorCampo(campoProducto, 'Ingresá el producto a reponer.');
+    if (!productoSeleccionado) {
+      mostrarErrorCampo(campoProducto, 'Seleccioná un producto de la lista.');
       hayError = true;
     }
 
@@ -108,18 +111,76 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (hayError) return;
 
-    const fila = document.createElement('tr');
-    fila.innerHTML =
-      '<td>' + producto + '</td>' +
-      '<td>' + cantidad + '</td>' +
-      '<td>' + obtenerFechaActual() + '</td>' +
-      '<td>' + (comentario === '' ? '-' : comentario) + '</td>';
+    btnRegistrar.disabled = true;
 
-    cuerpoHistorial.insertBefore(fila, cuerpoHistorial.firstChild);
+    fetch('http://localhost:3000/reposiciones', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id_producto: productoSeleccionado.id_producto,
+        cantidad: Number(cantidad),
+        comentario: comentario === '' ? null : comentario,
+        id_usuario: ID_USUARIO_REPOSITOR
+      })
+    })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Error al registrar la reposición.');
+        return data;
+      })
+      .then(reposicionCreada => {
+        cuerpoHistorial.insertAdjacentHTML('afterbegin', renderizarFilaHistorial(reposicionCreada));
 
-    inputProducto.value = '';
-    inputCantidad.value = '';
-    inputComentario.value = '';
+        const producto = productos.find(p => Number(p.id_producto) === Number(productoSeleccionado.id_producto));
+        if (producto) {
+          producto.stock = Number(producto.stock) + Number(cantidad);
+        }
+
+        productoSeleccionado = null;
+        inputProducto.value = '';
+        inputCantidad.value = '';
+        inputComentario.value = '';
+      })
+      .catch(error => {
+        console.error('Error al registrar la reposición:', error);
+        alert(error.message);
+      })
+      .finally(() => {
+        btnRegistrar.disabled = false;
+      });
   });
+
+  function cargarProductos() {
+    return fetch('http://localhost:3000/productos')
+      .then(res => res.json())
+      .then(data => {
+        productos = data;
+
+        const parametros = new URLSearchParams(window.location.search);
+        const idProductoPrellenado = parametros.get('id_producto');
+
+        if (idProductoPrellenado) {
+          const producto = productos.find(p => String(p.id_producto) === String(idProductoPrellenado));
+          if (producto) seleccionarProducto(producto);
+        }
+      })
+      .catch(error => console.error('Error al cargar productos:', error));
+  }
+
+  function cargarHistorial() {
+    return fetch('http://localhost:3000/reposiciones')
+      .then(res => res.json())
+      .then(data => {
+        cuerpoHistorial.innerHTML = data.length
+          ? data.map(renderizarFilaHistorial).join('')
+          : `<tr><td colspan="4">Todavía no se registraron reposiciones.</td></tr>`;
+      })
+      .catch(error => {
+        console.error('Error al cargar el historial de reposiciones:', error);
+        cuerpoHistorial.innerHTML = `<tr><td colspan="4">Error al cargar el historial.</td></tr>`;
+      });
+  }
+
+  Promise.all([cargarProductos(), cargarHistorial()]);
 
 });

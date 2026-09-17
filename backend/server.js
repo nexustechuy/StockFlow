@@ -511,6 +511,119 @@ app.get("/detalle-ventas", async (req, res) => {
 });
 
 
+// REPOSICIONES - LISTAR
+app.get("/reposiciones", async (req, res) => {
+    let conn;
+
+    try {
+        conn = await pool.getConnection();
+
+        const reposiciones = await conn.query(
+            `SELECT
+                r.id_reposicion,
+                r.fecha_hora,
+                r.comentario,
+                r.cantidad,
+                r.id_producto,
+                p.nombre AS producto_nombre,
+                r.id_usuario,
+                u.nombre AS usuario_nombre
+             FROM reposicion r
+             LEFT JOIN producto p ON r.id_producto = p.id_producto
+             LEFT JOIN usuarios u ON r.id_usuario = u.id_usuario
+             ORDER BY r.fecha_hora DESC`
+        );
+
+        res.json(reposiciones);
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            error: "Error al obtener las reposiciones."
+        });
+
+    } finally {
+        if (conn) {
+            conn.release();
+        }
+    }
+});
+
+
+// REPOSICIONES - CREAR (también incrementa el stock del producto repuesto)
+app.post("/reposiciones", async (req, res) => {
+    let conn;
+
+    try {
+        const { id_producto, cantidad, comentario, id_usuario } = req.body;
+
+        if (!id_producto || !cantidad || Number(cantidad) < 1) {
+            return res.status(400).json({
+                error: "Faltan datos obligatorios para registrar la reposición."
+            });
+        }
+
+        conn = await pool.getConnection();
+        await conn.beginTransaction();
+
+        const resultado = await conn.query(
+            `INSERT INTO reposicion (fecha_hora, comentario, cantidad, id_producto, id_usuario)
+             VALUES (NOW(), ?, ?, ?, ?)`,
+            [comentario || null, cantidad, id_producto, id_usuario || null]
+        );
+
+        await conn.query(
+            `UPDATE producto SET stock = stock + ? WHERE id_producto = ?`,
+            [cantidad, id_producto]
+        );
+
+        await conn.commit();
+
+        const nuevoId = Number(resultado.insertId);
+
+        const reposicionCreada = await conn.query(
+            `SELECT
+                r.id_reposicion,
+                r.fecha_hora,
+                r.comentario,
+                r.cantidad,
+                r.id_producto,
+                p.nombre AS producto_nombre,
+                r.id_usuario,
+                u.nombre AS usuario_nombre
+             FROM reposicion r
+             LEFT JOIN producto p ON r.id_producto = p.id_producto
+             LEFT JOIN usuarios u ON r.id_usuario = u.id_usuario
+             WHERE r.id_reposicion = ?`,
+            [nuevoId]
+        );
+
+        res.status(201).json(reposicionCreada[0]);
+
+    } catch (error) {
+        console.error(error);
+
+        if (conn) {
+            try {
+                await conn.rollback();
+            } catch (rollbackError) {
+                console.error(rollbackError);
+            }
+        }
+
+        res.status(500).json({
+            error: "Error al registrar la reposición."
+        });
+
+    } finally {
+        if (conn) {
+            conn.release();
+        }
+    }
+});
+
+
 // INICIAR SERVIDOR
 app.listen(PORT, () => {
     console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
