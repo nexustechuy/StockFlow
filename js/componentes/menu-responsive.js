@@ -1,29 +1,9 @@
-/**
- * Componente reutilizable: menú móvil (navbar hamburguesa) para todos los dashboards.
- *
- * Cómo se usa desde cada página:
- *   1. Este archivo se incluye SIEMPRE (es genérico, no sabe nada de roles).
- *   2. Cada página define ANTES su propia configuración (ver js/js-paginas/nav*.js),
- *      llamando a inicializarMenuMovil(config) con sus links y su página por defecto.
- *
- * Esto reemplaza la lógica que antes estaba copiada y pegada en
- * navAdministrador.js, navRepositor.js y navVendedor.js.
- */
-
+/* Menú móvil (navbar hamburguesa) para todos los roles */
 function inicializarMenuMovil(config) {
-  // config = {
-  //   paginaDefault: 'dashboardAdministrador.html',
-  //   links: [
-  //     { texto: 'Dashboard', href: 'dashboardAdministrador.html' },
-  //     { texto: 'Usuarios',  href: '#' },
-  //     ...
-  //   ]
-  // }
 
   const paginaActual = window.location.pathname.split('/').pop() || config.paginaDefault;
 
   const linksHTML = config.links.map(link => {
-    // El link de "Cerrar sesión" se distingue por convención (lo marcamos en la config)
     const estiloExtra = link.cerrarSesion
       ? ' style="margin-top:auto; color:rgba(255,255,255,0.60);"'
       : '';
@@ -44,7 +24,6 @@ function inicializarMenuMovil(config) {
 
   document.body.insertAdjacentHTML('afterbegin', html);
 
-  // Marca como "activo" el link que coincide con la página actual
   document.querySelectorAll('.menu-movil a').forEach(link => {
     if (link.getAttribute('href') === paginaActual) {
       link.classList.add('activo');

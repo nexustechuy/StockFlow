@@ -2,7 +2,7 @@
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/* LAYOUT DE LA PAGINA */
+/* LAYOUT DE LA PÁGINA */
 @import url(../base/reset.css);
 @import url(../base/layout.css);
 
@@ -32,7 +32,7 @@
   table-layout: fixed;
 }
 
-/* Oculta filas cuando el JS filtra por texto o por estado */
+/* Oculta filas cuando el JS filtra */
 .tabla-productos tr.oculto {
   display: none;
 }
@@ -44,7 +44,7 @@
   font-size: 0.88rem;
 }
 
-/* Responsive: en pantallas chicas los filtros pasan a dos columnas */
+/* RESPONSIVE: En pantallas chicas pasan a dos columnas */
 @media (max-width: 480px) {
   .filtros-productos {
     flex-wrap: wrap;

@@ -2,7 +2,7 @@
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/* LAYOUT DE LA PAGINA */
+/* LAYOUT DE LA PÁGINA */
 @import url(../base/reset.css);
 @import url(../base/layout.css);
 
@@ -13,7 +13,7 @@
 @import url(../componentes/formularios.css);
 @import url(../componentes/tablas.css);
 
-/* Fila de "Nueva reposición": 3 campos en fila */
+/* NUEVA REPOSICIÓN: 3 campos en fila horizontal */
 .fila-reposicion {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;

@@ -1,8 +1,8 @@
-/*FONDOS Y TEXTO*/
+/* FONDOS Y TEXTO */
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/*LAYOUT*/
+/* LAYOUT */
 @import url(../base/reset.css);
 @import url(../base/layout.css);
 
@@ -11,8 +11,6 @@
 @import url(../componentes/tablas.css);
 
 /* Buscador de productos */
-
-
 .buscador-productos {
   margin-bottom: 16px;
 }
@@ -33,7 +31,7 @@
   border-color: var(--azul-link);
 }
 
-/* Filtros tipo pill */
+/* Filtros estilo pill */
 .filtros-productos {
   display: flex;
   gap: 10px;
@@ -59,8 +57,7 @@
   border-color: var(--azul-primario);
 }
 
-/* Ancho de columna fijo: evita que la tabla se reacomode "rara"
-   cuando el filtro oculta filas y quedan pocos productos visibles */
+/* Ancho de columna fijo */
 #tablaProductos {
   table-layout: fixed;
 }

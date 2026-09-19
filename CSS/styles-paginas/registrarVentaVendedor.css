@@ -11,10 +11,7 @@
 @import url(../componentes/sidebar.css);
 @import url(../componentes/tablas.css);
 
-/* La página ya incluye formularios.css directamente en el <head>,
-   por eso acá solo agregamos los ajustes propios de este layout */
-
-/* ===== CARD "DATOS DEL CLIENTE" (arriba de todo, ancho completo) ===== */
+/* CARD "DATOS DEL CLIENTE" (arriba del todo) */
 .panel-cliente {
   margin-bottom: 20px;
 }
@@ -48,7 +45,7 @@
   }
 }
 
-/* ===== GRID DE 3 COLUMNAS: Catálogo / Carrito / Resumen ===== */
+/* GRID DE 3 COLUMNAS: Catálogo/Carrito/Resumen */
 .venta-grid {
   display: grid;
   grid-template-columns: 1.2fr 1.3fr 0.9fr;
@@ -62,8 +59,7 @@
   }
 }
 
-/* El panel ya viene de tablas.css, acá solo le sacamos el margin-bottom
-   para que las 3 columnas queden a la misma altura */
+/* Le sacamos el margin-bottom para que las 3 columnas queden a la misma altura */
 .venta-grid .panel {
   margin-bottom: 0;
 }
@@ -74,7 +70,7 @@
   margin-bottom: 14px;
 }
 
-/* ===== LISTADO DE PRODUCTOS DEL CATÁLOGO (columna 1) ===== */
+/* LISTADO DE PRODUCTOS (primera columna) */
 .lista-productos-venta {
   display: flex;
   flex-direction: column;
@@ -156,7 +152,7 @@
   background-color: var(--azul-activo);
 }
 
-/* Producto sin stock: se deshabilita visualmente y no se puede agregar */
+/* PRODUCTO SIN STOCK: Se deshabilita visualmente y no se puede agregar */
 .producto-item.sin-stock {
   opacity: 0.55;
 }
@@ -166,7 +162,7 @@
   cursor: not-allowed;
 }
 
-/* ===== TABLA "PRODUCTOS EN VENTA" (columna 2) ===== */
+/* TABLA "PRODUCTOS EN VENTA" (segunda columna) */
 .tabla-venta input[type="number"] {
   width: 56px;
   padding: 4px 6px;
@@ -193,7 +189,6 @@
   padding: 30px 10px;
 }
 
-/* Se alternan según haya o no productos en el carrito (ver JS) */
 .tabla-venta-wrapper.con-productos .carrito-vacio {
   display: none;
 }
@@ -202,7 +197,7 @@
   display: none;
 }
 
-/* ===== PANEL "RESUMEN DE VENTA" (columna 3) ===== */
+/* PANEL "RESUMEN DE VENTA" (tercera columna) */
 .resumen-venta .fila {
   display: flex;
   justify-content: space-between;
@@ -234,7 +229,7 @@
   cursor: not-allowed;
 }
 
-/* ===== MENSAJE DE ÉXITO AL CONFIRMAR LA VENTA ===== */
+/* Mensaje de éxito cuando se registra una venta */
 .mensaje-exito {
   background-color: #e0f2e9;
   color: var(--verde-ingreso);

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ===== PESTAÑAS (Productos / Categorías / Alertas de stock) =====
+    // PESTAÑAS (Productos / Categorías / Alertas de stock)
     const botonesPestana = document.querySelectorAll(".pestana");
     const panelesPestana = document.querySelectorAll(".panel-pestana");
 
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ===== PRODUCTOS =====
+    // PRODUCTOS
     const tabla = document.getElementById("cuerpoTablaProductos");
     const inputBuscar = document.getElementById("buscarProducto");
     const chipsFiltro = document.querySelectorAll(".filtro-chip");
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let textoBusqueda = "";
     let textoBusquedaCategoria = "";
 
-    // Calcula el estado (activo / sin-stock / crítico) según stock y stock mínimo
+    // Estado según stock: activo/stock bajo/sin stock
     function calcularEstado(producto) {
         const stock = Number(producto.stock);
         const minimo = Number(producto.stock_minimo);
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
-    // Combina el filtro de chip activo con el texto de búsqueda y vuelve a pintar la tabla
+    // Filtros + búsqueda y vuelvo a pintar la tabla
     function aplicarFiltros() {
         let lista = productos;
 
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderizarAlertas();
     }
 
-    // ===== CATEGORÍAS (desde la base de datos) =====
+    // CATEGORÍAS
     function renderizarCategorias() {
         const contenedor = document.getElementById("listaCategorias");
         if (!contenedor) return;
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
             : `<p>No se encontraron categorías.</p>`;
     }
 
-    // ===== ALERTAS DE STOCK (desde la base de datos) =====
+    // ALERTAS DE STOCK
     function renderizarAlertas() {
         const cuerpo = document.getElementById("cuerpoTablaAlertas");
         if (!cuerpo) return;
@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error("Error al cargar variantes:", error));
     }
 
-    // Filtros: Todos / Activos / Sin stock / Stock crítico
+    // Filtros: todos/activos/sin stock/stock crítico
     chipsFiltro.forEach(chip => {
         chip.addEventListener("click", () => {
             chipsFiltro.forEach(c => c.classList.remove("activo"));
@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderizarCategorias();
     });
 
-    // Eliminar categoría (delegado, porque la lista se genera dinámicamente)
+    // Eliminar categoría
     const listaCategorias = document.getElementById("listaCategorias");
     listaCategorias?.addEventListener("click", (e) => {
         const boton = e.target.closest(".btn-confirmar-eliminar-categoria");
@@ -298,7 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 categoriasCargadas = categoriasCargadas.filter(c => String(c.id_categoria) !== String(id));
                 renderizarCategorias();
 
-                // También la sacamos del <select> del modal de nuevo producto
                 const opcion = selectCategoria.querySelector(`option[value="${id}"]`);
                 opcion?.remove();
             })
@@ -308,13 +307,13 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
-    // Ver en inventario (desde la pestaña de Alertas) -> lleva a la pestaña de Productos
+    // "Ver en inventario" (pestaña de Alertas) lleva a la pestaña de Productos
     document.getElementById("linkVerEnInventario")?.addEventListener("click", (e) => {
         e.preventDefault();
         document.querySelector('.pestana[data-pestana="productos"]')?.click();
     });
 
-    // ===== NUEVA CATEGORÍA =====
+    // NUEVA CATEGORÍA
     const btnNuevaCategoria = document.getElementById("btnNuevaCategoria");
     const panelNuevaCategoria = document.getElementById("panelNuevaCategoria");
     const layoutCategorias = document.getElementById("layoutCategorias");
@@ -347,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 categoriasCargadas.push(categoriaCreada);
                 renderizarCategorias();
 
-                // También la agregamos al <select> del modal de nuevo producto
+                // También la agregamos al select
                 const option = document.createElement("option");
                 option.value = categoriaCreada.id_categoria;
                 option.textContent = categoriaCreada.nombre;
@@ -363,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
-    // ===== VER DETALLE =====
+    // VER DETALLE
     modalDetalleProductoEl.addEventListener("show.bs.modal", (evento) => {
         const boton = evento.relatedTarget;
         const fila = boton ? boton.closest("tr") : null;
@@ -385,7 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("detalleProductoEstado").textContent = estado;
     });
 
-    // ===== ELIMINAR (confirmación de dos pasos dentro del menú) =====
+    // ELIMINAR PRODUCTO (con confirmación)
     tabla.addEventListener("click", (e) => {
 
         const pedirConfirmacion = e.target.closest(".btn-pedir-confirmacion");
@@ -420,7 +419,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Al cerrarse el menú desplegable, dejarlo listo para la próxima vez que se abra
+    // Resetea el menú al cerrarse
     tabla.addEventListener("hidden.bs.dropdown", (e) => {
         const menu = e.target.querySelector(".popup-menu");
         if (!menu) return;
@@ -428,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
         menu.querySelector(".vista-confirmacion")?.classList.add("oculto");
     });
 
-    // ===== NUEVO PRODUCTO (guarda también la variante, si se completó) =====
+    // NUEVO PRODUCTO
     function mostrarErrorCampo(campo, mensaje) {
         campo.classList.add("campo-invalido");
         campo.querySelector(".error-campo").textContent = mensaje;
@@ -492,8 +491,6 @@ document.addEventListener("DOMContentLoaded", () => {
             id_categoria: Number(document.getElementById("categoriaProducto").value)
         };
 
-        // Nota: "codigoBarras" no se envía porque la tabla producto no tiene esa columna.
-
         fetch("http://localhost:3000/productos", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -506,7 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(productoGuardado => {
 
-                // Si se completó tipo y valor de variante, la guardamos vinculada al producto nuevo
+                // Si se puso variante, queda vinculada al producto
                 if (tipoVariante && valorVariante) {
                     return fetch("http://localhost:3000/variantes", {
                         method: "POST",

@@ -14,9 +14,7 @@
   background-color: var(--azul-activo);
 }
 
-/* Botón primario grande: para acciones principales de una pantalla
-   (ej. "+ Nuevo usuario", "Guardar usuario"). Mismo color que
-   .btn-accion pero con más padding y tamaño de fuente mayor. */
+/* Botón primario grande, como "Nuevo usuario" o "Nuevo producto" */
 .btn-primario {
   background-color: var(--azul-primario);
   color: var(--blanco);

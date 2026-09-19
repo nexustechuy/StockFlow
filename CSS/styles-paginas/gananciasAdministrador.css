@@ -1,8 +1,8 @@
-/*FONDOS Y TEXTO*/
+/* FONDOS Y TEXTO */
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/*LAYOUT*/
+/* LAYOUT */
 @import url(../base/reset.css);
 @import url(../base/layout.css);
 
@@ -16,7 +16,7 @@
 @import url(../componentes/iconos.css);
 @import url(../componentes/modales.css);
 
-/* ENCABEZADO DE LA PAGINA */
+/* ENCABEZADO DE LA PÁGINA */
 .encabezado h2 {
   font-family: 'Poppins', Arial, sans-serif;
   font-weight: 700;
@@ -31,7 +31,7 @@
   margin-bottom: 24px;
 }
 
-/* FILTRO DE PERIODO */
+/* FILTRO DE PERÍODO */
 .filtros {
   display: flex;
   gap: 8px;
@@ -39,7 +39,7 @@
   margin-bottom: 20px;
 }
 
-/* GRAFICO DE GANANCIA POR CATEGORIA */
+/* GRÁFICO DE GANANCIA POR CATEGORÍA */
 .grafico-categorias {
   display: flex;
   flex-direction: column;

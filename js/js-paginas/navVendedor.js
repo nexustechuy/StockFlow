@@ -1,7 +1,4 @@
-/**
- * Configuración del menú móvil para el rol Vendedor.
- * La lógica genérica vive en js/componentes/menu-responsive.js.
- */
+/* Configuración del menú móvil para el rol Vendedor */
 document.addEventListener('DOMContentLoaded', function () {
   inicializarMenuMovil({
     paginaDefault: 'dashboardVendedor.html',

@@ -1,12 +1,12 @@
-/*FONDOS Y TEXTO*/
+/* FONDOS Y TEXTO */
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/*LAYOUT*/
+/* LAYOUT */
 @import url(../base/reset.css);
 @import url(../base/layout.css);
 
-/*ELEMENTOS*/
+/* ELEMENTOS */
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
 @import url(../componentes/botones.css);
@@ -15,7 +15,6 @@
 @import url(../componentes/tablas.css);
 @import url(../componentes/modales.css);
 
-/* 3 tarjetas en vez de las 4 por defecto de .tarjetas */
 .tarjetas {
   grid-template-columns: repeat(3, 1fr);
 }
@@ -32,7 +31,7 @@
   }
 }
 
-/* BARRA DE BUSQUEDA Y FILTROS */
+/* BARRA DE BÚSQUEDA Y FILTROS */
 .barra-historial {
   display: flex;
   align-items: center;
@@ -66,8 +65,6 @@
 }
 
 /* MODAL DETALLE DE VENTA */
-/* Sin footer (la X del header ya cierra el modal): le devolvemos
-   el padding inferior que antes aportaba el modal-footer. */
 #modalDetalleVenta .modal-body {
   padding-bottom: 28px;
 }
@@ -118,11 +115,7 @@
   font-weight: 700;
 }
 
-/* El estado del detalle de venta usa las mismas clases .ingreso/.atencion
-   que el resto del proyecto (ver ventasAdministrador), definidas en
-   componentes/cards.css (ya importado más arriba). */
-
-/* TABLA: números a la derecha */
+/* TABLA PRODUCTOS: Números a la derecha */
 #modalDetalleVenta .tabla-productos th:nth-child(3),
 #modalDetalleVenta .tabla-productos td:nth-child(3),
 #modalDetalleVenta .tabla-productos th:nth-child(4),

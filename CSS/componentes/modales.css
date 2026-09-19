@@ -1,7 +1,5 @@
-/* ===== MODAL GENERICO DE STOCKFLOW ===== */
-/* Se reestiliza por completo el modal de Bootstrap para que no se vea
-   genérico: tipografía, radios y colores propios del proyecto.
-   Usado por el modal de "Nuevo usuario" y el de "Detalle de venta". */
+/* MODAL GENERICO DE STOCKFLOW */
+/* Reestilizamos el modal de Bootstrap: tipografía y colores propios del proyecto, estaba todo genérico */
 .modal-stockflow .modal-content {
   border: none;
   border-radius: 16px;

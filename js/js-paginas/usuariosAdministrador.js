@@ -1,16 +1,12 @@
-/**
- * Lógica específica de la pantalla Usuarios (Administrador):
- *  - Resaltar visualmente el rol seleccionado en el checklist del modal.
- *  - Toggle de "Estado inicial" (Activo / Inactivo) en el modal.
- *  - Filtro por rol (Todos / Vendedores / Repositores) sobre la tabla.
- *  - Búsqueda en vivo por nombre o email.
- *  - Alta de un usuario de prueba en la tabla al enviar el formulario
- *    (no persiste en ningún backend; es solo para la maqueta).
- */
+// Lógica de la pantalla Usuarios (Administrador)
+// - Resalta el rol elegido en el modal
+// - Toggle de estado inicial (activo/inactivo)
+// - Filtro por rol y búsqueda por nombre o email
+// - Alta de usuarios de prueba en la tabla (aún no se guarda en la base)
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ===== Truncar textos largos (ej. emails) a 4 caracteres + "..." ===== */
+  /* Truncar textos largos (ej. emails) a 4 caracteres + "..." */
   function truncarTexto(texto, cantidad) {
     if (texto.length <= cantidad) return texto;
     return texto.slice(0, cantidad) + '...';
@@ -22,20 +18,20 @@ document.addEventListener('DOMContentLoaded', function () {
     celda.title = completo; // el email completo queda como tooltip al pasar el mouse
   }
 
-  // Emails ya presentes en la tabla al cargar la página
+  // Emails que ya están en la tabla
   document.querySelectorAll('#cuerpoTablaUsuarios tr').forEach(function (fila) {
     const celdaEmail = fila.children[1]; // 2da columna: Email
     if (celdaEmail) truncarCeldaEmail(celdaEmail);
   });
 
-  /* ===== Checklist de roles: resaltar la opción marcada ===== */
+  /* Roles: resaltar el marcado */
   document.querySelectorAll('#listaRoles .rol-item input[type="checkbox"]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
       checkbox.closest('.rol-item').classList.toggle('seleccionado', checkbox.checked);
     });
   });
 
-  /* ===== Toggle de estado inicial (Activo / Inactivo) ===== */
+  /* Toggle de estado inicial (activo/inactivo) */
   const estadoToggle = document.getElementById('estadoToggle');
   const estadoInicialInput = document.getElementById('estadoInicial');
 
@@ -51,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ===== Filtro por rol + búsqueda por texto ===== */
+  /* Filtro por rol + búsqueda por texto */
   const chips = document.querySelectorAll('.filtro-chip');
   const inputBusqueda = document.getElementById('buscarUsuario');
   let filtroActual = 'todos';
@@ -63,9 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
     filas.forEach(function (fila) {
       const coincideRol = filtroActual === 'todos' ||
         fila.dataset.rol.split(' ').includes(filtroActual);
-
-      // Se busca tanto en el texto visible como en los "title" (ej. el
-      // email completo, que en la celda se muestra truncado).
       const titulosCeldas = Array.from(fila.querySelectorAll('[title]'))
         .map(function (el) { return el.title; })
         .join(' ');
@@ -89,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
     inputBusqueda.addEventListener('input', aplicarFiltros);
   }
 
-  /* ===== Alta de usuario (maqueta, sin backend) ===== */
+  /* Alta de usuario (sin backend) */
   const formNuevoUsuario = document.getElementById('formNuevoUsuario');
   const errorDiv = document.getElementById('errorNuevoUsuario');
   const cuerpoTabla = document.getElementById('cuerpoTablaUsuarios');
@@ -148,15 +141,13 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      const estado = estadoInicialInput.value; // 'activo' | 'inactivo'
+      const estado = estadoInicialInput.value;
       const textoRoles = rolesSeleccionados
         .map(function (r) { return r.charAt(0).toUpperCase() + r.slice(1); })
         .join(' / ');
 
       const nuevaFila = document.createElement('tr');
-      // Se guardan TODOS los roles (separados por espacio) para que el
-      // filtro por rol encuentre al usuario sin importar cuál sea el
-      // primero que se le asignó. Ej: "administrador vendedor".
+      // Guardo todos los roles para que el filtro lo encuentre
       nuevaFila.dataset.rol = rolesSeleccionados.join(' ');
       nuevaFila.innerHTML =
         '<td><div class="celda-usuario"><span class="avatar-usuario">' + iniciales(nombre) + '</span>' + nombre + '</div></td>' +
@@ -191,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
       modal.hide();
     });
 
-    // Limpiar el mensaje de error cada vez que se abre el modal
+    // Limpia el error al abrir el modal
     modalNuevoUsuarioEl.addEventListener('show.bs.modal', ocultarError);
   }
 

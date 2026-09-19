@@ -1,13 +1,12 @@
-/*FONDOS Y TEXTO*/
+/* FONDOS Y TEXTO */
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/*LAYOUT*/
+/* LAYOUT */
 @import url(../base/reset.css);
 @import url(../base/layout.css);
 
-/*ELEMENTOS*/
-/* navbar.css antes que sidebar.css: ver nota en dashboardVendedor.css */
+/* ELEMENTOS */
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
 @import url(../componentes/botones.css);
@@ -17,7 +16,7 @@
 @import url(../componentes/iconos.css);
 @import url(../componentes/modales.css);
 
-/* ===== ENCABEZADO DE LA PAGINA ===== */
+/* ENCABEZADO DE LA PÁGINA */
 .encabezado h2 {
   font-family: 'Poppins', Arial, sans-serif;
   font-weight: 700;
@@ -32,10 +31,7 @@
   margin-bottom: 24px;
 }
 
-/* Esta página usa 4 tarjetas, que ya es la cantidad por defecto de
-   .tarjetas (ver cards.css) — no hace falta ningún override acá. */
-
-/* ===== BARRA DE BUSQUEDA Y FILTROS (mismo patrón que Usuarios) ===== */
+/* BARRA DE BÚSQUEDA Y FILTROS */
 .barra-usuarios {
   display: flex;
   align-items: center;
@@ -54,10 +50,7 @@
   gap: 8px;
 }
 
-/* ===== TABLA DE VENTAS ===== */
-/* La columna de "Acciones" (Ver detalle) va PRIMERO en vez de al final,
-   a pedido: queda más a mano para abrir el detalle sin tener que
-   scrollear toda la fila. */
+/* TABLA DE VENTAS con la columna Acciones al principio en vez de al final*/
 .tabla-ventas .ver-detalle-venta {
   color: var(--azul-link);
   font-size: 0.88rem;
@@ -70,9 +63,7 @@
   text-decoration: underline;
 }
 
-/* ===== MODAL: DETALLE DE VENTA ===== */
-/* Sin footer (la X del header ya cierra el modal): le devolvemos
-   el padding inferior que antes aportaba el modal-footer. */
+/* MODAL: DETALLE DE VENTA */
 #modalDetalleVenta .modal-body {
   padding-bottom: 28px;
 }

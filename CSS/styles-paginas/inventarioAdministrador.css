@@ -1,13 +1,12 @@
-/*FONDOS Y TEXTO*/
+/* FONDOS Y TEXTO */
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/*LAYOUT*/
+/* LAYOUT */
 @import url(../base/reset.css);
 @import url(../base/layout.css);
 
-/*ELEMENTOS*/
-/* navbar.css antes que sidebar.css: ver nota en dashboardVendedor.css */
+/* ELEMENTOS */
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
 @import url(../componentes/botones.css);
@@ -17,7 +16,7 @@
 @import url(../componentes/iconos.css);
 @import url(../componentes/modales.css);
 
-/* ===== ENCABEZADO DE LA PAGINA ===== */
+/* ENCABEZADO DE LA PÁGINA */
 .encabezado h2 {
   font-family: 'Poppins', Arial, sans-serif;
   font-weight: 700;
@@ -32,7 +31,7 @@
   margin-bottom: 24px;
 }
 
-/* ===== PESTAÑAS ===== */
+/* PESTAÑAS */
 .pestanas {
   display: flex;
   gap: 28px;
@@ -66,7 +65,7 @@
   display: none;
 }
 
-/* ===== BARRA DE BUSQUEDA Y FILTROS (mismo patrón que Usuarios/Ventas) ===== */
+/* BARRA DE BÚSQUEDA Y FILTROS */
 .barra-usuarios {
   display: flex;
   align-items: center;
@@ -90,10 +89,7 @@
   white-space: nowrap;
 }
 
-/* ===== TABLA DE PRODUCTOS: filas con más espacio y columna de acciones centrada ===== */
-/* Un poco más de padding vertical que el resto de las tablas del sistema:
-   con pocas filas mock (5-6) queda mucho más limpia y menos amontonada,
-   sobre todo en la columna de Acciones donde hay un botón por fila. */
+/* TABLA PRODUCTOS */
 .tabla-inventario td {
   padding-top: 16px;
   padding-bottom: 16px;
@@ -104,10 +100,7 @@
   text-align: center;
 }
 
-/* ===== POPUP DE ACCIONES (···) ===== */
-/* Reestiliza el dropdown de Bootstrap para que se vea como el popup
-   contextual descripto en CLAUDE.md: header con el nombre del ítem,
-   luego las acciones, con la destructiva en rojo. */
+/* POPUP DE ACCIONES (···) */
 .popup-menu {
   font-family: 'Inter', Arial, sans-serif;
   font-size: 0.85rem;
@@ -144,20 +137,15 @@
   background-color: var(--fondo-alerta);
 }
 
-/* El popup de un producto tiene dos vistas (acciones / confirmar borrado)
-   dentro del mismo dropdown; se muestra una por vez con esta clase. */
 .popup-menu .oculto {
   display: none;
 }
 
-/* Fila resaltada mientras su popup de acciones está abierto */
 .tabla-inventario tr.fila-activa {
   background-color: #f0f4ff;
 }
 
-/* ===== MODAL: DETALLE DE PRODUCTO ===== */
-/* Sin footer (la X del header ya cierra el modal): le devolvemos
-   el padding inferior que antes aportaba el modal-footer. */
+/* MODAL: DETALLE DE PRODUCTO */
 #modalDetalleProducto .modal-body {
   padding-bottom: 28px;
 }
@@ -294,7 +282,7 @@
   }
 }
 
-/* ===== PESTAÑA CATEGORIAS ===== */
+/* PESTAÑA CATEGORÍAS */
 .layout-categorias {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -390,8 +378,7 @@
   color: var(--blanco);
 }
 
-/* Panel lateral: nueva categoría */
-/* Con el mismo borde que .categoria-item para que no quede "flotando" */
+/* Panel lateral: NUEVA CATEGORÍA */
 .panel-nueva-categoria {
   background-color: var(--gris-fondo);
   border: 1px solid var(--gris-borde);

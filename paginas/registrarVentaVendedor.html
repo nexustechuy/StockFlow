@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StockFlow - Registrar venta</title>
 
-  <!-- Estilos Bootstrap-->
+  <!-- Estilos Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-  <!-- Iconos de Bootsrap-->
+  <!-- Íconos Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-  <!-- Estilos Propios-->
+  <!-- Estilos Propios -->
   <link rel="stylesheet" href="../CSS/componentes/botones.css">
   <link rel="stylesheet" href="../CSS/componentes/formularios.css">
   <link rel="stylesheet" href="../CSS/styles-paginas/registrarVentaVendedor.css">
@@ -19,7 +20,7 @@
 
 <body>
 
-  <!--SIDEBAR-->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-brand">StockFlow</div>
     <div class="sidebar-usuario">
@@ -48,22 +49,22 @@
     </div>
   </aside>
 
-  <!--CONTENIDO DE LA DERECHA-->
+  <!-- CONTENIDO DE LA DERECHA -->
   <main class="contenido">
 
-    <!--Encabezado-->
+    <!-- Encabezado -->
     <div class="encabezado">
       <h2>Registrar venta</h2>
       <p>Registrá ventas de forma sencilla</p>
     </div>
 
-    <!-- Mensaje de éxito al confirmar (oculto por defecto) -->
+    <!-- Mensaje de éxito al confirmar una venta -->
     <div class="mensaje-exito" id="mensajeExito" style="display:none;">
       <i class="bi bi-check-circle-fill me-2"></i>
       <span id="textoMensajeExito">¡Venta registrada con éxito!</span>
     </div>
 
-    <!-- Datos del cliente: va arriba de todo, ancho completo -->
+    <!-- DATOS DEL CLIENTE arriba de todo -->
     <div class="panel panel-cliente">
       <h5>Datos del cliente</h5>
       <div class="campo-formulario" id="campoNombreCliente">
@@ -77,7 +78,7 @@
 
     <div class="venta-grid">
 
-      <!-- Columna 1: Catálogo de productos -->
+      <!-- Primera columna: Catálogo -->
       <div class="panel">
         <h5>Productos</h5>
         <input type="text" class="input-busqueda" id="buscadorCatalogo" placeholder="Buscar productos...">
@@ -89,7 +90,7 @@
         </div>
       </div>
 
-      <!-- Columna 2: Productos agregados a la venta -->
+      <!-- Segunda columna: Carrito -->
       <div class="panel">
         <h5>Productos en Venta</h5>
         <div class="tabla-venta-wrapper">
@@ -104,7 +105,6 @@
               </tr>
             </thead>
             <tbody id="cuerpoCarrito">
-              <!-- Las filas se generan dinámicamente desde registrarVentaVendedor.js -->
             </tbody>
           </table>
           <p class="carrito-vacio" id="carritoVacio">
@@ -113,7 +113,7 @@
         </div>
       </div>
 
-      <!-- Columna 3: Resumen y confirmación -->
+      <!-- Tercera columna: Resumen -->
       <div class="panel resumen-venta">
         <h5>Resumen de venta</h5>
         <div class="fila">
@@ -133,12 +133,13 @@
 
   </main>
 
-  <!--JS Bootstrap-->
+  <!-- JS BOOTSTRAP -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!--JS Propio-->
+  <!-- JS PROPIO -->
   <script src="../js/componentes/menu-responsive.js"></script>
   <script src="../js/js-paginas/navVendedor.js"></script>
   <script src="../js/js-paginas/registrarVentaVendedor.js"></script>
 </body>
+
 </html>

@@ -1,7 +1,4 @@
-/**
- * Configuración del menú móvil para el rol Repositor.
- * La lógica genérica vive en js/componentes/menu-responsive.js.
- */
+/* Configuración del menú móvil para el rol Repositor */
 document.addEventListener('DOMContentLoaded', function () {
   inicializarMenuMovil({
     paginaDefault: 'dashboardRepositor.html',

@@ -519,7 +519,7 @@ app.get("/detalle-ventas", async (req, res) => {
 });
 
 
-// VENTAS - CREAR (valida stock, descuenta stock y calcula el total con los precios reales)
+// VENTAS - CREAR
 app.post("/ventas", async (req, res) => {
     let conn;
 
@@ -673,7 +673,7 @@ app.get("/reposiciones", async (req, res) => {
 });
 
 
-// REPOSICIONES - CREAR (también incrementa el stock del producto repuesto)
+// REPOSICIONES - CREAR
 app.post("/reposiciones", async (req, res) => {
     let conn;
 

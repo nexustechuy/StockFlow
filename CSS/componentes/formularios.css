@@ -1,7 +1,4 @@
-/* ===== CAMPOS DE FORMULARIO (fuera del login) ===== */
-/* A diferencia de .card-login input (fondo gris solido), estos campos
-   usan fondo blanco con borde, pensados para formularios dentro de
-   paneles/modales sobre fondo gris claro. */
+/* CAMPOS DE FORMULARIO */
 .campo-formulario {
   margin-bottom: 16px;
 }
@@ -18,8 +15,7 @@
   color: var(--rojo-alerta);
 }
 
-/* input, select y textarea comparten exactamente el mismo look —
-   un solo bloque en vez de repetirlo tres veces. */
+/* input, select y textarea */
 .campo-formulario input,
 .campo-formulario select,
 .campo-formulario textarea {
@@ -50,7 +46,7 @@
   box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.15);
 }
 
-/* ===== VALIDACION DE CAMPOS ===== */
+/* VALIDACION DE CAMPOS */
 .error-campo {
   display: block;
   color: var(--rojo-alerta);
@@ -68,9 +64,7 @@
   border-color: var(--rojo-alerta);
 }
 
-/* ===== MENSAJE DE ERROR DE FORMULARIO ===== */
-/* Misma idea que .mensaje-error en login.css, centralizada acá para
-   que cualquier formulario fuera del login pueda reutilizarla. */
+/* MENSAJE DE ERROR DE FORMULARIO */
 .mensaje-error {
   color: var(--rojo-alerta);
   background-color: var(--fondo-alerta);
@@ -80,7 +74,7 @@
   margin-bottom: 16px;
 }
 
-/* ===== BUSQUEDA (listados con filtro) ===== */
+/* BÚSQUEDA (listados con filtro) */
 .input-busqueda {
   background-color: var(--blanco);
   border: 1px solid var(--gris-borde);
@@ -97,7 +91,7 @@
   box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.15);
 }
 
-/* ===== CHIPS DE FILTRO (ej: Todos / Vendedores / Repositores) ===== */
+/* FILTROS ej: "Todos / Vendedores / Repositores" */
 .filtro-chip {
   background-color: var(--blanco);
   border: 1px solid var(--gris-borde);
@@ -120,7 +114,7 @@
   color: var(--blanco);
 }
 
-/* ===== SECCION DE FORMULARIO (caja gris agrupadora, ej. dentro de modales) ===== */
+/* SECCIÓN DE FORMULARIO */
 .seccion-formulario {
   background-color: var(--gris-fondo);
   border-radius: 12px;
@@ -154,9 +148,7 @@
   white-space: nowrap;
 }
 
-/* ===== CHECKLIST DE ROLES ===== */
-/* Un usuario puede tener varios roles a la vez (USUARIO_ROL es N:M),
-   por eso son checkboxes y no radio buttons. */
+/* CHECKLIST DE ROLES */
 .lista-roles {
   display: flex;
   flex-direction: column;
@@ -195,7 +187,7 @@
   background-color: rgba(6, 11, 68, 0.06);
 }
 
-/* ===== TOGGLE DE ESTADO (Activo / Inactivo) ===== */
+/* TOGGLE DE ESTADO "Activo / Inactivo" */
 .estado-toggle {
   display: flex;
   border: 1px solid var(--gris-borde);
@@ -215,7 +207,7 @@
   transition: background-color 0.2s, color 0.2s;
 }
 
-.estado-toggle button + button {
+.estado-toggle button+button {
   border-left: 1px solid var(--gris-borde);
 }
 

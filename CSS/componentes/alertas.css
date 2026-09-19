@@ -1,7 +1,4 @@
-/* ===== CARTEL DE ALERTA DE STOCK ===== */
-/* Usado en el dashboard de Repositor y en la pestaña "Alertas de stock"
-   de Inventario (Administrador). El ícono (.alerta-icono) se encuentra en
-   iconos.css. */
+/* CARTEL DE ALERTA DE STOCK */
 .alerta-stock {
   background-color: var(--fondo-alerta);
   border: 1px solid var(--borde-alerta);

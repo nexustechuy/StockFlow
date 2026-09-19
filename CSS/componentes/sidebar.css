@@ -89,8 +89,8 @@
   color: var(--blanco);
 }
 
-/* ===== RESPONSIVE ===== */
-/* En mobile se oculta el sidebar y aparece la navbar-móvil*/
+/* RESPONSIVE */
+/* En mobile desaparece la sidebar y aparece la navbar */
 @media (max-width: 768px) {
   body {
     flex-direction: column;

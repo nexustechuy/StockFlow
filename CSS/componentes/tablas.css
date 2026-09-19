@@ -1,4 +1,4 @@
-/* ===== PANEL CONTENEDOR (envuelve tablas en los 3 dashboards) ===== */
+/* PANEL CONTENEDOR (tablas de los 3 dashboards) */
 .panel {
   background-color: var(--gris-tarjeta);
   border-radius: 12px;
@@ -16,11 +16,8 @@
   color: var(--texto-oscuro);
 }
 
-/* ===== TABLAS ===== */
-/* Estilo común para las 3 tablas del sistema: historial de ventas,
-   productos más vendidos y productos con bajo stock. Si una tabla
-   necesita algo distinto (ej. alinear la última columna a la derecha),
-   se agrega esa regla puntual en el CSS de la página correspondiente. */
+/* TABLAS */
+/* El mismo estilo para todas las tablas */
 .tabla-historial,
 .tabla-productos,
 .tabla-stock,
@@ -66,12 +63,7 @@
   border-bottom: none;
 }
 
-/* ===== TABLAS QUE NO SE COMPRIMEN (scroll horizontal en vez de achicarse) ===== */
-/* Por defecto una tabla con width:100% va comprimiendo sus columnas al
-   angostarse la pantalla, hasta que el texto se superpone o se hace
-   ilegible. Con .tabla-fija se le pone un ancho mínimo: si no entra,
-   el .panel que la contiene (que ya tiene overflow-x:auto) muestra una
-   scrollbar horizontal en vez de aplastar las columnas. */
+/* Tablas con scroll horizontal en vez de achicarse, con un ancho mínimo para que no se compriman en formatos más chicos */
 .tabla-fija {
   min-width: 760px;
 }
@@ -81,7 +73,7 @@
   white-space: nowrap;
 }
 
-/* ===== LINK "VER TODO" AL PIE DE UN PANEL ===== */
+/* LINK "Ver todo" EN EL FOOTER DE UN PANEL */
 .ver-todo {
   display: block;
   text-align: center;
