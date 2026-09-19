@@ -21,7 +21,7 @@ Repositor: Se creó la pantalla independiente de Reposiciones con un formulario 
 
 La pantalla de Ajustes queda para la última entrega, junto con otros detalles.
 
-# v0.1.2 [Es]
+# v0.2.0 [Es]
 Se conectó el sistema con la base de datos, excepto las métricas de los 3 dashboards y los dashboards de Vendedor y Repositor por completo, ya que iban a quedar muy vacíos para el video de demostración para el cliente (la tabla de ventas del dashboard de Administrador sí se conectó para el video). Ahora la información ya no esta hardcodeada ni usa datos simulados mock, sino que se guarda desde la BD. Al registrar una reposición o una venta, se guarda y el stock se actualiza automáticamente.
 
 El login valida el correo y la contraseña con los usuarios ingresados en la base de datos y redirige a la pantalla que le corresponde a cada rol. También se corrigieron errores menores y detalles visuales que aparecieron al conectar todo con la BD.
