@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     btnConfirmarVenta.disabled = true;
 
-    fetch('http://localhost:3000/ventas', {
+    fetch('/ventas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function cargarProductos() {
-    fetch('http://localhost:3000/productos')
+    fetch('/productos')
       .then(res => res.json())
       .then(data => {
         productos = data;

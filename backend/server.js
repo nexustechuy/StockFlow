@@ -1,6 +1,10 @@
+// DEPENDENCIAS
+require("dotenv").config();
+
 const express = require("express");
 const mariadb = require("mariadb");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 const PORT = 3000;
@@ -8,20 +12,25 @@ const PORT = 3000;
 app.use(express.json());
 app.use(cors());
 
+// ACCESO A LAS CARPETAS
+app.use(express.static(path.join(__dirname, "../paginas")));
+app.use("/CSS", express.static(path.join(__dirname, "../CSS")));
+app.use("/js", express.static(path.join(__dirname, "../js")));
 
 // CONEXIÓN CON MARIADB
 const pool = mariadb.createPool({
-    host: "127.0.0.1",
-    user: "root",
-    password: "",
-    database: "stockflow",
-    connectionLimit: 5
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	database: process.env.DB_NAME,
+	port: Number(process.env.DB_PORT),
+	conectionLimit: 5
 });
 
 
 // RUTA DE PRUEBA PRINCIPAL
 app.get("/", (req, res) => {
-    res.send("StockFlow conectado correctamente a MariaDB");
+    res.sendFile(path.join(__dirname, "../paginas/login.html"));
 });
 
 
@@ -32,12 +41,12 @@ app.post("/login", async (req, res) => {
     try {
         const { mail, password } = req.body;
 
-        console.log("LOGIN RECIBIDO:", mail, password);
+        console.log("LOGIN RECIBIDO:", mail);
 
         conn = await pool.getConnection();
 
         const usuarios = await conn.query(
-            `SELECT 
+            `SELECT
                 u.id_usuario,
                 u.mail,
                 u.password,
@@ -748,5 +757,5 @@ app.post("/reposiciones", async (req, res) => {
 
 // INICIAR SERVIDOR
 app.listen(PORT, () => {
-    console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+    console.log(`Servidor ejecutándose en El servidor puerto:${PORT}`);
 });

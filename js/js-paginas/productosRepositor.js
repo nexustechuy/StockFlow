@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function cargarProductos() {
-    fetch('http://localhost:3000/productos')
+    fetch('/productos')
       .then(res => res.json())
       .then(data => {
         productos = data;

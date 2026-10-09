@@ -25,7 +25,7 @@ async function iniciarSesion(event) {
             throw new Error("La contraseña contiene caracteres no permitidos.");
         }
 
-        const respuesta = await fetch("http://localhost:3000/login", {
+        const respuesta = await fetch('/login', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -43,13 +43,13 @@ async function iniciarSesion(event) {
         }
 
         if (datos.rol === "vendedor") {
-            window.location.href = "../paginas/dashboardVendedor.html";
+            window.location.href = "/dashboardVendedor.html";
 
         } else if (datos.rol === "repositor") {
-            window.location.href = "../paginas/dashboardRepositor.html";
+            window.location.href = "/dashboardRepositor.html";
 
         } else if (datos.rol === "administrador") {
-            window.location.href = "../paginas/dashboardAdministrador.html";
+            window.location.href = "/dashboardAdministrador.html";
 
         } else {
             throw new Error("El usuario no tiene un rol válido.");

@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function cargarHistorialVentas() {
     Promise.all([
-      fetch('http://localhost:3000/ventas').then(res => res.json()),
-      fetch('http://localhost:3000/detalle-ventas').then(res => res.json())
+      fetch('/ventas').then(res => res.json()),
+      fetch('/detalle-ventas').then(res => res.json())
     ])
       .then(([ventas, detalleVentas]) => {
         const ultimasVentas = ventas.slice(0, 4);

@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     btnRegistrar.disabled = true;
 
-    fetch('http://localhost:3000/reposiciones', {
+    fetch('/reposiciones', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function cargarProductos() {
-    return fetch('http://localhost:3000/productos')
+    return fetch('/productos')
       .then(res => res.json())
       .then(data => {
         productos = data;
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function cargarHistorial() {
-    return fetch('http://localhost:3000/reposiciones')
+    return fetch('/reposiciones')
       .then(res => res.json())
       .then(data => {
         cuerpoHistorial.innerHTML = data.length

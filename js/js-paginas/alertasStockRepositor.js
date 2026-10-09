@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = 'reposicionesRepositor.html?' + parametros.toString();
   });
 
-  fetch('http://localhost:3000/productos')
+  fetch('/productos')
     .then(res => res.json())
     .then(renderizar)
     .catch(error => {

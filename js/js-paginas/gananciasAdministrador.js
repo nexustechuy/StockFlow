@@ -130,14 +130,14 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function cargarVentas() {
-    return fetch('http://localhost:3000/ventas')
+    return fetch('/ventas')
       .then(res => res.json())
       .then(data => { ventas = data; })
       .catch(error => console.error('Error al cargar ventas:', error));
   }
 
   function cargarDetalleVentas() {
-    return fetch('http://localhost:3000/detalle-ventas')
+    return fetch('/detalle-ventas')
       .then(res => res.json())
       .then(data => { detalleVentas = data; })
       .catch(error => console.error('Error al cargar el detalle de ventas:', error));

@@ -2,7 +2,7 @@ async function cargarProductos() {
     const tabla = document.querySelector("#tablaProductos tbody");
 
     try {
-        const respuesta = await fetch("http://localhost:3000/productos");
+        const respuesta = await fetch("/productos");
 
         if (!respuesta.ok) {
             throw new Error("No se pudieron cargar los productos.");

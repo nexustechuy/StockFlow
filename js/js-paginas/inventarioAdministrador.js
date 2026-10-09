@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function cargarProductos() {
-        fetch("http://localhost:3000/productos")
+        fetch("/productos")
             .then(res => res.json())
             .then(data => {
                 productos = data;
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function cargarCategorias() {
-        fetch("http://localhost:3000/categorias")
+        fetch("/categorias")
             .then(res => res.json())
             .then(categorias => {
                 categoriasCargadas = categorias;
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function cargarVariantes() {
-        return fetch("http://localhost:3000/variantes")
+        return fetch("/variantes")
             .then(res => res.json())
             .then(data => { variantes = data; })
             .catch(error => console.error("Error al cargar variantes:", error));
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const item = boton.closest(".categoria-item");
         const id = item.dataset.id;
 
-        fetch(`http://localhost:3000/categorias/${id}`, { method: "DELETE" })
+        fetch(`/categorias/${id}`, { method: "DELETE" })
             .then(async res => {
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error || "Error al eliminar la categoría.");
@@ -332,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!nombre) return;
 
-        fetch("http://localhost:3000/categorias", {
+        fetch("/categorias", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre, descripcion })
@@ -401,7 +401,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const fila = confirmarEliminar.closest("tr");
             const id = fila.dataset.id;
 
-            fetch(`http://localhost:3000/productos/${id}`, { method: "DELETE" })
+            fetch(`/productos/${id}`, { method: "DELETE" })
                 .then(async res => {
                     const data = await res.json();
                     if (!res.ok) throw new Error(data.error || "Error al eliminar el producto.");
@@ -491,7 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id_categoria: Number(document.getElementById("categoriaProducto").value)
         };
 
-        fetch("http://localhost:3000/productos", {
+        fetch("/productos", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(nuevoProducto)
@@ -505,7 +505,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Si se puso variante, queda vinculada al producto
                 if (tipoVariante && valorVariante) {
-                    return fetch("http://localhost:3000/variantes", {
+                    return fetch("/variantes", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
