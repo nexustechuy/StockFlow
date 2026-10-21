@@ -14,7 +14,7 @@ app.use(cors());
 
 // ACCESO A LAS CARPETAS
 app.use(express.static(path.join(__dirname, "../paginas")));
-app.use("/CSS", express.static(path.join(__dirname, "../CSS")));
+app.use("/css", express.static(path.join(__dirname, "../css")));
 app.use("/js", express.static(path.join(__dirname, "../js")));
 
 // CONEXIÓN CON MARIADB
