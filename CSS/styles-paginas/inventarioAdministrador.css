@@ -61,6 +61,12 @@
   border-bottom: 2px solid var(--azul-primario);
 }
 
+/* En modo oscuro la pestaña activa va en blanco para que se lea */
+body.tema-oscuro .pestana.activa {
+  color: var(--blanco);
+  border-bottom-color: var(--blanco);
+}
+
 .panel-pestana.oculto {
   display: none;
 }
@@ -116,7 +122,7 @@
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--texto-oscuro);
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--borde-fila);
   margin-bottom: 4px;
 }
 
@@ -143,6 +149,10 @@
 
 .tabla-inventario tr.fila-activa {
   background-color: #f0f4ff;
+}
+
+body.tema-oscuro .tabla-inventario tr.fila-activa {
+  background-color: var(--celeste);
 }
 
 /* MODAL: DETALLE DE PRODUCTO */
@@ -233,7 +243,7 @@
   min-height: 110px;
   border: 1.5px dashed var(--gris-borde);
   border-radius: 10px;
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   color: var(--texto-gris);
   font-size: 0.82rem;
   text-align: center;
@@ -363,7 +373,7 @@
   flex: 1;
   border-radius: 6px;
   border: 1px solid var(--gris-borde);
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   color: var(--texto-oscuro);
   font-size: 0.82rem;
   font-weight: 600;
@@ -401,7 +411,7 @@
 
 .panel-nueva-categoria textarea {
   width: 100%;
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border: 1px solid var(--gris-borde);
   border-radius: 8px;
   padding: 10px 12px;
@@ -441,25 +451,25 @@
 
 .alerta-stock .alerta-icono {
   font-size: 1.8rem;
-  color: var(--rojo-alerta);
+  color: var(--texto-alerta);
   flex-shrink: 0;
 }
 
 .alerta-stock .alerta-titulo {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--rojo-alerta);
+  color: var(--texto-alerta);
   margin-bottom: 2px;
 }
 
 .alerta-stock .alerta-texto {
   font-size: 0.85rem;
-  color: var(--rojo-alerta);
+  color: var(--texto-alerta);
 }
 
 .alerta-stock .ver-inventario {
   margin-left: auto;
-  color: var(--rojo-alerta);
+  color: var(--texto-alerta);
   font-weight: 600;
   font-size: 0.85rem;
   text-decoration: none;

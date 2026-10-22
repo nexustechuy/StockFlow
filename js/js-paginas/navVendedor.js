@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
       { texto: 'Registrar venta', href: 'registrarVentaVendedor.html' },
       { texto: 'Productos', href: 'productosVendedor.html' },
       { texto: 'Historial', href: 'historialVendedor.html' },
-      { texto: 'Ajustes', href: '#' },
+      { texto: 'Ajustes', href: 'ajustesVendedor.html' },
       { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }
     ]
   });

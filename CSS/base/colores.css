@@ -1,15 +1,16 @@
 :root {
   /* COLORES PRINCIPALES - SIDEBAR Y CLICKEABLES */
-  --azul-primario: #060b44;
-  --azul-activo: #0c134d;
+  --azul-primario: #4580b1;
+  --azul-activo: #4a9ad8;
   --azul-link: #1565c0;
 
   /* FONDOS Y SUPERFICIES */
   --gris-fondo: #f5f5f5;
-  /*Para los demas*/
   --blanco: #ffffff;
+  --superficie: #ffffff;
   --celeste: #87ceeb;
   --gris-borde: #636363;
+  --borde-fila: #f0f0f0;
   --gris-tarjeta: rgb(226, 226, 226);
 
   /* TEXTOS */
@@ -20,7 +21,59 @@
   /* COLORES SEMANTICOS */
   --verde-ingreso: #2e7d32;
   --rojo-alerta: #c62828;
+  --texto-alerta: #c62828;
   --amarillo-atencion: rgb(219, 168, 57);
   --fondo-alerta: #ffdee4;
   --borde-alerta: #ef9a9a;
+}
+
+/* MODO OSCURO */
+body.tema-oscuro {
+  /* COLORES PRINCIPALES - SIDEBAR Y CLICKEABLES */
+  --azul-primario: #03062c;
+  --azul-activo: #0b1041;
+
+  /* FONDOS Y SUPERFICIES */
+  --gris-fondo: #121212;
+  --superficie: #1e1e1e;
+  --celeste: #1f3a4d;
+  --gris-borde: #555555;
+  --borde-fila: #555555;
+  --gris-tarjeta: #2a2a2a;
+
+  /* TEXTOS */
+  --texto-oscuro: #e6e6e6;
+  --texto-gris: #a0a0a0;
+  --gris-input: #777777;
+  --azul-link: #64b5f6;
+
+  /* COLORES SEMÁNTICOS */
+  --fondo-alerta: #3b1e22;
+  --borde-alerta: #8e3b3b;
+  --texto-alerta: #ff8a80;
+
+  /* BORDE DE BOTONES ACTIVOS Y AZULES */
+  --borde-boton: rgba(255, 255, 255, 0.3);
+
+  /* COLORES BOOTSTRAP */
+  --bs-body-bg: #1e1e1e;
+  --bs-body-color: #e6e6e6;
+  --bs-border-color: #555555;
+}
+
+/* CAMPOS EN MODO OSCURO */
+body.tema-oscuro {
+  color-scheme: dark;
+}
+
+body.tema-oscuro input,
+body.tema-oscuro select,
+body.tema-oscuro textarea {
+  color: var(--texto-oscuro);
+}
+
+body.tema-oscuro input::placeholder,
+body.tema-oscuro textarea::placeholder {
+  color: var(--texto-gris);
+  opacity: 1;
 }

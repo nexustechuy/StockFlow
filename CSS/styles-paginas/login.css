@@ -12,7 +12,7 @@ body {
 
 /* Tarjeta blanca login */
 .card-login {
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border-radius: 16px;
   padding: 48px 40px;
   width: 100%;
@@ -105,4 +105,24 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+/* MODO OSCURO */
+body.tema-oscuro .card-login input,
+body.tema-oscuro .card-login input:focus {
+  background-color: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+}
+
+body.tema-oscuro .card-login input:focus {
+  border-color: var(--azul-activo);
+}
+
+body.tema-oscuro .btn-ingresar {
+  border: 1px solid var(--borde-boton);
+}
+
+body.tema-oscuro .mensaje-error {
+  color: var(--texto-alerta);
+  background-color: var(--fondo-alerta);
 }

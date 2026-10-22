@@ -57,6 +57,17 @@
   border-color: var(--azul-primario);
 }
 
+/* En modo oscuro solo el filtro activo lleva borde celeste claro */
+body.tema-oscuro .btn-filtro {
+  border: 1.5px solid transparent;
+}
+
+body.tema-oscuro .btn-filtro.activo {
+  border-color: transparent;
+  outline: 1px solid var(--borde-boton);
+  outline-offset: -1px;
+}
+
 /* Ancho de columna fijo */
 #tablaProductos {
   table-layout: fixed;

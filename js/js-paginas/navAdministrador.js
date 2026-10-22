@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
       { texto: 'Inventario', href: 'inventarioAdministrador.html' },
       { texto: 'Ganancias', href: 'gananciasAdministrador.html' },
       { texto: 'Usuarios', href: 'usuariosAdministrador.html' },
-      { texto: 'Ajustes', href: '#' },
+      { texto: 'Ajustes', href: 'ajustesAdministrador.html' },
       { texto: 'Cerrar sesión', href: 'login.html', cerrarSesion: true }
     ]
   });

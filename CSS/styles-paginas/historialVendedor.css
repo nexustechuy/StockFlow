@@ -95,6 +95,10 @@
   font-size: 0.88rem;
 }
 
+body.tema-oscuro .detalle-info .fila {
+  border-bottom-color: var(--borde-fila);
+}
+
 .detalle-info .fila:last-child {
   border-bottom: none;
 }

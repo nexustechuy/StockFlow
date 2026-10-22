@@ -84,7 +84,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border: 1px solid var(--gris-borde);
   border-radius: 10px;
   padding: 10px 12px;
@@ -167,6 +167,8 @@
   width: 56px;
   padding: 4px 6px;
   border: 1px solid var(--gris-borde);
+  background-color: var(--superficie);
+  color: var(--texto-oscuro);
   border-radius: 6px;
   text-align: center;
   font-size: 0.85rem;
@@ -203,7 +205,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--borde-fila);
   font-size: 0.9rem;
   color: var(--texto-gris);
 }
@@ -238,4 +240,8 @@
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 20px;
+}
+
+body.tema-oscuro .mensaje-exito {
+  background-color: #1e3a2b;
 }

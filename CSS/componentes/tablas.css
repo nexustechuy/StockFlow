@@ -49,7 +49,7 @@
 .tabla-ventas td,
 .tabla-inventario td {
   padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--borde-fila);
   color: var(--texto-oscuro);
   vertical-align: middle;
 }

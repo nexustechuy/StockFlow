@@ -31,3 +31,9 @@
   background-color: var(--azul-activo);
   color: var(--blanco);
 }
+
+/* En modo oscuro los botones azules llevan borde celeste claro */
+body.tema-oscuro .btn-accion,
+body.tema-oscuro .btn-primario {
+  border: 1px solid var(--borde-boton);
+}

@@ -15,12 +15,12 @@
   color: var(--rojo-alerta);
 }
 
-/* input, select y textarea */
+/* INPUT, SELECT Y TEXTAREA */
 .campo-formulario input,
 .campo-formulario select,
 .campo-formulario textarea {
   width: 100%;
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border: 1px solid var(--gris-borde);
   border-radius: 8px;
   padding: 10px 12px;
@@ -76,7 +76,7 @@
 
 /* BÚSQUEDA (listados con filtro) */
 .input-busqueda {
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border: 1px solid var(--gris-borde);
   border-radius: 8px;
   padding: 9px 14px;
@@ -91,9 +91,9 @@
   box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.15);
 }
 
-/* FILTROS ej: "Todos / Vendedores / Repositores" */
+/* FILTROS */
 .filtro-chip {
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border: 1px solid var(--gris-borde);
   color: var(--texto-oscuro);
   border-radius: 8px;
@@ -112,6 +112,17 @@
   background-color: var(--azul-primario);
   border-color: var(--azul-primario);
   color: var(--blanco);
+}
+
+/* En modo oscuro solo el filtro activo lleva borde celeste claro */
+body.tema-oscuro .filtro-chip {
+  border: 1.5px solid transparent;
+}
+
+body.tema-oscuro .filtro-chip.activo {
+  border-color: transparent;
+  outline: 1px solid var(--borde-boton);
+  outline-offset: -1px;
 }
 
 /* SECCIÓN DE FORMULARIO */
@@ -160,7 +171,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border: 1px solid var(--gris-borde);
   border-radius: 8px;
   padding: 10px 14px;
@@ -187,7 +198,7 @@
   background-color: rgba(6, 11, 68, 0.06);
 }
 
-/* TOGGLE DE ESTADO "Activo / Inactivo" */
+/* TOGGLE DE ESTADO (Activo / Inactivo) */
 .estado-toggle {
   display: flex;
   border: 1px solid var(--gris-borde);
@@ -197,7 +208,7 @@
 
 .estado-toggle button {
   flex: 1;
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border: none;
   padding: 10px;
   font-size: 0.85rem;
@@ -214,4 +225,9 @@
 .estado-toggle button.seleccionado {
   background-color: var(--azul-primario);
   color: var(--blanco);
+}
+
+body.tema-oscuro .estado-toggle button.seleccionado {
+  outline: 1px solid var(--borde-boton);
+  outline-offset: -1px;
 }
