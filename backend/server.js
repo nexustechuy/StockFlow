@@ -7,12 +7,12 @@ const cors = require("cors");
 const configurarSesion = require("./middleware/session");
 
 // RUTAS
-const authRoutes = require("./routes/authRoutes");
-const usuarioRoutes = require("./routes/usuarioRoutes");
-const productoRoutes = require("./routes/productoRoutes");
-const categoriaRoutes = require("./routes/categoriaRoutes");
-const ventaRoutes = require("./routes/ventaRoutes");
-const reposicionRoutes = require("./routes/reposicionRoutes");
+const authRoutes = require("./rutas/authRoutes");
+const usuarioRoutes = require("./rutas/usuarioRoutes");
+const productoRoutes = require("./rutas/productoRoutes");
+const categoriaRoutes = require("./rutas/categoriaRoutes");
+const ventaRoutes = require("./rutas/ventaRoutes");
+const reposicionRoutes = require("./rutas/reposicionRoutes");
 
 const app = express();
 const PORT = 3000;

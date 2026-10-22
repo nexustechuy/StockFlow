@@ -112,7 +112,7 @@ body {
   transition: background-color 0.2s;
 }
 
-/* Con un solo link queda alineado a la derecha */
+/* Link centrado */
 .links-form {
   justify-content: center;
 }

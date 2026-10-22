@@ -55,7 +55,6 @@ async function crear(req, res) {
             }
         }
 
-        // Se usa una sola conexión para toda la transacción
         conn = await pool.getConnection();
         await conn.beginTransaction();
 

@@ -38,7 +38,6 @@ async function listarDetalle() {
     );
 }
 
-// Estas reciben la conexión porque se usan dentro de la transacción
 async function crear(conn, total, idUsuario, nombreCliente) {
     const resultado = await conn.query(
         `INSERT INTO venta (fecha_hora, total, id_usuario, id_cliente, nombre_cliente)
