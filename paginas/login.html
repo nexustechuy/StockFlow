@@ -27,14 +27,45 @@
       <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required />
 
       <div class="links-form">
-        <a href="crearCuenta.html">¿No tenés cuenta? Creá una</a>
-        <a href="recuperacion.html">¿Olvidaste tu contraseña?</a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalRecuperarContrasena">¿Olvidaste tu contraseña?</a>
       </div>
 
       <div id="error" class="mensaje-error" style="display: none;"></div>
 
       <button type="submit" class="btn-ingresar">Ingresar</button>
     </form>
+  </div>
+
+  <!-- MODAL RECUPERAR CONTRASEÑA -->
+  <div class="modal fade modal-stockflow" id="modalRecuperarContrasena" tabindex="-1"
+    aria-labelledby="modalRecuperarContrasenaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalRecuperarContrasenaLabel">Recuperar contraseña</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <form id="formRecuperarContrasena" novalidate>
+          <div class="modal-body">
+
+            <div id="exitoRecuperacion" class="mensaje-exito" style="display: none;"></div>
+
+            <div class="campo-formulario">
+              <label for="emailRecuperacion">Email <span class="obligatorio">*</span></label>
+              <input type="email" id="emailRecuperacion" name="email" placeholder="juan@gmail.com" required>
+              <span class="error-campo"></span>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn-primario">Cambiar contraseña</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
   </div>
 
   <!-- JS BOOTSTRAP -->

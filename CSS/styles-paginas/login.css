@@ -1,6 +1,11 @@
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
+/* ELEMENTOS DEL MODAL RECUPERAR CONTRASEÑA */
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/modales.css);
+
 body {
   background-color: var(--celeste);
   min-height: 100vh;
@@ -107,6 +112,21 @@ body {
   transition: background-color 0.2s;
 }
 
+/* Con un solo link queda alineado a la derecha */
+.links-form {
+  justify-content: center;
+}
+
+/* MODAL RECUPERAR CONTRASEÑA */
+.mensaje-exito {
+  color: var(--verde-ingreso);
+  background-color: rgba(46, 125, 50, 0.10);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
 /* MODO OSCURO */
 body.tema-oscuro .card-login input,
 body.tema-oscuro .card-login input:focus {
@@ -125,4 +145,8 @@ body.tema-oscuro .btn-ingresar {
 body.tema-oscuro .mensaje-error {
   color: var(--texto-alerta);
   background-color: var(--fondo-alerta);
+}
+
+body.tema-oscuro .modal-stockflow .btn-close {
+  filter: invert(1);
 }
