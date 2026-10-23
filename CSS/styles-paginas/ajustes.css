@@ -1,0 +1,27 @@
+/* FONDOS Y TEXTO */
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/* LAYOUT DE LA PÁGINA */
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/* ELEMENTOS */
+@import url(../componentes/botones.css);
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/tablas.css);
+
+/* BOTONES DE AJUSTE */
+.opciones-ajuste {
+  display: flex;
+  gap: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .opciones-ajuste .filtro-chip {
+    flex: 1;
+  }
+}

@@ -1,6 +1,11 @@
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
+/* ELEMENTOS DEL MODAL RECUPERAR CONTRASEÑA */
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/modales.css);
+
 body {
   background-color: var(--celeste);
   min-height: 100vh;
@@ -12,17 +17,17 @@ body {
 
 /* Tarjeta blanca login */
 .card-login {
-  background-color: var(--blanco);
+  background-color: var(--superficie);
   border-radius: 16px;
   padding: 48px 40px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.40);
 }
- 
+
 /* Título StockFlow */
 .card-login h1 {
-  font-family: 'Poppins',Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   font-size: 2rem;
   font-weight: 800;
   color: var(--texto-oscuro);
@@ -30,7 +35,7 @@ body {
   margin-bottom: 32px;
   letter-spacing: -0.5px;
 }
- 
+
 /* Títulos de los campos */
 .card-login label {
   font-family: 'Inter', Arial, sans-serif;
@@ -39,7 +44,7 @@ body {
   margin-bottom: 6px;
   display: block;
 }
- 
+
 /* Campos de texto */
 .card-login input {
   background-color: var(--gris-input);
@@ -52,12 +57,12 @@ body {
   outline: none;
   transition: box-shadow 0.2s;
 }
- 
+
 .card-login input:focus {
-  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.20);
+  box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.20);
   background-color: var(--gris-input);
 }
- 
+
 /* Links del formulario */
 .links-form {
   display: flex;
@@ -65,17 +70,17 @@ body {
   margin-top: -8px;
   margin-bottom: 28px;
 }
- 
+
 .links-form a {
   color: var(--azul-link);
   font-size: 0.85rem;
   text-decoration: none;
 }
- 
+
 .links-form a:hover {
   text-decoration: underline;
 }
- 
+
 /* Formulario */
 .card-login form {
   display: flex;
@@ -94,7 +99,7 @@ body {
 
 /* Botón Ingresar */
 .btn-ingresar {
-  font-family: 'Inter',Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   background-color: var(--azul-primario);
   color: var(--blanco);
   border: none;
@@ -105,4 +110,39 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+/* Link centrado */
+.links-form {
+  justify-content: center;
+}
+
+/* MODAL RECUPERAR CONTRASEÑA */
+.mensaje-exito {
+  color: var(--verde-ingreso);
+  background-color: rgba(46, 125, 50, 0.10);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+/* MODO OSCURO */
+body.tema-oscuro .card-login input,
+body.tema-oscuro .card-login input:focus {
+  background-color: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+}
+
+body.tema-oscuro .card-login input:focus {
+  border-color: var(--azul-activo);
+}
+
+body.tema-oscuro .btn-ingresar {
+  border: 1px solid var(--borde-boton);
+}
+
+body.tema-oscuro .mensaje-error {
+  color: var(--texto-alerta);
+  background-color: var(--fondo-alerta);
 }

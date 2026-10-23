@@ -1,0 +1,42 @@
+/* MODAL GENERICO DE STOCKFLOW */
+/* Reestilizamos el modal de Bootstrap: tipografía y colores propios del proyecto, estaba todo genérico */
+.modal-stockflow .modal-content {
+  border: none;
+  border-radius: 16px;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.modal-stockflow .modal-header {
+  border-bottom: none;
+  padding: 24px 28px 8px;
+}
+
+.modal-stockflow .modal-title {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--texto-oscuro);
+}
+
+.modal-stockflow .modal-body {
+  padding: 8px 28px 4px;
+}
+
+.modal-stockflow .modal-footer {
+  border-top: none;
+  padding: 8px 28px 28px;
+}
+
+.modal-stockflow .modal-footer .btn-primario {
+  width: 100%;
+}
+
+/* Cruz blanca en modo oscuro */
+body.tema-oscuro .modal-stockflow .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+  opacity: 0.8;
+}
+
+body.tema-oscuro .modal-stockflow .btn-close:hover {
+  opacity: 1;
+}

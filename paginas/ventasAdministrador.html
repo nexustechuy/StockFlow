@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow - Ventas</title>
+
+  <!-- CSS BOOTSTRAP -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+  <!-- CSS PROPIO -->
+  <link rel="stylesheet" href="/css/styles-paginas/ventasAdministrador.css">
+
+</head>
+
+
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+
+    <div class="sidebar-usuario">
+      Administrador
+      <span>Juan Pérez</span>
+    </div>
+
+    <nav>
+      <a href="dashboardAdministrador.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="ventasAdministrador.html" class="activo">
+        <i class="bi bi-cart-check me-2"></i>Ventas
+      </a>
+      <a href="inventarioAdministrador.html">
+        <i class="bi bi-box-seam me-2"></i>Inventario
+      </a>
+      <a href="gananciasAdministrador.html">
+        <i class="bi bi-graph-up-arrow me-2"></i>Ganancias
+      </a>
+      <a href="usuariosAdministrador.html">
+        <i class="bi bi-people me-2"></i>Usuarios
+      </a>
+      <a href="ajustesAdministrador.html">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <main class="contenido">
+
+    <div class="encabezado">
+      <h2>Ventas</h2>
+      <p>Todas las ventas registradas en el sistema</p>
+    </div>
+
+    <div class="tarjetas">
+      <div class="tarjeta">
+        <div class="etiqueta">Ventas de hoy</div>
+        <div class="valor" id="ventasHoyValor">0</div>
+        <div class="unidad">ventas</div>
+      </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Ingresos de hoy</div>
+        <div class="valor ingreso" id="ingresosHoyValor">$0</div>
+        <div class="unidad">pesos</div>
+      </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Ganancia bruta</div>
+        <div class="valor ingreso" id="gananciaBrutaValor">$0</div>
+        <div class="unidad">pesos</div>
+      </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Vendedores activos</div>
+        <div class="valor" id="vendedoresActivosValor">0</div>
+        <div class="unidad">ahora</div>
+      </div>
+    </div>
+
+    <div class="barra-usuarios">
+      <input type="text" id="buscarVenta" class="input-busqueda" placeholder="Buscá por cliente o vendedor...">
+
+      <div class="filtros">
+        <button type="button" class="filtro-chip activo" data-filtro="hoy">Hoy</button>
+        <button type="button" class="filtro-chip" data-filtro="semana">Esta semana</button>
+        <button type="button" class="filtro-chip" data-filtro="mes">Este mes</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <table class="tabla-ventas tabla-fija">
+        <thead>
+          <tr>
+            <th>Número de venta</th>
+            <th>Hora</th>
+            <th>Vendedor</th>
+            <th>Cliente</th>
+            <th>Productos</th>
+            <th>Total</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaVentas">
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- MODAL: DETALLE DE VENTA -->
+  <div class="modal fade modal-stockflow" id="modalDetalleVenta" tabindex="-1" aria-labelledby="modalDetalleVentaLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalDetalleVentaLabel">Detalle de venta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="seccion-formulario detalle-venta">
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Número de venta</span>
+              <span class="detalle-venta-valor" id="detalleNumero">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Fecha</span>
+              <span class="detalle-venta-valor" id="detalleFecha">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Hora</span>
+              <span class="detalle-venta-valor" id="detalleHora">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Vendedor</span>
+              <span class="detalle-venta-valor" id="detalleVendedor">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Cliente</span>
+              <span class="detalle-venta-valor" id="detalleCliente">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Productos</span>
+              <span class="detalle-venta-valor" id="detalleProductos">-</span>
+            </div>
+            <div class="detalle-venta-fila">
+              <span class="detalle-venta-label">Total vendido</span>
+              <span class="detalle-venta-valor" id="detalleTotal">-</span>
+            </div>
+            <div class="detalle-venta-fila sin-borde">
+              <span class="detalle-venta-label">Rentabilidad</span>
+              <span class="detalle-venta-valor ingreso" id="detalleRentabilidad">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS BOOTSTRAP -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS PROPIO -->
+  <script src="/js/componentes/tema.js"></script>
+  <script src="/js/componentes/menu-responsive.js"></script>
+  <script src="/js/js-paginas/navAdministrador.js"></script>
+  <script src="/js/js-paginas/ventasAdministrador.js"></script>
+
+</body>
+
+</html>

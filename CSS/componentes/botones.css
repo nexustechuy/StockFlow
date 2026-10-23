@@ -9,7 +9,31 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
- 
+
 .btn-accion:hover {
   background-color: var(--azul-activo);
+}
+
+/* Botón primario grande, como "Nuevo usuario" o "Nuevo producto" */
+.btn-primario {
+  background-color: var(--azul-primario);
+  color: var(--blanco);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primario:hover {
+  background-color: var(--azul-activo);
+  color: var(--blanco);
+}
+
+/* En modo oscuro los botones azules llevan borde celeste claro */
+body.tema-oscuro .btn-accion,
+body.tema-oscuro .btn-primario {
+  border: 1px solid var(--borde-boton);
 }

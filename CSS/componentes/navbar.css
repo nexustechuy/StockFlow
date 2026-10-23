@@ -8,13 +8,13 @@
   align-items: center;
   justify-content: space-between;
 }
- 
+
 .navbar-movil .brand {
   color: var(--blanco);
   font-weight: 800;
   font-size: 1.1rem;
 }
- 
+
 .navbar-movil button {
   background: none;
   border: none;
@@ -22,7 +22,7 @@
   font-size: 1.5rem;
   cursor: pointer;
 }
- 
+
 .menu-movil {
   display: none;
   background-color: var(--azul-primario);
@@ -35,11 +35,11 @@
   flex-direction: column;
   padding: 24px 0;
 }
- 
+
 .menu-movil.abierto {
   display: flex;
 }
- 
+
 .menu-movil .cerrar-menu {
   position: absolute;
   top: 16px;
@@ -50,7 +50,7 @@
   font-size: 1.6rem;
   cursor: pointer;
 }
- 
+
 .menu-movil a {
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
@@ -58,7 +58,7 @@
   font-size: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
- 
+
 .menu-movil a.activo {
   color: var(--blanco);
   font-weight: 600;

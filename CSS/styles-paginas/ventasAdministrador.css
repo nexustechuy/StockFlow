@@ -1,0 +1,95 @@
+/* FONDOS Y TEXTO */
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/* LAYOUT */
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/* ELEMENTOS */
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/cards.css);
+@import url(../componentes/tablas.css);
+@import url(../componentes/iconos.css);
+@import url(../componentes/modales.css);
+
+/* ENCABEZADO DE LA PÁGINA */
+.encabezado h2 {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--texto-oscuro);
+  margin-bottom: 4px;
+}
+
+.encabezado p {
+  color: var(--texto-gris);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+/* BARRA DE BÚSQUEDA Y FILTROS */
+.barra-usuarios {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.barra-usuarios .input-busqueda {
+  flex: 1;
+  min-width: 200px;
+}
+
+.barra-usuarios .filtros {
+  display: flex;
+  gap: 8px;
+}
+
+/* TABLA DE VENTAS con la columna Acciones al principio en vez de al final*/
+.tabla-ventas .ver-detalle-venta {
+  color: var(--azul-link);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tabla-ventas .ver-detalle-venta:hover {
+  text-decoration: underline;
+}
+
+/* MODAL: DETALLE DE VENTA */
+#modalDetalleVenta .modal-body {
+  padding-bottom: 28px;
+}
+
+.detalle-venta-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.detalle-venta-fila.sin-borde {
+  border-bottom: none;
+}
+
+.detalle-venta-label {
+  font-size: 0.85rem;
+  color: var(--texto-gris);
+  font-weight: 600;
+}
+
+.detalle-venta-valor {
+  font-size: 0.9rem;
+  color: var(--texto-oscuro);
+  font-weight: 700;
+  text-align: right;
+}

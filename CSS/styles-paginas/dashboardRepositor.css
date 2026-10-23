@@ -7,41 +7,20 @@
 @import url(../base/layout.css);
 
 /*ELEMENTOS*/
-/* navbar.css antes que sidebar.css: ver nota en dashboardVendedor.css */
 @import url(../componentes/botones.css);
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
 @import url(../componentes/cards.css);
 @import url(../componentes/iconos.css);
 @import url(../componentes/tablas.css);
+@import url(../componentes/alertas.css);
 
-/* ===== Específico de esta página: bloque de alerta de stock ===== */
-.alerta-stock {
-  background-color: var(--fondo-alerta);
-  border: 1px solid var(--borde-alerta);
-  border-radius: 12px;
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
+.tabla-acotada {
+  max-height: 220px;
+  overflow-y: auto;
 }
 
-.alerta-stock .alerta-titulo {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--rojo-alerta);
-  margin-bottom: 2px;
-}
-
-.alerta-stock .alerta-texto {
-  font-size: 0.85rem;
-  color: var(--rojo-alerta);
-}
-
-/* ===== Específico de esta página: alinear a la derecha la columna
-   de "Acción" en la tabla de bajo stock ===== */
-.tabla-stock th:last-child,
-.tabla-stock td:last-child {
-  text-align: right;
+.tabla-stock {
+  max-width: 100%;
+  table-layout: fixed;
 }

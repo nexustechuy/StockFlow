@@ -1,0 +1,133 @@
+/* FONDOS Y TEXTO */
+@import url(../base/colores.css);
+@import url(../base/fuentes.css);
+
+/* LAYOUT */
+@import url(../base/reset.css);
+@import url(../base/layout.css);
+
+/* ELEMENTOS */
+@import url(../componentes/navbar.css);
+@import url(../componentes/sidebar.css);
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/tablas.css);
+@import url(../componentes/iconos.css);
+@import url(../componentes/modales.css);
+
+/* ENCABEZADO DE LA PAGINA */
+.encabezado h2 {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--texto-oscuro);
+  margin-bottom: 4px;
+}
+
+.encabezado p {
+  color: var(--texto-gris);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+/* BARRA DE BÚSQUEDA Y FILTROS */
+.barra-usuarios {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.barra-usuarios .input-busqueda {
+  flex: 1;
+  min-width: 200px;
+}
+
+.barra-usuarios .filtros {
+  gap: 8px;
+}
+
+/* TABLA DE USUARIOS con la columna Acciones centrada */
+.tabla-usuarios th:last-child,
+.tabla-usuarios td:last-child {
+  text-align: center;
+}
+
+.tabla-usuarios .celda-usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tabla-usuarios .avatar-usuario {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--azul-primario);
+  color: var(--blanco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Menú de acciones reestilizado con los estilos propios del sistema */
+.tabla-usuarios .dropdown-menu {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.85rem;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+}
+
+.tabla-usuarios .dropdown-item {
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.tabla-usuarios .dropdown-item:hover {
+  background-color: var(--gris-fondo);
+}
+
+.tabla-usuarios .dropdown-item.text-peligro {
+  color: var(--rojo-alerta);
+}
+
+.tabla-usuarios .dropdown-item.text-peligro:hover {
+  background-color: var(--fondo-alerta);
+}
+
+.pie-tabla-usuarios {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+/* MODAL "NUEVO USUARIO" */
+.form-usuario-columnas {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .form-usuario-columnas {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-usuario-columnas {
+    grid-template-columns: 1fr;
+  }
+
+  .filtros {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

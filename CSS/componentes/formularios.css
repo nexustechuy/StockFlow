@@ -1,0 +1,233 @@
+/* CAMPOS DE FORMULARIO */
+.campo-formulario {
+  margin-bottom: 16px;
+}
+
+.campo-formulario label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-oscuro);
+  margin-bottom: 6px;
+}
+
+.campo-formulario .obligatorio {
+  color: var(--rojo-alerta);
+}
+
+/* INPUT, SELECT Y TEXTAREA */
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+  width: 100%;
+  background-color: var(--superficie);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-family: 'Inter', Arial, sans-serif;
+  outline: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.campo-formulario select {
+  cursor: pointer;
+}
+
+.campo-formulario textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.15);
+}
+
+/* VALIDACION DE CAMPOS */
+.error-campo {
+  display: block;
+  color: var(--rojo-alerta);
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+
+.error-campo:empty {
+  display: none;
+}
+
+.campo-formulario.campo-invalido input,
+.campo-formulario.campo-invalido select,
+.campo-formulario.campo-invalido textarea {
+  border-color: var(--rojo-alerta);
+}
+
+/* MENSAJE DE ERROR DE FORMULARIO */
+.mensaje-error {
+  color: var(--rojo-alerta);
+  background-color: var(--fondo-alerta);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+/* BÚSQUEDA (listados con filtro) */
+.input-busqueda {
+  background-color: var(--superficie);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 0.88rem;
+  font-family: 'Inter', Arial, sans-serif;
+  outline: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.input-busqueda:focus {
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.15);
+}
+
+/* FILTROS */
+.filtro-chip {
+  background-color: var(--superficie);
+  border: 1px solid var(--gris-borde);
+  color: var(--texto-oscuro);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.filtro-chip:hover {
+  border-color: var(--azul-primario);
+}
+
+.filtro-chip.activo {
+  background-color: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: var(--blanco);
+}
+
+/* En modo oscuro solo el filtro activo lleva borde celeste claro */
+body.tema-oscuro .filtro-chip {
+  border: 1.5px solid transparent;
+}
+
+body.tema-oscuro .filtro-chip.activo {
+  border-color: transparent;
+  outline: 1px solid var(--borde-boton);
+  outline-offset: -1px;
+}
+
+/* SECCIÓN DE FORMULARIO */
+.seccion-formulario {
+  background-color: var(--gris-fondo);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.seccion-formulario h6 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--texto-gris);
+  margin-bottom: 16px;
+}
+
+.seccion-formulario .encabezado-seccion {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.seccion-formulario .encabezado-seccion h6 {
+  margin-bottom: 0;
+}
+
+.nota-obligatorios {
+  font-size: 0.75rem;
+  color: var(--rojo-alerta);
+  white-space: nowrap;
+}
+
+/* CHECKLIST DE ROLES */
+.lista-roles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.rol-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--superficie);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.rol-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--azul-primario);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.rol-item span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--texto-oscuro);
+}
+
+.rol-item.seleccionado {
+  border-color: var(--azul-primario);
+  background-color: rgba(6, 11, 68, 0.06);
+}
+
+/* TOGGLE DE ESTADO (Activo / Inactivo) */
+.estado-toggle {
+  display: flex;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.estado-toggle button {
+  flex: 1;
+  background-color: var(--superficie);
+  border: none;
+  padding: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-oscuro);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.estado-toggle button+button {
+  border-left: 1px solid var(--gris-borde);
+}
+
+.estado-toggle button.seleccionado {
+  background-color: var(--azul-primario);
+  color: var(--blanco);
+}
+
+body.tema-oscuro .estado-toggle button.seleccionado {
+  outline: 1px solid var(--borde-boton);
+  outline-offset: -1px;
+}

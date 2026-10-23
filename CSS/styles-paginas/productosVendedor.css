@@ -1,8 +1,8 @@
-/*FONDOS Y TEXTO*/
+/* FONDOS Y TEXTO */
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/*LAYOUT*/
+/* LAYOUT */
 @import url(../base/reset.css);
 @import url(../base/layout.css);
 
@@ -11,8 +11,6 @@
 @import url(../componentes/tablas.css);
 
 /* Buscador de productos */
-
-
 .buscador-productos {
   margin-bottom: 16px;
 }
@@ -33,7 +31,7 @@
   border-color: var(--azul-link);
 }
 
-/* Filtros tipo pill */
+/* Filtros estilo pill */
 .filtros-productos {
   display: flex;
   gap: 10px;
@@ -54,25 +52,25 @@
 }
 
 .btn-filtro.activo {
-  background-color: #1e1b4b;
-  color: #ffffff;
-  border-color: #1e1b4b;
+  background-color: var(--azul-primario);
+  color: var(--blanco);
+  border-color: var(--azul-primario);
 }
 
-/* Estados de disponibilidad en la tabla */
-.estado-disponible {
-  color: var(--verde-ingreso);
-  font-weight: 600;
+/* En modo oscuro solo el filtro activo lleva borde celeste claro */
+body.tema-oscuro .btn-filtro {
+  border: 1.5px solid transparent;
 }
 
-.estado-bajo {
-  color: #d9a441;
-  font-weight: 600;
+body.tema-oscuro .btn-filtro.activo {
+  border-color: transparent;
+  outline: 1px solid var(--borde-boton);
+  outline-offset: -1px;
 }
 
-.estado-sinstock {
-  color: var(--rojo-alerta);
-  font-weight: 600;
+/* Ancho de columna fijo */
+#tablaProductos {
+  table-layout: fixed;
 }
 
 /* Oculta filas cuando el JS filtra */

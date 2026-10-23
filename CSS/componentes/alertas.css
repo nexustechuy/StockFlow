@@ -1,0 +1,23 @@
+/* CARTEL DE ALERTA DE STOCK */
+.alerta-stock {
+  background-color: var(--fondo-alerta);
+  border: 1px solid var(--borde-alerta);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.alerta-stock .alerta-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--texto-alerta);
+  margin-bottom: 2px;
+}
+
+.alerta-stock .alerta-texto {
+  font-size: 0.85rem;
+  color: var(--texto-alerta);
+}

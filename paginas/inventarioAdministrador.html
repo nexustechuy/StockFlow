@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow - Inventario</title>
+
+  <!-- CSS BOOTSTRAP -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+  <!-- CSS PROPIO -->
+  <link rel="stylesheet" href="/css/styles-paginas/inventarioAdministrador.css">
+
+</head>
+
+
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">StockFlow</div>
+
+    <div class="sidebar-usuario">
+      Administrador
+      <span>Juan Pérez</span>
+    </div>
+
+    <nav>
+      <a href="dashboardAdministrador.html">
+        <i class="bi bi-grid me-2"></i>Dashboard
+      </a>
+      <a href="ventasAdministrador.html">
+        <i class="bi bi-cart-check me-2"></i>Ventas
+      </a>
+      <a href="inventarioAdministrador.html" class="activo">
+        <i class="bi bi-box-seam me-2"></i>Inventario
+      </a>
+      <a href="gananciasAdministrador.html">
+        <i class="bi bi-graph-up-arrow me-2"></i>Ganancias
+      </a>
+      <a href="usuariosAdministrador.html">
+        <i class="bi bi-people me-2"></i>Usuarios
+      </a>
+      <a href="ajustesAdministrador.html">
+        <i class="bi bi-gear me-2"></i>Ajustes
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html"><i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <main class="contenido">
+
+    <div class="encabezado">
+      <h2>Inventario</h2>
+      <p>Gestioná los productos, categorías y alertas de stock</p>
+    </div>
+
+    <div class="pestanas">
+      <button type="button" class="pestana activa" data-pestana="productos">Productos</button>
+      <button type="button" class="pestana" data-pestana="categorias">Categorías</button>
+      <button type="button" class="pestana" data-pestana="alertas">Alertas de stock</button>
+    </div>
+
+    <!-- Pestaña 1: PRODUCTOS -->
+    <section class="panel-pestana" data-panel="productos">
+
+      <div class="barra-usuarios">
+        <input type="text" id="buscarProducto" class="input-busqueda" placeholder="Buscá un producto...">
+
+        <div class="filtros">
+          <button type="button" class="filtro-chip activo" data-filtro="todos">Todos</button>
+          <button type="button" class="filtro-chip" data-filtro="activo">Activos</button>
+          <button type="button" class="filtro-chip" data-filtro="sin-stock">Sin stock</button>
+          <button type="button" class="filtro-chip" data-filtro="critico">Stock crítico</button>
+        </div>
+
+        <button type="button" class="btn-primario" id="btnNuevoProducto" data-bs-toggle="modal"
+          data-bs-target="#modalNuevoProducto">
+          <i class="bi bi-plus-lg me-1"></i>Nuevo producto
+        </button>
+      </div>
+
+      <div class="panel">
+        <table class="tabla-inventario tabla-productos-inv tabla-fija">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Código</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock actual</th>
+              <th>Stock mínimo</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTablaProductos">
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- Pestaña 2: CATEGORÍAS -->
+    <section class="panel-pestana oculto" data-panel="categorias">
+
+      <div class="barra-usuarios">
+        <input type="text" id="buscarCategoria" class="input-busqueda" placeholder="Buscá una categoría...">
+
+        <button type="button" class="btn-primario" id="btnNuevaCategoria">
+          <i class="bi bi-plus-lg me-1"></i>Nueva categoría
+        </button>
+      </div>
+
+      <div class="layout-categorias sin-panel" id="layoutCategorias">
+
+        <div class="lista-categorias" id="listaCategorias">
+          <div class="categoria-item" data-categoria="Periféricos">
+            <div class="categoria-info">
+              <div class="nombre">Periféricos</div>
+              <div class="cantidad">2 productos</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Periféricos"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Monitores">
+            <div class="categoria-info">
+              <div class="nombre">Monitores</div>
+              <div class="cantidad">2 productos</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Monitores"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Audio">
+            <div class="categoria-info">
+              <div class="nombre">Audio</div>
+              <div class="cantidad">1 producto</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Audio"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Accesorios">
+            <div class="categoria-info">
+              <div class="nombre">Accesorios</div>
+              <div class="cantidad">1 producto</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Accesorios"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Almacenamiento">
+            <div class="categoria-info">
+              <div class="nombre">Almacenamiento</div>
+              <div class="cantidad">0 productos</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Almacenamiento"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="categoria-item" data-categoria="Networking">
+            <div class="categoria-info">
+              <div class="nombre">Networking</div>
+              <div class="cantidad">0 productos</div>
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn-eliminar-categoria" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
+                <li class="popup-header">Eliminar categoría</li>
+                <li>
+                  <p>¿Eliminar "Networking"? Esta acción no se puede deshacer.</p>
+                </li>
+                <li class="acciones-confirmacion">
+                  <button type="button" class="btn-cancelar-eliminar" data-bs-dismiss="dropdown">Cancelar</button>
+                  <button type="button" class="btn-confirmar-eliminar">Eliminar</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-nueva-categoria oculto" id="panelNuevaCategoria">
+          <h6>Nueva categoría</h6>
+          <form id="formNuevaCategoria" novalidate>
+            <div class="campo-formulario">
+              <label for="nombreCategoria">Nombre <span class="obligatorio">*</span></label>
+              <input type="text" id="nombreCategoria" name="nombre" placeholder="Ej: Almacenamiento" required>
+              <span class="error-campo"></span>
+            </div>
+            <div class="campo-formulario" style="margin-bottom: 18px;">
+              <label for="descripcionCategoria">Descripción</label>
+              <textarea id="descripcionCategoria" name="descripcion" placeholder="Opcional"></textarea>
+            </div>
+            <button type="submit" class="btn-primario">Guardar categoría</button>
+          </form>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Pestaña 3: ALERTAS DE STOCK -->
+    <section class="panel-pestana oculto" data-panel="alertas">
+
+      <div class="alerta-stock">
+        <div class="alerta-icono">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <div>
+          <div class="alerta-titulo">Atención requerida</div>
+          <div class="alerta-texto">Tenés 2 productos sin stock y 2 con stock crítico</div>
+        </div>
+        <a href="#" class="ver-inventario" id="linkVerEnInventario">Ver en inventario →</a>
+      </div>
+
+      <section class="tarjetas tarjetas-3">
+        <div class="tarjeta">
+          <div class="valor alerta">2</div>
+          <div class="etiqueta">Sin stock</div>
+        </div>
+        <div class="tarjeta">
+          <div class="valor atencion">2</div>
+          <div class="etiqueta">Stock crítico</div>
+        </div>
+        <div class="tarjeta">
+          <div class="valor">4</div>
+          <div class="etiqueta">A reponer</div>
+        </div>
+      </section>
+
+      <div class="panel">
+        <table class="tabla-inventario tabla-stock tabla-fija">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Stock actual</th>
+              <th>Stock mínimo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTablaAlertas">
+            <tr>
+              <td>Teclado USB</td>
+              <td>Periféricos</td>
+              <td>0</td>
+              <td>8</td>
+              <td><span class="alerta">Sin stock</span></td>
+            </tr>
+            <tr>
+              <td>Monitor 27" 4K</td>
+              <td>Monitores</td>
+              <td>3</td>
+              <td>5</td>
+              <td><span class="atencion">Stock crítico</span></td>
+            </tr>
+            <tr>
+              <td>Auriculares Bluetooth</td>
+              <td>Audio</td>
+              <td>6</td>
+              <td>6</td>
+              <td><span class="atencion">Stock crítico</span></td>
+            </tr>
+            <tr>
+              <td>Cable HDMI 2m</td>
+              <td>Accesorios</td>
+              <td>0</td>
+              <td>15</td>
+              <td><span class="alerta">Sin stock</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MODAL: DETALLE DE PRODUCTO -->
+  <div class="modal fade modal-stockflow" id="modalDetalleProducto" tabindex="-1"
+    aria-labelledby="modalDetalleProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalDetalleProductoLabel">Detalle de producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="seccion-formulario detalle-producto">
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Producto</span>
+              <span class="detalle-producto-valor" id="detalleProductoNombre">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Código</span>
+              <span class="detalle-producto-valor" id="detalleProductoCodigo">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Categoría</span>
+              <span class="detalle-producto-valor" id="detalleProductoCategoria">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Precio</span>
+              <span class="detalle-producto-valor" id="detalleProductoPrecio">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Stock actual</span>
+              <span class="detalle-producto-valor" id="detalleProductoStockActual">-</span>
+            </div>
+            <div class="detalle-producto-fila">
+              <span class="detalle-producto-label">Stock mínimo</span>
+              <span class="detalle-producto-valor" id="detalleProductoStockMinimo">-</span>
+            </div>
+            <div class="detalle-producto-fila sin-borde">
+              <span class="detalle-producto-label">Estado</span>
+              <span class="detalle-producto-valor" id="detalleProductoEstado">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-stockflow modal-producto" id="modalNuevoProducto" tabindex="-1"
+    aria-labelledby="modalNuevoProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h1 class="modal-title" id="modalNuevoProductoLabel">Nuevo producto</h1>
+            <p class="modal-subtitulo">Completá todos los campos obligatorios</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <form id="formNuevoProducto" novalidate>
+          <div class="modal-body">
+
+            <div class="form-producto-columnas">
+
+              <div class="seccion-formulario">
+                <div class="encabezado-seccion">
+                  <h6>Información</h6>
+                  <span class="nota-obligatorios">* Campos obligatorios</span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="nombreProducto">Nombre del producto <span class="obligatorio">*</span></label>
+                  <input type="text" id="nombreProducto" name="nombreProducto" placeholder='Ej: Monitor 24"' required>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="codigoBarras">Código de barras <span class="obligatorio">*</span></label>
+                  <input type="text" id="codigoBarras" name="codigoBarras" inputmode="numeric" pattern="[0-9]*"
+                    placeholder="Ej: 7891..." required>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="categoriaProducto">Categoría <span class="obligatorio">*</span></label>
+                  <select id="categoriaProducto" name="categoriaProducto" required>
+                    <option value="">Seleccioná una categoría</option>
+                  </select>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="descripcionProducto">Descripción <span class="obligatorio">*</span></label>
+                  <textarea id="descripcionProducto" name="descripcionProducto" placeholder="Describí el producto..."
+                    required></textarea>
+                  <span class="error-campo"></span>
+                </div>
+              </div>
+
+              <div class="columna-derecha-producto">
+
+                <div class="seccion-formulario">
+                  <h6>Stock</h6>
+                  <div class="campo-formulario">
+                    <label for="stockInicial">Stock inicial <span class="obligatorio">*</span></label>
+                    <input type="number" id="stockInicial" name="stockInicial" min="0" placeholder="Ej: 20" required>
+                    <span class="error-campo"></span>
+                  </div>
+                  <div class="campo-formulario" style="margin-bottom: 0;">
+                    <label for="stockMinimo">Stock mínimo <span class="obligatorio">*</span></label>
+                    <input type="number" id="stockMinimo" name="stockMinimo" min="0" placeholder="Ej: 5" required>
+                    <span class="error-campo"></span>
+                  </div>
+                </div>
+
+                <div class="seccion-formulario">
+                  <h6>Precio</h6>
+                  <div class="campo-formulario">
+                    <label for="precioCompra">Precio de compra <span class="obligatorio">*</span></label>
+                    <input type="number" id="precioCompra" name="precioCompra" min="0" step="0.01" placeholder="0.00"
+                      required>
+                    <span class="error-campo"></span>
+                  </div>
+                  <div class="campo-formulario" style="margin-bottom: 0;">
+                    <label for="precioVenta">Precio de venta <span class="obligatorio">*</span></label>
+                    <input type="number" id="precioVenta" name="precioVenta" min="0" step="0.01" placeholder="0.00"
+                      required>
+                    <span class="error-campo"></span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="seccion-formulario seccion-variantes">
+              <h6>Variantes (opcional)</h6>
+              <div class="fila-variante">
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="tipoVariante">Tipo de variante</label>
+                  <select id="tipoVariante" name="tipoVariante">
+                    <option value="">Sin variante</option>
+                    <option value="Color">Color</option>
+                    <option value="Modelo">Modelo</option>
+                    <option value="Almacenamiento">Almacenamiento</option>
+                  </select>
+                </div>
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="valorVariante">Variante</label>
+                  <input type="text" id="valorVariante" name="valorVariante" placeholder="Ej: Rojo, 128GB...">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-primario" id="btnGuardarProducto">Guardar producto</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EDITAR PRODUCTO -->
+  <div class="modal fade modal-stockflow modal-producto" id="modalEditarProducto" tabindex="-1"
+    aria-labelledby="modalEditarProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalEditarProductoLabel">Editar producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <form id="formEditarProducto" novalidate>
+          <div class="modal-body">
+
+            <div class="form-producto-columnas">
+
+              <!-- Columna izquierda: Info -->
+              <div class="seccion-formulario">
+                <div class="encabezado-seccion">
+                  <h6>Información general</h6>
+                  <span class="nota-obligatorios">* Campos obligatorios</span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="nombreProductoEditar">Nombre del producto <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
+                    <input type="text" id="nombreProductoEditar" name="nombreProducto" required>
+                    <i class="bi bi-pencil"></i>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="codigoBarrasEditar">Código de barras <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
+                    <input type="text" id="codigoBarrasEditar" name="codigoBarras" inputmode="numeric" pattern="[0-9]*"
+                      required>
+                    <i class="bi bi-pencil"></i>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="categoriaProductoEditar">Categoría <span class="obligatorio">*</span></label>
+                  <div class="campo-editable campo-editable-select">
+                    <select id="categoriaProductoEditar" name="categoriaProducto" required>
+                      <option value="">Seleccioná una categoría</option>
+                    </select>
+                    <i class="bi bi-pencil"></i>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="descripcionProductoEditar">Descripción <span class="obligatorio">*</span></label>
+                  <div class="campo-editable campo-editable-textarea">
+                    <textarea id="descripcionProductoEditar" name="descripcionProducto" required></textarea>
+                    <i class="bi bi-pencil"></i>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+              </div>
+
+              <!-- Columna derecha: Stock y precio -->
+              <div class="seccion-formulario">
+                <h6>Stock y precio</h6>
+
+                <div class="campo-formulario">
+                  <label for="stockActualEditar">Stock actual <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
+                    <input type="number" id="stockActualEditar" name="stockActual" min="0" required>
+                    <i class="bi bi-pencil"></i>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="stockMinimoEditar">Stock mínimo <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
+                    <input type="number" id="stockMinimoEditar" name="stockMinimo" min="0" required>
+                    <i class="bi bi-pencil"></i>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="precioCompraEditar">Precio de compra <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
+                    <input type="number" id="precioCompraEditar" name="precioCompra" min="0" step="0.01" required>
+                    <i class="bi bi-pencil"></i>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="precioVentaEditar">Precio de venta <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
+                    <input type="number" id="precioVentaEditar" name="precioVenta" min="0" step="0.01" required>
+                    <i class="bi bi-pencil"></i>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn-primario">Guardar cambios</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- JS BOOTSTRAP -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS PROPIO -->
+  <script src="/js/componentes/tema.js"></script>
+  <script src="/js/componentes/menu-responsive.js"></script>
+  <script src="/js/js-paginas/navAdministrador.js"></script>
+  <script src="/js/js-paginas/inventarioAdministrador.js"></script>
+
+</body>
+
+</html>

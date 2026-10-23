@@ -1,5 +1,5 @@
 .alerta-stock .alerta-icono {
   font-size: 1.8rem;
-  color: var(--rojo-alerta);
+  color: var(--texto-alerta);
   flex-shrink: 0;
 }

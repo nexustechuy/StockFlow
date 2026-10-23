@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap');
 
 .titulo {
   font-family: 'Poppins', sans-serif;
@@ -15,13 +15,14 @@
   color: var(--texto-gris);
 }
 
-.encabezado{
+.encabezado {
   padding: 10px 10px;
 }
+
 .encabezado h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 2px; 
+  margin-bottom: 2px;
 }
 
 .encabezado p {
@@ -29,4 +30,3 @@
   font-size: 0.92rem;
   margin-bottom: 28px;
 }
-

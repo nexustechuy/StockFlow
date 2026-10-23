@@ -7,12 +7,8 @@
 @import url(../base/layout.css);
 
 /*ELEMENTOS*/
-/* navbar.css antes que sidebar.css: ver nota en dashboardVendedor.css */
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
 @import url(../componentes/iconos.css);
 @import url(../componentes/cards.css);
 @import url(../componentes/tablas.css);
-
-/* Esta página no tiene, por ahora, estilos propios más allá de los
-   componentes compartidos (tarjetas, panel, tablas, responsive). */
