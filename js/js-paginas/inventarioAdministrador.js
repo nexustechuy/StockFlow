@@ -442,6 +442,18 @@ document.addEventListener("DOMContentLoaded", () => {
         campo.querySelector(".error-campo").textContent = "";
     }
 
+    const mensajeCodigo = "El código de barras solo puede tener números.";
+
+    // Al escribir se borra el error, salvo que el código tenga algo que no sea número
+    function revisarAlEscribir(input) {
+        const campo = input.closest(".campo-formulario");
+        limpiarErrorCampo(campo);
+
+        if (input.inputMode === "numeric" && /[^0-9]/.test(input.value)) {
+            mostrarErrorCampo(campo, mensajeCodigo);
+        }
+    }
+
     const camposNuevoProducto = [
         "nombreProducto",
         "codigoBarras",
@@ -454,7 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ].map(id => document.getElementById(id));
 
     camposNuevoProducto.forEach(input => {
-        input.addEventListener("input", () => limpiarErrorCampo(input.closest(".campo-formulario")));
+        input.addEventListener("input", () => revisarAlEscribir(input));
     });
 
     modalNuevoProductoEl.addEventListener("hidden.bs.modal", () => {
@@ -473,6 +485,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 hayError = true;
             } else if (input.type === "number" && Number(valor) < 0) {
                 mostrarErrorCampo(campo, "Ingresá un valor válido.");
+                hayError = true;
+            } else if (input.inputMode === "numeric" && !/^[0-9]+$/.test(valor)) {
+                mostrarErrorCampo(campo, mensajeCodigo);
                 hayError = true;
             } else {
                 limpiarErrorCampo(campo);
@@ -627,7 +642,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     camposEditarProducto.forEach(input => {
-        input.addEventListener("input", () => limpiarErrorCampo(input.closest(".campo-formulario")));
+        input.addEventListener("input", () => revisarAlEscribir(input));
     });
 
     precioCompraEditar.addEventListener("input", () => validarPrecios(precioCompraEditar, precioVentaEditar));

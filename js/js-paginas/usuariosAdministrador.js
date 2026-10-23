@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config=\'{"strategy":"fixed"}\' aria-expanded="false">•••</button>' +
         '<ul class="dropdown-menu dropdown-menu-end">' +
         '<li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>' +
-        '<li><a class="dropdown-item" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>' +
+        '<li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>' +
         '<li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>' +
         '</ul>' +
         '</div>' +
@@ -185,5 +185,18 @@ document.addEventListener('DOMContentLoaded', function () {
     // Limpia el error al abrir el modal
     modalNuevoUsuarioEl.addEventListener('show.bs.modal', ocultarError);
   }
+
+  /* Cambiar estado (activo/inactivo) */
+  cuerpoTabla.addEventListener('click', function (evento) {
+    const opcion = evento.target.closest('.cambiar-estado');
+    if (!opcion) return;
+    evento.preventDefault();
+
+    const estado = opcion.closest('tr').querySelector('td:nth-child(4) span');
+    const estabaActivo = estado.textContent.trim() === 'Activo';
+
+    estado.className = estabaActivo ? 'alerta' : 'ingreso';
+    estado.textContent = estabaActivo ? 'Inactivo' : 'Activo';
+  });
 
 });
