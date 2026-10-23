@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let ventas = [];
   let detalleVentas = [];
-  let filtroPeriodo = 'hoy';
+  let filtroPeriodo = 'todo';
 
   function formatearMoneda(valor) {
     return '$' + Number(valor).toLocaleString('es-UY');
