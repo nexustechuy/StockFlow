@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
         (estado === 'activo' ? 'Activo' : 'Inactivo') + '</span></td>' +
         '<td>' +
         '<div class="dropdown">' +
-        '<button class="btn-accion" data-bs-toggle="dropdown" aria-expanded="false">•••</button>' +
+        '<button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config=\'{"strategy":"fixed"}\' aria-expanded="false">•••</button>' +
         '<ul class="dropdown-menu dropdown-menu-end">' +
         '<li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>' +
         '<li><a class="dropdown-item" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>' +

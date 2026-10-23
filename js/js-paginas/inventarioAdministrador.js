@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>
                     <div class="dropdown">
                         <button class="btn-accion" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                            data-bs-popper-config='{"strategy":"fixed"}'
                             aria-expanded="false">•••</button>
                         <div class="dropdown-menu dropdown-menu-end popup-menu">
                             <div class="vista-acciones">
