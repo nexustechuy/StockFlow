@@ -482,9 +482,34 @@ document.addEventListener("DOMContentLoaded", () => {
         return hayError;
     }
 
+    const mensajePrecio = "El precio de venta no puede ser menor al de compra.";
+
+    // Marca error si el precio de venta es menor al de compra
+    function validarPrecios(inputCompra, inputVenta) {
+        const campoVenta = inputVenta.closest(".campo-formulario");
+        const compra = inputCompra.value.trim();
+        const venta = inputVenta.value.trim();
+        const hayError = compra !== "" && venta !== "" && Number(venta) < Number(compra);
+
+        if (hayError) {
+            mostrarErrorCampo(campoVenta, mensajePrecio);
+        } else if (campoVenta.querySelector(".error-campo").textContent === mensajePrecio) {
+            limpiarErrorCampo(campoVenta);
+        }
+
+        return hayError;
+    }
+
+    const precioCompraNuevo = document.getElementById("precioCompra");
+    const precioVentaNuevo = document.getElementById("precioVenta");
+
+    precioCompraNuevo.addEventListener("input", () => validarPrecios(precioCompraNuevo, precioVentaNuevo));
+    precioVentaNuevo.addEventListener("input", () => validarPrecios(precioCompraNuevo, precioVentaNuevo));
+
     btnGuardarProducto.addEventListener("click", () => {
 
-        if (validarCampos(camposNuevoProducto)) return;
+        const hayError = validarCampos(camposNuevoProducto);
+        if (validarPrecios(precioCompraNuevo, precioVentaNuevo) || hayError) return;
 
         const tipoVariante = document.getElementById("tipoVariante").value;
         const valorVariante = document.getElementById("valorVariante").value.trim();
@@ -551,7 +576,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const formEditarProducto = document.getElementById("formEditarProducto");
     const modalEditarProductoEl = document.getElementById("modalEditarProducto");
     const modalEditarProducto = new bootstrap.Modal(modalEditarProductoEl);
-    const avisoPrecioEditar = document.getElementById("avisoPrecioEditar");
 
     const nombreEditar = document.getElementById("nombreProductoEditar");
     const codigoEditar = document.getElementById("codigoBarrasEditar");
@@ -586,17 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
         precioVentaEditar.value = Number(producto.precio_venta);
 
         camposEditarProducto.forEach(input => limpiarErrorCampo(input.closest(".campo-formulario")));
-        revisarPrecios();
-    }
-
-    // Avisa si el precio de venta es menor al de compra
-    function revisarPrecios() {
-        const compra = precioCompraEditar.value;
-        const venta = precioVentaEditar.value;
-
-        avisoPrecioEditar.textContent = compra !== "" && venta !== "" && Number(venta) < Number(compra)
-            ? "El precio de venta es menor al de compra."
-            : "";
+        validarPrecios(precioCompraEditar, precioVentaEditar);
     }
 
     modalEditarProductoEl.addEventListener("show.bs.modal", (evento) => {
@@ -616,13 +630,16 @@ document.addEventListener("DOMContentLoaded", () => {
         input.addEventListener("input", () => limpiarErrorCampo(input.closest(".campo-formulario")));
     });
 
-    precioCompraEditar.addEventListener("input", revisarPrecios);
-    precioVentaEditar.addEventListener("input", revisarPrecios);
+    precioCompraEditar.addEventListener("input", () => validarPrecios(precioCompraEditar, precioVentaEditar));
+    precioVentaEditar.addEventListener("input", () => validarPrecios(precioCompraEditar, precioVentaEditar));
 
     formEditarProducto.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        if (!productoEditando || validarCampos(camposEditarProducto)) return;
+        if (!productoEditando) return;
+
+        const hayError = validarCampos(camposEditarProducto);
+        if (validarPrecios(precioCompraEditar, precioVentaEditar) || hayError) return;
 
         const opcionCategoria = selectCategoriaEditar.options[selectCategoriaEditar.selectedIndex];
 

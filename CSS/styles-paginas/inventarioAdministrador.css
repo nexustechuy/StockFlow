@@ -61,7 +61,7 @@
   border-bottom: 2px solid var(--azul-primario);
 }
 
-/* En modo oscuro la pestaña activa va en blanco para que se lea */
+/* Pestaña activa en blanco para que se pueda leer */
 body.tema-oscuro .pestana.activa {
   color: var(--blanco);
   border-bottom-color: var(--blanco);
@@ -273,18 +273,6 @@ body.tema-oscuro .tabla-inventario tr.fila-activa {
 .campo-editable-textarea i {
   top: 12px;
   transform: none;
-}
-
-/* Advertencia no bloqueante */
-.aviso-campo {
-  display: block;
-  color: var(--amarillo-atencion);
-  font-size: 0.78rem;
-  margin-top: 4px;
-}
-
-.aviso-campo:empty {
-  display: none;
 }
 
 #stockInicial,
