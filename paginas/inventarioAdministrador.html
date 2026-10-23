@@ -391,7 +391,7 @@
   </div>
 
   <div class="modal fade modal-stockflow modal-producto" id="modalNuevoProducto" tabindex="-1"
-    aria-labelledby="modalNuevoProductoLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    aria-labelledby="modalNuevoProductoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -443,14 +443,6 @@
               </div>
 
               <div class="columna-derecha-producto">
-
-                <div class="seccion-formulario">
-                  <h6>Imagen</h6>
-                  <div class="zona-carga-imagen">
-                    <i class="bi bi-cloud-arrow-up"></i><br>
-                    Arrastrá o hacé click para subir
-                  </div>
-                </div>
 
                 <div class="seccion-formulario">
                   <h6>Stock</h6>
@@ -516,15 +508,13 @@
     </div>
   </div>
 
+  <!-- MODAL: EDITAR PRODUCTO -->
   <div class="modal fade modal-stockflow modal-producto" id="modalEditarProducto" tabindex="-1"
-    aria-labelledby="modalEditarProductoLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    aria-labelledby="modalEditarProductoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <div>
-            <h1 class="modal-title" id="modalEditarProductoLabel">Editar producto</h1>
-            <p class="modal-subtitulo">Completá todos los campos obligatorios</p>
-          </div>
+          <h1 class="modal-title" id="modalEditarProductoLabel">Editar producto</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
 
@@ -533,101 +523,96 @@
 
             <div class="form-producto-columnas">
 
+              <!-- Columna izquierda: Info -->
               <div class="seccion-formulario">
                 <div class="encabezado-seccion">
-                  <h6>Información</h6>
+                  <h6>Información general</h6>
                   <span class="nota-obligatorios">* Campos obligatorios</span>
                 </div>
 
                 <div class="campo-formulario">
                   <label for="nombreProductoEditar">Nombre del producto <span class="obligatorio">*</span></label>
-                  <input type="text" id="nombreProductoEditar" name="nombreProducto" required>
+                  <div class="campo-editable">
+                    <input type="text" id="nombreProductoEditar" name="nombreProducto" required>
+                    <i class="bi bi-pencil"></i>
+                  </div>
                   <span class="error-campo"></span>
                 </div>
 
                 <div class="campo-formulario">
                   <label for="codigoBarrasEditar">Código de barras <span class="obligatorio">*</span></label>
-                  <input type="text" id="codigoBarrasEditar" name="codigoBarras" inputmode="numeric" pattern="[0-9]*"
-                    required>
+                  <div class="campo-editable">
+                    <input type="text" id="codigoBarrasEditar" name="codigoBarras" inputmode="numeric" pattern="[0-9]*"
+                      required>
+                    <i class="bi bi-pencil"></i>
+                  </div>
                   <span class="error-campo"></span>
                 </div>
 
                 <div class="campo-formulario">
                   <label for="categoriaProductoEditar">Categoría <span class="obligatorio">*</span></label>
-                  <select id="categoriaProductoEditar" name="categoriaProducto" required>
-                    <option value="">Seleccioná una categoría</option>
-                  </select>
+                  <div class="campo-editable campo-editable-select">
+                    <select id="categoriaProductoEditar" name="categoriaProducto" required>
+                      <option value="">Seleccioná una categoría</option>
+                    </select>
+                    <i class="bi bi-pencil"></i>
+                  </div>
                   <span class="error-campo"></span>
                 </div>
 
                 <div class="campo-formulario" style="margin-bottom: 0;">
                   <label for="descripcionProductoEditar">Descripción <span class="obligatorio">*</span></label>
-                  <textarea id="descripcionProductoEditar" name="descripcionProducto" required></textarea>
+                  <div class="campo-editable campo-editable-textarea">
+                    <textarea id="descripcionProductoEditar" name="descripcionProducto" required></textarea>
+                    <i class="bi bi-pencil"></i>
+                  </div>
                   <span class="error-campo"></span>
                 </div>
               </div>
 
-              <div class="columna-derecha-producto">
+              <!-- Columna derecha: Stock y precio -->
+              <div class="seccion-formulario">
+                <h6>Stock y precio</h6>
 
-                <div class="seccion-formulario">
-                  <h6>Imagen</h6>
-                  <div class="zona-carga-imagen">
-                    <i class="bi bi-cloud-arrow-up"></i><br>
-                    Arrastrá o hacé click para subir
-                  </div>
-                </div>
-
-                <div class="seccion-formulario">
-                  <h6>Stock</h6>
-                  <div class="campo-formulario">
-                    <label for="stockActualEditar">Stock actual <span class="obligatorio">*</span></label>
+                <div class="campo-formulario">
+                  <label for="stockActualEditar">Stock actual <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
                     <input type="number" id="stockActualEditar" name="stockActual" min="0" required>
-                    <span class="error-campo"></span>
+                    <i class="bi bi-pencil"></i>
                   </div>
-                  <div class="campo-formulario" style="margin-bottom: 0;">
-                    <label for="stockMinimoEditar">Stock mínimo <span class="obligatorio">*</span></label>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="stockMinimoEditar">Stock mínimo <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
                     <input type="number" id="stockMinimoEditar" name="stockMinimo" min="0" required>
-                    <span class="error-campo"></span>
+                    <i class="bi bi-pencil"></i>
                   </div>
+                  <span class="error-campo"></span>
                 </div>
 
-                <div class="seccion-formulario">
-                  <h6>Precio</h6>
-                  <div class="campo-formulario">
-                    <label for="precioCompraEditar">Precio de compra <span class="obligatorio">*</span></label>
+                <div class="campo-formulario">
+                  <label for="precioCompraEditar">Precio de compra <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
                     <input type="number" id="precioCompraEditar" name="precioCompra" min="0" step="0.01" required>
-                    <span class="error-campo"></span>
+                    <i class="bi bi-pencil"></i>
                   </div>
-                  <div class="campo-formulario" style="margin-bottom: 0;">
-                    <label for="precioVentaEditar">Precio de venta <span class="obligatorio">*</span></label>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="precioVentaEditar">Precio de venta <span class="obligatorio">*</span></label>
+                  <div class="campo-editable">
                     <input type="number" id="precioVentaEditar" name="precioVenta" min="0" step="0.01" required>
-                    <span class="error-campo"></span>
+                    <i class="bi bi-pencil"></i>
                   </div>
+                  <span class="error-campo"></span>
+                  <span class="aviso-campo" id="avisoPrecioEditar"></span>
                 </div>
-
               </div>
 
             </div>
-
-            <div class="seccion-formulario seccion-variantes">
-              <h6>Variantes (opcional)</h6>
-              <div class="fila-variante">
-                <div class="campo-formulario" style="margin-bottom: 0;">
-                  <label for="tipoVarianteEditar">Tipo de variante</label>
-                  <select id="tipoVarianteEditar" name="tipoVariante">
-                    <option value="">Sin variante</option>
-                    <option value="Color">Color</option>
-                    <option value="Modelo">Modelo</option>
-                    <option value="Almacenamiento">Almacenamiento</option>
-                  </select>
-                </div>
-                <div class="campo-formulario" style="margin-bottom: 0;">
-                  <label for="valorVarianteEditar">Variante</label>
-                  <input type="text" id="valorVarianteEditar" name="valorVariante" placeholder="Ej: Rojo, 128GB...">
-                </div>
-              </div>
-            </div>
-
           </div>
 
           <div class="modal-footer">

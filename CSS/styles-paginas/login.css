@@ -146,7 +146,3 @@ body.tema-oscuro .mensaje-error {
   color: var(--texto-alerta);
   background-color: var(--fondo-alerta);
 }
-
-body.tema-oscuro .modal-stockflow .btn-close {
-  filter: invert(1);
-}

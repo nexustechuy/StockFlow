@@ -234,24 +234,57 @@ body.tema-oscuro .tabla-inventario tr.fila-activa {
   gap: 20px;
 }
 
-.zona-carga-imagen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 110px;
-  border: 1.5px dashed var(--gris-borde);
-  border-radius: 10px;
-  background-color: var(--superficie);
-  color: var(--texto-gris);
-  font-size: 0.82rem;
-  text-align: center;
-  padding: 14px;
+/* MODAL: EDITAR PRODUCTO */
+/* Lápiz a la derecha de los campos */
+.campo-editable {
+  position: relative;
 }
 
-.zona-carga-imagen i {
-  font-size: 1.4rem;
+.campo-editable input,
+.campo-editable select,
+.campo-editable textarea {
+  padding-right: 36px;
+}
+
+.campo-editable i {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: var(--texto-gris);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+/* En el select el lápiz va antes de la flecha */
+.campo-editable-select select {
+  padding-right: 56px;
+}
+
+.campo-editable-select i {
+  right: 32px;
+}
+
+.campo-editable-textarea {
+  flex: 1;
+  display: flex;
+}
+
+.campo-editable-textarea i {
+  top: 12px;
+  transform: none;
+}
+
+/* Advertencia no bloqueante */
+.aviso-campo {
+  display: block;
+  color: var(--amarillo-atencion);
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+
+.aviso-campo:empty {
+  display: none;
 }
 
 #stockInicial,

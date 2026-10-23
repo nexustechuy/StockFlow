@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputBuscar = document.getElementById("buscarProducto");
     const chipsFiltro = document.querySelectorAll(".filtro-chip");
     const selectCategoria = document.getElementById("categoriaProducto");
+    const selectCategoriaEditar = document.getElementById("categoriaProductoEditar");
     const formNuevoProducto = document.getElementById("formNuevoProducto");
     const btnGuardarProducto = document.getElementById("btnGuardarProducto");
     const modalNuevoProductoEl = document.getElementById("modalNuevoProducto");
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 data-tipo-variante="${variante ? variante.tipo : ""}"
                 data-valor-variante="${variante ? variante.valor : ""}">
                 <td>${producto.nombre}</td>
-                <td>${producto.id_producto}</td>
+                <td>${producto.codigo_barras ?? producto.id_producto}</td>
                 <td>${producto.categoria}</td>
                 <td>$${Number(producto.precio_venta).toLocaleString("es-UY")}</td>
                 <td>${producto.stock}</td>
@@ -84,8 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="popup-header">${producto.nombre}</div>
                                 <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
                                     data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
-                                <a class="dropdown-item disabled" href="#" aria-disabled="true" tabindex="-1"
-                                    title="Disponible próximamente"><i class="bi bi-pencil me-2"></i>Editar producto</a>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditarProducto"><i class="bi bi-pencil me-2"></i>Editar producto</a>
                                 <a class="dropdown-item text-peligro btn-pedir-confirmacion" href="#"><i
                                         class="bi bi-trash me-2"></i>Eliminar producto</a>
                             </div>
@@ -231,18 +232,23 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
+    // Agrega la categoría a los select de nuevo y editar producto
+    function agregarOpcionCategoria(cat) {
+        [selectCategoria, selectCategoriaEditar].forEach(select => {
+            const option = document.createElement("option");
+            option.value = cat.id_categoria;
+            option.textContent = cat.nombre;
+            select.appendChild(option);
+        });
+    }
+
     function cargarCategorias() {
         fetch("/categorias")
             .then(res => res.json())
             .then(categorias => {
                 categoriasCargadas = categorias;
 
-                categorias.forEach(cat => {
-                    const option = document.createElement("option");
-                    option.value = cat.id_categoria;
-                    option.textContent = cat.nombre;
-                    selectCategoria.appendChild(option);
-                });
+                categorias.forEach(agregarOpcionCategoria);
 
                 renderizarCategorias();
             })
@@ -298,8 +304,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 categoriasCargadas = categoriasCargadas.filter(c => String(c.id_categoria) !== String(id));
                 renderizarCategorias();
 
-                const opcion = selectCategoria.querySelector(`option[value="${id}"]`);
-                opcion?.remove();
+                [selectCategoria, selectCategoriaEditar].forEach(select => {
+                    select.querySelector(`option[value="${id}"]`)?.remove();
+                });
             })
             .catch(error => {
                 console.error("Error al eliminar categoría:", error);
@@ -307,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
-    // "Ver en inventario" (pestaña de Alertas) lleva a la pestaña de Productos
+    // "Ver en inventario" lleva a la pestaña de Productos
     document.getElementById("linkVerEnInventario")?.addEventListener("click", (e) => {
         e.preventDefault();
         document.querySelector('.pestana[data-pestana="productos"]')?.click();
@@ -346,11 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 categoriasCargadas.push(categoriaCreada);
                 renderizarCategorias();
 
-                // También la agregamos al select
-                const option = document.createElement("option");
-                option.value = categoriaCreada.id_categoria;
-                option.textContent = categoriaCreada.nombre;
-                selectCategoria.appendChild(option);
+                agregarOpcionCategoria(categoriaCreada);
 
                 formNuevaCategoria.reset();
                 panelNuevaCategoria.classList.add("oculto");
@@ -375,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const { estado } = calcularEstado(producto);
 
         document.getElementById("detalleProductoNombre").textContent = producto.nombre;
-        document.getElementById("detalleProductoCodigo").textContent = producto.id_producto;
+        document.getElementById("detalleProductoCodigo").textContent = producto.codigo_barras ?? producto.id_producto;
         document.getElementById("detalleProductoCategoria").textContent = producto.categoria;
         document.getElementById("detalleProductoPrecio").textContent =
             `$${Number(producto.precio_venta).toLocaleString("es-UY")}`;
@@ -384,7 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("detalleProductoEstado").textContent = estado;
     });
 
-    // ELIMINAR PRODUCTO (con confirmación)
+    // ELIMINAR PRODUCTO con confirmación
     tabla.addEventListener("click", (e) => {
 
         const pedirConfirmacion = e.target.closest(".btn-pedir-confirmacion");
@@ -457,11 +460,10 @@ document.addEventListener("DOMContentLoaded", () => {
         camposNuevoProducto.forEach(input => limpiarErrorCampo(input.closest(".campo-formulario")));
     });
 
-    btnGuardarProducto.addEventListener("click", () => {
-
+    function validarCampos(inputs) {
         let hayError = false;
 
-        camposNuevoProducto.forEach(input => {
+        inputs.forEach(input => {
             const campo = input.closest(".campo-formulario");
             const valor = input.value.trim();
 
@@ -476,7 +478,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        if (hayError) return;
+        return hayError;
+    }
+
+    btnGuardarProducto.addEventListener("click", () => {
+
+        if (validarCampos(camposNuevoProducto)) return;
 
         const tipoVariante = document.getElementById("tipoVariante").value;
         const valorVariante = document.getElementById("valorVariante").value.trim();
@@ -537,6 +544,99 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Error al guardar producto:", error);
                 alert(error.message);
             });
+    });
+
+    // EDITAR PRODUCTO
+    const formEditarProducto = document.getElementById("formEditarProducto");
+    const modalEditarProductoEl = document.getElementById("modalEditarProducto");
+    const modalEditarProducto = new bootstrap.Modal(modalEditarProductoEl);
+    const avisoPrecioEditar = document.getElementById("avisoPrecioEditar");
+
+    const nombreEditar = document.getElementById("nombreProductoEditar");
+    const codigoEditar = document.getElementById("codigoBarrasEditar");
+    const descripcionEditar = document.getElementById("descripcionProductoEditar");
+    const stockEditar = document.getElementById("stockActualEditar");
+    const stockMinimoEditar = document.getElementById("stockMinimoEditar");
+    const precioCompraEditar = document.getElementById("precioCompraEditar");
+    const precioVentaEditar = document.getElementById("precioVentaEditar");
+
+    const camposEditarProducto = [
+        nombreEditar,
+        codigoEditar,
+        selectCategoriaEditar,
+        descripcionEditar,
+        stockEditar,
+        stockMinimoEditar,
+        precioCompraEditar,
+        precioVentaEditar
+    ];
+
+    let productoEditando = null;
+
+    // Carga los datos del producto en el formulario
+    function cargarDatosEdicion(producto) {
+        nombreEditar.value = producto.nombre;
+        codigoEditar.value = producto.codigo_barras ?? producto.id_producto;
+        selectCategoriaEditar.value = producto.id_categoria;
+        descripcionEditar.value = producto.descripcion ?? "";
+        stockEditar.value = producto.stock;
+        stockMinimoEditar.value = producto.stock_minimo;
+        precioCompraEditar.value = Number(producto.precio_compra);
+        precioVentaEditar.value = Number(producto.precio_venta);
+
+        camposEditarProducto.forEach(input => limpiarErrorCampo(input.closest(".campo-formulario")));
+        revisarPrecios();
+    }
+
+    // Avisa si el precio de venta es menor al de compra
+    function revisarPrecios() {
+        const compra = precioCompraEditar.value;
+        const venta = precioVentaEditar.value;
+
+        avisoPrecioEditar.textContent = compra !== "" && venta !== "" && Number(venta) < Number(compra)
+            ? "El precio de venta es menor al de compra."
+            : "";
+    }
+
+    modalEditarProductoEl.addEventListener("show.bs.modal", (evento) => {
+        const boton = evento.relatedTarget;
+        const fila = boton ? boton.closest("tr") : null;
+        if (!fila) return;
+
+        productoEditando = productos.find(p => String(p.id_producto) === String(fila.dataset.id));
+        if (productoEditando) cargarDatosEdicion(productoEditando);
+    });
+
+    modalEditarProductoEl.addEventListener("hidden.bs.modal", () => {
+        if (productoEditando) cargarDatosEdicion(productoEditando);
+    });
+
+    camposEditarProducto.forEach(input => {
+        input.addEventListener("input", () => limpiarErrorCampo(input.closest(".campo-formulario")));
+    });
+
+    precioCompraEditar.addEventListener("input", revisarPrecios);
+    precioVentaEditar.addEventListener("input", revisarPrecios);
+
+    formEditarProducto.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (!productoEditando || validarCampos(camposEditarProducto)) return;
+
+        const opcionCategoria = selectCategoriaEditar.options[selectCategoriaEditar.selectedIndex];
+
+        productoEditando.nombre = nombreEditar.value.trim();
+        productoEditando.codigo_barras = codigoEditar.value.trim();
+        productoEditando.id_categoria = Number(selectCategoriaEditar.value);
+        productoEditando.categoria = opcionCategoria.textContent;
+        productoEditando.descripcion = descripcionEditar.value.trim();
+        productoEditando.stock = Number(stockEditar.value);
+        productoEditando.stock_minimo = Number(stockMinimoEditar.value);
+        productoEditando.precio_compra = Number(precioCompraEditar.value);
+        productoEditando.precio_venta = Number(precioVentaEditar.value);
+
+        aplicarFiltros();
+        modalEditarProducto.hide();
     });
 
     cargarProductos();

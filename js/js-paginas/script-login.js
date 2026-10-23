@@ -105,24 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         btnCambiarContrasena.disabled = true;
 
         try {
-            // TODO: reemplazar por la ruta que defina el backend y borrar la simulación de abajo
-            // const respuesta = await fetch('/recuperar-contrasena', {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify({
-            //         mail: emailIngresado
-            //     })
-            // });
-            //
-            // if (!respuesta.ok) {
-            //     mostrarErrorCampo(campoEmailRecuperacion, "No encontramos una cuenta con ese email");
-            //     btnCambiarContrasena.disabled = false;
-            //     return;
-            // }
-
-            // Simulación de éxito mientras no exista la ruta
+            // Simulación de éxito mientras se implementa la funcionalidad real
             await new Promise(resolve => setTimeout(resolve, 300));
 
             mensajeExito.textContent = "Se envió un enlace a tu correo";
