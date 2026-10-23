@@ -61,13 +61,13 @@
 
     <div class="tarjetas">
       <div class="tarjeta">
-        <div class="etiqueta">Ventas de hoy</div>
-        <div class="valor" id="ventasHoyValor">0</div>
+        <div class="etiqueta" id="ventasPeriodoEtiqueta">Ventas</div>
+        <div class="valor" id="ventasPeriodoValor">0</div>
         <div class="unidad">ventas</div>
       </div>
       <div class="tarjeta">
-        <div class="etiqueta">Ingresos de hoy</div>
-        <div class="valor ingreso" id="ingresosHoyValor">$0</div>
+        <div class="etiqueta" id="ingresosPeriodoEtiqueta">Ingresos</div>
+        <div class="valor ingreso" id="ingresosPeriodoValor">$0</div>
         <div class="unidad">pesos</div>
       </div>
       <div class="tarjeta">
@@ -78,7 +78,7 @@
       <div class="tarjeta">
         <div class="etiqueta">Vendedores activos</div>
         <div class="valor" id="vendedoresActivosValor">0</div>
-        <div class="unidad">ahora</div>
+        <div class="unidad">vendedores</div>
       </div>
     </div>
 
@@ -86,7 +86,8 @@
       <input type="text" id="buscarVenta" class="input-busqueda" placeholder="Buscá por cliente o vendedor...">
 
       <div class="filtros">
-        <button type="button" class="filtro-chip activo" data-filtro="hoy">Hoy</button>
+        <button type="button" class="filtro-chip activo" data-filtro="todo">Todo</button>
+        <button type="button" class="filtro-chip" data-filtro="hoy">Hoy</button>
         <button type="button" class="filtro-chip" data-filtro="semana">Esta semana</button>
         <button type="button" class="filtro-chip" data-filtro="mes">Este mes</button>
       </div>

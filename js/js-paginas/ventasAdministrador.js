@@ -6,7 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let ventas = [];
   let detalleVentas = [];
-  let filtroPeriodo = 'hoy';
+  let filtroPeriodo = 'todo';
+  const sufijosPeriodo = {
+    hoy: ' de hoy',
+    semana: ' de la semana',
+    mes: ' del mes'
+  };
   let textoBusqueda = '';
 
   function formatearMoneda(valor) {
@@ -101,14 +106,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function renderizarTarjetas() {
-    const ventasHoy = ventas.filter(v => estaEnPeriodo(v.fecha_hora, 'hoy'));
-    const ingresosHoy = ventasHoy.reduce((acc, v) => acc + Number(v.total), 0);
-    const gananciaBrutaHoy = ventasHoy.reduce((acc, v) => acc + rentabilidadDeVenta(v.id_venta), 0);
-    const vendedoresActivos = new Set(ventasHoy.map(v => v.id_usuario).filter(Boolean)).size;
+    const ventasPeriodo = ventas.filter(v => estaEnPeriodo(v.fecha_hora, filtroPeriodo));
+    const ingresosPeriodo = ventasPeriodo.reduce((acc, v) => acc + Number(v.total), 0);
+    const gananciaBrutaPeriodo = ventasPeriodo.reduce((acc, v) => acc + rentabilidadDeVenta(v.id_venta), 0);
+    const vendedoresActivos = new Set(ventasPeriodo.map(v => v.id_usuario).filter(Boolean)).size;
+    const sufijo = sufijosPeriodo[filtroPeriodo] || '';
 
-    document.getElementById('ventasHoyValor').textContent = ventasHoy.length;
-    document.getElementById('ingresosHoyValor').textContent = formatearMoneda(ingresosHoy);
-    document.getElementById('gananciaBrutaValor').textContent = formatearMoneda(gananciaBrutaHoy);
+    document.getElementById('ventasPeriodoEtiqueta').textContent = 'Ventas' + sufijo;
+    document.getElementById('ingresosPeriodoEtiqueta').textContent = 'Ingresos' + sufijo;
+    document.getElementById('ventasPeriodoValor').textContent = ventasPeriodo.length;
+    document.getElementById('ingresosPeriodoValor').textContent = formatearMoneda(ingresosPeriodo);
+    document.getElementById('gananciaBrutaValor').textContent = formatearMoneda(gananciaBrutaPeriodo);
     document.getElementById('vendedoresActivosValor').textContent = vendedoresActivos;
   }
 
