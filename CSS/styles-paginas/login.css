@@ -189,3 +189,8 @@ body.tema-oscuro .mensaje-error {
   color: var(--texto-alerta);
   background-color: var(--fondo-alerta);
 }
+
+/* Modo oscuro */
+body.tema-oscuro .contenedor-contrasena button {
+  color: #ffffff;
+}
