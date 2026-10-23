@@ -1,7 +1,7 @@
+
 @import url(../base/colores.css);
 @import url(../base/fuentes.css);
 
-/* ELEMENTOS DEL MODAL RECUPERAR CONTRASEÑA */
 @import url(../componentes/botones.css);
 @import url(../componentes/formularios.css);
 @import url(../componentes/modales.css);
@@ -15,7 +15,7 @@ body {
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* Tarjeta blanca login */
+/* Tarjeta del login */
 .card-login {
   background-color: var(--superficie);
   border-radius: 16px;
@@ -25,7 +25,7 @@ body {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.40);
 }
 
-/* Título StockFlow */
+/* Título */
 .card-login h1 {
   font-family: 'Poppins', Arial, sans-serif;
   font-size: 2rem;
@@ -36,7 +36,7 @@ body {
   letter-spacing: -0.5px;
 }
 
-/* Títulos de los campos */
+/* Etiquetas */
 .card-login label {
   font-family: 'Inter', Arial, sans-serif;
   font-weight: 600;
@@ -45,7 +45,7 @@ body {
   display: block;
 }
 
-/* Campos de texto */
+/* Campos */
 .card-login input {
   background-color: var(--gris-input);
   border: none;
@@ -63,10 +63,47 @@ body {
   background-color: var(--gris-input);
 }
 
-/* Links del formulario */
+/* Campo de contraseña */
+.contenedor-contrasena {
+  display: flex;
+  align-items: center;
+  background-color: var(--gris-input);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.contenedor-contrasena input {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.contenedor-contrasena button {
+  background: none;
+  border: none;
+  color: var(--azul-primario);
+  padding: 0 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenedor-contrasena button:hover {
+  opacity: 0.7;
+}
+
+.contenedor-contrasena button:focus-visible {
+  outline: 2px solid var(--azul-primario);
+  outline-offset: -3px;
+  border-radius: 6px;
+}
+
+/* Links */
 .links-form {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: -8px;
   margin-bottom: 28px;
 }
@@ -87,7 +124,7 @@ body {
   flex-direction: column;
 }
 
-/* Mensaje de error */
+/* Mensajes de error */
 .mensaje-error {
   color: #d32f2f;
   background-color: rgba(211, 47, 47, 0.08);
@@ -97,7 +134,7 @@ body {
   margin-bottom: 16px;
 }
 
-/* Botón Ingresar */
+/* Botón ingresar */
 .btn-ingresar {
   font-family: 'Inter', Arial, sans-serif;
   background-color: var(--azul-primario);
@@ -112,12 +149,7 @@ body {
   transition: background-color 0.2s;
 }
 
-/* Link centrado */
-.links-form {
-  justify-content: center;
-}
-
-/* MODAL RECUPERAR CONTRASEÑA */
+/* Recuperar contraseña */
 .mensaje-exito {
   color: var(--verde-ingreso);
   background-color: rgba(46, 125, 50, 0.10);
@@ -127,7 +159,7 @@ body {
   margin-bottom: 16px;
 }
 
-/* MODO OSCURO */
+/* Modo oscuro */
 body.tema-oscuro .card-login input,
 body.tema-oscuro .card-login input:focus {
   background-color: var(--gris-fondo);
@@ -136,6 +168,17 @@ body.tema-oscuro .card-login input:focus {
 
 body.tema-oscuro .card-login input:focus {
   border-color: var(--azul-activo);
+}
+
+body.tema-oscuro .contenedor-contrasena {
+  background-color: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+}
+
+body.tema-oscuro .contenedor-contrasena input,
+body.tema-oscuro .contenedor-contrasena input:focus {
+  border: none;
+  background-color: transparent;
 }
 
 body.tema-oscuro .btn-ingresar {

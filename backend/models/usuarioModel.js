@@ -13,7 +13,8 @@ async function buscarPorCredenciales(mail, password) {
              ON u.id_usuario = ur.id_usuario
          INNER JOIN rol r
              ON ur.id_rol = r.id_rol
-         WHERE u.mail = ? AND u.password = ?`,
+         WHERE BINARY u.mail = BINARY ?
+        AND BINARY u.password = BINARY ?`,
         [mail, password]
     );
 }

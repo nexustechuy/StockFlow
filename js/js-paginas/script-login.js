@@ -1,3 +1,4 @@
+
 async function iniciarSesion(event) {
     event.preventDefault();
 
@@ -11,6 +12,14 @@ async function iniciarSesion(event) {
     try {
         if (correoIngresado === "" || contrasenaIngresado === "") {
             throw new Error("Por favor completa todos los campos");
+        }
+
+        if (correoIngresado.length > 50) {
+            throw new Error("El correo no puede superar los 50 caracteres.");
+        }
+
+        if (contrasenaIngresado.length > 16) {
+            throw new Error("La contraseña no puede superar los 16 caracteres.");
         }
 
         const formatoMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,18 +70,43 @@ async function iniciarSesion(event) {
     }
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const formLogin = document.getElementById("form-login");
+    const contrasena = document.getElementById("contrasena");
+    const botonMostrar = document.getElementById("mostrarContrasena");
 
     if (formLogin) {
         formLogin.addEventListener("submit", iniciarSesion);
     }
 
-    // RECUPERAR CONTRASEÑA
+    if (contrasena && botonMostrar) {
+        botonMostrar.addEventListener("click", function () {
+            const icono = botonMostrar.querySelector("i");
+
+            if (contrasena.type === "password") {
+                contrasena.type = "text";
+                icono.classList.remove("bi-eye");
+                icono.classList.add("bi-eye-slash");
+                botonMostrar.setAttribute("aria-label", "Ocultar contraseña");
+                botonMostrar.setAttribute("title", "Ocultar contraseña");
+            } else {
+                contrasena.type = "password";
+                icono.classList.remove("bi-eye-slash");
+                icono.classList.add("bi-eye");
+                botonMostrar.setAttribute("aria-label", "Mostrar contraseña");
+                botonMostrar.setAttribute("title", "Mostrar contraseña");
+            }
+        });
+    }
+
     const modalRecuperarEl = document.getElementById("modalRecuperarContrasena");
     const formRecuperar = document.getElementById("formRecuperarContrasena");
     const inputEmailRecuperacion = document.getElementById("emailRecuperacion");
+
+    if (!modalRecuperarEl || !formRecuperar || !inputEmailRecuperacion) {
+        return;
+    }
+
     const campoEmailRecuperacion = inputEmailRecuperacion.closest(".campo-formulario");
     const mensajeExito = document.getElementById("exitoRecuperacion");
     const btnCambiarContrasena = formRecuperar.querySelector('button[type="submit"]');
@@ -102,10 +136,21 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        if (emailIngresado.length > 50) {
+            mostrarErrorCampo(campoEmailRecuperacion, "El correo no puede superar los 50 caracteres.");
+            return;
+        }
+
+        const formatoMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!formatoMail.test(emailIngresado)) {
+            mostrarErrorCampo(campoEmailRecuperacion, "El correo ingresado no tiene un formato válido.");
+            return;
+        }
+
         btnCambiarContrasena.disabled = true;
 
         try {
-            // Simulación de éxito mientras se implementa la funcionalidad real
             await new Promise(resolve => setTimeout(resolve, 300));
 
             mensajeExito.textContent = "Se envió un enlace a tu correo";
@@ -123,7 +168,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     formRecuperar.addEventListener("submit", recuperarContrasena);
 
-    // Al cerrar el modal se limpia el campo y los mensajes
     modalRecuperarEl.addEventListener("hidden.bs.modal", () => {
         clearTimeout(temporizadorCierre);
         formRecuperar.reset();
