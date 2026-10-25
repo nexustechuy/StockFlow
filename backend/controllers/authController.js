@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const usuarioModel = require("../models/usuarioModel");
 
 // LOGIN
@@ -25,11 +26,21 @@ async function login(req, res) {
         }
 
         const usuario = usuarios[0];
+        // Un usuario puede tener más de un rol (tabla usuario_rol)
+        const roles = usuarios.map(u => u.rol);
+
+        const token = jwt.sign(
+            { id_usuario: usuario.id_usuario, mail: usuario.mail, roles },
+            process.env.JWT_SECRET,
+            { expiresIn: "8h" }
+        );
 
         res.json({
             id_usuario: usuario.id_usuario,
             mail: usuario.mail,
-            rol: usuario.rol
+            rol: usuario.rol,
+            roles,
+            token
         });
 
     } catch (error) {

@@ -51,6 +51,14 @@ async function iniciarSesion(event) {
             throw new Error(datos.error);
         }
 
+                localStorage.setItem("sf_token", datos.token);
+        localStorage.setItem("sf_usuario", JSON.stringify({
+            id_usuario: datos.id_usuario,
+            mail: datos.mail,
+            rol: datos.rol,
+            roles: datos.roles
+        }));
+
         if (datos.rol === "vendedor") {
             window.location.href = "/dashboardVendedor.html";
 
