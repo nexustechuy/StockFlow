@@ -3,6 +3,7 @@
 // - Toggle de estado inicial (activo/inactivo)
 // - Filtro por rol y búsqueda por nombre o email
 // - Alta de usuarios de prueba en la tabla (aún no se guarda en la base)
+// - Edición de usuarios: precarga la fila en el modal, actualiza la tabla y envía al backend
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -24,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (celdaEmail) truncarCeldaEmail(celdaEmail);
   });
 
-  /* Roles: resaltar el marcado */
-  document.querySelectorAll('#listaRoles .rol-item input[type="checkbox"]').forEach(function (checkbox) {
+  /* Roles: resaltar el marcado (modal nuevo y modal editar) */
+  document.querySelectorAll('.lista-roles .rol-item input[type="checkbox"]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
       checkbox.closest('.rol-item').classList.toggle('seleccionado', checkbox.checked);
     });
@@ -106,6 +107,13 @@ document.addEventListener('DOMContentLoaded', function () {
       .join('');
   }
 
+  // ['administrador', 'vendedor'] -> "Administrador / Vendedor"
+  function formatearRoles(roles) {
+    return roles
+      .map(function (r) { return r.charAt(0).toUpperCase() + r.slice(1); })
+      .join(' / ');
+  }
+
   if (formNuevoUsuario) {
     formNuevoUsuario.addEventListener('submit', function (evento) {
       evento.preventDefault();
@@ -142,9 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const estado = estadoInicialInput.value;
-      const textoRoles = rolesSeleccionados
-        .map(function (r) { return r.charAt(0).toUpperCase() + r.slice(1); })
-        .join(' / ');
+      const textoRoles = formatearRoles(rolesSeleccionados);
 
       const nuevaFila = document.createElement('tr');
       // Guardo todos los roles para que el filtro lo encuentre
@@ -159,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<div class="dropdown">' +
         '<button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config=\'{"strategy":"fixed"}\' aria-expanded="false">•••</button>' +
         '<ul class="dropdown-menu dropdown-menu-end">' +
-        '<li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>' +
+        '<li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>' +
         '<li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>' +
         '<li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>' +
         '</ul>' +
@@ -198,5 +204,234 @@ document.addEventListener('DOMContentLoaded', function () {
     estado.className = estabaActivo ? 'alerta' : 'ingreso';
     estado.textContent = estabaActivo ? 'Inactivo' : 'Activo';
   });
+
+  /* Editar usuario */
+  const modalEditarUsuarioEl = document.getElementById('modalEditarUsuario');
+  const formEditarUsuario = document.getElementById('formEditarUsuario');
+
+  if (modalEditarUsuarioEl && formEditarUsuario) {
+    const errorEditarDiv = document.getElementById('errorEditarUsuario');
+    const inputNombreEditar = document.getElementById('nombreEditarUsuario');
+    const inputEmailEditar = document.getElementById('emailEditarUsuario');
+    const inputContrasenaEditar = document.getElementById('contrasenaEditarUsuario');
+    const inputConfirmarEditar = document.getElementById('confirmarContrasenaEditar');
+    const listaRolesEditar = document.getElementById('listaRolesEditar');
+    const estadoToggleEditar = document.getElementById('estadoToggleEditar');
+    const estadoEditarInput = document.getElementById('estadoEditar');
+    const campoRolesEditar = listaRolesEditar.closest('.campo-formulario');
+    let filaEditando = null;
+
+    function mostrarErrorCampo(campo, mensaje) {
+      campo.classList.add('campo-invalido');
+      campo.querySelector('.error-campo').textContent = mensaje;
+    }
+
+    function limpiarErroresEditar() {
+      formEditarUsuario.querySelectorAll('.campo-invalido').forEach(function (campo) {
+        campo.classList.remove('campo-invalido');
+      });
+      formEditarUsuario.querySelectorAll('.error-campo').forEach(function (span) {
+        span.textContent = '';
+      });
+      errorEditarDiv.style.display = 'none';
+    }
+
+    // Mostrar/ocultar contraseña: misma lógica que el login
+    formEditarUsuario.querySelectorAll('.mostrar-contrasena').forEach(function (botonMostrar) {
+      const contrasena = botonMostrar.closest('.contenedor-contrasena').querySelector('input');
+
+      botonMostrar.addEventListener('click', function () {
+        const icono = botonMostrar.querySelector('i');
+
+        if (contrasena.type === 'password') {
+          contrasena.type = 'text';
+          icono.classList.remove('bi-eye');
+          icono.classList.add('bi-eye-slash');
+          botonMostrar.setAttribute('aria-label', 'Ocultar contraseña');
+          botonMostrar.setAttribute('title', 'Ocultar contraseña');
+        } else {
+          contrasena.type = 'password';
+          icono.classList.remove('bi-eye-slash');
+          icono.classList.add('bi-eye');
+          botonMostrar.setAttribute('aria-label', 'Mostrar contraseña');
+          botonMostrar.setAttribute('title', 'Mostrar contraseña');
+        }
+      });
+    });
+
+    function ocultarContrasenas() {
+      formEditarUsuario.querySelectorAll('.mostrar-contrasena').forEach(function (botonMostrar) {
+        const contrasena = botonMostrar.closest('.contenedor-contrasena').querySelector('input');
+        if (contrasena.type === 'text') botonMostrar.click();
+      });
+    }
+
+    function seleccionarEstadoEditar(estado) {
+      estadoToggleEditar.querySelectorAll('button').forEach(function (b) {
+        b.classList.toggle('seleccionado', b.dataset.estado === estado);
+      });
+      estadoEditarInput.value = estado;
+    }
+
+    estadoToggleEditar.querySelectorAll('button').forEach(function (boton) {
+      boton.addEventListener('click', function () {
+        seleccionarEstadoEditar(boton.dataset.estado);
+      });
+    });
+
+    // Lee los datos actuales de una fila de la tabla
+    function leerDatosFila(fila) {
+      const celdaUsuario = fila.querySelector('.celda-usuario');
+      const nombre = Array.from(celdaUsuario.childNodes)
+        .filter(function (nodo) { return nodo.nodeType === Node.TEXT_NODE; })
+        .map(function (nodo) { return nodo.textContent; })
+        .join('')
+        .trim();
+      const celdaEmail = fila.children[1];
+
+      return {
+        nombre: nombre,
+        email: celdaEmail.title || celdaEmail.textContent.trim(),
+        roles: fila.dataset.rol.split(' '),
+        estado: fila.querySelector('td:nth-child(4) span').textContent.trim() === 'Activo' ? 'activo' : 'inactivo'
+      };
+    }
+
+    // Carga los datos de la fila en los campos del modal
+    function cargarDatosEnModal(fila) {
+      const datos = leerDatosFila(fila);
+
+      inputNombreEditar.value = datos.nombre;
+      inputEmailEditar.value = datos.email;
+      inputContrasenaEditar.value = '';
+      inputConfirmarEditar.value = '';
+
+      listaRolesEditar.querySelectorAll('input[name="roles"]').forEach(function (checkbox) {
+        checkbox.checked = datos.roles.includes(checkbox.value);
+        checkbox.closest('.rol-item').classList.toggle('seleccionado', checkbox.checked);
+      });
+
+      seleccionarEstadoEditar(datos.estado);
+      ocultarContrasenas();
+      limpiarErroresEditar();
+    }
+
+    // Al abrir: precargar la fila del botón "Editar usuario" que se tocó
+    modalEditarUsuarioEl.addEventListener('show.bs.modal', function (evento) {
+      const disparador = evento.relatedTarget;
+      filaEditando = disparador ? disparador.closest('tr') : null;
+      if (filaEditando) cargarDatosEnModal(filaEditando);
+    });
+
+    // Al cerrar sin guardar: restaurar los valores originales de la fila
+    modalEditarUsuarioEl.addEventListener('hidden.bs.modal', function () {
+      if (filaEditando) cargarDatosEnModal(filaEditando);
+      filaEditando = null;
+    });
+
+    function actualizarFila(fila, datos) {
+      const celdaUsuario = fila.querySelector('.celda-usuario');
+      const avatar = document.createElement('span');
+      avatar.className = 'avatar-usuario';
+      avatar.textContent = iniciales(datos.nombre);
+      celdaUsuario.replaceChildren(avatar, document.createTextNode(datos.nombre));
+
+      const celdaEmail = fila.children[1];
+      celdaEmail.textContent = truncarTexto(datos.email, 4);
+      celdaEmail.title = datos.email;
+
+      fila.dataset.rol = datos.roles.join(' ');
+      fila.children[2].textContent = formatearRoles(datos.roles);
+
+      const estado = fila.querySelector('td:nth-child(4) span');
+      estado.className = datos.estado === 'activo' ? 'ingreso' : 'alerta';
+      estado.textContent = datos.estado === 'activo' ? 'Activo' : 'Inactivo';
+    }
+
+    async function enviarEdicion(datos) {
+      try {
+        const respuesta = await fetch('/usuarios', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(datos)
+        });
+
+        if (!respuesta.ok) {
+          throw new Error('El servidor respondió con estado ' + respuesta.status);
+        }
+      } catch (error) {
+        console.error('No se pudo guardar la edición del usuario:', error);
+      }
+    }
+
+    formEditarUsuario.addEventListener('submit', function (evento) {
+      evento.preventDefault();
+      limpiarErroresEditar();
+
+      if (!filaEditando) return;
+
+      const nombre = inputNombreEditar.value.trim();
+      const email = inputEmailEditar.value.trim();
+      const contrasena = inputContrasenaEditar.value;
+      const confirmar = inputConfirmarEditar.value;
+      const rolesSeleccionados = Array.from(
+        listaRolesEditar.querySelectorAll('input[name="roles"]:checked')
+      ).map(function (input) { return input.value; });
+
+      let hayErrores = false;
+
+      if (!nombre) {
+        mostrarErrorCampo(inputNombreEditar.closest('.campo-formulario'), 'Ingresá el nombre completo.');
+        hayErrores = true;
+      }
+
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+        mostrarErrorCampo(inputEmailEditar.closest('.campo-formulario'), 'Ingresá el email.');
+        hayErrores = true;
+      } else if (!regexEmail.test(email)) {
+        mostrarErrorCampo(inputEmailEditar.closest('.campo-formulario'), 'Ingresá un email válido (ej: usuario@stockflow.com).');
+        hayErrores = true;
+      }
+
+      if (contrasena) {
+        if (!confirmar) {
+          mostrarErrorCampo(inputConfirmarEditar.closest('.campo-formulario'), 'Confirmá la nueva contraseña.');
+          hayErrores = true;
+        } else if (contrasena !== confirmar) {
+          mostrarErrorCampo(inputConfirmarEditar.closest('.campo-formulario'), 'Las contraseñas no coinciden.');
+          hayErrores = true;
+        }
+      } else if (confirmar) {
+        mostrarErrorCampo(inputContrasenaEditar.closest('.campo-formulario'), 'Ingresá la nueva contraseña o dejá ambos campos en blanco.');
+        hayErrores = true;
+      }
+
+      if (rolesSeleccionados.length === 0) {
+        mostrarErrorCampo(campoRolesEditar, 'Seleccioná al menos un rol para el usuario.');
+        hayErrores = true;
+      }
+
+      if (hayErrores) return;
+
+      const emailOriginal = leerDatosFila(filaEditando).email;
+      const datos = {
+        nombre: nombre,
+        email: email,
+        roles: rolesSeleccionados,
+        estado: estadoEditarInput.value
+      };
+
+      actualizarFila(filaEditando, datos);
+      bootstrap.Modal.getInstance(modalEditarUsuarioEl).hide();
+
+      // La contraseña solo viaja si se quiso cambiar
+      const datosBackend = Object.assign({ emailOriginal: emailOriginal }, datos);
+      if (contrasena) datosBackend.contrasena = contrasena;
+      enviarEdicion(datosBackend);
+    });
+  }
 
 });

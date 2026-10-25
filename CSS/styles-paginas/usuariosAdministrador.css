@@ -115,6 +115,82 @@
   align-items: start;
 }
 
+/* MODAL "EDITAR USUARIO" */
+/* Campo contraseña con el botón ojito (mismo componente que el login),
+   adaptado al estilo de los inputs del modal */
+.contenedor-contrasena {
+  display: flex;
+  align-items: center;
+  background-color: var(--superficie);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.contenedor-contrasena:focus-within {
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.15);
+}
+
+.campo-formulario .contenedor-contrasena input,
+.campo-formulario .contenedor-contrasena input:focus {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.contenedor-contrasena button {
+  background: none;
+  border: none;
+  color: var(--azul-primario);
+  padding: 0 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenedor-contrasena button:hover {
+  opacity: 0.7;
+}
+
+.contenedor-contrasena button:focus-visible {
+  outline: 2px solid var(--azul-primario);
+  outline-offset: -3px;
+  border-radius: 6px;
+}
+
+.campo-formulario.campo-invalido .contenedor-contrasena {
+  border-color: var(--rojo-alerta);
+}
+
+body.tema-oscuro .contenedor-contrasena button {
+  color: #ffffff;
+}
+
+.nota-campo {
+  display: block;
+  color: var(--texto-gris);
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+
+/* La lista de roles ya trae su margen inferior */
+.campo-roles {
+  margin-bottom: 18px;
+}
+
+.campo-roles .lista-roles {
+  margin-bottom: 0;
+}
+
+.campo-roles.campo-invalido .rol-item {
+  border-color: var(--rojo-alerta);
+}
+
 @media (max-width: 700px) {
   .form-usuario-columnas {
     grid-template-columns: 1fr;

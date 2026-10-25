@@ -98,7 +98,7 @@
                 <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
                   aria-expanded="false">•••</button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
                   <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
                   <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
                 </ul>
@@ -120,7 +120,7 @@
                 <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
                   aria-expanded="false">•••</button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
                   <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
                   <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
                 </ul>
@@ -142,7 +142,7 @@
                 <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
                   aria-expanded="false">•••</button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
                   <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
                   <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
                 </ul>
@@ -239,6 +239,113 @@
 
           <div class="modal-footer">
             <button type="submit" class="btn-primario">Guardar usuario</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EDITAR USUARIO -->
+  <div class="modal fade modal-stockflow" id="modalEditarUsuario" tabindex="-1"
+    aria-labelledby="modalEditarUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalEditarUsuarioLabel">Editar usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <form id="formEditarUsuario" novalidate>
+          <div class="modal-body">
+
+            <div id="errorEditarUsuario" class="mensaje-error" style="display: none;"></div>
+
+            <div class="form-usuario-columnas">
+
+              <!-- Columna izquierda: Info -->
+              <div class="seccion-formulario">
+                <div class="encabezado-seccion">
+                  <h6>Información personal</h6>
+                  <span class="nota-obligatorios">* Campos obligatorios</span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="nombreEditarUsuario">Nombre completo <span class="obligatorio">*</span></label>
+                  <input type="text" id="nombreEditarUsuario" name="nombreCompleto" placeholder="Ej: Martín Peña" required>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="emailEditarUsuario">Email <span class="obligatorio">*</span></label>
+                  <input type="email" id="emailEditarUsuario" name="email" placeholder="usuario@stockflow.com"
+                    maxlength="50" required>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario">
+                  <label for="contrasenaEditarUsuario">Contraseña</label>
+                  <div class="contenedor-contrasena">
+                    <input type="password" id="contrasenaEditarUsuario" name="contrasena" placeholder="••••••••"
+                      maxlength="16" autocomplete="new-password">
+                    <button type="button" class="mostrar-contrasena" aria-label="Mostrar contraseña"
+                      title="Mostrar contraseña">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                  <span class="nota-campo">Dejá en blanco para no cambiar la contraseña</span>
+                  <span class="error-campo"></span>
+                </div>
+
+                <div class="campo-formulario" style="margin-bottom: 0;">
+                  <label for="confirmarContrasenaEditar">Confirmar contraseña</label>
+                  <div class="contenedor-contrasena">
+                    <input type="password" id="confirmarContrasenaEditar" name="confirmarContrasena"
+                      placeholder="••••••••" maxlength="16" autocomplete="new-password">
+                    <button type="button" class="mostrar-contrasena" aria-label="Mostrar contraseña"
+                      title="Mostrar contraseña">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+              </div>
+
+              <!-- Columna derecha: Roles -->
+              <div class="seccion-formulario">
+                <h6>Roles asignados</h6>
+
+                <div class="campo-formulario campo-roles">
+                  <div class="lista-roles" id="listaRolesEditar">
+                    <label class="rol-item">
+                      <input type="checkbox" name="roles" value="administrador">
+                      <span>Administrador</span>
+                    </label>
+                    <label class="rol-item">
+                      <input type="checkbox" name="roles" value="vendedor">
+                      <span>Vendedor</span>
+                    </label>
+                    <label class="rol-item">
+                      <input type="checkbox" name="roles" value="repositor">
+                      <span>Repositor</span>
+                    </label>
+                  </div>
+                  <span class="error-campo"></span>
+                </div>
+
+                <h6>Estado inicial</h6>
+                <div class="estado-toggle" id="estadoToggleEditar">
+                  <button type="button" data-estado="activo">Activo</button>
+                  <button type="button" data-estado="inactivo">Inactivo</button>
+                </div>
+                <input type="hidden" id="estadoEditar" name="estado" value="activo">
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn-primario">Guardar cambios</button>
           </div>
         </form>
 
