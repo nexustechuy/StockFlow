@@ -1,7 +1,8 @@
 const pool = require("../config/db");
 
-// Busca el usuario con su rol según mail y contraseña
-async function buscarPorCredenciales(mail, password) {
+// Busca el usuario con su rol según el mail.
+// La contraseña se verifica aparte, con bcrypt (en authController).
+async function buscarPorMail(mail) {
     return await pool.query(
         `SELECT
             u.id_usuario,
@@ -13,10 +14,9 @@ async function buscarPorCredenciales(mail, password) {
              ON u.id_usuario = ur.id_usuario
          INNER JOIN rol r
              ON ur.id_rol = r.id_rol
-         WHERE BINARY u.mail = BINARY ?
-        AND BINARY u.password = BINARY ?`,
-        [mail, password]
+         WHERE BINARY u.mail = BINARY ?`,
+        [mail]
     );
 }
 
-module.exports = { buscarPorCredenciales };
+module.exports = { buscarPorMail };

@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const usuarioModel = require("../models/usuarioModel");
 
 // LOGIN
@@ -7,9 +8,17 @@ async function login(req, res) {
 
         console.log("LOGIN RECIBIDO:", mail);
 
-        const usuarios = await usuarioModel.buscarPorCredenciales(mail, password);
+        if (typeof mail !== "string" || typeof password !== "string") {
+            return res.status(400).json({ error: "Datos inválidos." });
+        }
 
-        if (usuarios.length === 0) {
+        const usuarios = await usuarioModel.buscarPorMail(mail);
+
+        const credencialesOk =
+            usuarios.length > 0 &&
+            await bcrypt.compare(password, usuarios[0].password);
+
+        if (!credencialesOk) {
             return res.status(401).json({
                 error: "El correo o la contraseña son incorrectos."
             });
