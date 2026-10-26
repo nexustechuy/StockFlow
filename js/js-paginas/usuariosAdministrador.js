@@ -1,13 +1,8 @@
 // Lógica de la pantalla Usuarios (Administrador)
-// - Resalta el rol elegido en el modal
-// - Toggle de estado inicial (activo/inactivo)
-// - Filtro por rol y búsqueda por nombre o email
-// - Alta de usuarios de prueba en la tabla (aún no se guarda en la base)
-// - Edición de usuarios: precarga la fila en el modal, actualiza la tabla y envía al backend
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* Truncar textos largos (ej. emails) a 4 caracteres + "..." */
+  /* Acortar textos largos */
   function truncarTexto(texto, cantidad) {
     if (texto.length <= cantidad) return texto;
     return texto.slice(0, cantidad) + '...';
@@ -16,16 +11,15 @@ document.addEventListener('DOMContentLoaded', function () {
   function truncarCeldaEmail(celda) {
     const completo = celda.textContent.trim();
     celda.textContent = truncarTexto(completo, 4);
-    celda.title = completo; // el email completo queda como tooltip al pasar el mouse
+    celda.title = completo;
   }
 
-  // Emails que ya están en la tabla
   document.querySelectorAll('#cuerpoTablaUsuarios tr').forEach(function (fila) {
     const celdaEmail = fila.children[1]; // 2da columna: Email
     if (celdaEmail) truncarCeldaEmail(celdaEmail);
   });
 
-  /* Roles: resaltar el marcado (modal nuevo y modal editar) */
+  /* Resaltar el rol marcado*/
   document.querySelectorAll('.lista-roles .rol-item input[type="checkbox"]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
       checkbox.closest('.rol-item').classList.toggle('seleccionado', checkbox.checked);
@@ -83,6 +77,36 @@ document.addEventListener('DOMContentLoaded', function () {
     inputBusqueda.addEventListener('input', aplicarFiltros);
   }
 
+  /* Mostrar/ocultar contraseña */
+  document.querySelectorAll('.mostrar-contrasena').forEach(function (botonMostrar) {
+    const contrasena = botonMostrar.closest('.contenedor-contrasena').querySelector('input');
+
+    botonMostrar.addEventListener('click', function () {
+      const icono = botonMostrar.querySelector('i');
+
+      if (contrasena.type === 'password') {
+        contrasena.type = 'text';
+        icono.classList.remove('bi-eye');
+        icono.classList.add('bi-eye-slash');
+        botonMostrar.setAttribute('aria-label', 'Ocultar contraseña');
+        botonMostrar.setAttribute('title', 'Ocultar contraseña');
+      } else {
+        contrasena.type = 'password';
+        icono.classList.remove('bi-eye-slash');
+        icono.classList.add('bi-eye');
+        botonMostrar.setAttribute('aria-label', 'Mostrar contraseña');
+        botonMostrar.setAttribute('title', 'Mostrar contraseña');
+      }
+    });
+  });
+
+  function ocultarContrasenas(form) {
+    form.querySelectorAll('.mostrar-contrasena').forEach(function (botonMostrar) {
+      const contrasena = botonMostrar.closest('.contenedor-contrasena').querySelector('input');
+      if (contrasena.type === 'text') botonMostrar.click();
+    });
+  }
+
   /* Alta de usuario (sin backend) */
   const formNuevoUsuario = document.getElementById('formNuevoUsuario');
   const errorDiv = document.getElementById('errorNuevoUsuario');
@@ -107,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
       .join('');
   }
 
-  // ['administrador', 'vendedor'] -> "Administrador / Vendedor"
   function formatearRoles(roles) {
     return roles
       .map(function (r) { return r.charAt(0).toUpperCase() + r.slice(1); })
@@ -135,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!regexEmail.test(email)) {
-        mostrarError('Ingresá un email válido (ej: usuario@stockflow.com).');
+        mostrarError('Ingresá un email válido (ej: usuario@gmail.com).');
         return;
       }
 
@@ -174,22 +197,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
       cuerpoTabla.appendChild(nuevaFila);
 
-      formNuevoUsuario.reset();
-      document.querySelectorAll('#listaRoles .rol-item').forEach(function (item) {
-        item.classList.remove('seleccionado');
-      });
-      document.querySelector('#listaRoles input[value="administrador"]').checked = true;
-      document.querySelector('#listaRoles input[value="administrador"]').closest('.rol-item').classList.add('seleccionado');
-      estadoToggle.querySelectorAll('button').forEach(function (b) { b.classList.remove('seleccionado'); });
-      estadoToggle.querySelector('[data-estado="activo"]').classList.add('seleccionado');
-      estadoInicialInput.value = 'activo';
-
       const modal = bootstrap.Modal.getInstance(modalNuevoUsuarioEl);
       modal.hide();
     });
 
     // Limpia el error al abrir el modal
     modalNuevoUsuarioEl.addEventListener('show.bs.modal', ocultarError);
+
+    // Limpia el formulario al cerrar el modal
+    modalNuevoUsuarioEl.addEventListener('hidden.bs.modal', function () {
+      formNuevoUsuario.reset();
+      ocultarContrasenas(formNuevoUsuario);
+      document.querySelectorAll('#listaRoles .rol-item').forEach(function (item) {
+        item.classList.remove('seleccionado');
+      });
+      estadoToggle.querySelectorAll('button').forEach(function (b) { b.classList.remove('seleccionado'); });
+      estadoToggle.querySelector('[data-estado="activo"]').classList.add('seleccionado');
+      estadoInicialInput.value = 'activo';
+    });
   }
 
   /* Cambiar estado (activo/inactivo) */
@@ -236,36 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
       errorEditarDiv.style.display = 'none';
     }
 
-    // Mostrar/ocultar contraseña: misma lógica que el login
-    formEditarUsuario.querySelectorAll('.mostrar-contrasena').forEach(function (botonMostrar) {
-      const contrasena = botonMostrar.closest('.contenedor-contrasena').querySelector('input');
-
-      botonMostrar.addEventListener('click', function () {
-        const icono = botonMostrar.querySelector('i');
-
-        if (contrasena.type === 'password') {
-          contrasena.type = 'text';
-          icono.classList.remove('bi-eye');
-          icono.classList.add('bi-eye-slash');
-          botonMostrar.setAttribute('aria-label', 'Ocultar contraseña');
-          botonMostrar.setAttribute('title', 'Ocultar contraseña');
-        } else {
-          contrasena.type = 'password';
-          icono.classList.remove('bi-eye-slash');
-          icono.classList.add('bi-eye');
-          botonMostrar.setAttribute('aria-label', 'Mostrar contraseña');
-          botonMostrar.setAttribute('title', 'Mostrar contraseña');
-        }
-      });
-    });
-
-    function ocultarContrasenas() {
-      formEditarUsuario.querySelectorAll('.mostrar-contrasena').forEach(function (botonMostrar) {
-        const contrasena = botonMostrar.closest('.contenedor-contrasena').querySelector('input');
-        if (contrasena.type === 'text') botonMostrar.click();
-      });
-    }
-
     function seleccionarEstadoEditar(estado) {
       estadoToggleEditar.querySelectorAll('button').forEach(function (b) {
         b.classList.toggle('seleccionado', b.dataset.estado === estado);
@@ -279,7 +274,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    // Lee los datos actuales de una fila de la tabla
     function leerDatosFila(fila) {
       const celdaUsuario = fila.querySelector('.celda-usuario');
       const nombre = Array.from(celdaUsuario.childNodes)
@@ -297,7 +291,6 @@ document.addEventListener('DOMContentLoaded', function () {
       };
     }
 
-    // Carga los datos de la fila en los campos del modal
     function cargarDatosEnModal(fila) {
       const datos = leerDatosFila(fila);
 
@@ -312,18 +305,16 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       seleccionarEstadoEditar(datos.estado);
-      ocultarContrasenas();
+      ocultarContrasenas(formEditarUsuario);
       limpiarErroresEditar();
     }
 
-    // Al abrir: precargar la fila del botón "Editar usuario" que se tocó
     modalEditarUsuarioEl.addEventListener('show.bs.modal', function (evento) {
       const disparador = evento.relatedTarget;
       filaEditando = disparador ? disparador.closest('tr') : null;
       if (filaEditando) cargarDatosEnModal(filaEditando);
     });
 
-    // Al cerrar sin guardar: restaurar los valores originales de la fila
     modalEditarUsuarioEl.addEventListener('hidden.bs.modal', function () {
       if (filaEditando) cargarDatosEnModal(filaEditando);
       filaEditando = null;
@@ -392,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function () {
         mostrarErrorCampo(inputEmailEditar.closest('.campo-formulario'), 'Ingresá el email.');
         hayErrores = true;
       } else if (!regexEmail.test(email)) {
-        mostrarErrorCampo(inputEmailEditar.closest('.campo-formulario'), 'Ingresá un email válido (ej: usuario@stockflow.com).');
+        mostrarErrorCampo(inputEmailEditar.closest('.campo-formulario'), 'Ingresá un email válido (ej: usuario@gmail.com).');
         hayErrores = true;
       }
 
@@ -427,7 +418,6 @@ document.addEventListener('DOMContentLoaded', function () {
       actualizarFila(filaEditando, datos);
       bootstrap.Modal.getInstance(modalEditarUsuarioEl).hide();
 
-      // La contraseña solo viaja si se quiso cambiar
       const datosBackend = Object.assign({ emailOriginal: emailOriginal }, datos);
       if (contrasena) datosBackend.contrasena = contrasena;
       enviarEdicion(datosBackend);

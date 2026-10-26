@@ -90,7 +90,7 @@
                 Juan Pérez
               </div>
             </td>
-            <td>vendedor@stockflow.com</td>
+            <td>vendedor@gmail.com</td>
             <td>Vendedor</td>
             <td><span class="ingreso">Activo</span></td>
             <td>
@@ -98,8 +98,10 @@
                 <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
                   aria-expanded="false">•••</button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
-                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
+                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal"
+                      data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
+                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar
+                      estado</a></li>
                   <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
                 </ul>
               </div>
@@ -112,7 +114,7 @@
                 Juan Pérez
               </div>
             </td>
-            <td>repositor@stockflow.com</td>
+            <td>repositor@gmail.com</td>
             <td>Repositor</td>
             <td><span class="ingreso">Activo</span></td>
             <td>
@@ -120,8 +122,10 @@
                 <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
                   aria-expanded="false">•••</button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
-                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
+                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal"
+                      data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
+                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar
+                      estado</a></li>
                   <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
                 </ul>
               </div>
@@ -134,7 +138,7 @@
                 Juan Pérez
               </div>
             </td>
-            <td>administrador@stockflow.com</td>
+            <td>administrador@gmail.com</td>
             <td>Administrador</td>
             <td><span class="alerta">Inactivo</span></td>
             <td>
@@ -142,8 +146,10 @@
                 <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
                   aria-expanded="false">•••</button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
-                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar estado</a></li>
+                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal"
+                      data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
+                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar
+                      estado</a></li>
                   <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
                 </ul>
               </div>
@@ -178,7 +184,7 @@
 
             <div class="form-usuario-columnas">
 
-              <!-- Columna izquierda: Info -->
+              <!-- Info -->
               <div class="seccion-formulario">
                 <div class="encabezado-seccion">
                   <h6>Información personal</h6>
@@ -192,28 +198,41 @@
 
                 <div class="campo-formulario">
                   <label for="emailNuevoUsuario">Email <span class="obligatorio">*</span></label>
-                  <input type="email" id="emailNuevoUsuario" name="email" placeholder="usuario@stockflow.com" required>
+                  <input type="email" id="emailNuevoUsuario" name="email" placeholder="usuario@gmail.com" required>
                 </div>
 
                 <div class="campo-formulario">
                   <label for="contrasenaNuevoUsuario">Contraseña <span class="obligatorio">*</span></label>
-                  <input type="password" id="contrasenaNuevoUsuario" name="contrasena" placeholder="••••••••" required>
+                  <div class="contenedor-contrasena">
+                    <input type="password" id="contrasenaNuevoUsuario" name="contrasena" placeholder="••••••••"
+                      maxlength="16" autocomplete="new-password" required>
+                    <button type="button" class="mostrar-contrasena" aria-label="Mostrar contraseña"
+                      title="Mostrar contraseña">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
                 </div>
 
                 <div class="campo-formulario" style="margin-bottom: 0;">
                   <label for="confirmarContrasena">Confirmar contraseña <span class="obligatorio">*</span></label>
-                  <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="••••••••"
-                    required>
+                  <div class="contenedor-contrasena">
+                    <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="••••••••"
+                      maxlength="16" autocomplete="new-password" required>
+                    <button type="button" class="mostrar-contrasena" aria-label="Mostrar contraseña"
+                      title="Mostrar contraseña">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <!-- Columna derecha: Roles -->
+              <!-- Roles -->
               <div class="seccion-formulario">
                 <h6>Roles asignados</h6>
 
                 <div class="lista-roles" id="listaRoles">
-                  <label class="rol-item seleccionado">
-                    <input type="checkbox" name="roles" value="administrador" checked>
+                  <label class="rol-item">
+                    <input type="checkbox" name="roles" value="administrador">
                     <span>Administrador</span>
                   </label>
                   <label class="rol-item">
@@ -223,6 +242,7 @@
                   <label class="rol-item">
                     <input type="checkbox" name="roles" value="repositor">
                     <span>Repositor</span>
+                  </label>
                   </label>
                 </div>
 
@@ -263,7 +283,7 @@
 
             <div class="form-usuario-columnas">
 
-              <!-- Columna izquierda: Info -->
+              <!-- Info -->
               <div class="seccion-formulario">
                 <div class="encabezado-seccion">
                   <h6>Información personal</h6>
@@ -272,13 +292,14 @@
 
                 <div class="campo-formulario">
                   <label for="nombreEditarUsuario">Nombre completo <span class="obligatorio">*</span></label>
-                  <input type="text" id="nombreEditarUsuario" name="nombreCompleto" placeholder="Ej: Martín Peña" required>
+                  <input type="text" id="nombreEditarUsuario" name="nombreCompleto" placeholder="Ej: Martín Peña"
+                    required>
                   <span class="error-campo"></span>
                 </div>
 
                 <div class="campo-formulario">
                   <label for="emailEditarUsuario">Email <span class="obligatorio">*</span></label>
-                  <input type="email" id="emailEditarUsuario" name="email" placeholder="usuario@stockflow.com"
+                  <input type="email" id="emailEditarUsuario" name="email" placeholder="usuario@gmail.com"
                     maxlength="50" required>
                   <span class="error-campo"></span>
                 </div>
@@ -311,7 +332,7 @@
                 </div>
               </div>
 
-              <!-- Columna derecha: Roles -->
+              <!-- Roles -->
               <div class="seccion-formulario">
                 <h6>Roles asignados</h6>
 
