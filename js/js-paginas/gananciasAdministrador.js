@@ -2,13 +2,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const contenedorCategorias = document.getElementById('graficoCategorias');
   const cuerpoProductos = document.getElementById('cuerpoProductosMasVendidos');
+  const cuerpoGastos = document.getElementById('cuerpoGastos');
 
   let ventas = [];
   let detalleVentas = [];
+  let gastos = [];
   let filtroPeriodo = 'todo';
 
   function formatearMoneda(valor) {
     return '$' + Number(valor).toLocaleString('es-UY');
+  }
+
+  // la fecha del gasto viene sin hora, le agrego la hora para que no cambie de día
+  function fechaGasto(gasto) {
+    return new Date(gasto.fecha + 'T00:00:00');
   }
 
   function estaEnPeriodo(fechaHora, periodo) {
@@ -40,16 +47,29 @@ document.addEventListener('DOMContentLoaded', function () {
     return detalleVentas.filter(d => idsVentasPeriodo.has(Number(d.id_venta)));
   }
 
-  function renderizarTarjetas(detalle) {
+  function gastosEnPeriodo() {
+    return gastos.filter(g => g.fecha && estaEnPeriodo(fechaGasto(g), filtroPeriodo));
+  }
+
+  function renderizarTarjetas(detalle, gastosPeriodo) {
     const totalVendido = detalle.reduce((acc, d) => acc + Number(d.subtotal), 0);
     const costoTotal = detalle.reduce((acc, d) => acc + Number(d.precio_compra) * Number(d.cantidad), 0);
     const rentabilidad = totalVendido - costoTotal;
     const ventasRealizadas = new Set(detalle.map(d => d.id_venta)).size;
+    const gastosTotales = gastosPeriodo.reduce((acc, g) => acc + Number(g.monto || 0), 0);
+    const gananciaNeta = rentabilidad - gastosTotales;
 
     document.getElementById('totalVendidoValor').textContent = formatearMoneda(totalVendido);
     document.getElementById('costoTotalValor').textContent = formatearMoneda(costoTotal);
     document.getElementById('rentabilidadValor').textContent = formatearMoneda(rentabilidad);
     document.getElementById('ventasRealizadasValor').textContent = ventasRealizadas;
+    document.getElementById('gastosTotalesValor').textContent = formatearMoneda(gastosTotales);
+
+    // si la ganancia neta da negativa se muestra en rojo
+    const gananciaNetaValor = document.getElementById('gananciaNetaValor');
+    gananciaNetaValor.textContent = formatearMoneda(gananciaNeta);
+    gananciaNetaValor.classList.toggle('ingreso', gananciaNeta >= 0);
+    gananciaNetaValor.classList.toggle('alerta', gananciaNeta < 0);
   }
 
   function renderizarGraficoCategorias(detalle) {
@@ -111,11 +131,29 @@ document.addEventListener('DOMContentLoaded', function () {
       : `<tr><td colspan="4">No hay productos vendidos en este período.</td></tr>`;
   }
 
+  function renderizarGastos(gastosPeriodo) {
+    const ordenados = [...gastosPeriodo].sort((a, b) => fechaGasto(b) - fechaGasto(a));
+
+    cuerpoGastos.innerHTML = ordenados.length
+      ? ordenados.map(g => `
+        <tr>
+          <td>${g.descripcion || '—'}</td>
+          <td>${g.categoria || 'Sin categoría'}</td>
+          <td class="alerta">${formatearMoneda(g.monto || 0)}</td>
+          <td>${fechaGasto(g).toLocaleDateString('es-UY')}</td>
+          <td>${g.id_venta ?? '—'}</td>
+        </tr>
+      `).join('')
+      : `<tr><td colspan="5">No hay gastos registrados en este período.</td></tr>`;
+  }
+
   function actualizarVista() {
     const detalle = detalleEnPeriodo();
-    renderizarTarjetas(detalle);
+    const gastosPeriodo = gastosEnPeriodo();
+    renderizarTarjetas(detalle, gastosPeriodo);
     renderizarGraficoCategorias(detalle);
     renderizarProductosMasVendidos(detalle);
+    renderizarGastos(gastosPeriodo);
   }
 
   document.querySelectorAll('.filtro-chip').forEach(function (chip) {
@@ -143,6 +181,13 @@ document.addEventListener('DOMContentLoaded', function () {
       .catch(error => console.error('Error al cargar el detalle de ventas:', error));
   }
 
-  Promise.all([cargarVentas(), cargarDetalleVentas()]).then(actualizarVista);
+  function cargarGastos() {
+    return fetch('/gastos')
+      .then(res => res.json())
+      .then(data => { gastos = data; })
+      .catch(error => console.error('Error al cargar gastos:', error));
+  }
+
+  Promise.all([cargarVentas(), cargarDetalleVentas(), cargarGastos()]).then(actualizarVista);
 
 });

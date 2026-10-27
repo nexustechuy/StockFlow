@@ -67,7 +67,7 @@
       <button type="button" class="filtro-chip" data-filtro="anio">Este año</button>
     </div>
 
-    <div class="tarjetas">
+    <div class="tarjetas tarjetas-3">
       <div class="tarjeta">
         <div class="etiqueta">Total vendido</div>
         <div class="valor ingreso" id="totalVendidoValor">$0</div>
@@ -87,6 +87,16 @@
         <div class="etiqueta">Ventas realizadas</div>
         <div class="valor" id="ventasRealizadasValor">0</div>
         <div class="unidad">ventas</div>
+      </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Gastos totales</div>
+        <div class="valor alerta" id="gastosTotalesValor">$0</div>
+        <div class="unidad">pesos</div>
+      </div>
+      <div class="tarjeta">
+        <div class="etiqueta">Ganancia neta</div>
+        <div class="valor ingreso" id="gananciaNetaValor">$0</div>
+        <div class="unidad">pesos</div>
       </div>
     </div>
 
@@ -108,6 +118,23 @@
           </tr>
         </thead>
         <tbody id="cuerpoProductosMasVendidos">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h5>Gastos</h5>
+      <table class="tabla-productos tabla-fija">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Venta asociada</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoGastos">
         </tbody>
       </table>
     </div>
