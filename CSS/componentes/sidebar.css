@@ -46,7 +46,7 @@ body.tema-oscuro .sidebar {
   border-bottom: 1px solid rgba(255, 255, 255, 0.10);
 }
 
-.sidebar-usuario span {
+.sidebar-usuario [data-nombre-usuario] {
   display: block;
   color: var(--blanco);
   font-size: 0.9rem;
