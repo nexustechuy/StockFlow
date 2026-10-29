@@ -108,81 +108,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const modalRecuperarEl = document.getElementById("modalRecuperarContrasena");
-    const formRecuperar = document.getElementById("formRecuperarContrasena");
-    const inputEmailRecuperacion = document.getElementById("emailRecuperacion");
+    // Idioma: por ahora solo se guarda la elección (misma clave que en Ajustes)
+    const selectIdioma = document.getElementById("idiomaLogin");
 
-    if (!modalRecuperarEl || !formRecuperar || !inputEmailRecuperacion) {
-        return;
+    if (selectIdioma) {
+        selectIdioma.value = localStorage.getItem("idioma") || "es";
+
+        selectIdioma.addEventListener("change", function () {
+            localStorage.setItem("idioma", selectIdioma.value);
+        });
     }
-
-    const campoEmailRecuperacion = inputEmailRecuperacion.closest(".campo-formulario");
-    const mensajeExito = document.getElementById("exitoRecuperacion");
-    const btnCambiarContrasena = formRecuperar.querySelector('button[type="submit"]');
-    let temporizadorCierre = null;
-
-    function mostrarErrorCampo(campo, mensaje) {
-        campo.classList.add("campo-invalido");
-        campo.querySelector(".error-campo").textContent = mensaje;
-    }
-
-    function limpiarErrorCampo(campo) {
-        campo.classList.remove("campo-invalido");
-        campo.querySelector(".error-campo").textContent = "";
-    }
-
-    async function recuperarContrasena(event) {
-        event.preventDefault();
-
-        const emailIngresado = inputEmailRecuperacion.value.trim();
-
-        limpiarErrorCampo(campoEmailRecuperacion);
-        mensajeExito.style.display = "none";
-        mensajeExito.textContent = "";
-
-        if (emailIngresado === "") {
-            mostrarErrorCampo(campoEmailRecuperacion, "Ingresá el email asociado a tu cuenta.");
-            return;
-        }
-
-        if (emailIngresado.length > 50) {
-            mostrarErrorCampo(campoEmailRecuperacion, "El correo no puede superar los 50 caracteres.");
-            return;
-        }
-
-        const formatoMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!formatoMail.test(emailIngresado)) {
-            mostrarErrorCampo(campoEmailRecuperacion, "El correo ingresado no tiene un formato válido.");
-            return;
-        }
-
-        btnCambiarContrasena.disabled = true;
-
-        try {
-            await new Promise(resolve => setTimeout(resolve, 300));
-
-            mensajeExito.textContent = "Se envió un enlace a tu correo";
-            mensajeExito.style.display = "block";
-
-            temporizadorCierre = setTimeout(() => {
-                bootstrap.Modal.getInstance(modalRecuperarEl)?.hide();
-            }, 2000);
-
-        } catch (error) {
-            mostrarErrorCampo(campoEmailRecuperacion, "No se pudo enviar la solicitud. Intentá de nuevo.");
-            btnCambiarContrasena.disabled = false;
-        }
-    }
-
-    formRecuperar.addEventListener("submit", recuperarContrasena);
-
-    modalRecuperarEl.addEventListener("hidden.bs.modal", () => {
-        clearTimeout(temporizadorCierre);
-        formRecuperar.reset();
-        limpiarErrorCampo(campoEmailRecuperacion);
-        mensajeExito.style.display = "none";
-        mensajeExito.textContent = "";
-        btnCambiarContrasena.disabled = false;
-    });
 });

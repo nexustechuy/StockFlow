@@ -150,13 +150,45 @@ body {
 }
 
 /* Recuperar contraseña */
-.mensaje-exito {
-  color: var(--verde-ingreso);
-  background-color: rgba(46, 125, 50, 0.10);
-  border-radius: 8px;
-  padding: 10px 12px;
+.texto-recuperar {
+  font-family: 'Inter', Arial, sans-serif;
+  color: var(--texto-oscuro);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+/* Idioma */
+.idioma-login {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--borde-fila);
+}
+
+.card-login .idioma-login label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--texto-gris);
+  margin-bottom: 0;
+}
+
+.idioma-login select {
+  font-family: 'Inter', Arial, sans-serif;
   font-size: 0.85rem;
-  margin-bottom: 16px;
+  color: var(--texto-oscuro);
+  background-color: var(--superficie);
+  border: 1px solid var(--borde-fila);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+.idioma-login select:focus {
+  box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.20);
 }
 
 /* Modo oscuro */
