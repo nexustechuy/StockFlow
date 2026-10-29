@@ -5,8 +5,6 @@ const traducciones = {
     "Modo claro": "Light mode",
     "Modo oscuro": "Dark mode",
     "Idioma": "Language",
-    "Español": "Spanish",
-    "Inglés": "English",
     "Administrador": "Administrator",
     "Repositor": "Stock Clerk",
     "Vendedor": "Salesperson",
