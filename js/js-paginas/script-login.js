@@ -55,6 +55,7 @@ async function iniciarSesion(event) {
         localStorage.setItem("sf_usuario", JSON.stringify({
             id_usuario: datos.id_usuario,
             mail: datos.mail,
+            nombre: datos.nombre,
             rol: datos.rol,
             roles: datos.roles
         }));

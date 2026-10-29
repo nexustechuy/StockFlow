@@ -38,6 +38,7 @@ async function login(req, res) {
         res.json({
             id_usuario: usuario.id_usuario,
             mail: usuario.mail,
+            nombre: usuario.nombre,
             rol: usuario.rol,
             roles,
             token

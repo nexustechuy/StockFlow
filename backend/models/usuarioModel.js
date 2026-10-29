@@ -7,6 +7,7 @@ async function buscarPorMail(mail) {
         `SELECT
             u.id_usuario,
             u.mail,
+            u.nombre,
             u.password,
             r.nombre AS rol
          FROM usuarios u

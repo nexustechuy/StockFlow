@@ -1,9 +1,5 @@
 // SESIÓN EN EL FRONT (JWT)
-// Se incluye en todas las páginas menos login.html. Hace 4 cosas:
-//  1. Si no hay token (o venció), manda al login.
-//  2. Si la página es de otro rol, manda al dashboard del rol del usuario.
-//  3. Agrega el token a todos los fetch (Authorization: Bearer ...).
-//  4. Cierra sesión (borra el token) al tocar cualquier link a login.html.
+// Se incluye en todas las páginas menos login.html
 (function () {
     const CLAVE_TOKEN = "sf_token";
     const CLAVE_USUARIO = "sf_usuario";
@@ -46,10 +42,9 @@
         }
     }
 
-    // Para usar desde un botón propio: window.cerrarSesion(); window.location.href = "login.html";
     window.cerrarSesion = cerrarSesion;
 
-    // 1. Tiene que haber sesión válida
+    // Tiene que haber sesión válida
     const token = obtenerToken();
     const usuario = obtenerUsuario();
 
@@ -58,7 +53,7 @@
         return;
     }
 
-    // 2. Cada página es de un rol (se deduce del nombre del archivo)
+    // Cada página es de un rol (se deduce del nombre del archivo)
     const pagina = window.location.pathname.split("/").pop();
     let rolDePagina = null;
 
@@ -74,7 +69,7 @@
         return;
     }
 
-    // 3. Todos los fetch al servidor llevan el token
+    // Todos los fetch al servidor llevan el token
     const fetchOriginal = window.fetch.bind(window);
 
     window.fetch = async function (url, opciones = {}) {
@@ -98,7 +93,7 @@
         return respuesta;
     };
 
-    // 4. Cerrar sesión: cualquier link que lleve a login.html borra el token
+    // Cerrar sesión: cualquier link que lleve a login.html borra el token
     document.addEventListener("click", function (evento) {
         const link = evento.target.closest("a");
         const destino = link ? link.getAttribute("href") : null;
@@ -107,4 +102,27 @@
             cerrarSesion();
         }
     }, true);
+
+    // Nombre del usuario en la página. Si no tiene nombre cargado, el saludo queda sin nombre ("¡Buenas tardes!")
+    function saludoSegunHora() {
+        const hora = new Date().getHours();
+        if (hora >= 6 && hora < 13) return "¡Buenos días";
+        if (hora >= 13 && hora < 20) return "¡Buenas tardes";
+        return "¡Buenas noches";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const nombreCompleto = usuario.nombre || usuario.mail;
+        const primerNombre = usuario.nombre ? usuario.nombre.split(" ")[0] : null;
+
+        document.querySelectorAll("[data-nombre-usuario]").forEach(function (elemento) {
+            elemento.textContent = nombreCompleto;
+        });
+
+        document.querySelectorAll("[data-saludo]").forEach(function (elemento) {
+            elemento.textContent = primerNombre
+                ? saludoSegunHora() + ", " + primerNombre + "!"
+                : saludoSegunHora() + "!";
+        });
+    });
 })();
