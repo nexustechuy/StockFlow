@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,47 +13,62 @@
   <!-- Íconos de Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-  <!-- Estilos Propios -->
+  <!-- Estilos propios -->
   <link rel="stylesheet" href="/css/styles-paginas/ajustes.css">
 
-    <script src="/js/componentes/sesion.js"></script>
+  <!-- Control de sesión -->
+  <script src="/js/componentes/sesion.js"></script>
 </head>
 
 <body>
 
+  <!-- MENÚ LATERAL -->
   <aside class="sidebar">
 
     <div class="sidebar-brand">StockFlow</div>
 
     <div class="sidebar-usuario">
-      Administrador
+      <span data-i18n="Administrador">Administrador</span>
       <span data-nombre-usuario></span>
     </div>
 
     <nav>
       <a href="dashboardAdministrador.html">
-        <i class="bi bi-grid me-2"></i>Dashboard
+        <i class="bi bi-grid me-2"></i>
+        <span data-i18n="Dashboard">Dashboard</span>
       </a>
+
       <a href="ventasAdministrador.html">
-        <i class="bi bi-cart-check me-2"></i>Ventas
+        <i class="bi bi-cart-check me-2"></i>
+        <span data-i18n="Ventas">Ventas</span>
       </a>
+
       <a href="inventarioAdministrador.html">
-        <i class="bi bi-box-seam me-2"></i>Inventario
+        <i class="bi bi-box-seam me-2"></i>
+        <span data-i18n="Inventario">Inventario</span>
       </a>
+
       <a href="gananciasAdministrador.html">
-        <i class="bi bi-graph-up-arrow me-2"></i>Ganancias
+        <i class="bi bi-graph-up-arrow me-2"></i>
+        <span data-i18n="Ganancias">Ganancias</span>
       </a>
+
       <a href="usuariosAdministrador.html">
-        <i class="bi bi-people me-2"></i>Usuarios
+        <i class="bi bi-people me-2"></i>
+        <span data-i18n="Usuarios">Usuarios</span>
       </a>
+
       <a href="ajustesAdministrador.html" class="activo">
-        <i class="bi bi-gear me-2"></i>Ajustes
+        <i class="bi bi-gear me-2"></i>
+        <span data-i18n="Ajustes">Ajustes</span>
       </a>
     </nav>
 
+    <!-- CERRAR SESIÓN -->
     <div class="sidebar-footer">
       <a href="login.html">
-        <i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión
+        <i class="bi bi-box-arrow-left me-2"></i>
+        <span data-i18n="Cerrar sesión">Cerrar sesión</span>
       </a>
     </div>
 
@@ -61,43 +77,73 @@
   <!-- CONTENIDO PRINCIPAL -->
   <main class="contenido">
 
-    <!-- Encabezado -->
+    <!-- ENCABEZADO -->
     <div class="encabezado">
-      <h2>Ajustes</h2>
-      <p>Personalizá tu cuenta y preferencias</p>
+      <h2 data-i18n="Ajustes">Ajustes</h2>
+
+      <p data-i18n="Personalizá tu cuenta y preferencias">
+        Personalizá tu cuenta y preferencias
+      </p>
     </div>
 
-    <!-- Tema -->
+    <!-- TEMA -->
     <section class="panel">
-      <h5>Tema</h5>
+
+      <h5 data-i18n="Tema">Tema</h5>
+
       <div class="opciones-ajuste">
+
         <button type="button" class="filtro-chip activo" data-tema="claro">
-          <i class="bi bi-sun me-2"></i>Modo claro
+          <i class="bi bi-sun me-2"></i>
+          <span data-i18n="Modo claro">Modo claro</span>
         </button>
+
         <button type="button" class="filtro-chip" data-tema="oscuro">
-          <i class="bi bi-moon me-2"></i>Modo oscuro
+          <i class="bi bi-moon me-2"></i>
+          <span data-i18n="Modo oscuro">Modo oscuro</span>
         </button>
+
       </div>
+
     </section>
 
-    <!-- Idioma -->
+    <!-- IDIOMA -->
     <section class="panel">
-      <h5>Idioma</h5>
+
+      <h5 data-i18n="Idioma">Idioma</h5>
+
       <div class="opciones-ajuste">
-        <button type="button" class="filtro-chip activo" data-idioma="es">Español</button>
-        <button type="button" class="filtro-chip" data-idioma="en">English</button>
+
+        <button
+          type="button"
+          class="filtro-chip activo"
+          data-idioma="es"
+          style="position: relative; z-index: 9999; pointer-events: auto; cursor: pointer;"
+        >
+          <span data-i18n="Español">Español</span>
+        </button>
+
+        <button
+          type="button"
+          class="filtro-chip"
+          data-idioma="en"
+          style="position: relative; z-index: 9999; pointer-events: auto; cursor: pointer;"
+        >
+          <span data-i18n="Inglés">Inglés</span>
+        </button>
+
       </div>
+
     </section>
 
   </main>
 
-  <!-- JS BOOTSTRAP -->
+  <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- JS PROPIO -->
   <script src="/js/componentes/tema.js"></script>
   <script src="/js/componentes/menu-responsive.js"></script>
   <script src="/js/js-paginas/navAdministrador.js"></script>
+  <script src="/js/idioma.js"></script>
   <script src="/js/js-paginas/ajustes.js"></script>
 
 </body>

@@ -1,56 +1,41 @@
+
 document.addEventListener('DOMContentLoaded', function () {
 
-  const botonesTema = document.querySelectorAll('[data-tema]');
-  const botonesIdioma = document.querySelectorAll('[data-idioma]');
+    const botonesTema = document.querySelectorAll('[data-tema]');
 
-  let temaGuardado = localStorage.getItem('tema');
-  let idiomaGuardado = localStorage.getItem('idioma');
+    let temaGuardado = localStorage.getItem('tema') || 'claro';
 
-  if (temaGuardado === null) {
-    temaGuardado = 'claro';
-  }
-  if (idiomaGuardado === null) {
-    idiomaGuardado = 'es';
-  }
-
-  // Botón activo
-  function marcarActivo(botones, atributo, valor) {
-    for (let i = 0; i < botones.length; i++) {
-      if (botones[i].getAttribute(atributo) === valor) {
-        botones[i].classList.add('activo');
-      } else {
-        botones[i].classList.remove('activo');
-      }
+    // Marca el tema seleccionado
+    function marcarTemaActivo(tema) {
+        botonesTema.forEach(function (boton) {
+            boton.classList.toggle(
+                'activo',
+                boton.getAttribute('data-tema') === tema
+            );
+        });
     }
-  }
 
-  // Agrega o quita la clase del modo oscuro en el body
-  function aplicarTema(tema) {
-    if (tema === 'oscuro') {
-      document.body.classList.add('tema-oscuro');
-    } else {
-      document.body.classList.remove('tema-oscuro');
+    // Aplica el tema seleccionado
+    function aplicarTema(tema) {
+        if (tema === 'oscuro') {
+            document.body.classList.add('tema-oscuro');
+        } else {
+            document.body.classList.remove('tema-oscuro');
+        }
+
+        marcarTemaActivo(tema);
     }
-    marcarActivo(botonesTema, 'data-tema', tema);
-  }
 
-  aplicarTema(temaGuardado);
-  marcarActivo(botonesIdioma, 'data-idioma', idiomaGuardado);
+    aplicarTema(temaGuardado);
 
-  for (let i = 0; i < botonesTema.length; i++) {
-    botonesTema[i].addEventListener('click', function () {
-      const tema = this.getAttribute('data-tema');
-      localStorage.setItem('tema', tema);
-      aplicarTema(tema);
+    // Cambiar entre tema claro y oscuro
+    botonesTema.forEach(function (boton) {
+        boton.addEventListener('click', function () {
+            const tema = this.getAttribute('data-tema');
+
+            localStorage.setItem('tema', tema);
+            aplicarTema(tema);
+        });
     });
-  }
-
-  for (let i = 0; i < botonesIdioma.length; i++) {
-    botonesIdioma[i].addEventListener('click', function () {
-      const idioma = this.getAttribute('data-idioma');
-      localStorage.setItem('idioma', idioma);
-      marcarActivo(botonesIdioma, 'data-idioma', idioma);
-    });
-  }
 
 });
