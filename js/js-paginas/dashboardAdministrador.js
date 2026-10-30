@@ -38,10 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Obtener nombre del cliente
     function nombreCliente(venta) {
-        if (venta.cliente_nombre) {
-            return `${venta.cliente_nombre} ${venta.cliente_apellido ?? ''}`.trim();
-        }
-
         return venta.nombre_cliente || (
             localStorage.getItem('idioma') === 'en'
                 ? 'No customer'

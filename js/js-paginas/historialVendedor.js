@@ -16,9 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function nombreCliente(venta) {
-    if (venta.cliente_nombre) {
-      return `${venta.cliente_nombre} ${venta.cliente_apellido ?? ''}`.trim();
-    }
     return venta.nombre_cliente || 'Sin cliente';
   }
 

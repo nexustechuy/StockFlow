@@ -15,7 +15,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Base de datos `stockflow`
+-- Base de datos `StockFlow`
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `StockFlow` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
@@ -41,25 +41,6 @@ LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
 INSERT INTO `categoria` VALUES (1,'Tarjetas de video',NULL),(2,'Motherboard',NULL),(3,'Procesadores',NULL),(4,'Memoria RAM',NULL),(5,'Fuentes',NULL),(6,'Gabinetes',NULL),(7,'Periféricos',NULL),(8,'Monitores',NULL),(9,'Conectores',NULL),(10,'Almacenamiento','Discos Duros, M.2, SSD, Pendrives');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
-UNLOCK TABLES;
-
--- Tabla `cliente`
-
-DROP TABLE IF EXISTS `cliente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cliente` (
-  `id_cliente` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
--- Datos de `cliente`
-
-LOCK TABLES `cliente` WRITE;
-/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- Tabla `compra`
@@ -400,14 +381,11 @@ CREATE TABLE `venta` (
   `fecha_hora` datetime DEFAULT NULL,
   `total` decimal(20,6) DEFAULT NULL,
   `id_usuario` int DEFAULT NULL,
-  `id_cliente` int DEFAULT NULL,
   `nombre_cliente` varchar(150) DEFAULT NULL,
   `id_pedido` int DEFAULT NULL,
   PRIMARY KEY (`id_venta`),
   KEY `id_usuario` (`id_usuario`),
-  KEY `id_cliente_ventas` (`id_cliente`),
   KEY `id_pedido_ventas` (`id_pedido`),
-  CONSTRAINT `id_cliente_ventas` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
   CONSTRAINT `id_pedido_ventas` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
   CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -417,7 +395,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (2,'2026-09-17 03:18:11',3880.000000,1,NULL,'Pedro Sánchez',NULL),(3,'2026-09-17 21:32:44',10500.000000,1,NULL,'Diego',NULL),(4,'2026-09-23 23:51:04',22000.000000,1,NULL,'joaquito',NULL),(5,'2026-10-22 16:36:56',1780.000000,1,NULL,'pedro',NULL),(6,'2026-10-22 16:45:31',890.000000,1,NULL,'pepa',NULL);
+INSERT INTO `venta` VALUES (2,'2026-09-17 03:18:11',3880.000000,1,'Pedro Sánchez',NULL),(3,'2026-09-17 21:32:44',10500.000000,1,'Diego',NULL),(4,'2026-09-23 23:51:04',22000.000000,1,'joaquito',NULL),(5,'2026-10-22 16:36:56',1780.000000,1,'pedro',NULL),(6,'2026-10-22 16:45:31',890.000000,1,'pepa',NULL);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
