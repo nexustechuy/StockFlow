@@ -71,19 +71,42 @@ async function sumarStock(conn, idProducto, cantidad) {
 }
 
 // VARIANTES
+// En la base cada fila tiene un solo valor y el tipo está en tipo_variante.
+// Al listar se juntan los valores del mismo tipo ("Blanco, Negro") para que el front los reciba como antes.
 async function listarVariantes() {
     return await pool.query(
-        `SELECT id_variante, tipo, valor, id_producto FROM variante`
+        `SELECT
+            MIN(v.id_variante) AS id_variante,
+            t.nombre AS tipo,
+            GROUP_CONCAT(v.valor ORDER BY v.id_variante SEPARATOR ', ') AS valor,
+            v.id_producto
+         FROM variante v
+         INNER JOIN tipo_variante t ON v.id_tipo_variante = t.id_tipo_variante
+         GROUP BY v.id_producto, t.id_tipo_variante, t.nombre`
     );
 }
 
+// Busca el tipo (o lo crea si no existe) y guarda una fila por cada valor separado por coma
 async function crearVariante(tipo, valor, idProducto) {
-    const resultado = await pool.query(
-        `INSERT INTO variante (tipo, valor, id_producto) VALUES (?, ?, ?)`,
-        [tipo, valor, idProducto]
+    const tipoGuardado = await pool.query(
+        `INSERT INTO tipo_variante (nombre) VALUES (?)
+         ON DUPLICATE KEY UPDATE id_tipo_variante = LAST_INSERT_ID(id_tipo_variante)`,
+        [tipo.trim()]
     );
+    const idTipo = Number(tipoGuardado.insertId);
 
-    return Number(resultado.insertId);
+    const valores = valor.split(",").map(v => v.trim()).filter(v => v !== "");
+    let primerId = null;
+
+    for (const unValor of valores) {
+        const resultado = await pool.query(
+            `INSERT INTO variante (valor, id_producto, id_tipo_variante) VALUES (?, ?, ?)`,
+            [unValor, idProducto, idTipo]
+        );
+        if (primerId === null) primerId = Number(resultado.insertId);
+    }
+
+    return primerId;
 }
 
 module.exports = {
