@@ -10,8 +10,7 @@ async function listar() {
             u.nombre AS vendedor,
             v.id_cliente,
             v.nombre_cliente,
-            c.nombre AS cliente_nombre,
-            c.apellido AS cliente_apellido
+            c.nombre AS cliente_nombre
          FROM venta v
          LEFT JOIN usuarios u ON v.id_usuario = u.id_usuario
          LEFT JOIN cliente c ON v.id_cliente = c.id_cliente

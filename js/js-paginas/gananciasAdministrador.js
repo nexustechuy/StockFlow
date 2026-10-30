@@ -138,13 +138,12 @@ document.addEventListener('DOMContentLoaded', function () {
       ? ordenados.map(g => `
         <tr>
           <td>${g.descripcion || '—'}</td>
-          <td>${g.categoria || 'Sin categoría'}</td>
           <td class="alerta">${formatearMoneda(g.monto || 0)}</td>
           <td>${fechaGasto(g).toLocaleDateString('es-UY')}</td>
-          <td>${g.id_venta ?? '—'}</td>
+          <td>${g.id_compra ?? '—'}</td>
         </tr>
       `).join('')
-      : `<tr><td colspan="5">No hay gastos registrados en este período.</td></tr>`;
+      : `<tr><td colspan="4">No hay gastos registrados en este período.</td></tr>`;
   }
 
   function actualizarVista() {
