@@ -46,7 +46,21 @@ const traducciones = {
     "Correo electrónico": "Email address",
     "Contraseña": "Password",
     "Iniciar sesión": "Log in",
-    "Ingresar": "Sign in"
+    "Ingresar": "Sign in",
+    "Ventas de hoy": "Today's sales",
+    "Ingresos de hoy": "Today's revenue",
+    "Órdenes de hoy": "Today's orders",
+    "ventas": "sales",
+    "pesos": "pesos",
+    "órdenes": "orders",
+    "Productos más vendidos": "Best-selling products",
+    "Fecha": "Date",
+    "Producto": "Product",
+    "Cantidad": "Quantity",
+    "Cargando...": "Loading...",
+    "No hay ventas registradas": "No sales recorded yet",
+    "No hay productos vendidos": "No products sold yet",
+    "No se pudieron cargar los datos": "Could not load data"
 };
 
 // Aplica las traducciones según el idioma seleccionado
