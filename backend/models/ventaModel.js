@@ -8,12 +8,9 @@ async function listar() {
             v.total,
             v.id_usuario,
             u.nombre AS vendedor,
-            v.id_cliente,
-            v.nombre_cliente,
-            c.nombre AS cliente_nombre
+            v.nombre_cliente
          FROM venta v
          LEFT JOIN usuarios u ON v.id_usuario = u.id_usuario
-         LEFT JOIN cliente c ON v.id_cliente = c.id_cliente
          ORDER BY v.fecha_hora DESC`
     );
 }
@@ -39,8 +36,8 @@ async function listarDetalle() {
 
 async function crear(conn, total, idUsuario, nombreCliente) {
     const resultado = await conn.query(
-        `INSERT INTO venta (fecha_hora, total, id_usuario, id_cliente, nombre_cliente)
-         VALUES (NOW(), ?, ?, NULL, ?)`,
+        `INSERT INTO venta (fecha_hora, total, id_usuario, nombre_cliente)
+         VALUES (NOW(), ?, ?, ?)`,
         [total, idUsuario, nombreCliente]
     );
 
