@@ -1,41 +1,40 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    const botonesTema = document.querySelectorAll('[data-tema]');
+  const botonesTema = document.querySelectorAll('[data-tema]');
+  let temaGuardado = localStorage.getItem('tema') || 'claro';
 
-    let temaGuardado = localStorage.getItem('tema') || 'claro';
+  // Botón activo
+  function marcarActivo(botones, atributo, valor) {
+    for (let i = 0; i < botones.length; i++) {
+      if (botones[i].getAttribute(atributo) === valor) {
+        botones[i].classList.add('activo');
+      } else {
+        botones[i].classList.remove('activo');
+      }
+    }
+  }
 
-    // Marca el tema seleccionado
-    function marcarTemaActivo(tema) {
-        botonesTema.forEach(function (boton) {
-            boton.classList.toggle(
-                'activo',
-                boton.getAttribute('data-tema') === tema
-            );
-        });
+  // Agrega o quita la clase del modo oscuro en el body
+  function aplicarTema(tema) {
+    if (tema === 'oscuro') {
+      document.body.classList.add('tema-oscuro');
+    } else {
+      document.body.classList.remove('tema-oscuro');
     }
 
-    // Aplica el tema seleccionado
-    function aplicarTema(tema) {
-        if (tema === 'oscuro') {
-            document.body.classList.add('tema-oscuro');
-        } else {
-            document.body.classList.remove('tema-oscuro');
-        }
+    marcarActivo(botonesTema, 'data-tema', tema);
+  }
 
-        marcarTemaActivo(tema);
-    }
+  aplicarTema(temaGuardado);
 
-    aplicarTema(temaGuardado);
+  for (let i = 0; i < botonesTema.length; i++) {
+    botonesTema[i].addEventListener('click', function () {
+      const tema = this.getAttribute('data-tema');
 
-    // Cambiar entre tema claro y oscuro
-    botonesTema.forEach(function (boton) {
-        boton.addEventListener('click', function () {
-            const tema = this.getAttribute('data-tema');
-
-            localStorage.setItem('tema', tema);
-            aplicarTema(tema);
-        });
+      localStorage.setItem('tema', tema);
+      aplicarTema(tema);
     });
+  }
 
 });

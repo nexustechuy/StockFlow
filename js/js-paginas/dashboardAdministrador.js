@@ -1,53 +1,124 @@
+
 document.addEventListener('DOMContentLoaded', function () {
 
-  const cuerpoHistorial = document.getElementById('cuerpoHistorialVentas');
+    const cuerpoHistorial = document.getElementById('cuerpoHistorialVentas');
 
-  function formatearMoneda(valor) {
-    return '$' + Number(valor).toLocaleString('es-UY');
-  }
+    // Actualizar saludo según la hora y el idioma seleccionado
+    function actualizarSaludo() {
+        const elementoSaludo = document.querySelector('[data-saludo]');
 
-  function nombreCliente(venta) {
-    if (venta.cliente_nombre) {
-      return `${venta.cliente_nombre} ${venta.cliente_apellido ?? ''}`.trim();
+        if (!elementoSaludo) return;
+
+        const hora = new Date().getHours();
+        const idioma = localStorage.getItem('idioma') || 'es';
+
+        if (idioma === 'en') {
+            if (hora >= 5 && hora < 12) {
+                elementoSaludo.textContent = 'Good morning!';
+            } else if (hora >= 12 && hora < 19) {
+                elementoSaludo.textContent = 'Good afternoon!';
+            } else {
+                elementoSaludo.textContent = 'Good evening!';
+            }
+        } else {
+            if (hora >= 5 && hora < 12) {
+                elementoSaludo.textContent = '¡Buenos días!';
+            } else if (hora >= 12 && hora < 19) {
+                elementoSaludo.textContent = '¡Buenas tardes!';
+            } else {
+                elementoSaludo.textContent = '¡Buenas noches!';
+            }
+        }
     }
-    return venta.nombre_cliente || 'Sin cliente';
-  }
 
-  function renderizarFila(venta, detalleVentas) {
-    const fecha = new Date(venta.fecha_hora);
-    const horaTexto = fecha.toLocaleTimeString('es-UY', { hour: '2-digit', minute: '2-digit' });
-    const cantidadTotal = detalleVentas
-      .filter(d => Number(d.id_venta) === Number(venta.id_venta))
-      .reduce((acc, d) => acc + Number(d.cantidad), 0);
+    // Formatear moneda
+    function formatearMoneda(valor) {
+        return '$' + Number(valor).toLocaleString('es-UY');
+    }
 
-    return `
-      <tr>
-        <td>${horaTexto}</td>
-        <td>${nombreCliente(venta)}</td>
-        <td>${cantidadTotal}</td>
-        <td class="ingreso">${formatearMoneda(venta.total)}</td>
-      </tr>
-    `;
-  }
+    // Obtener nombre del cliente
+    function nombreCliente(venta) {
+        if (venta.cliente_nombre) {
+            return `${venta.cliente_nombre} ${venta.cliente_apellido ?? ''}`.trim();
+        }
 
-  function cargarHistorialVentas() {
-    Promise.all([
-      fetch('/ventas').then(res => res.json()),
-      fetch('/detalle-ventas').then(res => res.json())
-    ])
-      .then(([ventas, detalleVentas]) => {
-        const ultimasVentas = ventas.slice(0, 4);
+        return venta.nombre_cliente || (
+            localStorage.getItem('idioma') === 'en'
+                ? 'No customer'
+                : 'Sin cliente'
+        );
+    }
 
-        cuerpoHistorial.innerHTML = ultimasVentas.length
-          ? ultimasVentas.map(v => renderizarFila(v, detalleVentas)).join('')
-          : `<tr><td colspan="4">Todavía no hay ventas registradas.</td></tr>`;
-      })
-      .catch(error => {
-        console.error('Error al cargar el historial de ventas:', error);
-        cuerpoHistorial.innerHTML = `<tr><td colspan="4">Error al cargar las ventas.</td></tr>`;
-      });
-  }
+    // Generar fila de una venta
+    function renderizarFila(venta, detalleVentas) {
+        const fecha = new Date(venta.fecha_hora);
 
-  cargarHistorialVentas();
+        const horaTexto = fecha.toLocaleTimeString('es-UY', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        const cantidadTotal = detalleVentas
+            .filter(d => Number(d.id_venta) === Number(venta.id_venta))
+            .reduce((acc, d) => acc + Number(d.cantidad), 0);
+
+        return `
+            <tr>
+                <td>${horaTexto}</td>
+                <td>${nombreCliente(venta)}</td>
+                <td>${cantidadTotal}</td>
+                <td class="ingreso">${formatearMoneda(venta.total)}</td>
+            </tr>
+        `;
+    }
+
+    // Cargar historial de ventas
+    function cargarHistorialVentas() {
+        if (!cuerpoHistorial) return;
+
+        Promise.all([
+            fetch('/ventas').then(res => {
+                if (!res.ok) throw new Error('Error al obtener ventas');
+                return res.json();
+            }),
+
+            fetch('/detalle-ventas').then(res => {
+                if (!res.ok) throw new Error('Error al obtener detalles');
+                return res.json();
+            })
+        ])
+            .then(([ventas, detalleVentas]) => {
+
+                const ultimasVentas = ventas.slice(0, 4);
+                const idioma = localStorage.getItem('idioma') || 'es';
+
+                cuerpoHistorial.innerHTML = ultimasVentas.length
+                    ? ultimasVentas.map(v => renderizarFila(v, detalleVentas)).join('')
+                    : `<tr><td colspan="4">${
+                        idioma === 'en'
+                            ? 'No sales have been registered yet.'
+                            : 'Todavía no hay ventas registradas.'
+                    }</td></tr>`;
+            })
+            .catch(error => {
+                console.error('Error al cargar el historial de ventas:', error);
+
+                const idioma = localStorage.getItem('idioma') || 'es';
+
+                cuerpoHistorial.innerHTML = `
+                    <tr>
+                        <td colspan="4">
+                            ${idioma === 'en'
+                                ? 'Error loading sales.'
+                                : 'Error al cargar las ventas.'}
+                        </td>
+                    </tr>
+                `;
+            });
+    }
+
+    // Ejecutar funciones
+    actualizarSaludo();
+    cargarHistorialVentas();
 
 });

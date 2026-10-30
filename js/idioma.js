@@ -1,3 +1,4 @@
+
 const traducciones = {
     "Ajustes": "Settings",
     "Personalizá tu cuenta y preferencias": "Customize your account and preferences",
@@ -5,6 +6,8 @@ const traducciones = {
     "Modo claro": "Light mode",
     "Modo oscuro": "Dark mode",
     "Idioma": "Language",
+    "Español": "Spanish",
+    "Inglés": "English",
     "Administrador": "Administrator",
     "Repositor": "Stock Clerk",
     "Vendedor": "Salesperson",
@@ -17,63 +20,83 @@ const traducciones = {
     "Alertas de Stock": "Stock Alerts",
     "Registrar venta": "Register Sale",
     "Historial": "History",
+    "Vista general del negocio": "Business overview",
+    "Ventas del Día": "Today's Sales",
+    "Registradas automáticamente": "Automatically registered",
+    "Ver detalle": "View details",
+    "Vendedores y repositores": "Salespeople and stock clerks",
+    "En 6 categorías distintas": "Across 6 different categories",
+    "Sin Stock": "Out of Stock",
+    "productos": "products",
+    "Historial de ventas": "Sales History",
+    "Hora": "Time",
+    "Cliente": "Customer",
+    "Total": "Total",
+    "Ver todo": "View all",
+    "¡Hola!": "Hello!",
     "Cerrar sesión": "Log out",
-    "Iniciar sesión": "Log in",
+    "Dashboard": "Dashboard",
+    "Buscar": "Search",
+    "Guardar": "Save",
+    "Cancelar": "Cancel",
+    "Editar": "Edit",
+    "Eliminar": "Delete",
+    "Agregar": "Add",
+    "Nombre": "Name",
     "Correo electrónico": "Email address",
     "Contraseña": "Password",
-    "Ingresar": "Sign in",
-    "Bienvenido a StockFlow": "Welcome to StockFlow",
-    "Dashboard": "Dashboard"
+    "Iniciar sesión": "Log in",
+    "Ingresar": "Sign in"
 };
 
+// Aplica las traducciones según el idioma seleccionado
 function aplicarIdioma(idioma) {
     const idiomaActual = idioma === "en" ? "en" : "es";
 
     document.documentElement.lang = idiomaActual;
 
-    document.querySelectorAll("[data-i18n]").forEach(function (elemento) {
-        const clave = elemento.getAttribute("data-i18n");
+    document.querySelectorAll("[data-i18n]").forEach(elemento => {
+        const clave = elemento.dataset.i18n;
 
-        elemento.textContent =
-            idiomaActual === "en"
-                ? (traducciones[clave] || clave)
-                : clave;
+        elemento.textContent = idiomaActual === "en"
+            ? (traducciones[clave] || clave)
+            : clave;
     });
 
-    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (elemento) {
-        const clave = elemento.getAttribute("data-i18n-placeholder");
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(elemento => {
+        const clave = elemento.dataset.i18nPlaceholder;
 
-        elemento.placeholder =
-            idiomaActual === "en"
-                ? (traducciones[clave] || clave)
-                : clave;
+        elemento.placeholder = idiomaActual === "en"
+            ? (traducciones[clave] || clave)
+            : clave;
     });
 
-    document.querySelectorAll("[data-idioma]").forEach(function (boton) {
+    // Marcar el idioma seleccionado en Ajustes
+    document.querySelectorAll("[data-idioma]").forEach(boton => {
         boton.classList.toggle(
             "activo",
-            boton.getAttribute("data-idioma") === idiomaActual
+            boton.dataset.idioma === idiomaActual
         );
     });
+
+    // Actualizar el saludo del Dashboard
+    if (typeof actualizarSaludo === "function") {
+        actualizarSaludo();
+    }
 }
 
-// Aplicar idioma guardado cuando carga la página
-document.addEventListener("DOMContentLoaded", function () {
-    aplicarIdioma(localStorage.getItem("idioma") || "es");
-});
+// Recuperar el idioma guardado y permitir cambiarlo
+document.addEventListener("DOMContentLoaded", () => {
+    const idiomaGuardado = localStorage.getItem("idioma") || "es";
 
-// Detectar el clic desde el documento
-document.addEventListener("click", function (evento) {
-    const boton = evento.target.closest("[data-idioma]");
+    aplicarIdioma(idiomaGuardado);
 
-    if (!boton) {
-        return;
-    }
+    document.querySelectorAll("[data-idioma]").forEach(boton => {
+        boton.addEventListener("click", () => {
+            const idioma = boton.dataset.idioma;
 
-    const idioma = boton.getAttribute("data-idioma");
-
-    console.log("Idioma seleccionado:", idioma);
-
-    localStorage.setItem("idioma", idioma);
-    aplicarIdioma(idioma);
+            localStorage.setItem("idioma", idioma);
+            aplicarIdioma(idioma);
+        });
+    });
 });
