@@ -49,6 +49,7 @@
 .barra-historial .filtros {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* TABLA HISTORIAL: Con "Ver detalle" */

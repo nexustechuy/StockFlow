@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const sufijosPeriodo = {
     hoy: ' de hoy',
     semana: ' de la semana',
-    mes: ' del mes'
+    mes: ' del mes',
+    anio: ' del año'
   };
   let textoBusqueda = '';
 
@@ -52,6 +53,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     if (periodo === 'mes') {
       return fecha.getFullYear() === ahora.getFullYear() && fecha.getMonth() === ahora.getMonth();
+    }
+    if (periodo === 'anio') {
+      return fecha.getFullYear() === ahora.getFullYear();
     }
     return true;
   }

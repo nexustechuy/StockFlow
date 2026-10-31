@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (periodo === 'mes') {
       return fecha.getFullYear() === ahora.getFullYear() && fecha.getMonth() === ahora.getMonth();
     }
+    if (periodo === 'anio') {
+      return fecha.getFullYear() === ahora.getFullYear();
+    }
     return true;
   }
 

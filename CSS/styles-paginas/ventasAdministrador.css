@@ -48,6 +48,7 @@
 .barra-usuarios .filtros {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* TABLA DE VENTAS con la columna Acciones al principio en vez de al final*/
