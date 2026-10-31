@@ -60,7 +60,10 @@ const traducciones = {
     "Cargando...": "Loading...",
     "No hay ventas registradas": "No sales recorded yet",
     "No hay productos vendidos": "No products sold yet",
-    "No se pudieron cargar los datos": "Could not load data"
+    "No se pudieron cargar los datos": "Could not load data",
+    "producto": "product",
+    "En {n} categoría": "In {n} category",
+    "En {n} categorías distintas": "Across {n} different categories"
 };
 
 // Aplica las traducciones según el idioma seleccionado
