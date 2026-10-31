@@ -14,7 +14,7 @@
   background-color: var(--azul-activo);
 }
 
-/* Botón primario grande, como "Nuevo usuario" o "Nuevo producto" */
+/* Botón primario grande */
 .btn-primario {
   background-color: var(--azul-primario);
   color: var(--blanco);

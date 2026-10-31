@@ -24,3 +24,13 @@
   max-width: 100%;
   table-layout: fixed;
 }
+
+@media (max-width: 992px) {
+  .tarjetas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tarjetas .tarjeta:last-child {
+    grid-column: 1 / -1;
+  }
+}
