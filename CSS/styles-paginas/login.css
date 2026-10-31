@@ -174,7 +174,10 @@ body {
   margin-bottom: 0;
 }
 
-.idioma-login select {
+.btn-idioma {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: 'Inter', Arial, sans-serif;
   font-size: 0.85rem;
   color: var(--texto-oscuro);
@@ -186,8 +189,44 @@ body {
   outline: none;
 }
 
-.idioma-login select:focus {
+.btn-idioma:focus-visible {
   box-shadow: 0 0 0 3px rgba(6, 11, 68, 0.20);
+}
+
+.btn-idioma .bi-chevron-down {
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+}
+
+.btn-idioma[aria-expanded="true"] .bi-chevron-down {
+  transform: rotate(180deg);
+}
+
+.idioma-login .dropdown-menu {
+  --bs-dropdown-min-width: 100%;
+  background-color: var(--superficie);
+  border: 1px solid var(--borde-fila);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.idioma-login .dropdown-item {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.85rem;
+  color: var(--texto-oscuro);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.idioma-login .dropdown-item:hover,
+.idioma-login .dropdown-item:focus {
+  background-color: var(--gris-fondo);
+  color: var(--texto-oscuro);
+}
+
+.idioma-login .dropdown-item.activo {
+  background-color: var(--azul-primario);
+  color: var(--blanco);
 }
 
 /* Modo oscuro */

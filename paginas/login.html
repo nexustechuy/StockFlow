@@ -45,17 +45,24 @@
       <button type="submit" class="btn-ingresar">Ingresar</button>
     </form>
 
-    <!-- Idioma (solo visual por ahora, igual que en Ajustes) -->
+    <!-- Idioma -->
     <div class="idioma-login">
       <label for="idiomaLogin">Idioma / Language</label>
-      <select id="idiomaLogin">
-        <option value="es">Español</option>
-        <option value="en">English</option>
-      </select>
+      <div class="dropdown">
+        <button type="button" id="idiomaLogin" class="btn-idioma" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-globe"></i>
+          <span id="idiomaLoginTexto">Español</span>
+          <i class="bi bi-chevron-down"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><button type="button" class="dropdown-item" data-idioma="es">Español</button></li>
+          <li><button type="button" class="dropdown-item" data-idioma="en">English</button></li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <!-- Modal recuperar contraseña -->
+  <!-- Modal: Recuperar contraseña -->
   <div class="modal fade modal-stockflow" id="modalRecuperarContrasena" tabindex="-1"
     aria-labelledby="modalRecuperarContrasenaLabel" aria-hidden="true">
 

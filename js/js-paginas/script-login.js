@@ -51,7 +51,7 @@ async function iniciarSesion(event) {
             throw new Error(datos.error);
         }
 
-                localStorage.setItem("sf_token", datos.token);
+        localStorage.setItem("sf_token", datos.token);
         localStorage.setItem("sf_usuario", JSON.stringify({
             id_usuario: datos.id_usuario,
             mail: datos.mail,
@@ -108,14 +108,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Idioma: por ahora solo se guarda la elección (misma clave que en Ajustes)
-    const selectIdioma = document.getElementById("idiomaLogin");
+    // Idioma
+    const textoIdioma = document.getElementById("idiomaLoginTexto");
+    const opcionesIdioma = document.querySelectorAll(".idioma-login [data-idioma]");
 
-    if (selectIdioma) {
-        selectIdioma.value = localStorage.getItem("idioma") || "es";
+    if (textoIdioma) {
+        const idiomaGuardado = localStorage.getItem("idioma") || "es";
 
-        selectIdioma.addEventListener("change", function () {
-            localStorage.setItem("idioma", selectIdioma.value);
+        opcionesIdioma.forEach(function (opcion) {
+            if (opcion.dataset.idioma === idiomaGuardado) {
+                textoIdioma.textContent = opcion.textContent;
+            }
+
+            opcion.addEventListener("click", function () {
+                textoIdioma.textContent = opcion.textContent;
+            });
         });
     }
 });
