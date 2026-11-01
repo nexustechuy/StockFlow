@@ -1,8 +1,11 @@
 const jwt = require("jsonwebtoken");
+const pool = require("../config/db");
 
 // Verifica que el pedido traiga un token válido (header Authorization: Bearer <token>).
+// Además consulta la base: si el usuario se desactivó o ya no existe se rechaza,
+// y los roles se toman de la base (así un cambio de roles vale al instante).
 // Si es válido, deja los datos del usuario en req.usuario.
-function verificarSesion(req, res, next) {
+async function verificarSesion(req, res, next) {
     const header = req.headers.authorization || "";
     const [tipo, token] = header.split(" ");
 
@@ -10,11 +13,33 @@ function verificarSesion(req, res, next) {
         return res.status(401).json({ error: "Necesitás iniciar sesión." });
     }
 
+    let datos;
+
     try {
-        req.usuario = jwt.verify(token, process.env.JWT_SECRET);
-        next();
+        datos = jwt.verify(token, process.env.JWT_SECRET);
     } catch (error) {
         return res.status(401).json({ error: "Sesión inválida o vencida." });
+    }
+
+    try {
+        const filas = await pool.query(
+            `SELECT u.activo, r.nombre AS rol
+             FROM usuarios u
+             LEFT JOIN usuario_rol ur ON u.id_usuario = ur.id_usuario
+             LEFT JOIN rol r ON ur.id_rol = r.id_rol
+             WHERE u.id_usuario = ?`,
+            [datos.id_usuario]
+        );
+
+        if (filas.length === 0 || Number(filas[0].activo) !== 1) {
+            return res.status(401).json({ error: "Tu usuario está desactivado o ya no existe." });
+        }
+
+        req.usuario = { ...datos, roles: filas.map(f => f.rol).filter(Boolean) };
+        next();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Error al verificar la sesión." });
     }
 }
 

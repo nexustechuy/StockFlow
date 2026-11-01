@@ -72,6 +72,8 @@
       </div>
     </div>
 
+    <div id="avisoUsuarios" class="mensaje-error" style="display: none;"></div>
+
     <div class="panel">
       <table class="tabla-usuarios tabla-fija">
         <thead>
@@ -84,77 +86,8 @@
           </tr>
         </thead>
         <tbody id="cuerpoTablaUsuarios">
-          <tr data-rol="vendedor">
-            <td>
-              <div class="celda-usuario">
-                <span class="avatar-usuario">JP</span>
-                Juan Pérez
-              </div>
-            </td>
-            <td>vendedor@gmail.com</td>
-            <td>Vendedor</td>
-            <td><span class="ingreso">Activo</span></td>
-            <td>
-              <div class="dropdown">
-                <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
-                  aria-expanded="false">•••</button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal"
-                      data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
-                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar
-                      estado</a></li>
-                  <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr data-rol="repositor">
-            <td>
-              <div class="celda-usuario">
-                <span class="avatar-usuario">JP</span>
-                Juan Pérez
-              </div>
-            </td>
-            <td>repositor@gmail.com</td>
-            <td>Repositor</td>
-            <td><span class="ingreso">Activo</span></td>
-            <td>
-              <div class="dropdown">
-                <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
-                  aria-expanded="false">•••</button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal"
-                      data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
-                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar
-                      estado</a></li>
-                  <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr data-rol="administrador">
-            <td>
-              <div class="celda-usuario">
-                <span class="avatar-usuario">JP</span>
-                Juan Pérez
-              </div>
-            </td>
-            <td>administrador@gmail.com</td>
-            <td>Administrador</td>
-            <td><span class="alerta">Inactivo</span></td>
-            <td>
-              <div class="dropdown">
-                <button class="btn-accion" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
-                  aria-expanded="false">•••</button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item editar-usuario" href="#" data-bs-toggle="modal"
-                      data-bs-target="#modalEditarUsuario"><i class="bi bi-pencil me-2"></i>Editar usuario</a></li>
-                  <li><a class="dropdown-item cambiar-estado" href="#"><i class="bi bi-arrow-repeat me-2"></i>Cambiar
-                      estado</a></li>
-                  <li><a class="dropdown-item text-peligro" href="#"><i class="bi bi-trash me-2"></i>Eliminar</a></li>
-                </ul>
-              </div>
-            </td>
+          <tr>
+            <td colspan="5">Cargando usuarios...</td>
           </tr>
         </tbody>
       </table>
@@ -194,12 +127,14 @@
 
                 <div class="campo-formulario">
                   <label for="nombreCompleto">Nombre completo <span class="obligatorio">*</span></label>
-                  <input type="text" id="nombreCompleto" name="nombreCompleto" placeholder="Ej: Martín Peña" required>
+                  <input type="text" id="nombreCompleto" name="nombreCompleto" placeholder="Ej: Martín Peña"
+                    maxlength="100" required>
                 </div>
 
                 <div class="campo-formulario">
                   <label for="emailNuevoUsuario">Email <span class="obligatorio">*</span></label>
-                  <input type="email" id="emailNuevoUsuario" name="email" placeholder="usuario@gmail.com" required>
+                  <input type="email" id="emailNuevoUsuario" name="email" placeholder="usuario@gmail.com"
+                    maxlength="50" required>
                 </div>
 
                 <div class="campo-formulario">
@@ -243,7 +178,6 @@
                   <label class="rol-item">
                     <input type="checkbox" name="roles" value="repositor">
                     <span>Repositor</span>
-                  </label>
                   </label>
                 </div>
 
@@ -355,7 +289,7 @@
                   <span class="error-campo"></span>
                 </div>
 
-                <h6>Estado inicial</h6>
+                <h6>Estado</h6>
                 <div class="estado-toggle" id="estadoToggleEditar">
                   <button type="button" data-estado="activo">Activo</button>
                   <button type="button" data-estado="inactivo">Inactivo</button>
@@ -386,4 +320,4 @@
   <script src="/js/idioma.js"></script>
 </body>
 
-</html>
+</html>

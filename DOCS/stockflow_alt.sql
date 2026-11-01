@@ -333,7 +333,8 @@ CREATE TABLE `usuarios` (
   `password` varchar(255) NOT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `activo` tinyint NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id_usuario`)
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `mail` (`mail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

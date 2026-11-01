@@ -25,6 +25,13 @@ async function login(req, res) {
             });
         }
 
+        // Los usuarios desactivados no pueden ingresar
+        if (Number(usuarios[0].activo) !== 1) {
+            return res.status(403).json({
+                error: "Tu usuario está desactivado. Pedile al administrador que lo active."
+            });
+        }
+
         const usuario = usuarios[0];
         // Un usuario puede tener más de un rol (tabla usuario_rol)
         const roles = usuarios.map(u => u.rol);
@@ -53,4 +60,4 @@ async function login(req, res) {
     }
 }
 
-module.exports = { login };
+module.exports = { login };
