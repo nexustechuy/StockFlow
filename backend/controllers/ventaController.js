@@ -1,11 +1,15 @@
 const pool = require("../config/db");
 const ventaModel = require("../models/ventaModel");
 const productoModel = require("../models/productoModel");
+const { esAdministrador } = require("../middleware/auth");
 
 // VENTAS - LISTAR
+// El administrador ve todas; el vendedor, solo las suyas (según el token)
 async function listar(req, res) {
     try {
-        const ventas = await ventaModel.listar();
+        const ventas = await ventaModel.listar(
+            esAdministrador(req) ? null : req.usuario.id_usuario
+        );
 
         res.json(ventas);
 
@@ -19,9 +23,14 @@ async function listar(req, res) {
 }
 
 // DETALLE DE VENTA - LISTAR
+// El administrador ve todo (con el costo); el vendedor, solo el de sus ventas y sin costos
 async function listarDetalle(req, res) {
     try {
-        const detalle = await ventaModel.listarDetalle();
+        const admin = esAdministrador(req);
+        const detalle = await ventaModel.listarDetalle(
+            admin ? null : req.usuario.id_usuario,
+            admin
+        );
 
         res.json(detalle);
 

@@ -66,4 +66,9 @@ function usarUsuarioDelToken(req, res, next) {
     next();
 }
 
-module.exports = { verificarSesion, permitirRoles, usarUsuarioDelToken };
+// ¿El usuario del pedido tiene rol de administrador? (req.usuario lo arma verificarSesion)
+function esAdministrador(req) {
+    return Array.isArray(req.usuario?.roles) && req.usuario.roles.includes("administrador");
+}
+
+module.exports = { esAdministrador, verificarSesion, permitirRoles, usarUsuarioDelToken };

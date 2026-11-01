@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  const ID_USUARIO_VENDEDOR = 1;
-
   const cuerpoTabla = document.getElementById('cuerpoTablaHistorial');
   const inputBusqueda = document.getElementById('buscarHistorial');
   const modalDetalleVenta = document.getElementById('modalDetalleVenta');
@@ -73,8 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
   }
 
+  // El backend ya devuelve solo las ventas del vendedor logueado (según el token)
   function ventasDelVendedor() {
-    return ventas.filter(v => Number(v.id_usuario) === ID_USUARIO_VENDEDOR);
+    return ventas;
   }
 
   function aplicarFiltros() {

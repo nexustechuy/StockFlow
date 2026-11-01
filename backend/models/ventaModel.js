@@ -1,6 +1,9 @@
 const pool = require("../config/db");
 
-async function listar() {
+// Si recibe idUsuario, devuelve solo las ventas de ese usuario
+async function listar(idUsuario = null) {
+    const filtro = idUsuario === null ? "" : "WHERE v.id_usuario = ?";
+
     return await pool.query(
         `SELECT
             v.id_venta,
@@ -11,11 +14,18 @@ async function listar() {
             v.nombre_cliente
          FROM venta v
          LEFT JOIN usuarios u ON v.id_usuario = u.id_usuario
-         ORDER BY v.fecha_hora DESC`
+         ${filtro}
+         ORDER BY v.fecha_hora DESC`,
+        idUsuario === null ? [] : [idUsuario]
     );
 }
 
-async function listarDetalle() {
+// Si recibe idUsuario, devuelve solo el detalle de las ventas de ese usuario.
+// El costo (precio_compra) se incluye solo si incluirCosto es true (administrador).
+async function listarDetalle(idUsuario = null, incluirCosto = false) {
+    const filtro = idUsuario === null ? "" : "WHERE v.id_usuario = ?";
+    const costo = incluirCosto ? "p.precio_compra," : "";
+
     return await pool.query(
         `SELECT
             dv.id_detalle_venta,
@@ -25,12 +35,15 @@ async function listarDetalle() {
             dv.precio_unitario,
             dv.subtotal,
             p.nombre AS producto_nombre,
-            p.precio_compra,
+            ${costo}
             p.id_categoria,
             cat.nombre AS categoria
          FROM detalle_venta dv
+         INNER JOIN venta v ON dv.id_venta = v.id_venta
          INNER JOIN producto p ON dv.id_producto = p.id_producto
-         LEFT JOIN categoria cat ON p.id_categoria = cat.id_categoria`
+         LEFT JOIN categoria cat ON p.id_categoria = cat.id_categoria
+         ${filtro}`,
+        idUsuario === null ? [] : [idUsuario]
     );
 }
 

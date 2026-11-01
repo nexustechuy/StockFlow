@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  const ID_USUARIO_REPOSITOR = 2;
-
   const campoProducto = document.getElementById('campoProducto');
   const inputProducto = document.getElementById('inputProducto');
   const listaSugerencias = document.getElementById('listaSugerenciasProducto');
@@ -119,8 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
       body: JSON.stringify({
         id_producto: productoSeleccionado.id_producto,
         cantidad: Number(cantidad),
-        comentario: comentario === '' ? null : comentario,
-        id_usuario: ID_USUARIO_REPOSITOR
+        comentario: comentario === '' ? null : comentario
       })
     })
       .then(async res => {

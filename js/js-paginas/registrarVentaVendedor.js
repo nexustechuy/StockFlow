@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  const ID_USUARIO_VENDEDOR = 1;
-
   const listaProductos = document.getElementById('listaProductos');
   const buscador = document.getElementById('buscadorCatalogo');
   const sinResultadosCatalogo = document.getElementById('sinResultadosCatalogo');
@@ -202,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function () {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         nombre_cliente: nombreCliente,
-        id_usuario: ID_USUARIO_VENDEDOR,
         productos: itemsVenta
       })
     })

@@ -1,9 +1,15 @@
 const productoModel = require("../models/productoModel");
+const { esAdministrador } = require("../middleware/auth");
 
 // PRODUCTOS - LISTAR
 async function listar(req, res) {
     try {
         const productos = await productoModel.listar();
+
+        // El costo de compra lo ve solo el administrador
+        if (!esAdministrador(req)) {
+            return res.json(productos.map(({ precio_compra, ...producto }) => producto));
+        }
 
         res.json(productos);
 
