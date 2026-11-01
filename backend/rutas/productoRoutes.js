@@ -7,6 +7,7 @@ const router = express.Router();
 // PRODUCTOS
 router.get("/productos", verificarSesion, productoController.listar);
 router.post("/productos", verificarSesion, permitirRoles("administrador"), productoController.crear);
+router.put("/productos/:id", verificarSesion, permitirRoles("administrador"), productoController.editar);
 router.delete("/productos/:id", verificarSesion, permitirRoles("administrador"), productoController.eliminar);
 
 // VARIANTES

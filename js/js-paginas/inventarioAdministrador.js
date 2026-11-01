@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 data-tipo-variante="${variante ? variante.tipo : ""}"
                 data-valor-variante="${variante ? variante.valor : ""}">
                 <td>${producto.nombre}</td>
-                <td>${producto.codigo_barras ?? producto.id_producto}</td>
+                <td>${producto.codigo || "Sin código"}</td>
                 <td>${producto.categoria}</td>
                 <td>$${Number(producto.precio_venta).toLocaleString("es-UY")}</td>
                 <td>${producto.stock}</td>
@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const { estado } = calcularEstado(producto);
 
         document.getElementById("detalleProductoNombre").textContent = producto.nombre;
-        document.getElementById("detalleProductoCodigo").textContent = producto.codigo_barras ?? producto.id_producto;
+        document.getElementById("detalleProductoCodigo").textContent = producto.codigo || "Sin código";
         document.getElementById("detalleProductoCategoria").textContent = producto.categoria;
         document.getElementById("detalleProductoPrecio").textContent =
             `$${Number(producto.precio_venta).toLocaleString("es-UY")}`;
@@ -530,6 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const valorVariante = document.getElementById("valorVariante").value.trim();
 
         const nuevoProducto = {
+            codigo: document.getElementById("codigoBarras").value.trim(),
             nombre: document.getElementById("nombreProducto").value.trim(),
             descripcion: document.getElementById("descripcionProducto").value.trim(),
             precio_compra: Number(document.getElementById("precioCompra").value),
@@ -546,7 +547,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(async res => {
                 const data = await res.json();
-                if (!res.ok) throw new Error(data.error || "Error al guardar el producto.");
+                if (!res.ok) {
+                    const errorServidor = new Error(data.error || "Error al guardar el producto.");
+                    errorServidor.status = res.status;
+                    throw errorServidor;
+                }
                 return data;
             })
             .then(productoGuardado => {
@@ -583,7 +588,13 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => {
                 console.error("Error al guardar producto:", error);
-                alert(error.message);
+
+                // Código repetido: el aviso va en el campo del código
+                if (error.status === 409) {
+                    mostrarErrorCampo(document.getElementById("codigoBarras").closest(".campo-formulario"), error.message);
+                } else {
+                    alert(error.message);
+                }
             });
     });
 
@@ -616,7 +627,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Carga los datos del producto en el formulario
     function cargarDatosEdicion(producto) {
         nombreEditar.value = producto.nombre;
-        codigoEditar.value = producto.codigo_barras ?? producto.id_producto;
+        codigoEditar.value = producto.codigo ?? "";
         selectCategoriaEditar.value = producto.id_categoria;
         descripcionEditar.value = producto.descripcion ?? "";
         stockEditar.value = producto.stock;
@@ -656,20 +667,52 @@ document.addEventListener("DOMContentLoaded", () => {
         const hayError = validarCampos(camposEditarProducto);
         if (validarPrecios(precioCompraEditar, precioVentaEditar) || hayError) return;
 
-        const opcionCategoria = selectCategoriaEditar.options[selectCategoriaEditar.selectedIndex];
+        const botonGuardarEdicion = formEditarProducto.querySelector('button[type="submit"]');
+        if (botonGuardarEdicion) botonGuardarEdicion.disabled = true;
 
-        productoEditando.nombre = nombreEditar.value.trim();
-        productoEditando.codigo_barras = codigoEditar.value.trim();
-        productoEditando.id_categoria = Number(selectCategoriaEditar.value);
-        productoEditando.categoria = opcionCategoria.textContent;
-        productoEditando.descripcion = descripcionEditar.value.trim();
-        productoEditando.stock = Number(stockEditar.value);
-        productoEditando.stock_minimo = Number(stockMinimoEditar.value);
-        productoEditando.precio_compra = Number(precioCompraEditar.value);
-        productoEditando.precio_venta = Number(precioVentaEditar.value);
+        fetch(`/productos/${productoEditando.id_producto}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                codigo: codigoEditar.value.trim(),
+                nombre: nombreEditar.value.trim(),
+                descripcion: descripcionEditar.value.trim(),
+                precio_compra: Number(precioCompraEditar.value),
+                precio_venta: Number(precioVentaEditar.value),
+                stock: Number(stockEditar.value),
+                stock_minimo: Number(stockMinimoEditar.value),
+                id_categoria: Number(selectCategoriaEditar.value)
+            })
+        })
+            .then(async res => {
+                const data = await res.json();
+                if (!res.ok) {
+                    const errorServidor = new Error(data.error || "Error al editar el producto.");
+                    errorServidor.status = res.status;
+                    throw errorServidor;
+                }
+                return data;
+            })
+            .then(productoActualizado => {
+                // Se actualiza con lo que devolvió el servidor, no con lo que se escribió
+                Object.assign(productoEditando, productoActualizado);
 
-        aplicarFiltros();
-        modalEditarProducto.hide();
+                aplicarFiltros();
+                modalEditarProducto.hide();
+            })
+            .catch(error => {
+                console.error("Error al editar producto:", error);
+
+                // Código repetido: el aviso va en el campo del código
+                if (error.status === 409) {
+                    mostrarErrorCampo(codigoEditar.closest(".campo-formulario"), error.message);
+                } else {
+                    alert(error.message);
+                }
+            })
+            .finally(() => {
+                if (botonGuardarEdicion) botonGuardarEdicion.disabled = false;
+            });
     });
 
     cargarProductos();

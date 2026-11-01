@@ -3,6 +3,7 @@ const pool = require("../config/db");
 const SELECT_PRODUCTO = `
     SELECT
         p.id_producto,
+        p.codigo,
         p.nombre,
         p.descripcion,
         p.precio_compra,
@@ -26,15 +27,32 @@ async function obtenerPorId(id) {
     return productos[0];
 }
 
-async function crear({ nombre, descripcion, precio_compra, precio_venta, stock, stock_minimo, id_categoria }) {
+async function crear({ codigo, nombre, descripcion, precio_compra, precio_venta, stock, stock_minimo, id_categoria }) {
     const resultado = await pool.query(
         `INSERT INTO producto
-            (nombre, descripcion, precio_compra, precio_venta, stock, stock_minimo, estado_producto, id_categoria)
-         VALUES (?, ?, ?, ?, ?, ?, 1, ?)`,
-        [nombre, descripcion || null, precio_compra, precio_venta, stock, stock_minimo, id_categoria]
+            (codigo, nombre, descripcion, precio_compra, precio_venta, stock, stock_minimo, estado_producto, id_categoria)
+         VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?)`,
+        [codigo, nombre, descripcion || null, precio_compra, precio_venta, stock, stock_minimo, id_categoria]
     );
 
     return Number(resultado.insertId);
+}
+
+// Actualiza los datos editables del producto (no toca estado_producto)
+async function actualizar(id, { codigo, nombre, descripcion, precio_compra, precio_venta, stock, stock_minimo, id_categoria }) {
+    await pool.query(
+        `UPDATE producto
+         SET codigo = ?,
+             nombre = ?,
+             descripcion = ?,
+             precio_compra = ?,
+             precio_venta = ?,
+             stock = ?,
+             stock_minimo = ?,
+             id_categoria = ?
+         WHERE id_producto = ?`,
+        [codigo, nombre, descripcion || null, precio_compra, precio_venta, stock, stock_minimo, id_categoria, id]
+    );
 }
 
 // Devuelve cuántas filas se borraron
@@ -113,6 +131,7 @@ module.exports = {
     listar,
     obtenerPorId,
     crear,
+    actualizar,
     eliminar,
     buscarPorIds,
     restarStock,
