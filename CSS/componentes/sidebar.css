@@ -59,14 +59,26 @@ body.tema-oscuro .sidebar {
   padding: 12px 0;
 }
 
+/* Cada enlace: icono + texto en fila, siempre alineados */
 .sidebar nav a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 12px 24px;
   color: rgba(255, 255, 255, 0.80);
   text-decoration: none;
   font-size: 0.95rem;
   transition: background 0.15s, color 0.15s;
   border-left: 3px solid transparent;
+}
+
+/* Todos los iconos con el mismo ancho para que el texto empiece siempre en el mismo lugar */
+.sidebar nav a i,
+.sidebar-footer a i {
+  flex: 0 0 20px;
+  width: 20px;
+  text-align: center;
+  margin: 0 !important; /* anula el me-2 de Bootstrap */
 }
 
 .sidebar nav a:hover {
@@ -87,6 +99,9 @@ body.tema-oscuro .sidebar {
 }
 
 .sidebar-footer a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   color: rgba(255, 255, 255, 0.70);
   text-decoration: none;
   font-size: 0.88rem;
