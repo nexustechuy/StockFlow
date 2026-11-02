@@ -44,6 +44,13 @@
 
     window.cerrarSesion = cerrarSesion;
 
+    // Al retroceder se recarga la página para que se vuelva a validad la sesión
+    window.addEventListener("pageshow", function (evento) {
+        if (evento.persisted) {
+            window.location.reload();
+        }
+    });
+
     // Tiene que haber sesión válida
     const token = obtenerToken();
     const usuario = obtenerUsuario();
@@ -53,7 +60,6 @@
         return;
     }
 
-    // Cada página es de un rol (se deduce del nombre del archivo)
     const pagina = window.location.pathname.split("/").pop();
     let rolDePagina = null;
 
@@ -69,7 +75,6 @@
         return;
     }
 
-    // Todos los fetch al servidor llevan el token
     const fetchOriginal = window.fetch.bind(window);
 
     window.fetch = async function (url, opciones = {}) {
@@ -93,17 +98,18 @@
         return respuesta;
     };
 
-    // Cerrar sesión: cualquier link que lleve a login.html borra el token
+    // Cualquier link que lleve a login.html (sidebar y menú móvil) borra la sesión y va al login con replace
     document.addEventListener("click", function (evento) {
         const link = evento.target.closest("a");
         const destino = link ? link.getAttribute("href") : null;
 
         if (destino && destino.endsWith("login.html")) {
-            cerrarSesion();
+            evento.preventDefault();
+            irAlLogin();
         }
     }, true);
 
-    // Nombre del usuario en la página. Si no tiene nombre cargado, el saludo queda sin nombre ("¡Buenas tardes!")
+    // Nombre del usuario en la página
     function saludoSegunHora() {
         const hora = new Date().getHours();
         if (hora >= 6 && hora < 13) return "¡Buenos días";
