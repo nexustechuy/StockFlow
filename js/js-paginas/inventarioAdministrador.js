@@ -3,11 +3,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // PESTAÑAS (Comprar productos / Catálogo / Categorías / Alertas de stock)
     const botonesPestana = document.querySelectorAll(".pestana");
     const panelesPestana = document.querySelectorAll(".panel-pestana");
+    const contenedorPestanas = document.querySelector(".pestanas");
+    const indicador = document.querySelector(".indicador-pestana");
+
+    // Mueve la línea azul abajo de la pestaña activa
+    function moverIndicador() {
+        const activa = document.querySelector(".pestana.activa");
+        let ancho = activa.offsetWidth;
+
+        if (activa.dataset.pestana === "alertas") {
+            ancho = contenedorPestanas.clientWidth - activa.offsetLeft;
+        }
+
+        indicador.style.left = activa.offsetLeft + "px";
+        indicador.style.width = ancho + "px";
+    }
 
     botonesPestana.forEach(boton => {
         boton.addEventListener("click", () => {
             botonesPestana.forEach(b => b.classList.remove("activa"));
             boton.classList.add("activa");
+            moverIndicador();
 
             const destino = boton.dataset.pestana;
 
@@ -20,6 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+
+    moverIndicador();
+    document.fonts.ready.then(moverIndicador);
+    window.addEventListener("resize", moverIndicador);
 
     // PRODUCTOS
     const tabla = document.getElementById("cuerpoTablaProductos");
