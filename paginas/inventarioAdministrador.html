@@ -62,10 +62,29 @@
     </div>
 
     <div class="pestanas">
-      <button type="button" class="pestana activa" data-pestana="productos">Productos</button>
+      <button type="button" class="pestana" data-pestana="compras">Comprar productos</button>
+      <button type="button" class="pestana activa" data-pestana="productos">Catálogo</button>
       <button type="button" class="pestana" data-pestana="categorias">Categorías</button>
       <button type="button" class="pestana" data-pestana="alertas">Alertas de stock</button>
     </div>
+
+    <!-- Pestaña: COMPRAR PRODUCTOS -->
+    <section class="panel-pestana oculto" data-panel="compras">
+
+      <div class="panel">
+        <table class="tabla-inventario tabla-fija">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Categoría</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTablaCompras">
+          </tbody>
+        </table>
+      </div>
+
+    </section>
 
     <!-- Pestaña 1: PRODUCTOS -->
     <section class="panel-pestana" data-panel="productos">

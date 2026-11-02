@@ -34,7 +34,8 @@
 /* PESTAÑAS */
 .pestanas {
   display: flex;
-  gap: 28px;
+  gap: 40px;
+  padding-left: 12px;
   border-bottom: 1.5px solid var(--gris-borde);
   margin-bottom: 24px;
 }
@@ -64,6 +65,18 @@
 /* Pestaña activa en blanco para que se pueda leer */
 body.tema-oscuro .pestana.activa {
   color: var(--blanco);
+  border-bottom-color: var(--blanco);
+}
+
+.pestanas:has(.pestana[data-pestana="alertas"].activa)::after {
+  content: "";
+  flex: 1;
+  margin-left: -40px;
+  margin-bottom: -1.5px;
+  border-bottom: 2px solid var(--azul-primario);
+}
+
+body.tema-oscuro .pestanas:has(.pestana[data-pestana="alertas"].activa)::after {
   border-bottom-color: var(--blanco);
 }
 

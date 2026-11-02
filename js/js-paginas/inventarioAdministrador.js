@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // PESTAÑAS (Productos / Categorías / Alertas de stock)
+    // PESTAÑAS (Comprar productos / Catálogo / Categorías / Alertas de stock)
     const botonesPestana = document.querySelectorAll(".pestana");
     const panelesPestana = document.querySelectorAll(".panel-pestana");
 
@@ -216,12 +216,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // COMPRAR PRODUCTOS (por ahora solo la lista)
+    const tablaCompras = document.getElementById("cuerpoTablaCompras");
+
+    function renderizarCompras() {
+        if (productos.length === 0) {
+            tablaCompras.innerHTML = `<tr><td colspan="2">No hay productos registrados.</td></tr>`;
+            return;
+        }
+
+        tablaCompras.innerHTML = productos.map(producto => `
+            <tr>
+                <td>${escaparHTML(producto.nombre)}</td>
+                <td>${escaparHTML(producto.categoria)}</td>
+            </tr>
+        `).join("");
+    }
+
+    // Se vuelve a pintar al entrar, así sale con los cambios hechos en Catálogo
+    document.querySelector('.pestana[data-pestana="compras"]').addEventListener("click", renderizarCompras);
+
     function cargarProductos() {
         fetch("/productos")
             .then(res => res.json())
             .then(data => {
                 productos = data;
                 aplicarFiltros();
+                renderizarCompras();
             })
             .catch(error => {
                 console.error("Error al cargar productos:", error);
@@ -230,6 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <td colspan="8">Error al cargar los productos.</td>
                     </tr>
                 `;
+                tablaCompras.innerHTML = `<tr><td colspan="2">Error al cargar los productos.</td></tr>`;
             });
     }
 
