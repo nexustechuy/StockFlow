@@ -169,6 +169,43 @@
         "Opcional": "Optional",
         "Ej: 10": "E.g.: 10",
 
+        // Pestañas
+        "Comprar productos": "Buy products",
+        "Catálogo": "Catalog",
+
+        // Modal: nuevo usuario
+        "Información personal": "Personal information",
+        "* Campos obligatorios": "* Required fields",
+        "Nombre completo": "Full name",
+        "Ej: Martín Peña": "E.g.: John Smith",
+        "Confirmar contraseña": "Confirm password",
+        "Roles asignados": "Assigned roles",
+        "Estado inicial": "Initial status",
+        "Guardar usuario": "Save user",
+
+        // Modal: nuevo producto
+        "Completá todos los campos obligatorios": "Fill in all required fields",
+        "Información": "Information",
+        "Nombre del producto": "Product name",
+        "Ej: Monitor 24\"": "E.g.: Monitor 24\"",
+        "Código de barras": "Barcode",
+        "Ej: 7891...": "E.g.: 7891...",
+        "Seleccioná una categoría": "Select a category",
+        "Describí el producto...": "Describe the product...",
+        "Stock inicial": "Initial stock",
+        "Precio de compra": "Purchase price",
+        "Precio de venta": "Sale price",
+        "Variantes (opcional)": "Variants (optional)",
+        "Tipo de variante": "Variant type",
+        "Variante": "Variant",
+        "Sin variante": "No variant",
+        "Ej: Rojo, 128GB...": "E.g.: Red, 128GB...",
+        "Guardar producto": "Save product",
+
+        // Modal: nueva categoría
+        "Ej: Almacenamiento": "E.g.: Storage",
+        "Guardar categoría": "Save category",
+
         // Categorías de productos
         "Almacenamiento": "Storage",
         "Conectores": "Connectors",
@@ -265,6 +302,8 @@
     const patrones = [
         // "Juan Perez (vos)" -> "Juan Perez (you)"
         [/^(.+) \(vos\)$/, '$1 (you)'],
+        // Placeholders de ejemplo: "Ej: 20" -> "E.g.: 20"
+        [/^Ej: (.+)$/, 'E.g.: $1'],
         // "En 10 categorías distintas" -> "Across 10 different categories"
         [/^En (\d+) categorías? distintas?$/, function (m, n) {
             return 'Across ' + n + plural(n, ' different category', ' different categories');
@@ -308,6 +347,13 @@
     let tituloReg = null;
 
     // ---------- UTILIDADES ----------
+    // Copia del diccionario con claves en minúsculas (para el respaldo sin mayúsculas)
+    const traduccionesMin = Object.create(null);
+    Object.keys(traducciones).forEach(function (k) {
+        const kMin = k.toLowerCase();
+        if (!(kMin in traduccionesMin)) traduccionesMin[kMin] = traducciones[k];
+    });
+
     function traducir(texto) {
         const inicio = texto.match(/^\s*/)[0];
         const fin = texto.match(/\s*$/)[0];
@@ -315,6 +361,12 @@
         if (!nucleo) return texto;
         if (Object.prototype.hasOwnProperty.call(traducciones, nucleo)) {
             return inicio + traducciones[nucleo] + fin;
+        }
+        // Respaldo: ignora mayúsculas/minúsculas ("INFORMACIÓN PERSONAL" -> "PERSONAL INFORMATION")
+        const enMinusculas = traduccionesMin[nucleo.toLowerCase()];
+        if (enMinusculas !== undefined) {
+            const todoMayus = nucleo === nucleo.toUpperCase() && nucleo !== nucleo.toLowerCase();
+            return inicio + (todoMayus ? enMinusculas.toUpperCase() : enMinusculas) + fin;
         }
         for (let i = 0; i < patrones.length; i++) {
             if (patrones[i][0].test(nucleo)) {
