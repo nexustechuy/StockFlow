@@ -128,6 +128,11 @@
         "Nombre del cliente": "Customer name",
         "Ingresá el nombre del cliente": "Enter the customer name",
         "Buscá productos...": "Search products...",
+        "Buscar productos...": "Search products...",
+        "Buscar producto...": "Search for a product...",
+        "Buscar un producto...": "Search for a product...",
+        "Buscar usuarios...": "Search users...",
+        "Buscar categorías...": "Search categories...",
         "Productos en Venta": "Products in Sale",
         "Resumen de venta": "Sale summary",
         "Subtotal": "Subtotal",
@@ -291,7 +296,114 @@
         "Stock bajo": "Low stock",
         "Nuevo producto": "New product",
         "Nuevo usuario": "New user",
-        "Nueva venta": "New sale"
+        "Nueva venta": "New sale",
+
+                // Validaciones generales y autenticación
+        "Por favor completa todos los campos": "Please complete all fields",
+        "El correo no puede superar los 50 caracteres.": "The email cannot exceed 50 characters.",
+        "La contraseña no puede superar los 16 caracteres.": "The password cannot exceed 16 characters.",
+        "El correo ingresado no tiene un formato válido.": "The entered email address is not in a valid format.",
+        "La contraseña contiene caracteres no permitidos.": "The password contains characters that are not allowed.",
+        "El usuario no tiene un rol válido.": "The user does not have a valid role.",
+        "Datos inválidos.": "Invalid data.",
+        "El correo o la contraseña son incorrectos.": "The email or password is incorrect.",
+        "Tu usuario está desactivado. Pedile al administrador que lo active.": "Your account is disabled. Ask the administrator to activate it.",
+        "Error al conectar con la base de datos.": "Error connecting to the database.",
+        "Necesitás iniciar sesión.": "You need to log in.",
+        "Sesión inválida o vencida.": "Invalid or expired session.",
+        "Tu usuario está desactivado o ya no existe.": "Your account is disabled or no longer exists.",
+        "Error al verificar la sesión.": "Error verifying the session.",
+        "No tenés permiso para hacer esto.": "You do not have permission to do this.",
+
+        // Productos
+        "Error al cargar los productos.": "Error loading products.",
+        "No se pudieron cargar los productos.": "Could not load products.",
+        "No se encontraron productos.": "No products found.",
+        "Este campo es obligatorio.": "This field is required.",
+        "Ingresá un valor válido.": "Enter a valid value.",
+        "El código de barras solo puede tener números.": "The barcode can only contain numbers.",
+        "El precio de venta no puede ser menor al de compra.": "The sale price cannot be lower than the purchase price.",
+        "Error al guardar el producto.": "Error saving the product.",
+        "Error al editar el producto.": "Error editing the product.",
+        "Error al eliminar el producto.": "Error deleting the product.",
+        "Error al obtener los productos.": "Error retrieving products.",
+        "Ingresá el código de barras.": "Enter the barcode.",
+        "El código de barras no puede superar los 50 dígitos.": "The barcode cannot exceed 50 digits.",
+        "Ingresá el nombre del producto.": "Enter the product name.",
+        "El nombre no puede superar los 100 caracteres.": "The name cannot exceed 100 characters.",
+        "La descripción no puede superar los 600 caracteres.": "The description cannot exceed 600 characters.",
+        "Faltan datos obligatorios del producto.": "Required product information is missing.",
+        "Los precios no pueden ser negativos.": "Prices cannot be negative.",
+        "El stock y el stock mínimo tienen que ser números enteros, sin negativos.": "Stock and minimum stock must be non-negative integers.",
+        "Ya existe un producto con ese código de barras.": "A product with that barcode already exists.",
+        "La categoría seleccionada no existe.": "The selected category does not exist.",
+        "Producto inválido.": "Invalid product.",
+        "El producto no existe.": "The product does not exist.",
+        "No se puede eliminar: el producto tiene ventas, reposiciones o variantes asociadas.": "Cannot delete: the product has associated sales, restocks, or variants.",
+        "Error al obtener las variantes.": "Error retrieving variants.",
+        "Faltan datos obligatorios para crear la variante.": "Required information for creating the variant is missing.",
+        "Error al guardar la variante.": "Error saving the variant.",
+
+        // Categorías
+        "No se encontraron categorías.": "No categories found.",
+        "Error al crear la categoría.": "Error creating the category.",
+        "Error al eliminar la categoría.": "Error deleting the category.",
+        "Error al obtener las categorías.": "Error retrieving categories.",
+        "El nombre de la categoría es obligatorio.": "The category name is required.",
+        "Ya existe una categoría con ese nombre.": "A category with that name already exists.",
+        "La categoría no existe.": "The category does not exist.",
+        "No se puede eliminar: hay productos que usan esta categoría.": "Cannot delete: some products use this category.",
+
+        // Ventas
+        "No se encontraron ventas.": "No sales found.",
+        "Ingresá el nombre del cliente.": "Enter the customer's name.",
+        "Error al registrar la venta.": "Error registering the sale.",
+        "Error al obtener las ventas.": "Error retrieving sales.",
+        "Error al obtener el detalle de las ventas.": "Error retrieving the sales details.",
+        "Faltan datos obligatorios para registrar la venta.": "Required information for registering the sale is missing.",
+        "Cada producto de la venta necesita id_producto y cantidad válidos.": "Each product in the sale must have a valid id_producto and quantity.",
+        "El producto {id} no existe.": "Product {id} does not exist.",
+        "Stock insuficiente para \"{nombre}\".": "Insufficient stock for \"{nombre}\".",
+        "Seleccioná un producto de la lista.": "Select a product from the list.",
+        "Ingresá una cantidad válida.": "Enter a valid quantity.",
+        "Venta registrada con éxito para": "Sale successfully registered for",
+
+        // Reposiciones
+        "Error al registrar la reposición.": "Error registering the restock.",
+        "Error al cargar el historial.": "Error loading the history.",
+        "Error al obtener las reposiciones.": "Error retrieving restocks.",
+        "Faltan datos obligatorios para registrar la reposición.": "Required information for registering the restock is missing.",
+
+        // Gastos y carga de datos
+        "Error al cargar los datos": "Error loading the data",
+        "Error al obtener los gastos.": "Error retrieving expenses.",
+        "Completá todos los campos obligatorios.": "Complete all required fields.",
+
+        // Gestión de usuarios
+        "Ingresá el nombre completo.": "Enter the full name.",
+        "Ingresá el email.": "Enter the email address.",
+        "Ingresá un email válido (ej: usuario@gmail.com).": "Enter a valid email address (e.g., user@gmail.com).",
+        "Las contraseñas no coinciden.": "The passwords do not match.",
+        "Confirmá la nueva contraseña.": "Confirm the new password.",
+        "Ingresá la nueva contraseña o dejá ambos campos en blanco.": "Enter the new password or leave both fields blank.",
+        "La contraseña debe tener entre 6 y 16 caracteres.": "The password must be between 6 and 16 characters long.",
+        "La contraseña contiene caracteres no permitidos (< > ' \").": "The password contains characters that are not allowed (< > ' \").",
+        "Seleccioná al menos un rol para el usuario.": "Select at least one role for the user.",
+        "Error del servidor ({código}).": "Server error ({código}).",
+        "El email no puede superar los 50 caracteres.": "The email cannot exceed 50 characters.",
+        "Ingresá una contraseña.": "Enter a password.",
+        "Algún rol no es válido.": "One or more roles are invalid.",
+        "Algún rol no existe en la base de datos.": "One or more roles do not exist in the database.",
+        "Error al obtener los usuarios.": "Error retrieving users.",
+        "Ya existe un usuario con ese email.": "A user with that email already exists.",
+        "Error al guardar el usuario.": "Error saving the user.",
+        "Error al editar el usuario.": "Error editing the user.",
+        "Usuario inválido.": "Invalid user.",
+        "El usuario no existe.": "The user does not exist.",
+        "No podés desactivar tu propio usuario.": "You cannot deactivate your own account.",
+        "No podés quitarte a vos mismo el rol de administrador.": "You cannot remove the administrator role from your own account.",
+        "Falta indicar el estado.": "The status must be specified.",
+        "Error al cambiar el estado del usuario.": "Error changing the user's status."
     };
 
     // ---------- PATRONES (frases con números o datos variables) ----------
@@ -357,7 +469,7 @@
     function traducir(texto) {
         const inicio = texto.match(/^\s*/)[0];
         const fin = texto.match(/\s*$/)[0];
-        const nucleo = texto.trim().replace(/\s+/g, ' ').normalize('NFC');
+        const nucleo = texto.trim().replace(/\s+/g, ' ').replace(/\u2026/g, '...').normalize('NFC');
         if (!nucleo) return texto;
         if (Object.prototype.hasOwnProperty.call(traducciones, nucleo)) {
             return inicio + traducciones[nucleo] + fin;
@@ -404,13 +516,15 @@
     }
 
     function debeIgnorar(el) {
-        return !el || (el.closest && el.closest('script, style, textarea, code, pre, [data-no-traducir]'));
+        return !el || (el.closest && el.closest('script, style, code, pre, [data-no-traducir]'));
     }
 
     // ---------- TRADUCCIÓN DE NODOS ----------
     function traducirTexto(nodo) {
         if (!nodo.nodeValue || !nodo.nodeValue.trim()) return;
         if (debeIgnorar(nodo.parentElement)) return;
+        // El contenido de un textarea es lo que escribe el usuario: no se toca
+        if (nodo.parentElement && nodo.parentElement.tagName === 'TEXTAREA') return;
         const r = resolver(nodo.nodeValue, memoriaTexto.get(nodo));
         if (r.traducido !== nodo.nodeValue) nodo.nodeValue = r.traducido;
         memoriaTexto.set(nodo, r);
