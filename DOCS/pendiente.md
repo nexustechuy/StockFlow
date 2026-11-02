@@ -1,24 +1,17 @@
 # StockFlow: pendiente y mejoras
 
-(Actualizado después del módulo de usuarios y del filtrado por usuario y rol.)
+(Actualizado después de usuarios, filtrado por usuario y rol, y `PUT /productos/:id`.)
 
 ## 1. Lo que falta
 
-### Código de barras
-- [ ] Decidir: reutilizar la columna `producto.codigo` (ya existe, `UNIQUE`, todos NULL) o agregar `codigo_barras`. Recomendado: reutilizar `codigo`.
-- [ ] Guardar el código al crear producto (`productoModel.crear` lo ignora).
-- [ ] Devolver el código en `SELECT_PRODUCTO`.
-- [ ] Crear `PUT /productos/:id` (solo administrador). Hoy "Editar" solo cambia el objeto en memoria.
-- [ ] Conectar el submit del modal de editar en `inventarioAdministrador.js` a ese endpoint.
-- [ ] Mostrar el código real en lugar del id (hoy hace `codigo_barras ?? id_producto`).
-- [ ] Manejar código duplicado (error 1062) con mensaje claro.
-
-### Módulo de usuarios (lo que quedó)
-- [ ] Probar las pantallas en el navegador (el backend está probado contra MariaDB 10.11, el front solo se revisó el código).
-- [ ] Bases ya importadas: correr `ALTER TABLE usuarios ADD UNIQUE KEY mail (mail);` (los `.sql` del repo ya lo traen). Avisar al grupo.
+### Módulo de usuarios (pendiente)
+- [ ] Bases ya importadas: correr `ALTER TABLE usuarios ADD UNIQUE KEY mail (mail);` (los `.sql` del repo ya lo traen).
 - [ ] Los usuarios 1, 2 y 3 (vendedor, repositor, administrador) tienen `nombre` NULL: cargarles nombre desde "Editar usuario".
-- [ ] Decidir mayúsculas en el mail: el login compara con `BINARY` (distingue mayúsculas) pero `UNIQUE(mail)` no. Recomendado: guardar y buscar siempre en minúscula.
-- [ ] Recuperar contraseña: hoy solo el administrador puede cambiarla desde "Editar usuario". Definir si hace falta algo más.
+
+### Código de barras (pendiente)
+- [ ] Cargar el código a los productos que ya existen (hoy tienen `codigo` NULL y la tabla dice "Sin código"). Se hace desde "Editar producto", que ahora exige el código.
+- [ ] Usar el código en las demás pantallas: registrar venta, reposiciones, productos (vendedor y repositor) y el inventario buscan solo por nombre. Falta buscar o escanear por código, que es para lo que sirve.
+- [ ] Definir si el código tiene que ser de largo fijo (por ejemplo EAN-13). Hoy acepta solo números, de 1 a 50 dígitos.
 
 ### Pendiente de definir con el grupo
 - [ ] Gastos: `gastos.id_compra` es `NOT NULL UNIQUE`, o sea que un gasto solo nace de una compra. Hay que elegir entre hacer un módulo de compras (las tablas `compra` y `detalle_compra` existen sin rutas) o permitir gastos sin compra (`id_compra` nullable).
@@ -43,6 +36,7 @@
 - [ ] Login: devuelve solo el primer rol en `rol`. Definir qué hacer cuando un usuario tiene varios roles (por ejemplo, selector).
 - [ ] `server.js`: sacar `configurarSesion` y el `require` de `middleware/session.js` (vacío) y borrar ese archivo. Arreglar el texto del log del puerto.
 - [ ] Borrar `backend/migrar-passwords.js` (ya no hace falta).
+- [ ] Productos: `precio_compra` y `precio_venta` aceptan decimales en el formulario (`step=0.01`) pero la base los redondea (`decimal(20,0)`). Resolver junto con la decisión de la sección 4.
 - [ ] Productos: `GET /productos` no filtra por `estado_producto`. Definir si los dados de baja se listan.
 
 ## 4. Base de datos (mejorar)
@@ -69,9 +63,9 @@
 - [ ] `DOCS/README.md`: documentar el `.env` (incluido `JWT_SECRET`) y `npm install` en `backend/`.
 - [ ] `DOCS/README.md`: listar las rutas de la API y qué rol accede a cada una.
 
-## Orden sugerido
+## Orden de implementacion
 
-1. Módulo de usuarios: probar en el navegador y cargar nombres (queda poco).
-2. Código de barras y `PUT /productos/:id`.
+1. Módulo de usuarios: probar en el navegador y cargar nombres (parcialmente hecho).
+2. Cargar los códigos de barras y usarlos en vender y reponer.
 3. Escapar HTML y arreglar `charset`.
 4. Idioma, README y limpieza de datos de prueba.
