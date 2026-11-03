@@ -53,6 +53,7 @@ CREATE TABLE `compra` (
   `id_usuario` int DEFAULT NULL,
   `fecha_hora` datetime DEFAULT NULL,
   `total` decimal(20,6) DEFAULT NULL,
+  `estado` varchar(20) NOT NULL DEFAULT 'pendiente',
   PRIMARY KEY (`id_compra`),
   KEY `id_usuario_compra` (`id_usuario`),
   CONSTRAINT `id_usuario_compra` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
