@@ -3,7 +3,6 @@ const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const express = require("express");
-const cors = require("cors");
 const configurarSesion = require("./middleware/session");
 
 // RUTAS
@@ -19,7 +18,6 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-app.use(cors());
 configurarSesion(app);
 
 // ACCESO A LAS CARPETAS
@@ -42,5 +40,5 @@ app.use(gastoRoutes);
 
 // INICIAR SERVIDOR
 app.listen(PORT, () => {
-    console.log(`Servidor ejecutándose en El servidor puerto:${PORT}`);
+    
 });

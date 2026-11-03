@@ -7,8 +7,6 @@ async function login(req, res) {
     try {
         const { mail, password } = req.body;
 
-        console.log("LOGIN RECIBIDO:", mail);
-
         if (typeof mail !== "string" || typeof password !== "string") {
             return res.status(400).json({ error: "Datos inválidos." });
         }
@@ -60,4 +58,4 @@ async function login(req, res) {
     }
 }
 
-module.exports = { login };
+module.exports = { login };
