@@ -403,7 +403,24 @@
         "No podés desactivar tu propio usuario.": "You cannot deactivate your own account.",
         "No podés quitarte a vos mismo el rol de administrador.": "You cannot remove the administrator role from your own account.",
         "Falta indicar el estado.": "The status must be specified.",
-        "Error al cambiar el estado del usuario.": "Error changing the user's status."
+        "Error al cambiar el estado del usuario.": "Error changing the user's status.",
+
+        "Editar usuario": "Edit user",
+        "Desactivar": "Deactivate",
+        "Detalle de venta": "Sale details",
+        "INFORMACIÓN DE LA VENTA": "SALE INFORMATION",
+        "RESUMEN ECONÓMICO": "FINANCIAL SUMMARY",
+        "PRODUCTOS VENDIDOS": "SOLD PRODUCTS",
+        "Número de venta": "Sale number",
+        "Cliente": "Customer",
+        "Fecha": "Date",
+        "Hora": "Time",
+        "Cantidad": "Quantity",
+        "Subtotal": "Subtotal",
+        "Total": "Total",
+        "Código": "Code",
+        "Producto": "Product",
+        "Precio Unit.": "Unit Price"
     };
 
     // ---------- PATRONES (frases con números o datos variables) ----------
