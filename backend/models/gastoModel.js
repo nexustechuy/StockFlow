@@ -15,4 +15,12 @@ async function listar() {
     );
 }
 
-module.exports = { listar };
+async function crearPorCompra(conn, idCompra, monto) {
+    await conn.query(
+        `INSERT INTO gastos (id_compra, descripcion, monto, fecha)
+         VALUES (?, ?, ?, CURDATE())`,
+        [idCompra, `Compra #${idCompra}`, monto]
+    );
+}
+
+module.exports = { listar, crearPorCompra };

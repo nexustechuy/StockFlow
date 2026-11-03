@@ -69,20 +69,62 @@
       <span class="indicador-pestana"></span>
     </div>
 
-    <!-- Pestaña: COMPRAR PRODUCTOS -->
     <section class="panel-pestana" data-panel="compras">
 
-      <div class="panel">
-        <table class="tabla-inventario tabla-fija">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Categoría</th>
-            </tr>
-          </thead>
-          <tbody id="cuerpoTablaCompras">
-          </tbody>
-        </table>
+      <div class="mensaje-exito" id="mensajeExitoCompra" style="display:none;">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <span>Compra registrada con éxito. Se envió la solicitud al repositor.</span>
+      </div>
+
+      <div class="venta-grid">
+
+        <div class="panel">
+          <h5>Productos</h5>
+          <input type="text" class="input-busqueda" id="buscadorCompra" placeholder="Buscar productos...">
+
+          <div class="lista-productos-venta" id="listaProductosCompra">
+            <p class="sin-resultados" id="sinResultadosCompra" style="display:none;">No se encontraron productos.</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h5>Productos en compra</h5>
+          <div class="tabla-venta-wrapper" id="tablaCompraWrapper">
+            <table class="tabla-productos tabla-venta">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Precio de compra</th>
+                  <th>Cantidad</th>
+                  <th>Subtotal</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cuerpoCarritoCompra">
+              </tbody>
+            </table>
+            <p class="carrito-vacio">
+              Todavía no agregaste productos. Tocá un producto de la lista para sumarlo acá.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel resumen-venta">
+          <h5>Resumen de compra</h5>
+          <div class="fila">
+            <span>Cantidad de productos</span>
+            <span id="resumenCantidadCompra">0</span>
+          </div>
+          <div class="fila fila-total">
+            <span>Total</span>
+            <span id="resumenTotalCompra">$0</span>
+          </div>
+          <span class="error-campo" id="errorCompra"></span>
+          <button type="button" class="btn-primario" id="btnConfirmarCompra">
+            Confirmar compra
+          </button>
+        </div>
+
       </div>
 
     </section>

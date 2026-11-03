@@ -67,7 +67,7 @@ async function eliminar(id) {
 
 async function buscarPorIds(conn, ids) {
     return await conn.query(
-        `SELECT id_producto, nombre, precio_venta, stock
+        `SELECT id_producto, nombre, precio_compra, precio_venta, stock
          FROM producto
          WHERE id_producto IN (${ids.map(() => "?").join(",")})`,
         ids

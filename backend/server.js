@@ -13,6 +13,7 @@ const categoriaRoutes = require("./rutas/categoriaRoutes");
 const ventaRoutes = require("./rutas/ventaRoutes");
 const reposicionRoutes = require("./rutas/reposicionRoutes");
 const gastoRoutes = require("./rutas/gastoRoutes");
+const compraRoutes = require("./rutas/compraRoutes");
 
 const app = express();
 const PORT = 3000;
@@ -37,6 +38,7 @@ app.use(categoriaRoutes);
 app.use(ventaRoutes);
 app.use(reposicionRoutes);
 app.use(gastoRoutes);
+app.use(compraRoutes);
 
 // INICIAR SERVIDOR
 app.listen(PORT, () => {

@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const contenedorPestanas = document.querySelector(".pestanas");
     const indicador = document.querySelector(".indicador-pestana");
 
-    // Mueve la línea azul abajo de la pestaña activa
     function moverIndicador() {
         const activa = document.querySelector(".pestana.activa");
         let ancho = activa.offsetWidth;
@@ -236,24 +235,180 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // COMPRAR PRODUCTOS (por ahora solo la lista)
-    const tablaCompras = document.getElementById("cuerpoTablaCompras");
+    const listaProductosCompra = document.getElementById("listaProductosCompra");
+    const buscadorCompra = document.getElementById("buscadorCompra");
+    const sinResultadosCompra = document.getElementById("sinResultadosCompra");
+    const cuerpoCarritoCompra = document.getElementById("cuerpoCarritoCompra");
+    const tablaCompraWrapper = document.getElementById("tablaCompraWrapper");
+    const resumenCantidadCompra = document.getElementById("resumenCantidadCompra");
+    const resumenTotalCompra = document.getElementById("resumenTotalCompra");
+    const errorCompra = document.getElementById("errorCompra");
+    const btnConfirmarCompra = document.getElementById("btnConfirmarCompra");
+    const mensajeExitoCompra = document.getElementById("mensajeExitoCompra");
+
+    const carritoCompra = {};
+
+    function formatearPrecio(numero) {
+        return "$" + Number(numero).toLocaleString("es-UY");
+    }
+
+    function buscarProducto(id) {
+        return productos.find(p => String(p.id_producto) === String(id));
+    }
+
+    function aplicarBusquedaCompra() {
+        const texto = buscadorCompra.value.trim().toLowerCase();
+        let hayVisibles = false;
+
+        listaProductosCompra.querySelectorAll(".producto-item").forEach(item => {
+            const coincide = item.dataset.nombre.toLowerCase().includes(texto);
+            item.style.display = coincide ? "" : "none";
+            if (coincide) hayVisibles = true;
+        });
+
+        sinResultadosCompra.style.display = hayVisibles ? "none" : "block";
+    }
 
     function renderizarCompras() {
-        if (productos.length === 0) {
-            tablaCompras.innerHTML = `<tr><td colspan="2">No hay productos registrados.</td></tr>`;
+        listaProductosCompra.querySelectorAll(".producto-item").forEach(item => item.remove());
+
+        productos.forEach(producto => {
+            const item = document.createElement("div");
+            item.className = "producto-item";
+            item.dataset.id = producto.id_producto;
+            item.dataset.nombre = producto.nombre;
+
+            item.innerHTML = `
+                <div class="icono-producto"><i class="bi bi-box-seam"></i></div>
+                <div class="info-producto">
+                    <div class="nombre">${escaparHTML(producto.nombre)}</div>
+                    <div class="categoria">${escaparHTML(producto.categoria)}</div>
+                </div>
+                <div class="precio">${formatearPrecio(producto.precio_compra)}</div>
+                <button type="button" class="btn-agregar" title="Agregar a la compra">
+                    <i class="bi bi-plus"></i>
+                </button>
+            `;
+
+            listaProductosCompra.insertBefore(item, sinResultadosCompra);
+        });
+
+        aplicarBusquedaCompra();
+        renderizarCarritoCompra();
+    }
+
+    function renderizarCarritoCompra() {
+        let cantidadTotal = 0;
+        let total = 0;
+
+        cuerpoCarritoCompra.innerHTML = Object.keys(carritoCompra).map(id => {
+            const producto = buscarProducto(id);
+
+            if (!producto) {
+                delete carritoCompra[id];
+                return "";
+            }
+
+            const cantidad = carritoCompra[id];
+            const subtotal = Number(producto.precio_compra) * cantidad;
+            cantidadTotal += cantidad;
+            total += subtotal;
+
+            return `
+                <tr data-id="${producto.id_producto}">
+                    <td>${escaparHTML(producto.nombre)}</td>
+                    <td>${formatearPrecio(producto.precio_compra)}</td>
+                    <td>
+                        <div class="control-cantidad">
+                            <button type="button" class="btn-cantidad" data-accion="restar" ${cantidad === 1 ? "disabled" : ""}>−</button>
+                            <span class="valor-cantidad">${cantidad}</span>
+                            <button type="button" class="btn-cantidad" data-accion="sumar">+</button>
+                        </div>
+                    </td>
+                    <td>${formatearPrecio(subtotal)}</td>
+                    <td><button type="button" class="btn-quitar" title="Quitar"><i class="bi bi-trash"></i></button></td>
+                </tr>
+            `;
+        }).join("");
+
+        tablaCompraWrapper.classList.toggle("con-productos", cantidadTotal > 0);
+        resumenCantidadCompra.textContent = cantidadTotal;
+        resumenTotalCompra.textContent = formatearPrecio(total);
+    }
+
+    listaProductosCompra.addEventListener("click", evento => {
+        const item = evento.target.closest(".producto-item");
+        if (!item) return;
+
+        const id = item.dataset.id;
+        carritoCompra[id] = (carritoCompra[id] || 0) + 1;
+        errorCompra.textContent = "";
+        renderizarCarritoCompra();
+    });
+
+    cuerpoCarritoCompra.addEventListener("click", evento => {
+        const boton = evento.target.closest("button");
+        if (!boton) return;
+
+        const id = boton.closest("tr").dataset.id;
+
+        if (boton.classList.contains("btn-quitar")) {
+            delete carritoCompra[id];
+        } else if (boton.dataset.accion === "sumar") {
+            carritoCompra[id]++;
+        } else if (boton.dataset.accion === "restar" && carritoCompra[id] > 1) {
+            carritoCompra[id]--;
+        }
+
+        renderizarCarritoCompra();
+    });
+
+    btnConfirmarCompra.addEventListener("click", () => {
+        const ids = Object.keys(carritoCompra);
+
+        if (ids.length === 0) {
+            errorCompra.textContent = "Agregá al menos un producto a la compra.";
             return;
         }
 
-        tablaCompras.innerHTML = productos.map(producto => `
-            <tr>
-                <td>${escaparHTML(producto.nombre)}</td>
-                <td>${escaparHTML(producto.categoria)}</td>
-            </tr>
-        `).join("");
-    }
+        errorCompra.textContent = "";
+        btnConfirmarCompra.disabled = true;
 
-    // Se vuelve a pintar al entrar, así sale con los cambios hechos en Catálogo
+        fetch("/compras", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                productos: ids.map(id => ({ id_producto: Number(id), cantidad: carritoCompra[id] }))
+            })
+        })
+            .then(async res => {
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) throw new Error(data.error || "Error al registrar la compra.");
+                return data;
+            })
+            .then(() => {
+                ids.forEach(id => delete carritoCompra[id]);
+                buscadorCompra.value = "";
+                aplicarBusquedaCompra();
+                renderizarCarritoCompra();
+
+                mensajeExitoCompra.style.display = "block";
+                setTimeout(() => {
+                    mensajeExitoCompra.style.display = "none";
+                }, 3500);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            })
+            .catch(error => {
+                console.error("Error al registrar la compra:", error);
+                errorCompra.textContent = error.message;
+            })
+            .finally(() => {
+                btnConfirmarCompra.disabled = false;
+            });
+    });
+
+    buscadorCompra.addEventListener("input", aplicarBusquedaCompra);
+
     document.querySelector('.pestana[data-pestana="compras"]').addEventListener("click", renderizarCompras);
 
     function cargarProductos() {
@@ -271,7 +426,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         <td colspan="8">Error al cargar los productos.</td>
                     </tr>
                 `;
-                tablaCompras.innerHTML = `<tr><td colspan="2">Error al cargar los productos.</td></tr>`;
+                sinResultadosCompra.textContent = "Error al cargar los productos.";
+                sinResultadosCompra.style.display = "block";
             });
     }
 
@@ -486,7 +642,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const mensajeCodigo = "El código de barras solo puede tener números.";
 
-    // Al escribir se borra el error, salvo que el código tenga algo que no sea número
     function revisarAlEscribir(input) {
         const campo = input.closest(".campo-formulario");
         limpiarErrorCampo(campo);
@@ -745,7 +900,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => {
                 console.error("Error al editar producto:", error);
 
-                // Código repetido: el aviso va en el campo del código
                 if (error.status === 409) {
                     mostrarErrorCampo(codigoEditar.closest(".campo-formulario"), error.message);
                 } else {

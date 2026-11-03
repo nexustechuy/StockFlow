@@ -65,6 +65,40 @@
       <p>Registrá reposiciones de stock y consultá el historial</p>
     </div>
 
+    <div class="mensaje-exito" id="mensajeExitoReposicion" style="display:none;">
+      <i class="bi bi-check-circle-fill me-2"></i>
+      <span>Reposición realizada con éxito.</span>
+    </div>
+
+    <div class="alerta-stock oculto" id="avisoCompras">
+      <div class="alerta-icono">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <div>
+        <div class="alerta-titulo">Atención requerida</div>
+        <div class="alerta-texto" id="textoAvisoCompras"></div>
+      </div>
+    </div>
+
+    <section class="panel oculto" id="panelComprasPendientes">
+      <h5>Compras pendientes</h5>
+      <div class="tabla-historial-wrapped">
+        <table class="tabla-historial tabla-fija">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Productos</th>
+              <th>Total de unidades</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoComprasPendientes">
+          </tbody>
+        </table>
+      </div>
+      <span class="error-campo" id="errorComprasPendientes"></span>
+    </section>
+
     <!-- Nueva reposición -->
     <section class="panel">
       <h5>Nueva reposición</h5>

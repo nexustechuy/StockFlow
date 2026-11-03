@@ -422,6 +422,25 @@
         "Producto": "Product",
         "Precio Unit.": "Unit Price",
         "Dejá en blanco para no cambiar la contraseña": "Leave blank to keep the password unchanged",
+
+        "Productos en compra": "Products in purchase",
+        "Todavía no agregaste productos. Tocá un producto de la lista para sumarlo acá.": "You haven't added any products yet. Tap a product on the list to add it here.",
+        "Resumen de compra": "Purchase summary",
+        "Cantidad de productos": "Number of products",
+        "Confirmar compra": "Confirm purchase",
+        "Compra registrada con éxito. Se envió la solicitud al repositor.": "Purchase registered successfully. The request was sent to the restocker.",
+        "Agregá al menos un producto a la compra.": "Add at least one product to the purchase.",
+        "Error al registrar la compra.": "Error registering the purchase.",
+        "Agregar a la compra": "Add to purchase",
+        "Quitar": "Remove",
+        "Cada producto de la compra necesita id_producto y una cantidad entera mayor a 0.": "Each product in the purchase needs a product ID and a whole quantity greater than 0.",
+        "Compras pendientes": "Pending purchases",
+        "Total de unidades": "Total units",
+        "Reposición realizada con éxito.": "Restock completed successfully.",
+        "Error al obtener las compras pendientes.": "Error loading pending purchases.",
+        "Compra inválida.": "Invalid purchase.",
+        "La compra no existe o ya estaba repuesta.": "The purchase does not exist or was already restocked.",
+        "Error al marcar la compra como repuesta.": "Error marking the purchase as restocked.",
     };
 
     // ---------- PATRONES (frases con números o datos variables) ----------
@@ -464,7 +483,12 @@
         }],
         [/^Tienes (\d+) productos? sin stock$/, function (m, a) {
             return 'You have ' + a + plural(a, ' product', ' products') + ' out of stock';
-        }]
+        }],
+        [/^Tenés (\d+) compras? pendientes? de reposición$/, function (m, a) {
+            return 'You have ' + a + plural(a, ' purchase', ' purchases') + ' pending restock';
+        }],
+        [/^Compra #(\d+)$/, 'Purchase #$1'],
+        [/^El producto (\d+) no existe\.$/, 'Product $1 does not exist.']
     ];
 
     // ---------- ESTADO ----------

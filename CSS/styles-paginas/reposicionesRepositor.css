@@ -12,6 +12,27 @@
 @import url(../componentes/sidebar.css);
 @import url(../componentes/formularios.css);
 @import url(../componentes/tablas.css);
+@import url(../componentes/alertas.css);
+@import url(../componentes/iconos.css);
+
+.alerta-stock.oculto,
+.panel.oculto {
+  display: none;
+}
+
+.mensaje-exito {
+  background-color: #e0f2e9;
+  color: var(--verde-ingreso);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+body.tema-oscuro .mensaje-exito {
+  background-color: #1e3a2b;
+}
 
 /* NUEVA REPOSICIÓN: 3 campos en fila horizontal */
 .fila-reposicion {
