@@ -57,11 +57,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const productos = productosDeVenta(venta.id_venta);
 
     return `
-      <tr data-numero="${venta.id_venta}" data-fecha="${fechaTexto}" data-hora="${horaTexto}" data-cliente="${cliente}">
+      <tr data-numero="${venta.id_venta}" data-fecha="${fechaTexto}" data-hora="${horaTexto}" data-cliente="${escaparHTML(cliente)}">
         <td>${fechaTexto}</td>
         <td>${horaTexto}</td>
-        <td>${cliente}</td>
-        <td>${productos}</td>
+        <td>${escaparHTML(cliente)}</td>
+        <td>${escaparHTML(productos)}</td>
         <td class="ingreso">${formatearMoneda(venta.total)}</td>
         <td>
           <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const filaProducto = document.createElement('tr');
         filaProducto.innerHTML =
           '<td>' + d.id_producto + '</td>' +
-          '<td>' + d.producto_nombre + '</td>' +
+          '<td>' + escaparHTML(d.producto_nombre) + '</td>' +
           '<td>' + d.cantidad + '</td>' +
           '<td>' + formatearMoneda(d.precio_unitario) + '</td>' +
           '<td>' + formatearMoneda(subtotal) + '</td>';

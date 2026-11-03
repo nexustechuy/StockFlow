@@ -27,14 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     return `
       <tr data-estado="${clase}">
-        <td>${producto.nombre}</td>
-        <td>${producto.categoria}</td>
+        <td>${escaparHTML(producto.nombre)}</td>
+        <td>${escaparHTML(producto.categoria)}</td>
         <td>${producto.stock}</td>
         <td>${producto.stock_minimo}</td>
         <td><span class="${claseSpan}">${estado}</span></td>
         <td>
           <button type="button" class="btn-accion btn-reponer" data-id="${producto.id_producto}"
-            data-nombre="${producto.nombre}">Reponer</button>
+            data-nombre="${escaparHTML(producto.nombre)}">Reponer</button>
         </td>
       </tr>
     `;

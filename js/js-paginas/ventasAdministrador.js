@@ -70,14 +70,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const vendedor = venta.vendedor || 'Sin asignar';
 
     return `
-      <tr data-fecha="${fechaTexto}" data-hora="${horaTexto}" data-vendedor="${vendedor}"
-        data-cliente="${cliente}" data-productos="${productos}" data-total="${venta.total}"
+      <tr data-fecha="${fechaTexto}" data-hora="${horaTexto}" data-vendedor="${escaparHTML(vendedor)}"
+        data-cliente="${escaparHTML(cliente)}" data-productos="${escaparHTML(productos)}" data-total="${venta.total}"
         data-rentabilidad="${rentabilidad}" data-numero="${venta.id_venta}">
         <td>${venta.id_venta}</td>
         <td>${horaTexto}</td>
-        <td>${vendedor}</td>
-        <td>${cliente}</td>
-        <td>${productos}</td>
+        <td>${escaparHTML(vendedor)}</td>
+        <td>${escaparHTML(cliente)}</td>
+        <td>${escaparHTML(productos)}</td>
         <td>${formatearMoneda(venta.total)}</td>
         <td>
           <a href="#" class="ver-detalle-venta" data-bs-toggle="modal" data-bs-target="#modalDetalleVenta">Ver

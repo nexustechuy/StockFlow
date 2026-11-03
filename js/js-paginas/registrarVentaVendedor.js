@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
       item.innerHTML = `
         <div class="icono-producto"><i class="bi bi-box-seam"></i></div>
         <div class="info-producto">
-          <div class="nombre">${producto.nombre}</div>
+          <div class="nombre">${escaparHTML(producto.nombre)}</div>
           <div class="stock">Stock: ${stock}</div>
         </div>
         <div class="precio">${formatearPrecio(producto.precio_venta)}</div>
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const fila = document.createElement('tr');
       fila.dataset.id = id;
       fila.innerHTML =
-        '<td>' + producto.nombre + '</td>' +
+        '<td>' + escaparHTML(producto.nombre) + '</td>' +
         '<td>' + formatearPrecio(producto.precio) + '</td>' +
         '<td><input type="number" min="1" max="' + producto.stock + '" value="' + producto.cantidad + '"></td>' +
         '<td>' + formatearPrecio(subtotalFila) + '</td>' +

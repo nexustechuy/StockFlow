@@ -39,8 +39,8 @@ async function cargarProductos() {
             fila.setAttribute("data-estado", estado);
 
             fila.innerHTML = `
-                <td>${producto.nombre}</td>
-                <td>${producto.categoria}</td>
+                <td>${escaparHTML(producto.nombre)}</td>
+                <td>${escaparHTML(producto.categoria)}</td>
                 <td>$${Number(producto.precio_venta).toLocaleString("es-UY")}</td>
                 <td>${producto.stock}</td>
                 <td class="${claseEstado}">${textoEstado}</td>
