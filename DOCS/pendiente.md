@@ -42,7 +42,7 @@
 - [x] **Escapado de HTML:** todas las páginas pasan por `escaparHTML(...)` los textos de la base que se arman con `innerHTML` (nombres, categorías, clientes, descripciones, comentarios, también en los `data-*`). Los dashboards del administrador y del repositor y la pantalla de usuarios usan su propia copia (ver sección 5).
 - [x] **Login:** se sacó el `console.log` del mail.
 - [x] **CORS:** se sacó `cors()` de `server.js`. Queda la dependencia en `backend/package.json`, que se puede desinstalar (`npm uninstall cors`).
-- [x] **Login:** límite de 10 intentos fallidos cada 15 minutos por IP (`express-rate-limit` en `authRoutes.js`). Después del pull hay que correr `npm install` en `backend/`.
+- [x] **Login:** límite de 5 intentos fallidos cada 5 minutos por IP; el mensaje de error dice cuántos intentos quedan (`express-rate-limit` en `authRoutes.js`). Después del pull hay que correr `npm install` en `backend/`.
 - [ ] **Servidor con Nginx:** agregar `app.set("trust proxy", 1)` en `server.js`, si no el límite ve a todos con la IP del proxy. No agregarlo antes de tener Nginx: sin proxy, cualquiera podría saltear el límite mandando un header `X-Forwarded-For` falso.
 
 ### Reglas a respetar

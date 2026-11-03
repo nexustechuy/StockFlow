@@ -4,11 +4,10 @@ const authController = require("../controllers/authController");
 
 const router = express.Router();
 
-// Límite de intentos: 10 logins fallidos cada 15 minutos por IP.
-// Los logins correctos no cuentan.
+//LÍMITE DE INTENTOS: 5 logins fallidos cada 5 minutos por IP
 const limiteLogin = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 10,
+    windowMs: 5 * 60 * 1000,
+    limit: 5,
     skipSuccessfulRequests: true,
     standardHeaders: "draft-8",
     legacyHeaders: false,

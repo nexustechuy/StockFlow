@@ -2,6 +2,19 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const usuarioModel = require("../models/usuarioModel");
 
+function mensajeConIntentos(req) {
+    const mensaje = "El correo o la contraseña son incorrectos.";
+    const restantes = req.rateLimit?.remaining;
+
+    if (restantes === undefined) {
+        return mensaje;
+    }
+    if (restantes === 0) {
+        return mensaje + " No te quedan más intentos, probá de nuevo en unos minutos.";
+    }
+    return mensaje + (restantes === 1 ? " 1 intento restante." : ` ${restantes} intentos restantes.`);
+}
+
 // LOGIN
 async function login(req, res) {
     try {
@@ -19,7 +32,7 @@ async function login(req, res) {
 
         if (!credencialesOk) {
             return res.status(401).json({
-                error: "El correo o la contraseña son incorrectos."
+                error: mensajeConIntentos(req)
             });
         }
 

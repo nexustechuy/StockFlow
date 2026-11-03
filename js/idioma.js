@@ -309,6 +309,7 @@
         "El correo o la contraseña son incorrectos.": "The email or password is incorrect.",
         "Tu usuario está desactivado. Pedile al administrador que lo active.": "Your account is disabled. Ask the administrator to activate it.",
         "Demasiados intentos fallidos. Probá de nuevo en unos minutos.": "Too many failed attempts. Try again in a few minutes.",
+        "El correo o la contraseña son incorrectos. No te quedan más intentos, probá de nuevo en unos minutos.": "The email or password is incorrect. You have no attempts left, try again in a few minutes.",
         "Error al conectar con la base de datos.": "Error connecting to the database.",
         "Necesitás iniciar sesión.": "You need to log in.",
         "Sesión inválida o vencida.": "Invalid or expired session.",
@@ -491,7 +492,10 @@
             return 'You have ' + a + plural(a, ' purchase', ' purchases') + ' pending restock';
         }],
         [/^Compra #(\d+)$/, 'Purchase #$1'],
-        [/^El producto (\d+) no existe\.$/, 'Product $1 does not exist.']
+        [/^El producto (\d+) no existe\.$/, 'Product $1 does not exist.'],
+        [/^El correo o la contraseña son incorrectos\. (\d+) intentos? restantes?\.$/, function (m, n) {
+            return 'The email or password is incorrect. ' + n + plural(n, ' attempt', ' attempts') + ' remaining.';
+        }]
     ];
 
     // ---------- ESTADO ----------
