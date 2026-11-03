@@ -657,6 +657,7 @@
         // Compatibilidad con scripts de página (por ejemplo el saludo)
         if (typeof window.actualizarSaludo === 'function') window.actualizarSaludo();
         document.dispatchEvent(new CustomEvent('idiomaCambiado', { detail: { idioma: idioma } }));
+        document.body.style.visibility = '';
     }
 
     function cambiarIdioma(nuevo) {
