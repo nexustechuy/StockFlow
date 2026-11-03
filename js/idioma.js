@@ -420,7 +420,8 @@
         "Total": "Total",
         "Código": "Code",
         "Producto": "Product",
-        "Precio Unit.": "Unit Price"
+        "Precio Unit.": "Unit Price",
+        "Dejá en blanco para no cambiar la contraseña": "Leave blank to keep the password unchanged",
     };
 
     // ---------- PATRONES (frases con números o datos variables) ----------
