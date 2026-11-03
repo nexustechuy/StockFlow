@@ -1,11 +1,10 @@
 # StockFlow: pendiente y mejoras
 
-(Actualizado el 02/11/2026, después de la protección de páginas, la pestaña "Comprar productos" y las métricas de alertas de stock.)
+(Actualizado el 02/11/2026, después de la protección de páginas, la pestaña "Comprar productos", las métricas de alertas de stock y el escapado de HTML en todas las páginas.)
 
 ## Lo más urgente
 
-1. **Escapar HTML en todas las páginas** (ver sección 2). Hoy un vendedor puede meter código en el nombre del cliente y se ejecuta cuando el administrador abre Ventas.
-2. **Decidir con el grupo compras y gastos** (ver sección 1). La pestaña "Comprar productos" ya existe y la próxima tarea es la función de compra, que depende de esta decisión.
+1. **Decidir con el grupo compras y gastos** (ver sección 1). La pestaña "Comprar productos" ya existe y la próxima tarea es la función de compra, que depende de esta decisión.
 
 ## 1. Lo que falta
 
@@ -28,12 +27,7 @@
 
 ## 2. Seguridad (mejorar)
 
-- [ ] **Escapado de HTML (urgente, no está hecho):** la función `escaparHTML` existe (`js/componentes/escaparHTML.js`) y se carga en 9 páginas, pero casi ningún JS la usa. Falta pasar por `escaparHTML(...)` los datos que se meten con `innerHTML` en:
-  - `ventasAdministrador.js` (nombre del cliente, productos, también en los `data-*`)
-  - `inventarioAdministrador.js` (tabla de Catálogo, categorías, alertas; la pestaña "Comprar productos" ya escapa)
-  - `historialVendedor.js`, `registrarVentaVendedor.js`, `script-productos.js`
-  - `productosRepositor.js`, `alertasStockRepositor.js` (también el `data-nombre` del botón Reponer)
-  - `gananciasAdministrador.js`
+- [x] **Escapado de HTML:** todas las páginas pasan por `escaparHTML(...)` los textos de la base que se arman con `innerHTML` (nombres, categorías, clientes, descripciones, comentarios, también en los `data-*`). Los dashboards del administrador y del repositor y la pantalla de usuarios usan su propia copia (ver sección 5).
 - [ ] **Login:** agregar límite de intentos y sacar el `console.log` del mail (`authController.js`).
 - [ ] **CORS:** `cors()` está abierto y el front se sirve desde el mismo servidor. Restringirlo o quitarlo.
 
@@ -80,8 +74,7 @@
 
 ## Orden sugerido
 
-1. Escapar HTML en las páginas de la sección 2.
-2. Decidir compras y gastos, y hacer la función de compra en "Comprar productos".
-3. Cargar los nombres de usuarios y los códigos de barras (lo hace el grupo) y usar el código en vender y reponer.
-4. Backend: costo histórico en `detalle_venta`, ventas sin stock negativo (`FOR UPDATE`), `console.log` del login, CORS y límite de intentos.
-5. Idioma, README y limpieza de datos de prueba.
+1. Decidir compras y gastos, y hacer la función de compra en "Comprar productos".
+2. Cargar los nombres de usuarios y los códigos de barras (lo hace el grupo) y usar el código en vender y reponer.
+3. Backend: costo histórico en `detalle_venta`, ventas sin stock negativo (`FOR UPDATE`), `console.log` del login, CORS y límite de intentos.
+4. Idioma, README y limpieza de datos de prueba.
