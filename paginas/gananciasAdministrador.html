@@ -69,7 +69,7 @@
       <button type="button" class="filtro-chip activo" data-filtro="todo">Todo</button>
     </div>
 
-    <div class="tarjetas tarjetas-3">
+    <div class="tarjetas tarjetas-3 tarjetas-ganancias">
       <div class="tarjeta">
         <div class="etiqueta">Total vendido</div>
         <div class="valor ingreso" id="totalVendidoValor">$0</div>
@@ -91,13 +91,8 @@
         <div class="unidad">ventas</div>
       </div>
       <div class="tarjeta">
-        <div class="etiqueta">Gastos totales</div>
-        <div class="valor alerta" id="gastosTotalesValor">$0</div>
-        <div class="unidad">pesos</div>
-      </div>
-      <div class="tarjeta">
-        <div class="etiqueta">Ganancia neta</div>
-        <div class="valor ingreso" id="gananciaNetaValor">$0</div>
+        <div class="etiqueta">Compras del período</div>
+        <div class="valor" id="gastosTotalesValor">$0</div>
         <div class="unidad">pesos</div>
       </div>
     </div>
@@ -125,7 +120,7 @@
     </div>
 
     <div class="panel">
-      <h5>Gastos</h5>
+      <h5>Compras del período</h5>
       <table class="tabla-productos tabla-fija">
         <thead>
           <tr>
@@ -147,6 +142,9 @@
 
   <!-- JS PROPIO -->
   <script src="/js/componentes/tema.js"></script>
+  <script src="/js/componentes/contador-animado.js"></script>
+  <script src="/js/componentes/sidebar-animada.js"></script>
+  <script src="/js/componentes/filtros-animados.js"></script>
   <script src="/js/componentes/menu-responsive.js"></script>
   <script src="/js/js-paginas/navAdministrador.js"></script>
   <script src="/js/js-paginas/gananciasAdministrador.js"></script>

@@ -93,6 +93,41 @@ body.tema-oscuro .sidebar {
   border-left: 3px solid var(--blanco);
 }
 
+.sidebar nav.nav-animada {
+  position: relative;
+}
+
+.sidebar nav.nav-animada a {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar nav.nav-animada a.activo {
+  background-color: transparent;
+  border-left-color: transparent;
+}
+
+.indicador-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background-color: var(--azul-activo);
+  border-left: 3px solid var(--blanco);
+  pointer-events: none;
+}
+
+.indicador-sidebar.listo {
+  transition: top 0.2s ease-out, height 0.2s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicador-sidebar.listo {
+    transition: none;
+  }
+}
+
 .sidebar-footer {
   padding: 16px 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);

@@ -437,6 +437,8 @@
         "Compras pendientes": "Pending purchases",
         "Total de unidades": "Total units",
         "Reposición realizada con éxito.": "Restock completed successfully.",
+        "Compras del período": "Purchases this period",
+        "No hay compras registradas en este período.": "No purchases recorded in this period.",
         "Error al obtener las compras pendientes.": "Error loading pending purchases.",
         "Compra inválida.": "Invalid purchase.",
         "La compra no existe o ya estaba repuesta.": "The purchase does not exist or was already restocked.",

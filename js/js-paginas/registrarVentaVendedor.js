@@ -218,9 +218,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         textoMensajeExito.textContent =
           'Venta registrada con éxito para ' + nombreCliente + ' (' + formatearPrecio(ventaCreada.total) + ').';
+        mensajeExito.classList.remove('saliendo');
         mensajeExito.style.display = 'block';
         setTimeout(function () {
-          mensajeExito.style.display = 'none';
+          mensajeExito.classList.add('saliendo');
+          setTimeout(function () {
+            mensajeExito.style.display = 'none';
+            mensajeExito.classList.remove('saliendo');
+          }, 250);
         }, 3500);
 
         Object.keys(carrito).forEach(function (id) { delete carrito[id]; });

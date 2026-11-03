@@ -239,9 +239,14 @@ document.addEventListener('DOMContentLoaded', function () {
           cuerpoHistorial.insertAdjacentHTML('afterbegin', renderizarFilaHistorial(reposicion));
         });
 
+        mensajeExitoReposicion.classList.remove('saliendo');
         mensajeExitoReposicion.style.display = 'block';
         setTimeout(function () {
-          mensajeExitoReposicion.style.display = 'none';
+          mensajeExitoReposicion.classList.add('saliendo');
+          setTimeout(function () {
+            mensajeExitoReposicion.style.display = 'none';
+            mensajeExitoReposicion.classList.remove('saliendo');
+          }, 250);
         }, 3500);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       })

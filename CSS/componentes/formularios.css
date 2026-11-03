@@ -125,6 +125,52 @@ body.tema-oscuro .filtro-chip.activo {
   outline-offset: -1px;
 }
 
+.filtros-animados {
+  position: relative;
+}
+
+.filtros-animados .filtro-chip {
+  position: relative;
+  z-index: 1;
+}
+
+.filtros-animados .filtro-chip.activo {
+  z-index: 3;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+body.tema-oscuro .filtros-animados .filtro-chip.activo {
+  outline: none;
+}
+
+.indicador-filtro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2;
+  background-color: var(--azul-primario);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.indicador-filtro.listo {
+  transition: left 0.3s ease, top 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+body.tema-oscuro .indicador-filtro {
+  outline: 1px solid var(--borde-boton);
+  outline-offset: -1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicador-filtro.listo {
+    transition: none;
+  }
+}
+
 /* SECCIÓN DE FORMULARIO */
 .seccion-formulario {
   background-color: var(--gris-fondo);

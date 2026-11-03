@@ -245,3 +245,32 @@
 body.tema-oscuro .mensaje-exito {
   background-color: #1e3a2b;
 }
+
+.mensaje-exito {
+  animation: entrarMensaje 0.25s ease-out;
+}
+
+.mensaje-exito.saliendo {
+  animation: salirMensaje 0.25s ease-in forwards;
+}
+
+@keyframes entrarMensaje {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes salirMensaje {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mensaje-exito,
+  .mensaje-exito.saliendo {
+    animation: none;
+  }
+}

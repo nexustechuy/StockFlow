@@ -392,9 +392,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 aplicarBusquedaCompra();
                 renderizarCarritoCompra();
 
+                mensajeExitoCompra.classList.remove("saliendo");
                 mensajeExitoCompra.style.display = "block";
                 setTimeout(() => {
-                    mensajeExitoCompra.style.display = "none";
+                    mensajeExitoCompra.classList.add("saliendo");
+                    setTimeout(() => {
+                        mensajeExitoCompra.style.display = "none";
+                        mensajeExitoCompra.classList.remove("saliendo");
+                    }, 250);
                 }, 3500);
                 window.scrollTo({ top: 0, behavior: "smooth" });
             })

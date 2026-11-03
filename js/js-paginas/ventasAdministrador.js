@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let textoBusqueda = '';
 
   function formatearMoneda(valor) {
-    return '$' + Number(valor).toLocaleString('es-UY');
+    const numero = Number(valor);
+    return (numero < 0 ? '-$' : '$') + Math.abs(numero).toLocaleString('es-UY');
   }
 
   function nombreCliente(venta) {
