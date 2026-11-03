@@ -24,7 +24,11 @@
 }
 
 .menu-movil {
-  display: none;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
   background-color: var(--azul-primario);
   position: fixed;
   top: 0;
@@ -37,7 +41,17 @@
 }
 
 .menu-movil.abierto {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-movil,
+  .menu-movil.abierto {
+    transition: none;
+  }
 }
 
 .menu-movil .cerrar-menu {

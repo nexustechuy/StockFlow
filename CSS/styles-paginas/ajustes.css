@@ -25,3 +25,21 @@
     flex: 1;
   }
 }
+
+body.cambiando-tema,
+body.cambiando-tema *:not(.indicador-filtro):not(.indicador-sidebar),
+body.cambiando-tema *::before,
+body.cambiando-tema *::after {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease, outline-color 0.2s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  body.cambiando-tema,
+  body.cambiando-tema *,
+  body.cambiando-tema *::before,
+  body.cambiando-tema *::after {
+    transition: none !important;
+  }
+}
