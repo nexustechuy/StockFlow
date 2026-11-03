@@ -7,6 +7,8 @@
   margin-bottom: 28px;
   gap: 20px;
   overflow-x: auto;
+  max-width: 100%;
+  min-width: 0;            /* clave si el panel está dentro de un flex/grid */
 }
 
 .panel h5 {
@@ -16,61 +18,62 @@
   color: var(--texto-oscuro);
 }
 
-/* TABLAS */
-/* El mismo estilo para todas las tablas */
+/* TABLAS: mismo estilo para todas */
+.panel table,
 .tabla-historial,
 .tabla-productos,
 .tabla-stock,
 .tabla-usuarios,
 .tabla-ventas,
-.tabla-inventario {
+.tabla-inventario,
+.tabla-fija {
   width: 100%;
+  min-width: 760px;        /* en celular no se achica más que esto, aparece scroll */
   border-collapse: collapse;
+  table-layout: auto;
   font-size: 0.88rem;
 }
 
+.panel table th,
 .tabla-historial th,
 .tabla-productos th,
 .tabla-stock th,
 .tabla-usuarios th,
 .tabla-ventas th,
-.tabla-inventario th {
+.tabla-inventario th,
+.tabla-fija th {
   text-align: left;
   color: var(--texto-gris);
   font-weight: 600;
-  padding-bottom: 8px;
+  padding: 0 16px 8px 0;
   border-bottom: 1px solid var(--gris-borde);
+  white-space: nowrap;
 }
 
+.panel table td,
 .tabla-historial td,
 .tabla-productos td,
 .tabla-stock td,
 .tabla-usuarios td,
 .tabla-ventas td,
-.tabla-inventario td {
-  padding: 10px 0;
+.tabla-inventario td,
+.tabla-fija td {
+  padding: 10px 16px 10px 0;
   border-bottom: 1px solid var(--borde-fila);
   color: var(--texto-oscuro);
   vertical-align: middle;
+  white-space: nowrap;
 }
 
+.panel table tr:last-child td,
 .tabla-historial tr:last-child td,
 .tabla-productos tr:last-child td,
 .tabla-stock tr:last-child td,
 .tabla-usuarios tr:last-child td,
 .tabla-ventas tr:last-child td,
-.tabla-inventario tr:last-child td {
+.tabla-inventario tr:last-child td,
+.tabla-fija tr:last-child td {
   border-bottom: none;
-}
-
-/* Tablas con scroll horizontal en vez de achicarse, con un ancho mínimo para que no se compriman en formatos más chicos */
-.tabla-fija {
-  min-width: 760px;
-}
-
-.tabla-fija th,
-.tabla-fija td {
-  white-space: nowrap;
 }
 
 /* LINK "Ver todo" EN EL FOOTER DE UN PANEL */
@@ -86,4 +89,17 @@
 
 .ver-todo:hover {
   text-decoration: underline;
+}
+.panel table {
+  table-layout: auto !important;
+}
+
+.panel table th,
+.panel table td {
+  width: auto !important;
+  max-width: none !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  padding-right: 24px !important;
 }
