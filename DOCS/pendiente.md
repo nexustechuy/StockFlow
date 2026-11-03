@@ -42,7 +42,8 @@
 - [x] **Escapado de HTML:** todas las páginas pasan por `escaparHTML(...)` los textos de la base que se arman con `innerHTML` (nombres, categorías, clientes, descripciones, comentarios, también en los `data-*`). Los dashboards del administrador y del repositor y la pantalla de usuarios usan su propia copia (ver sección 5).
 - [x] **Login:** se sacó el `console.log` del mail.
 - [x] **CORS:** se sacó `cors()` de `server.js`. Queda la dependencia en `backend/package.json`, que se puede desinstalar (`npm uninstall cors`).
-- [ ] **Login:** agregar límite de intentos.
+- [x] **Login:** límite de 10 intentos fallidos cada 15 minutos por IP (`express-rate-limit` en `authRoutes.js`). Después del pull hay que correr `npm install` en `backend/`.
+- [ ] **Servidor con Nginx:** agregar `app.set("trust proxy", 1)` en `server.js`, si no el límite ve a todos con la IP del proxy. No agregarlo antes de tener Nginx: sin proxy, cualquiera podría saltear el límite mandando un header `X-Forwarded-For` falso.
 
 ### Reglas a respetar
 - Todo texto que venga de la base y se arme con `innerHTML` o `insertAdjacentHTML` tiene que pasar por `escaparHTML` (o usar `textContent`). Cargar el script en el `<head>`, después de `sesion.js`.
@@ -94,5 +95,5 @@
 2. Costo histórico en `detalle_venta` (antes de que se acumulen ventas y compras).
 3. Varios roles por usuario (selector en el login y "Cambiar de rol").
 4. Cargar los nombres de usuarios y los códigos de barras (lo hace el grupo) y usar el código en vender, reponer y comprar.
-5. Backend: ventas sin stock negativo (`FOR UPDATE`), límite de intentos en el login, limpieza de `server.js`.
+5. Backend: ventas sin stock negativo (`FOR UPDATE`), limpieza de `server.js`.
 6. Datos de ejemplo del HTML, idioma, README y limpieza de datos de prueba.

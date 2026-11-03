@@ -308,6 +308,7 @@
         "Datos inválidos.": "Invalid data.",
         "El correo o la contraseña son incorrectos.": "The email or password is incorrect.",
         "Tu usuario está desactivado. Pedile al administrador que lo active.": "Your account is disabled. Ask the administrator to activate it.",
+        "Demasiados intentos fallidos. Probá de nuevo en unos minutos.": "Too many failed attempts. Try again in a few minutes.",
         "Error al conectar con la base de datos.": "Error connecting to the database.",
         "Necesitás iniciar sesión.": "You need to log in.",
         "Sesión inválida o vencida.": "Invalid or expired session.",
