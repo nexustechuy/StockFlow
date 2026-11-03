@@ -83,10 +83,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderizarFilaHistorial(reposicion) {
     return `
       <tr>
-        <td>${reposicion.producto_nombre}</td>
-        <td>${reposicion.cantidad}</td>
+        <td>${escaparHTML(reposicion.producto_nombre)}</td>
+        <td>${escaparHTML(reposicion.cantidad)}</td>
         <td>${formatearFecha(reposicion.fecha_hora)}</td>
-        <td>${reposicion.comentario ?? '-'}</td>
+        <td>${escaparHTML(reposicion.comentario ?? '-')}</td>
       </tr>
     `;
   }

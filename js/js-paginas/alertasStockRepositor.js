@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderizarFila(producto) {
     return `
       <tr>
-        <td>${producto.nombre}</td>
-        <td>${producto.categoria}</td>
+        <td>${escaparHTML(producto.nombre)}</td>
+        <td>${escaparHTML(producto.categoria)}</td>
         <td>${producto.stock_minimo}</td>
         <td>
           <button class="btn-accion btn-reponer" data-id="${producto.id_producto}"
-            data-nombre="${producto.nombre}">Reponer</button>
+            data-nombre="${escaparHTML(producto.nombre)}">Reponer</button>
         </td>
       </tr>
     `;

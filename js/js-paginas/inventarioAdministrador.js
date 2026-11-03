@@ -85,13 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return `
             <tr data-estado="${clase}"
                 data-id="${producto.id_producto}"
-                data-descripcion="${producto.descripcion ?? ""}"
+                data-descripcion="${escaparHTML(producto.descripcion)}"
                 data-precio-compra="${producto.precio_compra}"
-                data-tipo-variante="${variante ? variante.tipo : ""}"
-                data-valor-variante="${variante ? variante.valor : ""}">
-                <td>${producto.nombre}</td>
-                <td>${producto.codigo || "Sin código"}</td>
-                <td>${producto.categoria}</td>
+                data-tipo-variante="${variante ? escaparHTML(variante.tipo) : ""}"
+                data-valor-variante="${variante ? escaparHTML(variante.valor) : ""}">
+                <td>${escaparHTML(producto.nombre)}</td>
+                <td>${escaparHTML(producto.codigo || "Sin código")}</td>
+                <td>${escaparHTML(producto.categoria)}</td>
                 <td>$${Number(producto.precio_venta).toLocaleString("es-UY")}</td>
                 <td>${producto.stock}</td>
                 <td>${producto.stock_minimo}</td>
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             aria-expanded="false">•••</button>
                         <div class="dropdown-menu dropdown-menu-end popup-menu">
                             <div class="vista-acciones">
-                                <div class="popup-header">${producto.nombre}</div>
+                                <div class="popup-header">${escaparHTML(producto.nombre)}</div>
                                 <a class="dropdown-item ver-detalle-producto" href="#" data-bs-toggle="modal"
                                     data-bs-target="#modalDetalleProducto"><i class="bi bi-eye me-2"></i>Ver detalle</a>
                                 <a class="dropdown-item" href="#" data-bs-toggle="modal"
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                             <div class="vista-confirmacion oculto popup-confirmacion">
                                 <div class="popup-header">Eliminar producto</div>
-                                <p>¿Eliminar el producto ${producto.nombre}? Esta acción no se puede deshacer.</p>
+                                <p>¿Eliminar el producto ${escaparHTML(producto.nombre)}? Esta acción no se puede deshacer.</p>
                                 <div class="acciones-confirmacion">
                                     <button type="button" class="btn-cancelar-eliminar"
                                         data-bs-dismiss="dropdown">Cancelar</button>
@@ -165,9 +165,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const etiqueta = cantidad === 1 ? "producto" : "productos";
 
                 return `
-                    <div class="categoria-item" data-id="${cat.id_categoria}" data-categoria="${cat.nombre}">
+                    <div class="categoria-item" data-id="${cat.id_categoria}" data-categoria="${escaparHTML(cat.nombre)}">
                         <div class="categoria-info">
-                            <div class="nombre">${cat.nombre}</div>
+                            <div class="nombre">${escaparHTML(cat.nombre)}</div>
                             <div class="cantidad">${cantidad} ${etiqueta}</div>
                         </div>
                         <div class="dropdown">
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <ul class="dropdown-menu dropdown-menu-end popup-menu popup-confirmacion">
                                 <li class="popup-header">Eliminar categoría</li>
                                 <li>
-                                    <p>¿Eliminar "${cat.nombre}"? Esta acción no se puede deshacer.</p>
+                                    <p>¿Eliminar "${escaparHTML(cat.nombre)}"? Esta acción no se puede deshacer.</p>
                                 </li>
                                 <li class="acciones-confirmacion">
                                     <button type="button" class="btn-cancelar-eliminar"
@@ -212,8 +212,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 return `
                     <tr>
-                        <td>${p.nombre}</td>
-                        <td>${p.categoria}</td>
+                        <td>${escaparHTML(p.nombre)}</td>
+                        <td>${escaparHTML(p.categoria)}</td>
                         <td>${p.stock}</td>
                         <td>${p.stock_minimo}</td>
                         <td><span class="${claseSpan}">${textoEstado}</span></td>

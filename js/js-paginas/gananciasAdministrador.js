@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const ancho = maximo > 0 ? (Math.abs(ganancia) / maximo) * 100 : 0;
         return `
           <div class="fila-barra">
-            <span class="etiqueta-barra">${nombre}</span>
+            <span class="etiqueta-barra">${escaparHTML(nombre)}</span>
             <div class="barra-fondo">
               <div class="barra-relleno" style="width: ${ancho}%;"></div>
             </div>
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cuerpoProductos.innerHTML = productos.length
       ? productos.map(p => `
         <tr>
-          <td>${p.nombre}</td>
+          <td>${escaparHTML(p.nombre)}</td>
           <td>${p.vendidos}</td>
           <td>${formatearMoneda(p.precioCompra)}</td>
           <td class="ingreso">${formatearMoneda(p.ganancia)}</td>
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cuerpoGastos.innerHTML = ordenados.length
       ? ordenados.map(g => `
         <tr>
-          <td>${g.descripcion || '—'}</td>
+          <td>${escaparHTML(g.descripcion || '—')}</td>
           <td class="alerta">${formatearMoneda(g.monto || 0)}</td>
           <td>${fechaGasto(g).toLocaleDateString('es-UY')}</td>
           <td>${g.id_compra ?? '—'}</td>
