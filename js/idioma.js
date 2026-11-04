@@ -299,7 +299,7 @@
         "Nueva venta": "New sale",
 
         // Validaciones generales y autenticación
-        "Por favor completa todos los campos": "Please complete all fields",
+        "Por favor completá todos los campos": "Please complete all fields",
         "El correo no puede superar los 50 caracteres.": "The email cannot exceed 50 characters.",
         "La contraseña no puede superar los 16 caracteres.": "The password cannot exceed 16 characters.",
         "El correo ingresado no tiene un formato válido.": "The entered email address is not in a valid format.",
@@ -483,15 +483,12 @@
         [/^Tenés (\d+) productos? con stock crítico$/, function (m, a) {
             return 'You have ' + a + plural(a, ' product', ' products') + ' with critical stock';
         }],
-        // Alertas del repositor ("Tienes 1 producto con bajo stock y 4 sin stock")
-        [/^Tienes (\d+) productos? con bajo stock y (\d+) sin stock$/, function (m, a, b) {
+        // Alertas del repositor ("Tenés 1 producto con bajo stock y 4 sin stock")
+        [/^Tenés (\d+) productos? con bajo stock y (\d+) sin stock$/, function (m, a, b) {
             return 'You have ' + a + plural(a, ' product', ' products') + ' with low stock and ' + b + ' out of stock';
         }],
-        [/^Tienes (\d+) productos? con bajo stock$/, function (m, a) {
+        [/^Tenés (\d+) productos? con bajo stock$/, function (m, a) {
             return 'You have ' + a + plural(a, ' product', ' products') + ' with low stock';
-        }],
-        [/^Tienes (\d+) productos? sin stock$/, function (m, a) {
-            return 'You have ' + a + plural(a, ' product', ' products') + ' out of stock';
         }],
         [/^Tenés (\d+) compras? pendientes? de reposición$/, function (m, a) {
             return 'You have ' + a + plural(a, ' purchase', ' purchases') + ' pending restock';

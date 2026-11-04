@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('aReponerValor').textContent = aReponer.length;
 
     document.getElementById('alertaTexto').textContent =
-      `Tienes ${criticos.length} producto${criticos.length === 1 ? '' : 's'} con bajo stock y ${sinStock.length} sin stock`;
+      `Tenés ${criticos.length} producto${criticos.length === 1 ? '' : 's'} con bajo stock y ${sinStock.length} sin stock`;
 
     cuerpoTabla.innerHTML = aReponer.length
       ? aReponer.map(renderizarFila).join('')

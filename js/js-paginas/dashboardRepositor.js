@@ -62,7 +62,7 @@ function pintarMetricas(productos) {
     alerta.style.display = "";
     const pl = (n, s, p) => `${n} ${n === 1 ? s : p}`;
     texto.textContent =
-      `Tienes ${pl(criticos.length, "producto con bajo stock", "productos con bajo stock")} ` +
+      `Tenés ${pl(criticos.length, "producto con bajo stock", "productos con bajo stock")} ` +
       `y ${pl(sinStock.length, "sin stock", "sin stock")}`;
   }
 

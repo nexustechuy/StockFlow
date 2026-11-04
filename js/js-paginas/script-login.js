@@ -11,7 +11,7 @@ async function iniciarSesion(event) {
 
     try {
         if (correoIngresado === "" || contrasenaIngresado === "") {
-            throw new Error("Por favor completa todos los campos");
+            throw new Error("Por favor completá todos los campos");
         }
 
         if (correoIngresado.length > 50) {
