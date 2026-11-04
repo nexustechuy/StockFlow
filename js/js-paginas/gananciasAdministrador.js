@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let filtroPeriodo = 'todo';
 
   function formatearMoneda(valor) {
-    return '$' + Number(valor).toLocaleString('es-UY');
+    const numero = Number(valor);
+    return (numero < 0 ? '-$' : '$') + Math.abs(numero).toLocaleString('es-UY');
   }
 
   // la fecha del gasto viene sin hora, le agrego la hora para que no cambie de día
@@ -56,20 +57,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const costoTotal = detalle.reduce((acc, d) => acc + Number(d.precio_compra) * Number(d.cantidad), 0);
     const rentabilidad = totalVendido - costoTotal;
     const ventasRealizadas = new Set(detalle.map(d => d.id_venta)).size;
-    const gastosTotales = gastosPeriodo.reduce((acc, g) => acc + Number(g.monto || 0), 0);
-    const gananciaNeta = rentabilidad - gastosTotales;
+    const comprasTotales = gastosPeriodo.reduce((acc, g) => acc + Number(g.monto || 0), 0);
 
     document.getElementById('totalVendidoValor').textContent = formatearMoneda(totalVendido);
     document.getElementById('costoTotalValor').textContent = formatearMoneda(costoTotal);
-    document.getElementById('rentabilidadValor').textContent = formatearMoneda(rentabilidad);
     document.getElementById('ventasRealizadasValor').textContent = ventasRealizadas;
-    document.getElementById('gastosTotalesValor').textContent = formatearMoneda(gastosTotales);
+    document.getElementById('gastosTotalesValor').textContent = formatearMoneda(comprasTotales);
 
-    // si la ganancia neta da negativa se muestra en rojo
-    const gananciaNetaValor = document.getElementById('gananciaNetaValor');
-    gananciaNetaValor.textContent = formatearMoneda(gananciaNeta);
-    gananciaNetaValor.classList.toggle('ingreso', gananciaNeta >= 0);
-    gananciaNetaValor.classList.toggle('alerta', gananciaNeta < 0);
+    // si la rentabilidad da negativa se muestra en rojo
+    const rentabilidadValor = document.getElementById('rentabilidadValor');
+    rentabilidadValor.textContent = formatearMoneda(rentabilidad);
+    rentabilidadValor.classList.toggle('ingreso', rentabilidad >= 0);
+    rentabilidadValor.classList.toggle('alerta', rentabilidad < 0);
   }
 
   function renderizarGraficoCategorias(detalle) {
@@ -89,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const ancho = maximo > 0 ? (Math.abs(ganancia) / maximo) * 100 : 0;
         return `
           <div class="fila-barra">
-            <span class="etiqueta-barra">${nombre}</span>
+            <span class="etiqueta-barra">${escaparHTML(nombre)}</span>
             <div class="barra-fondo">
               <div class="barra-relleno" style="width: ${ancho}%;"></div>
             </div>
@@ -122,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cuerpoProductos.innerHTML = productos.length
       ? productos.map(p => `
         <tr>
-          <td>${p.nombre}</td>
+          <td>${escaparHTML(p.nombre)}</td>
           <td>${p.vendidos}</td>
           <td>${formatearMoneda(p.precioCompra)}</td>
           <td class="ingreso">${formatearMoneda(p.ganancia)}</td>
@@ -137,13 +136,13 @@ document.addEventListener('DOMContentLoaded', function () {
     cuerpoGastos.innerHTML = ordenados.length
       ? ordenados.map(g => `
         <tr>
-          <td>${g.descripcion || '—'}</td>
-          <td class="alerta">${formatearMoneda(g.monto || 0)}</td>
+          <td>${escaparHTML(g.descripcion || '—')}</td>
+          <td>${formatearMoneda(g.monto || 0)}</td>
           <td>${fechaGasto(g).toLocaleDateString('es-UY')}</td>
           <td>${g.id_compra ?? '—'}</td>
         </tr>
       `).join('')
-      : `<tr><td colspan="4">No hay gastos registrados en este período.</td></tr>`;
+      : `<tr><td colspan="4">No hay compras registradas en este período.</td></tr>`;
   }
 
   function actualizarVista() {

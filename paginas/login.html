@@ -17,13 +17,13 @@
 </head>
 
 <body>
+  <script src="/js/componentes/tema.js"></script>
   <div class="card-login">
     <h1 class="titulo">StockFlow</h1>
 
     <form id="form-login" novalidate>
       <label for="correo">Correo</label>
       <input type="email" id="correo" name="correo" placeholder="juan@gmail.com" maxlength="50" required />
-
       <label for="contrasena">Contraseña</label>
 
       <div class="contenedor-contrasena">
@@ -95,11 +95,41 @@
     </div>
   </div>
 
+  <!-- Modal: Elegir rol (usuarios con más de un rol) -->
+  <div class="modal fade modal-stockflow" id="modalElegirRol" tabindex="-1"
+    aria-labelledby="modalElegirRolLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h1 class="modal-title" id="modalElegirRolLabel">
+            ¿Con qué rol querés ingresar?
+          </h1>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="lista-roles roles-animados" id="listaElegirRol"></div>
+          <div id="errorElegirRol" class="mensaje-error" style="display: none;"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-primario" id="btnConfirmarRol">
+            Ingresar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- JS Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- JS propio -->
-  <script src="/js/componentes/tema.js"></script>
   <script src="/js/js-paginas/script-login.js" defer></script>
   <script src="/js/idioma.js"></script>
 

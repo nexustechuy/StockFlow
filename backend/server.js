@@ -3,8 +3,6 @@ const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const express = require("express");
-const cors = require("cors");
-const configurarSesion = require("./middleware/session");
 
 // RUTAS
 const authRoutes = require("./rutas/authRoutes");
@@ -14,13 +12,12 @@ const categoriaRoutes = require("./rutas/categoriaRoutes");
 const ventaRoutes = require("./rutas/ventaRoutes");
 const reposicionRoutes = require("./rutas/reposicionRoutes");
 const gastoRoutes = require("./rutas/gastoRoutes");
+const compraRoutes = require("./rutas/compraRoutes");
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-app.use(cors());
-configurarSesion(app);
 
 // ACCESO A LAS CARPETAS
 app.use(express.static(path.join(__dirname, "../paginas")));
@@ -39,8 +36,9 @@ app.use(categoriaRoutes);
 app.use(ventaRoutes);
 app.use(reposicionRoutes);
 app.use(gastoRoutes);
+app.use(compraRoutes);
 
 // INICIAR SERVIDOR
 app.listen(PORT, () => {
-    console.log(`Servidor ejecutándose en El servidor puerto:${PORT}`);
+    
 });

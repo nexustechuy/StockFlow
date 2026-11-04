@@ -17,7 +17,7 @@
 
 -- Base de datos `StockFlow`
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `StockFlow` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `StockFlow` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `StockFlow`;
 
@@ -28,11 +28,11 @@ DROP TABLE IF EXISTS `categoria`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categoria` (
   `id_categoria` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `descripcion` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id_categoria`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `categoria`
@@ -53,10 +53,11 @@ CREATE TABLE `compra` (
   `id_usuario` int DEFAULT NULL,
   `fecha_hora` datetime DEFAULT NULL,
   `total` decimal(20,6) DEFAULT NULL,
+  `estado` varchar(20) NOT NULL DEFAULT 'pendiente',
   PRIMARY KEY (`id_compra`),
   KEY `id_usuario_compra` (`id_usuario`),
   CONSTRAINT `id_usuario_compra` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `compra`
@@ -83,7 +84,7 @@ CREATE TABLE `detalle_compra` (
   KEY `id_producto_detalle_compra` (`id_producto`),
   CONSTRAINT `id_compra_detalle` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`id_compra`),
   CONSTRAINT `id_producto_detalle_compra` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `detalle_compra`
@@ -110,7 +111,7 @@ CREATE TABLE `detalle_pedido` (
   KEY `id_producto_detalle_pedido` (`id_producto`),
   CONSTRAINT `id_pedido` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
   CONSTRAINT `id_producto_detalle_pedido` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `detalle_pedido`
@@ -137,7 +138,7 @@ CREATE TABLE `detalle_venta` (
   KEY `id_venta` (`id_venta`),
   CONSTRAINT `id_producto` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`),
   CONSTRAINT `id_venta` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `detalle_venta`
@@ -156,13 +157,13 @@ DROP TABLE IF EXISTS `gastos`;
 CREATE TABLE `gastos` (
   `id_gastos` int NOT NULL AUTO_INCREMENT,
   `id_compra` int NOT NULL,
-  `descripcion` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `descripcion` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `monto` decimal(20,6) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   PRIMARY KEY (`id_gastos`) USING BTREE,
   UNIQUE KEY `id_compra_gastos` (`id_compra`),
   CONSTRAINT `id_compra_gastos` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`id_compra`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `gastos`
@@ -186,7 +187,7 @@ CREATE TABLE `pedido` (
   PRIMARY KEY (`id_pedido`),
   KEY `id_usuario_pedido` (`id_usuario`),
   CONSTRAINT `id_usuario_pedido` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `pedido`
@@ -205,7 +206,7 @@ CREATE TABLE `producto` (
   `id_producto` int NOT NULL AUTO_INCREMENT,
   `codigo` varchar(50) DEFAULT NULL,
   `nombre` varchar(100) DEFAULT NULL,
-  `descripcion` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `descripcion` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `precio_compra` decimal(20,0) DEFAULT NULL,
   `precio_venta` decimal(20,0) DEFAULT NULL,
   `stock` int DEFAULT NULL,
@@ -216,7 +217,7 @@ CREATE TABLE `producto` (
   UNIQUE KEY `codigo` (`codigo`),
   KEY `id_categoria` (`id_categoria`) USING BTREE,
   CONSTRAINT `id_cat` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `producto`
@@ -244,7 +245,7 @@ CREATE TABLE `reposicion` (
   KEY `id_usuario_repo` (`id_usuario`),
   CONSTRAINT `id_producto_repo` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`),
   CONSTRAINT `id_usuario_repo` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `reposicion`
@@ -265,7 +266,7 @@ CREATE TABLE `rol` (
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_rol`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `rol`
@@ -286,7 +287,7 @@ CREATE TABLE `tipo_variante` (
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_tipo_variante`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `tipo_variante`
@@ -311,7 +312,7 @@ CREATE TABLE `usuario_rol` (
   KEY `id_rol` (`id_rol`),
   CONSTRAINT `usuario_rol_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
   CONSTRAINT `usuario_rol_ibfk_2` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `usuario_rol`
@@ -335,7 +336,7 @@ CREATE TABLE `usuarios` (
   `activo` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `mail` (`mail`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `usuarios`
@@ -361,7 +362,7 @@ CREATE TABLE `variante` (
   KEY `id_tipo_variante` (`id_tipo_variante`),
   CONSTRAINT `id_producto_variante` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`),
   CONSTRAINT `id_tipo_variante` FOREIGN KEY (`id_tipo_variante`) REFERENCES `tipo_variante` (`id_tipo_variante`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `variante`
@@ -389,7 +390,7 @@ CREATE TABLE `venta` (
   KEY `id_pedido_ventas` (`id_pedido`),
   CONSTRAINT `id_pedido_ventas` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
   CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- Datos de `venta`

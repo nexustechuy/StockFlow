@@ -59,14 +59,26 @@ body.tema-oscuro .sidebar {
   padding: 12px 0;
 }
 
+/* Cada enlace: icono + texto en fila, siempre alineados */
 .sidebar nav a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 12px 24px;
   color: rgba(255, 255, 255, 0.80);
   text-decoration: none;
   font-size: 0.95rem;
   transition: background 0.15s, color 0.15s;
   border-left: 3px solid transparent;
+}
+
+/* Todos los iconos con el mismo ancho para que el texto empiece siempre en el mismo lugar */
+.sidebar nav a i,
+.sidebar-footer a i {
+  flex: 0 0 20px;
+  width: 20px;
+  text-align: center;
+  margin: 0 !important; /* anula el me-2 de Bootstrap */
 }
 
 .sidebar nav a:hover {
@@ -81,12 +93,50 @@ body.tema-oscuro .sidebar {
   border-left: 3px solid var(--blanco);
 }
 
+.sidebar nav.nav-animada {
+  position: relative;
+}
+
+.sidebar nav.nav-animada a {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar nav.nav-animada a.activo {
+  background-color: transparent;
+  border-left-color: transparent;
+}
+
+.indicador-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background-color: var(--azul-activo);
+  border-left: 3px solid var(--blanco);
+  pointer-events: none;
+}
+
+.indicador-sidebar.listo {
+  transition: top 0.2s ease-out, height 0.2s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicador-sidebar.listo {
+    transition: none;
+  }
+}
+
 .sidebar-footer {
   padding: 16px 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .sidebar-footer a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   color: rgba(255, 255, 255, 0.70);
   text-decoration: none;
   font-size: 0.88rem;
@@ -94,6 +144,12 @@ body.tema-oscuro .sidebar {
 
 .sidebar-footer a:hover {
   color: var(--blanco);
+}
+
+.sidebar-footer a + a {
+  margin: 16px -24px 0;
+  padding: 16px 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* RESPONSIVE */

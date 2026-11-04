@@ -125,6 +125,52 @@ body.tema-oscuro .filtro-chip.activo {
   outline-offset: -1px;
 }
 
+.filtros-animados {
+  position: relative;
+}
+
+.filtros-animados .filtro-chip {
+  position: relative;
+  z-index: 1;
+}
+
+.filtros-animados .filtro-chip.activo {
+  z-index: 3;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+body.tema-oscuro .filtros-animados .filtro-chip.activo {
+  outline: none;
+}
+
+.indicador-filtro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2;
+  background-color: var(--azul-primario);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.indicador-filtro.listo {
+  transition: left 0.3s ease, top 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+body.tema-oscuro .indicador-filtro {
+  outline: 1px solid var(--borde-boton);
+  outline-offset: -1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicador-filtro.listo {
+    transition: none;
+  }
+}
+
 /* SECCIÓN DE FORMULARIO */
 .seccion-formulario {
   background-color: var(--gris-fondo);
@@ -179,7 +225,8 @@ body.tema-oscuro .filtro-chip.activo {
   transition: border-color 0.2s, background-color 0.2s;
 }
 
-.rol-item input[type="checkbox"] {
+.rol-item input[type="checkbox"],
+.rol-item input[type="radio"] {
   width: 18px;
   height: 18px;
   accent-color: var(--azul-primario);
@@ -196,6 +243,91 @@ body.tema-oscuro .filtro-chip.activo {
 .rol-item.seleccionado {
   border-color: var(--azul-primario);
   background-color: rgba(6, 11, 68, 0.06);
+}
+
+/* En modo oscuro el azul casi no se ve, la selección va en blanco */
+body.tema-oscuro .rol-item input[type="checkbox"],
+body.tema-oscuro .rol-item input[type="radio"] {
+  accent-color: var(--blanco);
+}
+
+body.tema-oscuro .rol-item.seleccionado {
+  border-color: var(--blanco);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ANIMACIÓN DE ELEGIR ROLES */
+.roles-animados {
+  position: relative;
+}
+
+.roles-animados .rol-item {
+  position: relative;
+  z-index: 1;
+  animation: entrarRol 0.3s ease-out backwards;
+}
+
+.roles-animados .rol-item:nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.roles-animados .rol-item:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.roles-animados .rol-item.seleccionado,
+body.tema-oscuro .roles-animados .rol-item.seleccionado {
+  border-color: var(--gris-borde);
+  background-color: var(--superficie);
+}
+
+.indicador-rol {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  z-index: 2;
+  border: 1px solid var(--azul-primario);
+  background-color: rgba(6, 11, 68, 0.06);
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.indicador-rol.visible {
+  opacity: 1;
+  transition: top 0.3s ease, height 0.3s ease, opacity 0.2s ease;
+}
+
+body.tema-oscuro .indicador-rol {
+  border-color: var(--blanco);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.roles-animados+.mensaje-error {
+  animation: entrarRol 0.25s ease-out;
+}
+
+@keyframes entrarRol {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .roles-animados .rol-item,
+  .roles-animados+.mensaje-error {
+    animation: none;
+  }
+
+  .indicador-rol,
+  .indicador-rol.visible {
+    transition: none;
+  }
 }
 
 /* TOGGLE DE ESTADO (Activo / Inactivo) */

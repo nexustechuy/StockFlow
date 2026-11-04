@@ -68,9 +68,11 @@
     else if (pagina.endsWith("Repositor.html")) rolDePagina = "repositor";
 
     const roles = (usuario.roles || [usuario.rol]).map(r => String(r).toLowerCase());
+    const rolActivo = String(usuario.rol).toLowerCase();
 
-    if (rolDePagina && !roles.includes(rolDePagina)) {
-        const destino = DASHBOARD_POR_ROL[roles[0]] || PAGINA_LOGIN;
+    // Solo se entra a las páginas del rol con el que se ingresó
+    if (rolDePagina && rolDePagina !== rolActivo) {
+        const destino = DASHBOARD_POR_ROL[rolActivo] || PAGINA_LOGIN;
         window.location.replace(destino);
         return;
     }
@@ -109,6 +111,161 @@
         }
     }, true);
 
+    // CAMBIAR DE ROL (solo para usuarios con más de un rol)
+    const NOMBRE_ROL = {
+        administrador: "Administrador",
+        vendedor: "Vendedor",
+        repositor: "Repositor"
+    };
+
+    // Lleva el recuadro de selección hasta el rol elegido
+    function moverIndicadorRol(lista) {
+        const indicador = lista.querySelector(".indicador-rol");
+        const elegido = lista.querySelector(".rol-item.seleccionado");
+
+        if (!indicador || !elegido) return;
+
+        indicador.style.top = elegido.offsetTop + "px";
+        indicador.style.height = elegido.offsetHeight + "px";
+
+        if (!indicador.classList.contains("visible")) {
+            setTimeout(function () {
+                indicador.classList.add("visible");
+            }, 20);
+        }
+    }
+
+    function crearModalCambiarRol() {
+        const modal = document.createElement("div");
+        modal.className = "modal fade modal-stockflow";
+        modal.id = "modalCambiarRol";
+        modal.tabIndex = -1;
+        modal.setAttribute("aria-labelledby", "modalCambiarRolLabel");
+        modal.setAttribute("aria-hidden", "true");
+        modal.innerHTML = `
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="modalCambiarRolLabel">Cambiar de rol</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="lista-roles roles-animados" id="listaCambiarRol"></div>
+                        <div id="errorCambiarRol" class="mensaje-error" style="display: none;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-primario" id="btnCambiarRol">Cambiar</button>
+                    </div>
+                </div>
+            </div>`;
+
+        const lista = modal.querySelector("#listaCambiarRol");
+        const errorRol = modal.querySelector("#errorCambiarRol");
+
+        function armarListaRoles() {
+            lista.innerHTML = "";
+            errorRol.style.display = "none";
+
+            roles.forEach(function (rol) {
+                if (!NOMBRE_ROL[rol]) return;
+
+                const item = document.createElement("label");
+                item.className = "rol-item";
+
+                const opcion = document.createElement("input");
+                opcion.type = "radio";
+                opcion.name = "rolNuevo";
+                opcion.value = rol;
+
+                const texto = document.createElement("span");
+                texto.textContent = NOMBRE_ROL[rol];
+
+                // El rol con el que está ahora aparece marcado
+                if (rol === rolActivo) {
+                    opcion.checked = true;
+                    item.classList.add("seleccionado");
+                }
+
+                opcion.addEventListener("change", function () {
+                    lista.querySelectorAll(".rol-item").forEach(function (otro) {
+                        otro.classList.remove("seleccionado");
+                    });
+                    item.classList.add("seleccionado");
+                    errorRol.style.display = "none";
+                    moverIndicadorRol(lista);
+                });
+
+                item.appendChild(opcion);
+                item.appendChild(texto);
+                lista.appendChild(item);
+            });
+
+            const indicador = document.createElement("span");
+            indicador.className = "indicador-rol";
+            lista.appendChild(indicador);
+        }
+
+        modal.addEventListener("show.bs.modal", armarListaRoles);
+
+        modal.addEventListener("shown.bs.modal", function () {
+            moverIndicadorRol(lista);
+        });
+
+        modal.querySelector("#btnCambiarRol").addEventListener("click", function () {
+            const elegido = lista.querySelector("input:checked");
+
+            if (!elegido) {
+                errorRol.textContent = "Elegí un rol para continuar.";
+                errorRol.style.display = "block";
+                return;
+            }
+
+            if (elegido.value === rolActivo) {
+                bootstrap.Modal.getOrCreateInstance(modal).hide();
+                return;
+            }
+
+            // El backend revisa que el rol sea del usuario y devuelve un token nuevo
+            fetch("/cambiar-rol", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ rol: elegido.value })
+            })
+                .then(function (respuesta) {
+                    return respuesta.json().then(function (datos) {
+                        if (!respuesta.ok) {
+                            throw new Error(datos.error);
+                        }
+
+                        usuario.rol = datos.rol;
+                        localStorage.setItem(CLAVE_TOKEN, datos.token);
+                        localStorage.setItem(CLAVE_USUARIO, JSON.stringify(usuario));
+                        window.location.href = DASHBOARD_POR_ROL[datos.rol];
+                    });
+                })
+                .catch(function (error) {
+                    errorRol.textContent = error.message;
+                    errorRol.style.display = "block";
+                });
+        });
+
+        document.body.appendChild(modal);
+        return modal;
+    }
+
+    let modalCambiarRol = null;
+
+    function abrirCambiarRol() {
+        if (!modalCambiarRol) {
+            modalCambiarRol = crearModalCambiarRol();
+        }
+        bootstrap.Modal.getOrCreateInstance(modalCambiarRol).show();
+    }
+
+    if (roles.length > 1) {
+        window.abrirCambiarRol = abrirCambiarRol;
+    }
+
     // Nombre del usuario en la página
     function saludoSegunHora() {
         const hora = new Date().getHours();
@@ -130,5 +287,19 @@
                 ? saludoSegunHora() + ", " + primerNombre + "!"
                 : saludoSegunHora() + "!";
         });
+
+        // "Cambiar de rol" en la sidebar
+        const pieSidebar = document.querySelector(".sidebar-footer");
+
+        if (roles.length > 1 && pieSidebar) {
+            const link = document.createElement("a");
+            link.href = "#";
+            link.innerHTML = '<i class="bi bi-arrow-left-right me-2"></i><span data-i18n="Cambiar de rol">Cambiar de rol</span>';
+            link.addEventListener("click", function (evento) {
+                evento.preventDefault();
+                abrirCambiarRol();
+            });
+            pieSidebar.prepend(link);
+        }
     });
 })();

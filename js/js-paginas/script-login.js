@@ -51,32 +51,146 @@ async function iniciarSesion(event) {
             throw new Error(datos.error);
         }
 
-        localStorage.setItem("sf_token", datos.token);
-        localStorage.setItem("sf_usuario", JSON.stringify({
-            id_usuario: datos.id_usuario,
-            mail: datos.mail,
-            nombre: datos.nombre,
-            rol: datos.rol,
-            roles: datos.roles
-        }));
-
-        if (datos.rol === "vendedor") {
-            window.location.href = "/dashboardVendedor.html";
-
-        } else if (datos.rol === "repositor") {
-            window.location.href = "/dashboardRepositor.html";
-
-        } else if (datos.rol === "administrador") {
-            window.location.href = "/dashboardAdministrador.html";
-
-        } else {
-            throw new Error("El usuario no tiene un rol válido.");
+        // Con más de un rol, primero elige con cuál entrar
+        if (datos.roles.length > 1) {
+            mostrarElegirRol(datos);
+            return;
         }
+
+        entrarConRol(datos, datos.token, datos.rol);
 
     } catch (error) {
         mensajeError.textContent = error.message;
         mensajeError.style.display = "block";
     }
+}
+
+const DASHBOARD_POR_ROL = {
+    administrador: "/dashboardAdministrador.html",
+    vendedor: "/dashboardVendedor.html",
+    repositor: "/dashboardRepositor.html"
+};
+
+const NOMBRE_ROL = {
+    administrador: "Administrador",
+    vendedor: "Vendedor",
+    repositor: "Repositor"
+};
+
+// Guarda la sesión con el rol elegido y va a su dashboard
+function entrarConRol(datos, token, rol) {
+    if (!DASHBOARD_POR_ROL[rol]) {
+        throw new Error("El usuario no tiene un rol válido.");
+    }
+
+    localStorage.setItem("sf_token", token);
+    localStorage.setItem("sf_usuario", JSON.stringify({
+        id_usuario: datos.id_usuario,
+        mail: datos.mail,
+        nombre: datos.nombre,
+        rol: rol,
+        roles: datos.roles
+    }));
+
+    window.location.href = DASHBOARD_POR_ROL[rol];
+}
+
+let datosLogin = null;
+
+function moverIndicadorRol(lista) {
+    const indicador = lista.querySelector(".indicador-rol");
+    const elegido = lista.querySelector(".rol-item.seleccionado");
+
+    if (!indicador || !elegido) return;
+
+    indicador.style.top = elegido.offsetTop + "px";
+    indicador.style.height = elegido.offsetHeight + "px";
+
+    if (!indicador.classList.contains("visible")) {
+        setTimeout(function () {
+            indicador.classList.add("visible");
+        }, 20);
+    }
+}
+
+function mostrarElegirRol(datos) {
+    datosLogin = datos;
+
+    const lista = document.getElementById("listaElegirRol");
+    const errorRol = document.getElementById("errorElegirRol");
+
+    lista.innerHTML = "";
+    errorRol.style.display = "none";
+
+    datos.roles.forEach(function (rol) {
+        if (!NOMBRE_ROL[rol]) return;
+
+        const item = document.createElement("label");
+        item.className = "rol-item";
+
+        const opcion = document.createElement("input");
+        opcion.type = "radio";
+        opcion.name = "rolElegido";
+        opcion.value = rol;
+
+        const texto = document.createElement("span");
+        texto.textContent = NOMBRE_ROL[rol];
+
+        opcion.addEventListener("change", function () {
+            lista.querySelectorAll(".rol-item").forEach(function (otro) {
+                otro.classList.remove("seleccionado");
+            });
+            item.classList.add("seleccionado");
+            errorRol.style.display = "none";
+            moverIndicadorRol(lista);
+        });
+
+        item.appendChild(opcion);
+        item.appendChild(texto);
+        lista.appendChild(item);
+    });
+
+    const indicador = document.createElement("span");
+    indicador.className = "indicador-rol";
+    lista.appendChild(indicador);
+
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("modalElegirRol")).show();
+}
+
+function confirmarRol() {
+    const errorRol = document.getElementById("errorElegirRol");
+    const elegido = document.querySelector('input[name="rolElegido"]:checked');
+
+    function mostrarError(texto) {
+        errorRol.textContent = texto;
+        errorRol.style.display = "block";
+    }
+
+    if (!elegido) {
+        mostrarError("Elegí un rol para continuar.");
+        return;
+    }
+
+    // El backend revisa que el rol sea del usuario y devuelve el token de ese rol
+    fetch("/cambiar-rol", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + datosLogin.token
+        },
+        body: JSON.stringify({ rol: elegido.value })
+    })
+        .then(function (respuesta) {
+            return respuesta.json().then(function (datos) {
+                if (!respuesta.ok) {
+                    throw new Error(datos.error);
+                }
+                entrarConRol(datosLogin, datos.token, datos.rol);
+            });
+        })
+        .catch(function (error) {
+            mostrarError(error.message);
+        });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -86,6 +200,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (formLogin) {
         formLogin.addEventListener("submit", iniciarSesion);
+    }
+
+    const btnConfirmarRol = document.getElementById("btnConfirmarRol");
+
+    if (btnConfirmarRol) {
+        btnConfirmarRol.addEventListener("click", confirmarRol);
     }
 
     if (contrasena && botonMostrar) {

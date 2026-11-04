@@ -31,6 +31,26 @@ function inicializarMenuMovil(config) {
     }
   });
 
+  // "Cambiar de rol" arriba de "Cerrar sesión" (solo si sesion.js lo habilitó)
+  const linkCerrarSesion = document.querySelector('.menu-movil a[href="login.html"]');
+
+  if (typeof window.abrirCambiarRol === 'function' && linkCerrarSesion) {
+    const linkCambiarRol = document.createElement('a');
+    linkCambiarRol.href = '#';
+    linkCambiarRol.textContent = 'Cambiar de rol';
+    linkCambiarRol.setAttribute('data-i18n', 'Cambiar de rol');
+    linkCambiarRol.style.marginTop = 'auto';
+    linkCambiarRol.style.color = 'rgba(255,255,255,0.60)';
+    linkCambiarRol.addEventListener('click', function (evento) {
+      evento.preventDefault();
+      cerrarMenuMovil();
+      window.abrirCambiarRol();
+    });
+
+    linkCerrarSesion.style.marginTop = '0';
+    linkCerrarSesion.before(linkCambiarRol);
+  }
+
   // Aplica el idioma guardado 
   if (typeof aplicarIdioma === 'function') {
     aplicarIdioma(localStorage.getItem('idioma') || 'es');

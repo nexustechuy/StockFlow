@@ -83,10 +83,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderizarFilaHistorial(reposicion) {
     return `
       <tr>
-        <td>${reposicion.producto_nombre}</td>
-        <td>${reposicion.cantidad}</td>
+        <td>${escaparHTML(reposicion.producto_nombre)}</td>
+        <td>${escaparHTML(reposicion.cantidad)}</td>
         <td>${formatearFecha(reposicion.fecha_hora)}</td>
-        <td>${reposicion.comentario ?? '-'}</td>
+        <td>${escaparHTML(reposicion.comentario ?? '-')}</td>
       </tr>
     `;
   }
@@ -178,6 +178,85 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  Promise.all([cargarProductos(), cargarHistorial()]);
+  const avisoCompras = document.getElementById('avisoCompras');
+  const textoAvisoCompras = document.getElementById('textoAvisoCompras');
+  const panelComprasPendientes = document.getElementById('panelComprasPendientes');
+  const cuerpoComprasPendientes = document.getElementById('cuerpoComprasPendientes');
+  const errorComprasPendientes = document.getElementById('errorComprasPendientes');
+  const mensajeExitoReposicion = document.getElementById('mensajeExitoReposicion');
+
+  function actualizarAvisoCompras() {
+    const cantidad = cuerpoComprasPendientes.querySelectorAll('tr').length;
+
+    textoAvisoCompras.textContent = cantidad === 1
+      ? 'Tenés 1 compra pendiente de reposición'
+      : `Tenés ${cantidad} compras pendientes de reposición`;
+
+    avisoCompras.classList.toggle('oculto', cantidad === 0);
+    panelComprasPendientes.classList.toggle('oculto', cantidad === 0);
+  }
+
+  function renderizarCompraPendiente(compra) {
+    return `
+      <tr data-id="${compra.id_compra}">
+        <td>${formatearFecha(compra.fecha_hora)}</td>
+        <td>${escaparHTML(compra.productos)}</td>
+        <td>${escaparHTML(compra.total_unidades)}</td>
+        <td><button type="button" class="btn-accion btn-marcar-repuesta">Reponer</button></td>
+      </tr>
+    `;
+  }
+
+  function cargarComprasPendientes() {
+    return fetch('/compras/pendientes')
+      .then(res => res.json())
+      .then(data => {
+        cuerpoComprasPendientes.innerHTML = data.map(renderizarCompraPendiente).join('');
+        actualizarAvisoCompras();
+      })
+      .catch(error => console.error('Error al cargar las compras pendientes:', error));
+  }
+
+  cuerpoComprasPendientes.addEventListener('click', function (evento) {
+    const boton = evento.target.closest('.btn-marcar-repuesta');
+    if (!boton) return;
+
+    const fila = boton.closest('tr');
+    boton.disabled = true;
+    errorComprasPendientes.textContent = '';
+
+    fetch(`/compras/${fila.dataset.id}/repuesta`, { method: 'PATCH' })
+      .then(async res => {
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || 'Error al marcar la compra como repuesta.');
+        return data;
+      })
+      .then(data => {
+        fila.remove();
+        actualizarAvisoCompras();
+
+        data.reposiciones.forEach(function (reposicion) {
+          cuerpoHistorial.insertAdjacentHTML('afterbegin', renderizarFilaHistorial(reposicion));
+        });
+
+        mensajeExitoReposicion.classList.remove('saliendo');
+        mensajeExitoReposicion.style.display = 'block';
+        setTimeout(function () {
+          mensajeExitoReposicion.classList.add('saliendo');
+          setTimeout(function () {
+            mensajeExitoReposicion.style.display = 'none';
+            mensajeExitoReposicion.classList.remove('saliendo');
+          }, 250);
+        }, 3500);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(error => {
+        console.error('Error al marcar la compra como repuesta:', error);
+        errorComprasPendientes.textContent = error.message;
+        boton.disabled = false;
+      });
+  });
+
+  Promise.all([cargarProductos(), cargarHistorial(), cargarComprasPendientes()]);
 
 });

@@ -75,6 +75,11 @@
   .tarjetas-3 {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .tarjetas-3 .tarjeta:last-child {
+    grid-column: 1 / -1;
+  }
+
 }
 
 @media (max-width: 480px) {

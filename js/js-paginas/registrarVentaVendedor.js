@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
       item.innerHTML = `
         <div class="icono-producto"><i class="bi bi-box-seam"></i></div>
         <div class="info-producto">
-          <div class="nombre">${producto.nombre}</div>
+          <div class="nombre">${escaparHTML(producto.nombre)}</div>
           <div class="stock">Stock: ${stock}</div>
         </div>
         <div class="precio">${formatearPrecio(producto.precio_venta)}</div>
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const fila = document.createElement('tr');
       fila.dataset.id = id;
       fila.innerHTML =
-        '<td>' + producto.nombre + '</td>' +
+        '<td>' + escaparHTML(producto.nombre) + '</td>' +
         '<td>' + formatearPrecio(producto.precio) + '</td>' +
         '<td><input type="number" min="1" max="' + producto.stock + '" value="' + producto.cantidad + '"></td>' +
         '<td>' + formatearPrecio(subtotalFila) + '</td>' +
@@ -218,9 +218,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         textoMensajeExito.textContent =
           'Venta registrada con éxito para ' + nombreCliente + ' (' + formatearPrecio(ventaCreada.total) + ').';
+        mensajeExito.classList.remove('saliendo');
         mensajeExito.style.display = 'block';
         setTimeout(function () {
-          mensajeExito.style.display = 'none';
+          mensajeExito.classList.add('saliendo');
+          setTimeout(function () {
+            mensajeExito.style.display = 'none';
+            mensajeExito.classList.remove('saliendo');
+          }, 250);
         }, 3500);
 
         Object.keys(carrito).forEach(function (id) { delete carrito[id]; });

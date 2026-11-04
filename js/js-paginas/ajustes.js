@@ -28,12 +28,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   aplicarTema(temaGuardado);
 
+  let temporizadorTema = null;
+
   for (let i = 0; i < botonesTema.length; i++) {
     botonesTema[i].addEventListener('click', function () {
       const tema = this.getAttribute('data-tema');
 
+      document.body.classList.add('cambiando-tema');
+      clearTimeout(temporizadorTema);
+
       localStorage.setItem('tema', tema);
       aplicarTema(tema);
+
+      temporizadorTema = setTimeout(function () {
+        document.body.classList.remove('cambiando-tema');
+      }, 300);
     });
   }
 
