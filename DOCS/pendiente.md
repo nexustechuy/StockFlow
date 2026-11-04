@@ -17,10 +17,8 @@
 - [ ] Opcional: historial de compras para el administrador (hoy solo se ven como gasto en Ganancias) y poder cancelar una compra pendiente.
 
 ### Varios roles por usuario
-- [ ] El backend y `sesion.js` ya aceptan varios roles, pero el login manda siempre al dashboard del primer rol y no hay forma de pasar al otro. Plan propuesto (sin tocar backend ni base):
-  - Si el usuario tiene más de un rol, después del login elegir con qué rol entrar (`login.html`, `script-login.js`).
-  - Link "Cambiar de rol" en la sidebar, solo para usuarios con varios roles (se puede agregar desde `sesion.js`).
-  - `sesion.js` tiene que mandar al dashboard del rol elegido, no al primero.
+- [x] Elegir rol al ingresar (modal en `login.html`) y "Cambiar de rol" en la sidebar y el menú móvil (lo agrega `sesion.js`). El token lleva el rol elegido y el backend aplica solo ese rol (`verificarSesion`). Para cambiar de rol se usa `POST /cambiar-rol`, que revisa en la base que el rol sea del usuario.
+- [ ] Avisar al grupo: después de este cambio todos tienen que volver a iniciar sesión una vez (los tokens viejos no traen el rol elegido).
 - [ ] Definir con el grupo qué combinaciones tienen sentido (por ejemplo vendedor + repositor).
 
 ### Módulo de usuarios (lo que queda)
@@ -94,7 +92,6 @@
 
 1. Columna `estado` en `compra` en las bases ya importadas (los `.sql` ya la traen).
 2. Costo histórico en `detalle_venta` (antes de que se acumulen ventas y compras).
-3. Varios roles por usuario (selector en el login y "Cambiar de rol").
-4. Cargar los nombres de usuarios y los códigos de barras (lo hace el grupo) y usar el código en vender, reponer y comprar.
-5. Backend: ventas sin stock negativo (`FOR UPDATE`), limpieza de `server.js`.
-6. Datos de ejemplo del HTML, idioma, README y limpieza de datos de prueba.
+3. Cargar los nombres de usuarios y los códigos de barras (lo hace el grupo) y usar el código en vender, reponer y comprar.
+4. Backend: ventas sin stock negativo (`FOR UPDATE`), limpieza de `server.js`.
+5. Datos de ejemplo del HTML, idioma, README y limpieza de datos de prueba.

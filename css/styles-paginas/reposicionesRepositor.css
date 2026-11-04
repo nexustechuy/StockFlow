@@ -14,6 +14,7 @@
 @import url(../componentes/tablas.css);
 @import url(../componentes/alertas.css);
 @import url(../componentes/iconos.css);
+@import url(../componentes/modales.css);
 
 .alerta-stock.oculto,
 .panel.oculto {

@@ -316,6 +316,11 @@
         "Tu usuario está desactivado o ya no existe.": "Your account is disabled or no longer exists.",
         "Error al verificar la sesión.": "Error verifying the session.",
         "No tenés permiso para hacer esto.": "You do not have permission to do this.",
+        "¿Con qué rol querés ingresar?": "Which role do you want to sign in with?",
+        "Elegí un rol para continuar.": "Choose a role to continue.",
+        "Cambiar de rol": "Switch role",
+        "Cambiar": "Switch",
+        "No tenés asignado ese rol.": "You do not have that role assigned.",
 
         // Productos
         "Error al cargar los productos.": "Error loading products.",

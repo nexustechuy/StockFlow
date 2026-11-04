@@ -146,6 +146,12 @@ body.tema-oscuro .sidebar {
   color: var(--blanco);
 }
 
+.sidebar-footer a + a {
+  margin: 16px -24px 0;
+  padding: 16px 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
 /* RESPONSIVE */
 /* En mobile desaparece la sidebar y aparece la navbar */
 @media (max-width: 768px) {

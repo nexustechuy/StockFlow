@@ -9,6 +9,9 @@
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
 @import url(../componentes/tablas.css);
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/modales.css);
 
 /* Buscador de productos */
 .buscador-productos {

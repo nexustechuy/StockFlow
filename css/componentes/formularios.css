@@ -225,7 +225,8 @@ body.tema-oscuro .indicador-filtro {
   transition: border-color 0.2s, background-color 0.2s;
 }
 
-.rol-item input[type="checkbox"] {
+.rol-item input[type="checkbox"],
+.rol-item input[type="radio"] {
   width: 18px;
   height: 18px;
   accent-color: var(--azul-primario);

@@ -11,6 +11,9 @@
 @import url(../componentes/sidebar.css);
 @import url(../componentes/cards.css);
 @import url(../componentes/tablas.css);
+@import url(../componentes/botones.css);
+@import url(../componentes/formularios.css);
+@import url(../componentes/modales.css);
 
 /* Alinear a la derecha la columna de Cantidad en la tabla Productos más vendidos */
 .tabla-productos th:last-child,

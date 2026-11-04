@@ -10,6 +10,7 @@
 @import url(../componentes/navbar.css);
 @import url(../componentes/sidebar.css);
 @import url(../componentes/tablas.css);
+@import url(../componentes/modales.css);
 
 /* CARD "DATOS DEL CLIENTE" (arriba del todo) */
 .panel-cliente {
