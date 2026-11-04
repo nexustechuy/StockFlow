@@ -27,7 +27,7 @@
 
 ### Código de barras (lo que quedó)
 - [ ] Cargar el código a los productos que ya existen (hoy tienen `codigo` NULL y la tabla dice "Sin código"). Se hace desde "Editar producto", que ahora exige el código (se hace al terminar los cambios).
-- [ ] Usar el código en las demás pantallas: registrar venta, reposiciones, productos (vendedor y repositor), el inventario y "Comprar productos" buscan solo por nombre. Falta buscar o escanear por código, que es para lo que sirve.
+- [x] Buscar por nombre o código en registrar venta, reposiciones, productos (vendedor y repositor), el catálogo del inventario y "Comprar productos". Se decidió no usar lectores físicos ni escanear con la cámara.
 - [ ] Definir si el código tiene que ser de largo fijo (por ejemplo EAN-13). Hoy acepta solo números, de 1 a 50 dígitos.
 
 ### Pendiente de definir con el grupo
@@ -92,6 +92,6 @@
 
 1. Columna `estado` en `compra` en las bases ya importadas (los `.sql` ya la traen).
 2. Costo histórico en `detalle_venta` (antes de que se acumulen ventas y compras).
-3. Cargar los nombres de usuarios y los códigos de barras (lo hace el grupo) y usar el código en vender, reponer y comprar.
+3. Cargar los nombres de usuarios y los códigos de barras (lo hace el grupo).
 4. Backend: ventas sin stock negativo (`FOR UPDATE`), limpieza de `server.js`.
 5. Datos de ejemplo del HTML, idioma, README y limpieza de datos de prueba.

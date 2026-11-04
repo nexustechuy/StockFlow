@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     items.forEach(function (item) {
       const nombre = item.dataset.nombre.toLowerCase();
-      const coincide = nombre.includes(texto);
+      const coincide = nombre.includes(texto) || item.dataset.codigo.includes(texto);
       item.style.display = coincide ? '' : 'none';
       if (coincide) hayVisibles = true;
     });
@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
       item.className = 'producto-item' + (stock === 0 ? ' sin-stock' : '');
       item.dataset.id = producto.id_producto;
       item.dataset.nombre = producto.nombre;
+      item.dataset.codigo = producto.codigo || '';
       item.dataset.precio = producto.precio_venta;
       item.dataset.stock = stock;
 

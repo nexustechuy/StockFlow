@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const coincidencias = productos.filter(function (producto) {
-      return producto.nombre.toLowerCase().includes(texto);
+      return producto.nombre.toLowerCase().includes(texto) || String(producto.codigo || '').includes(texto);
     });
 
     if (coincidencias.length === 0) {

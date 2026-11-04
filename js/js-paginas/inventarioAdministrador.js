@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (textoBusqueda.trim() !== "") {
             const texto = textoBusqueda.toLowerCase();
-            lista = lista.filter(p => p.nombre.toLowerCase().includes(texto));
+            lista = lista.filter(p => p.nombre.toLowerCase().includes(texto) || String(p.codigo || "").includes(texto));
         }
 
         tabla.innerHTML = lista.length
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let hayVisibles = false;
 
         listaProductosCompra.querySelectorAll(".producto-item").forEach(item => {
-            const coincide = item.dataset.nombre.toLowerCase().includes(texto);
+            const coincide = item.dataset.nombre.toLowerCase().includes(texto) || item.dataset.codigo.includes(texto);
             item.style.display = coincide ? "" : "none";
             if (coincide) hayVisibles = true;
         });
@@ -277,6 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
             item.className = "producto-item";
             item.dataset.id = producto.id_producto;
             item.dataset.nombre = producto.nombre;
+            item.dataset.codigo = producto.codigo || "";
 
             item.innerHTML = `
                 <div class="icono-producto"><i class="bi bi-box-seam"></i></div>

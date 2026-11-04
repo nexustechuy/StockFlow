@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (textoBusqueda.trim() !== '') {
       const texto = textoBusqueda.toLowerCase();
-      lista = lista.filter(p => p.nombre.toLowerCase().includes(texto));
+      lista = lista.filter(p => p.nombre.toLowerCase().includes(texto) || String(p.codigo || '').includes(texto));
     }
 
     cuerpoTabla.innerHTML = lista.map(renderizarFila).join('');

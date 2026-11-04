@@ -37,6 +37,7 @@ async function cargarProductos() {
             const fila = document.createElement("tr");
 
             fila.setAttribute("data-estado", estado);
+            fila.setAttribute("data-codigo", producto.codigo || "");
 
             fila.innerHTML = `
                 <td>${escaparHTML(producto.nombre)}</td>
@@ -83,7 +84,9 @@ function inicializarFiltrosProductos() {
 
             const estado = fila.getAttribute("data-estado");
 
-            const coincideTexto = nombre.includes(texto);
+            const codigo = fila.getAttribute("data-codigo") || "";
+
+            const coincideTexto = nombre.includes(texto) || codigo.includes(texto);
 
             const coincideEstado =
                 filtroActivo === "todos" ||

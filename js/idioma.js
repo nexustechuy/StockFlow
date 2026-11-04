@@ -90,6 +90,7 @@
         "Categorías": "Categories",
         "Alertas de stock": "Stock alerts",
         "Buscá un producto...": "Search for a product...",
+        "Buscá por nombre o código...": "Search by name or code...",
         "Activos": "Active",
         "Sin stock": "Out of stock",
         "Stock crítico": "Critical stock",
