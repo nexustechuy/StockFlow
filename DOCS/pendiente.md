@@ -57,7 +57,8 @@
 - [ ] Ventas: usar `SELECT ... FOR UPDATE` al chequear stock, o `UPDATE ... WHERE stock >= ?`, para evitar stock negativo con ventas simultáneas.
 - [ ] Ventas: validar cantidades enteras (hoy solo chequea que sea 1 o más, así que pasa 1.5) y unificar productos repetidos en una misma venta.
 - [ ] Reposiciones: validar que el producto exista (hoy da 500 genérico por la FK).
-- [ ] `server.js`: sacar `configurarSesion` y el `require` de `middleware/session.js` (vacío) y borrar ese archivo. El `app.listen` quedó sin mensaje: agregar uno simple ("Servidor en el puerto 3000") para saber que arrancó.
+- [x] `server.js`: se sacó `configurarSesion` y se borró `middleware/session.js` (estaba vacío).
+- [ ] `server.js`: el `app.listen` quedó sin mensaje. Agregar uno simple ("Servidor en el puerto 3000") para saber que arrancó.
 - [ ] Borrar `backend/migrar-passwords.js` (ya no hace falta).
 - [ ] Productos: `precio_compra` y `precio_venta` aceptan decimales en el formulario (`step=0.01`) pero la base los redondea (`decimal(20,0)`). Resolver junto con la decisión de la sección 4.
 - [ ] Productos: `GET /productos` no filtra por `estado_producto`. Definir si los dados de baja se listan.

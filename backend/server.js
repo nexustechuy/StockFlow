@@ -3,7 +3,6 @@ const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const express = require("express");
-const configurarSesion = require("./middleware/session");
 
 // RUTAS
 const authRoutes = require("./rutas/authRoutes");
@@ -19,7 +18,6 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-configurarSesion(app);
 
 // ACCESO A LAS CARPETAS
 app.use(express.static(path.join(__dirname, "../paginas")));
