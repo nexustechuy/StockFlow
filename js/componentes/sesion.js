@@ -118,6 +118,23 @@
         repositor: "Repositor"
     };
 
+    // Lleva el recuadro de selección hasta el rol elegido
+    function moverIndicadorRol(lista) {
+        const indicador = lista.querySelector(".indicador-rol");
+        const elegido = lista.querySelector(".rol-item.seleccionado");
+
+        if (!indicador || !elegido) return;
+
+        indicador.style.top = elegido.offsetTop + "px";
+        indicador.style.height = elegido.offsetHeight + "px";
+
+        if (!indicador.classList.contains("visible")) {
+            setTimeout(function () {
+                indicador.classList.add("visible");
+            }, 20);
+        }
+    }
+
     function crearModalCambiarRol() {
         const modal = document.createElement("div");
         modal.className = "modal fade modal-stockflow";
@@ -133,7 +150,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="lista-roles" id="listaCambiarRol"></div>
+                        <div class="lista-roles roles-animados" id="listaCambiarRol"></div>
                         <div id="errorCambiarRol" class="mensaje-error" style="display: none;"></div>
                     </div>
                     <div class="modal-footer">
@@ -145,37 +162,53 @@
         const lista = modal.querySelector("#listaCambiarRol");
         const errorRol = modal.querySelector("#errorCambiarRol");
 
-        roles.forEach(function (rol) {
-            if (!NOMBRE_ROL[rol]) return;
+        function armarListaRoles() {
+            lista.innerHTML = "";
+            errorRol.style.display = "none";
 
-            const item = document.createElement("label");
-            item.className = "rol-item";
+            roles.forEach(function (rol) {
+                if (!NOMBRE_ROL[rol]) return;
 
-            const opcion = document.createElement("input");
-            opcion.type = "radio";
-            opcion.name = "rolNuevo";
-            opcion.value = rol;
+                const item = document.createElement("label");
+                item.className = "rol-item";
 
-            const texto = document.createElement("span");
-            texto.textContent = NOMBRE_ROL[rol];
+                const opcion = document.createElement("input");
+                opcion.type = "radio";
+                opcion.name = "rolNuevo";
+                opcion.value = rol;
 
-            // El rol con el que está ahora aparece marcado
-            if (rol === rolActivo) {
-                opcion.checked = true;
-                item.classList.add("seleccionado");
-            }
+                const texto = document.createElement("span");
+                texto.textContent = NOMBRE_ROL[rol];
 
-            opcion.addEventListener("change", function () {
-                lista.querySelectorAll(".rol-item").forEach(function (otro) {
-                    otro.classList.remove("seleccionado");
+                // El rol con el que está ahora aparece marcado
+                if (rol === rolActivo) {
+                    opcion.checked = true;
+                    item.classList.add("seleccionado");
+                }
+
+                opcion.addEventListener("change", function () {
+                    lista.querySelectorAll(".rol-item").forEach(function (otro) {
+                        otro.classList.remove("seleccionado");
+                    });
+                    item.classList.add("seleccionado");
+                    errorRol.style.display = "none";
+                    moverIndicadorRol(lista);
                 });
-                item.classList.add("seleccionado");
-                errorRol.style.display = "none";
+
+                item.appendChild(opcion);
+                item.appendChild(texto);
+                lista.appendChild(item);
             });
 
-            item.appendChild(opcion);
-            item.appendChild(texto);
-            lista.appendChild(item);
+            const indicador = document.createElement("span");
+            indicador.className = "indicador-rol";
+            lista.appendChild(indicador);
+        }
+
+        modal.addEventListener("show.bs.modal", armarListaRoles);
+
+        modal.addEventListener("shown.bs.modal", function () {
+            moverIndicadorRol(lista);
         });
 
         modal.querySelector("#btnCambiarRol").addEventListener("click", function () {
@@ -229,7 +262,6 @@
         bootstrap.Modal.getOrCreateInstance(modalCambiarRol).show();
     }
 
-    // menu-responsive.js usa esto para saber si tiene que mostrar "Cambiar de rol"
     if (roles.length > 1) {
         window.abrirCambiarRol = abrirCambiarRol;
     }
@@ -256,7 +288,7 @@
                 : saludoSegunHora() + "!";
         });
 
-        // "Cambiar de rol" en la sidebar, arriba de "Cerrar sesión"
+        // "Cambiar de rol" en la sidebar
         const pieSidebar = document.querySelector(".sidebar-footer");
 
         if (roles.length > 1 && pieSidebar) {

@@ -245,6 +245,74 @@ body.tema-oscuro .indicador-filtro {
   background-color: rgba(6, 11, 68, 0.06);
 }
 
+/* ANIMACIÓN DE ELEGIR ROLES */
+.roles-animados {
+  position: relative;
+}
+
+.roles-animados .rol-item {
+  position: relative;
+  z-index: 1;
+  animation: entrarRol 0.3s ease-out backwards;
+}
+
+.roles-animados .rol-item:nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.roles-animados .rol-item:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.roles-animados .rol-item.seleccionado {
+  border-color: var(--gris-borde);
+  background-color: var(--superficie);
+}
+
+.indicador-rol {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  z-index: 2;
+  border: 1px solid var(--azul-primario);
+  background-color: rgba(6, 11, 68, 0.06);
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.indicador-rol.visible {
+  opacity: 1;
+  transition: top 0.3s ease, height 0.3s ease, opacity 0.2s ease;
+}
+
+.roles-animados+.mensaje-error {
+  animation: entrarRol 0.25s ease-out;
+}
+
+@keyframes entrarRol {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .roles-animados .rol-item,
+  .roles-animados+.mensaje-error {
+    animation: none;
+  }
+
+  .indicador-rol,
+  .indicador-rol.visible {
+    transition: none;
+  }
+}
+
 /* TOGGLE DE ESTADO (Activo / Inactivo) */
 .estado-toggle {
   display: flex;

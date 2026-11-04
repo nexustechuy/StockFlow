@@ -97,6 +97,22 @@ function entrarConRol(datos, token, rol) {
 
 let datosLogin = null;
 
+function moverIndicadorRol(lista) {
+    const indicador = lista.querySelector(".indicador-rol");
+    const elegido = lista.querySelector(".rol-item.seleccionado");
+
+    if (!indicador || !elegido) return;
+
+    indicador.style.top = elegido.offsetTop + "px";
+    indicador.style.height = elegido.offsetHeight + "px";
+
+    if (!indicador.classList.contains("visible")) {
+        setTimeout(function () {
+            indicador.classList.add("visible");
+        }, 20);
+    }
+}
+
 function mostrarElegirRol(datos) {
     datosLogin = datos;
 
@@ -126,12 +142,17 @@ function mostrarElegirRol(datos) {
             });
             item.classList.add("seleccionado");
             errorRol.style.display = "none";
+            moverIndicadorRol(lista);
         });
 
         item.appendChild(opcion);
         item.appendChild(texto);
         lista.appendChild(item);
     });
+
+    const indicador = document.createElement("span");
+    indicador.className = "indicador-rol";
+    lista.appendChild(indicador);
 
     bootstrap.Modal.getOrCreateInstance(document.getElementById("modalElegirRol")).show();
 }
