@@ -19,34 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return texto;
     }
 
-    // Actualizar saludo según la hora y el idioma seleccionado
-    function actualizarSaludo() {
-        const elementoSaludo = document.querySelector('[data-saludo]');
-
-        if (!elementoSaludo) return;
-
-        const hora = new Date().getHours();
-        const idioma = localStorage.getItem('idioma') || 'es';
-
-        if (idioma === 'en') {
-            if (hora >= 5 && hora < 12) {
-                elementoSaludo.textContent = 'Good morning!';
-            } else if (hora >= 12 && hora < 19) {
-                elementoSaludo.textContent = 'Good afternoon!';
-            } else {
-                elementoSaludo.textContent = 'Good evening!';
-            }
-        } else {
-            if (hora >= 5 && hora < 12) {
-                elementoSaludo.textContent = '¡Buenos días!';
-            } else if (hora >= 12 && hora < 19) {
-                elementoSaludo.textContent = '¡Buenas tardes!';
-            } else {
-                elementoSaludo.textContent = '¡Buenas noches!';
-            }
-        }
-    }
-
     // Formatear moneda
     function formatearMoneda(valor) {
         return '$' + Number(valor).toLocaleString('es-UY');
@@ -219,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Ejecutar funciones
-    actualizarSaludo();
     cargarHistorialVentas();
     cargarVentasDelDia();
     cargarProductos();

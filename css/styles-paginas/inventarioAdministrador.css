@@ -469,6 +469,10 @@ body.tema-oscuro .tabla-inventario tr.fila-activa {
   .layout-categorias {
     grid-template-columns: 1fr;
   }
+
+  .panel-nueva-categoria {
+    order: -1;
+  }
 }
 
 .alerta-stock {
@@ -527,6 +531,7 @@ body.tema-oscuro .tabla-inventario tr.fila-activa {
     margin-left: 0;
   }
 }
+
 .venta-grid {
   display: grid;
   grid-template-columns: 1.2fr 1.3fr 0.9fr;
@@ -749,8 +754,19 @@ body.tema-oscuro .mensaje-exito {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .mensaje-exito,
   .mensaje-exito.saliendo {
     animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .barra-usuarios .filtros {
+    width: 100%;
+  }
+
+  .barra-usuarios .filtro-chip {
+    flex: 1;
   }
 }

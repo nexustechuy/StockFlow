@@ -11,7 +11,6 @@
         "Usuarios": "Users",
         "Productos": "Products",
         "Reposiciones": "Restocking",
-        "Alertas de Stock": "Stock Alerts",
         "Registrar venta": "Register Sale",
         "Historial": "History",
         "Clientes": "Customers",
@@ -31,6 +30,7 @@
 
         // Dashboard
         "Vista general del negocio": "Business overview",
+        "Resumen de tus ventas y productos más vendidos": "Summary of your sales and best-selling products",
         "Ventas del Día": "Today's Sales",
         "Registradas automáticamente": "Automatically registered",
         "Ver detalle": "View details",
@@ -156,7 +156,7 @@
         "No se encontraron ventas.": "No sales found.",
 
         // Repositor: dashboard y alertas
-        "Aquí tienes un resumen de lo que requiere de tu atención": "Here is a summary of what needs your attention",
+        "Acá tenés un resumen de lo que requiere tu atención": "Here is a summary of what needs your attention",
         "Productos sin stock": "Out-of-stock products",
         "Productos con stock crítico": "Products with critical stock",
         "Productos a reponer": "Products to restock",
@@ -298,7 +298,7 @@
         "Nuevo usuario": "New user",
         "Nueva venta": "New sale",
 
-                // Validaciones generales y autenticación
+        // Validaciones generales y autenticación
         "Por favor completa todos los campos": "Please complete all fields",
         "El correo no puede superar los 50 caracteres.": "The email cannot exceed 50 characters.",
         "La contraseña no puede superar los 16 caracteres.": "The password cannot exceed 16 characters.",
@@ -500,7 +500,10 @@
         [/^El producto (\d+) no existe\.$/, 'Product $1 does not exist.'],
         [/^El correo o la contraseña son incorrectos\. (\d+) intentos? restantes?\.$/, function (m, n) {
             return 'The email or password is incorrect. ' + n + plural(n, ' attempt', ' attempts') + ' remaining.';
-        }]
+        }],
+        [/^¡Buenos días, (.+)!$/, 'Good morning, $1!'],
+        [/^¡Buenas tardes, (.+)!$/, 'Good afternoon, $1!'],
+        [/^¡Buenas noches, (.+)!$/, 'Good evening, $1!']
     ];
 
     // ---------- ESTADO ----------

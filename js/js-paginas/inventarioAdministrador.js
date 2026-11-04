@@ -530,18 +530,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const layoutCategorias = document.getElementById("layoutCategorias");
     const formNuevaCategoria = document.getElementById("formNuevaCategoria");
 
+    const inputNombreCategoria = document.getElementById("nombreCategoria");
+    const campoNombreCategoria = inputNombreCategoria?.closest(".campo-formulario");
+
     btnNuevaCategoria?.addEventListener("click", () => {
         panelNuevaCategoria.classList.toggle("oculto");
         layoutCategorias.classList.toggle("sin-panel");
+        limpiarErrorCampo(campoNombreCategoria);
+    });
+
+    inputNombreCategoria?.addEventListener("input", () => {
+        limpiarErrorCampo(campoNombreCategoria);
     });
 
     formNuevaCategoria?.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const nombre = document.getElementById("nombreCategoria").value.trim();
+        const nombre = inputNombreCategoria.value.trim();
         const descripcion = document.getElementById("descripcionCategoria").value.trim();
 
-        if (!nombre) return;
+        if (!nombre) {
+            mostrarErrorCampo(campoNombreCategoria, "Este campo es obligatorio.");
+            return;
+        }
 
         fetch("/categorias", {
             method: "POST",
@@ -565,7 +576,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => {
                 console.error("Error al crear categoría:", error);
-                alert(error.message);
+                mostrarErrorCampo(campoNombreCategoria, error.message);
             });
     });
 

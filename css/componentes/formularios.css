@@ -245,6 +245,17 @@ body.tema-oscuro .indicador-filtro {
   background-color: rgba(6, 11, 68, 0.06);
 }
 
+/* En modo oscuro el azul casi no se ve, la selección va en blanco */
+body.tema-oscuro .rol-item input[type="checkbox"],
+body.tema-oscuro .rol-item input[type="radio"] {
+  accent-color: var(--blanco);
+}
+
+body.tema-oscuro .rol-item.seleccionado {
+  border-color: var(--blanco);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
 /* ANIMACIÓN DE ELEGIR ROLES */
 .roles-animados {
   position: relative;
@@ -264,7 +275,8 @@ body.tema-oscuro .indicador-filtro {
   animation-delay: 0.12s;
 }
 
-.roles-animados .rol-item.seleccionado {
+.roles-animados .rol-item.seleccionado,
+body.tema-oscuro .roles-animados .rol-item.seleccionado {
   border-color: var(--gris-borde);
   background-color: var(--superficie);
 }
@@ -287,6 +299,11 @@ body.tema-oscuro .indicador-filtro {
 .indicador-rol.visible {
   opacity: 1;
   transition: top 0.3s ease, height 0.3s ease, opacity 0.2s ease;
+}
+
+body.tema-oscuro .indicador-rol {
+  border-color: var(--blanco);
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 .roles-animados+.mensaje-error {
