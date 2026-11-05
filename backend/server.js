@@ -38,6 +38,22 @@ app.use(reposicionRoutes);
 app.use(gastoRoutes);
 app.use(compraRoutes);
 
+// ruta que no existe
+app.use((req, res) => {
+    res.status(404).json({ error: "No se encontró lo que buscás." });
+});
+
+// cualquier error que se escape, sin mostrar detalles técnicos
+app.use((error, req, res, next) => {
+    console.error(error);
+
+    if (error.type === "entity.parse.failed") {
+        return res.status(400).json({ error: "Los datos enviados no son válidos." });
+    }
+
+    res.status(500).json({ error: "Error interno del servidor." });
+});
+
 // INICIAR SERVIDOR
 app.listen(PORT, () => {
     

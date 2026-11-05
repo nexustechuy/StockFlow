@@ -77,11 +77,11 @@ async function crear(req, res) {
             const productoDb = productosDb.find(p => Number(p.id_producto) === Number(item.id_producto));
 
             if (!productoDb) {
-                throw new Error(`El producto ${item.id_producto} no existe.`);
+                throw Object.assign(new Error(`El producto ${item.id_producto} no existe.`), { status: 404 });
             }
 
             if (Number(productoDb.stock) < Number(item.cantidad)) {
-                throw new Error(`Stock insuficiente para "${productoDb.nombre}".`);
+                throw Object.assign(new Error(`Stock insuficiente para "${productoDb.nombre}".`), { status: 409 });
             }
 
             const precioUnitario = Number(productoDb.precio_venta);
@@ -126,8 +126,9 @@ async function crear(req, res) {
             }
         }
 
-        res.status(400).json({
-            error: error.message || "Error al registrar la venta."
+        // solo mostramos los errores nuestros, los de la base no
+        res.status(error.status || 500).json({
+            error: error.status ? error.message : "Error al registrar la venta."
         });
 
     } finally {

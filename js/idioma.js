@@ -324,6 +324,10 @@
         "No tenés asignado ese rol.": "You do not have that role assigned.",
 
         // Productos
+        "Cargando...": "Loading...",
+        "Error interno del servidor.": "Internal server error.",
+        "Los datos enviados no son válidos.": "The data sent is not valid.",
+        "No se encontró lo que buscás.": "What you are looking for was not found.",
         "Error al cargar los productos.": "Error loading products.",
         "No se pudieron cargar los productos.": "Could not load products.",
         "No se encontraron productos.": "No products found.",
