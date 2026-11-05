@@ -1,0 +1,19 @@
+services:
+  stockflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: stockflow
+
+    restart: unless-stopped
+
+    network_mode: bridge
+
+    ports:
+      - "3000:3000"
+
+    env_file:
+      - ./backend/.env
+
+    init: true
