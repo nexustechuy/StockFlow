@@ -434,6 +434,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
                 sinResultadosCompra.textContent = "Error al cargar los productos.";
                 sinResultadosCompra.style.display = "block";
+
+                // si falla, que no quede en "Cargando..."
+                document.getElementById("cuerpoTablaAlertas").innerHTML =
+                    `<tr><td colspan="5">Error al cargar los productos.</td></tr>`;
+                document.querySelector(".alerta-texto").textContent = "Error al cargar los productos.";
             });
     }
 
@@ -457,7 +462,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 renderizarCategorias();
             })
-            .catch(error => console.error("Error al cargar categorías:", error));
+            .catch(error => {
+                console.error("Error al cargar categorías:", error);
+                document.getElementById("listaCategorias").innerHTML =
+                    `<p>Error al obtener las categorías.</p>`;
+            });
     }
 
     function cargarVariantes() {
