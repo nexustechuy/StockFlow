@@ -8,7 +8,7 @@
   const CANTIDAD_HISTORIAL = 4;   // filas en "Historial de ventas"
   const CANTIDAD_MAS_VENDIDOS = 4; // filas en "Productos más vendidos"
 
-  // Nombres de los campos tal como salen de la base (DOCS/stockflow.sql).
+  // Nombres de los campos tal como salen de la base (DOCS/ddl.sql).
   // Si algún controller los devuelve con otro alias, se agrega acá y listo.
   const CAMPOS = {
     venta: {

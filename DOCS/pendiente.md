@@ -11,7 +11,7 @@
 ### Módulo de compras (lo que queda)
 - [x] Compras: el administrador compra desde Inventario ("Comprar productos"), se guardan `compra` y `detalle_compra` y se registra el gasto ("Compra #id") en una sola transacción. La compra queda pendiente y no suma stock.
 - [x] Reposiciones: aviso y tabla de compras pendientes. El botón "Reponer" registra una reposición por cada producto (comentario "Compra #id"), suma el stock y marca la compra como repuesta.
-- [x] `stockflow.sql` y `stockflow_alt.sql` ya traen la columna `estado` en `compra`.
+- [x] `ddl.sql` ya trae la columna `estado` en `compra`.
 - [ ] **Bases ya importadas (urgente):** correr `ALTER TABLE compra ADD COLUMN estado VARCHAR(20) NOT NULL DEFAULT 'pendiente';`. Las compras que ya existían quedan como pendientes: si alguna ya se repuso a mano, marcarla con `UPDATE compra SET estado = 'repuesta' WHERE id_compra = ...;` para no sumar el stock dos veces.
 - [ ] Avisar al grupo: una compra se repone **solo** con el botón "Reponer". Si además se carga con el formulario de reposición, el stock se suma dos veces. El formulario queda para reposiciones que no vienen de una compra.
 - [ ] Opcional: historial de compras para el administrador (hoy solo se ven como gasto en Ganancias) y poder cancelar una compra pendiente.
@@ -67,7 +67,7 @@
 - [ ] Ganancias: el costo se toma del `precio_compra` actual del producto. Guardar el costo unitario en `detalle_venta` para que editar un precio no cambie la rentabilidad histórica. Ahora que hay compras importa más: si se compra a otro precio y se actualiza `precio_compra`, cambian las ganancias de las ventas viejas.
 - [ ] Sacar los datos de prueba de la base oficial (productos 47, 48 y 49: `teclado`, `vbmxvbm`, `nuevo producto`, con precios 0 o 2). Revisar también las ventas y compras de prueba.
 - [ ] `precio_compra` y `precio_venta` son `decimal(20,0)` (sin centavos). Decidir si hacen falta decimales.
-- [ ] Tras cualquier cambio de esquema, reexportar `stockflow.sql` y `stockflow_alt.sql` y avisar al grupo.
+- [ ] Tras cualquier cambio de esquema, actualizar `ddl.sql` (y `dml.sql` si hace falta) y avisar al grupo.
 
 ## 5. Frontend e idioma (mejorar)
 
