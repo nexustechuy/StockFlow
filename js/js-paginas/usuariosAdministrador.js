@@ -126,8 +126,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function renderizarTabla() {
+    const activos = usuarios.filter(function (u) { return u.activo; });
+    const inactivos = usuarios.filter(function (u) { return !u.activo; });
+
     cuerpoTabla.innerHTML = usuarios.length
-      ? usuarios.map(renderizarFila).join('')
+      ? activos.concat(inactivos).map(renderizarFila).join('')
       : '<tr><td colspan="5">Todavía no hay usuarios.</td></tr>';
 
     aplicarFiltros();
@@ -152,6 +155,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     if (posicion === -1) {
+      usuarios.push(usuario);
+    } else if (usuarios[posicion].activo !== usuario.activo) {
+      usuarios.splice(posicion, 1);
       usuarios.push(usuario);
     } else {
       usuarios[posicion] = usuario;
