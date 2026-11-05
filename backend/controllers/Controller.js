@@ -1,7 +1,6 @@
 // base de todos los controllers
 class Controller {
     constructor() {
-        // ata los métodos a la instancia, así Express no pierde el this
         const metodos = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
 
         for (const nombre of metodos) {
@@ -11,7 +10,6 @@ class Controller {
         }
     }
 
-    // deshace la transacción sin tapar el error original
     async deshacer(conn) {
         if (!conn) return;
 

@@ -32,7 +32,7 @@ class VentaController extends Controller {
     }
 
     // DETALLE DE VENTA - LISTAR
-    // El administrador ve todo (con el costo); el vendedor, solo el de sus ventas y sin costos
+    // El administrador ve todo (con el costo). El vendedor, solo el de sus ventas y sin costos
     async listarDetalle(req, res) {
         try {
             const admin = esAdministrador(req);

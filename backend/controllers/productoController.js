@@ -17,8 +17,8 @@ class ProductoController extends Controller {
         return valor !== undefined && valor !== null && String(valor).trim() !== "" && Number.isFinite(Number(valor));
     }
 
-    // Valida los datos de un producto (sirve para crear y para editar).
-    // Devuelve { error } si algo está mal, o { datos } con los valores ya limpios.
+    // Valida los datos de un producto (sirve para crear y para editar)
+    // Devuelve error si algo está mal, o datos con los valores ya limpios
     validarProducto(body) {
         const { codigo, nombre, descripcion, precio_compra, precio_venta, stock, stock_minimo, id_categoria } = body || {};
 
@@ -82,7 +82,6 @@ class ProductoController extends Controller {
     responderErrorGuardado(error, res, mensajeGenerico) {
         console.error(error);
 
-        // La única columna UNIQUE de producto (además de la clave) es codigo
         if (error.code === "ER_DUP_ENTRY" || error.errno === 1062) {
             return res.status(409).json({
                 error: "Ya existe un producto con ese código de barras."
