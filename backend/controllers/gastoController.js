@@ -1,19 +1,27 @@
+const Controller = require("./Controller");
 const gastoModel = require("../models/gastoModel");
 
-// GASTOS - LISTAR
-async function listar(req, res) {
-    try {
-        const gastos = await gastoModel.listar();
+class GastoController extends Controller {
+    constructor(gastoModel) {
+        super();
+        this.gastoModel = gastoModel;
+    }
 
-        res.json(gastos);
+    // GASTOS - LISTAR
+    async listar(req, res) {
+        try {
+            const gastos = await this.gastoModel.listar();
 
-    } catch (error) {
-        console.error(error);
+            res.json(gastos);
 
-        res.status(500).json({
-            error: "Error al obtener los gastos."
-        });
+        } catch (error) {
+            console.error(error);
+
+            res.status(500).json({
+                error: "Error al obtener los gastos."
+            });
+        }
     }
 }
 
-module.exports = { listar };
+module.exports = new GastoController(gastoModel);

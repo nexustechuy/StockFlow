@@ -1,4 +1,5 @@
 const pool = require("../config/db");
+const Model = require("./Model");
 
 const SELECT_REPOSICION = `
     SELECT
@@ -14,23 +15,25 @@ const SELECT_REPOSICION = `
      LEFT JOIN producto p ON r.id_producto = p.id_producto
      LEFT JOIN usuarios u ON r.id_usuario = u.id_usuario`;
 
-async function listar() {
-    return await pool.query(`${SELECT_REPOSICION} ORDER BY r.fecha_hora DESC`);
+class ReposicionModel extends Model {
+    async listar() {
+        return await this.db.query(`${SELECT_REPOSICION} ORDER BY r.fecha_hora DESC`);
+    }
+
+    async crear(conn, { comentario, cantidad, id_producto, id_usuario }) {
+        const resultado = await conn.query(
+            `INSERT INTO reposicion (fecha_hora, comentario, cantidad, id_producto, id_usuario)
+             VALUES (NOW(), ?, ?, ?, ?)`,
+            [comentario || null, cantidad, id_producto, id_usuario || null]
+        );
+
+        return Number(resultado.insertId);
+    }
+
+    async obtenerPorId(conn, id) {
+        const reposiciones = await conn.query(`${SELECT_REPOSICION} WHERE r.id_reposicion = ?`, [id]);
+        return reposiciones[0];
+    }
 }
 
-async function crear(conn, { comentario, cantidad, id_producto, id_usuario }) {
-    const resultado = await conn.query(
-        `INSERT INTO reposicion (fecha_hora, comentario, cantidad, id_producto, id_usuario)
-         VALUES (NOW(), ?, ?, ?, ?)`,
-        [comentario || null, cantidad, id_producto, id_usuario || null]
-    );
-
-    return Number(resultado.insertId);
-}
-
-async function obtenerPorId(conn, id) {
-    const reposiciones = await conn.query(`${SELECT_REPOSICION} WHERE r.id_reposicion = ?`, [id]);
-    return reposiciones[0];
-}
-
-module.exports = { listar, crear, obtenerPorId };
+module.exports = new ReposicionModel(pool);
