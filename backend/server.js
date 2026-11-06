@@ -5,7 +5,7 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const express = require("express");
 
 // RUTAS
-const authRoutes = require("./rutas/authRoutes");
+const authApi = require("./api/authApi");
 const usuarioRoutes = require("./rutas/usuarioRoutes");
 const productoRoutes = require("./rutas/productoRoutes");
 const categoriaRoutes = require("./rutas/categoriaRoutes");
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../paginas/login.html"));
 });
 
-app.use(authRoutes);
+app.use(authApi);
 app.use(usuarioRoutes);
 app.use(productoRoutes);
 app.use(categoriaRoutes);

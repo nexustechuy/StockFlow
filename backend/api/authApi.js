@@ -1,12 +1,24 @@
+const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Controller = require("./Controller");
-const usuarioModel = require("../models/usuarioModel");
+const { rateLimit } = require("express-rate-limit");
+const Controller = require("../controllers/Controller");
+const usuarioDAO = require("../dao/UsuarioDAO");
+const { verificarSesion } = require("../middleware/auth");
 
-class AuthController extends Controller {
-    constructor(usuarioModel) {
+const limiteLogin = rateLimit({
+    windowMs: 5 * 60 * 1000,
+    limit: 5,
+    skipSuccessfulRequests: true,
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
+    message: { error: "Demasiados intentos fallidos. Probá de nuevo en unos minutos." }
+});
+
+class AuthApi extends Controller {
+    constructor(usuarioDAO) {
         super();
-        this.usuarioModel = usuarioModel;
+        this.usuarioDAO = usuarioDAO;
     }
 
     mensajeConIntentos(req) {
@@ -30,16 +42,15 @@ class AuthController extends Controller {
         );
     }
 
-    // LOGIN
     async login(req, res) {
         try {
-            const { mail, password } = req.body;
+            const { mail, password } = req.body || {};
 
             if (typeof mail !== "string" || typeof password !== "string") {
                 return res.status(400).json({ error: "Datos inválidos." });
             }
 
-            const usuarios = await this.usuarioModel.buscarPorMail(mail);
+            const usuarios = await this.usuarioDAO.buscarPorMail(mail);
 
             const credencialesOk =
                 usuarios.length > 0 &&
@@ -51,7 +62,6 @@ class AuthController extends Controller {
                 });
             }
 
-            // Los usuarios desactivados no pueden ingresar
             if (Number(usuarios[0].activo) !== 1) {
                 return res.status(403).json({
                     error: "Tu usuario está desactivado. Pedile al administrador que lo active."
@@ -59,10 +69,7 @@ class AuthController extends Controller {
             }
 
             const usuario = usuarios[0];
-            // Un usuario puede tener más de un rol (tabla usuario_rol)
             const roles = usuarios.map(u => u.rol);
-
-            // El token sale con el primer rol. Si tiene varios, el front después pide el que eligió
             const token = this.crearToken(usuario.id_usuario, usuario.mail, usuario.rol);
 
             res.json({
@@ -83,11 +90,9 @@ class AuthController extends Controller {
         }
     }
 
-    // CAMBIAR DE ROL (devuelve un token nuevo con el rol elegido)
     cambiarRol(req, res) {
         const { rol } = req.body || {};
 
-        // Solo puede pasar a un rol que tenga asignado en la base
         if (typeof rol !== "string" || !req.usuario.rolesAsignados.includes(rol)) {
             return res.status(403).json({ error: "No tenés asignado ese rol." });
         }
@@ -96,6 +101,15 @@ class AuthController extends Controller {
 
         res.json({ rol, token });
     }
+
+    rutas() {
+        const router = express.Router();
+
+        router.post("/login", limiteLogin, this.login);
+        router.post("/cambiar-rol", verificarSesion, this.cambiarRol);
+
+        return router;
+    }
 }
 
-module.exports = new AuthController(usuarioModel);
+module.exports = new AuthApi(usuarioDAO).rutas();

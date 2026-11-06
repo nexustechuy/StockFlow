@@ -15,27 +15,6 @@ const SELECT_USUARIO = `
      LEFT JOIN rol r ON ur.id_rol = r.id_rol`;
 
 class UsuarioModel extends Model {
-    // Busca el usuario con su rol según el mail.
-    // La contraseña se verifica aparte, con bcrypt (en authController).
-    async buscarPorMail(mail) {
-        return await this.db.query(
-            `SELECT
-                u.id_usuario,
-                u.mail,
-                u.nombre,
-                u.password,
-                u.activo,
-                r.nombre AS rol
-             FROM usuarios u
-             INNER JOIN usuario_rol ur
-                 ON u.id_usuario = ur.id_usuario
-             INNER JOIN rol r
-                 ON ur.id_rol = r.id_rol
-             WHERE BINARY u.mail = BINARY ?`,
-            [mail]
-        );
-    }
-
     async listar() {
         return await this.db.query(`${SELECT_USUARIO} GROUP BY u.id_usuario ORDER BY u.id_usuario`);
     }
