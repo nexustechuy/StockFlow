@@ -788,3 +788,43 @@ body.tema-oscuro .mensaje-exito {
     flex: 1;
   }
 }
+
+/* AJUSTES PARA CELULARES */
+@media (max-width: 576px) {
+
+  .pestanas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    padding-left: 0;
+    width: 100%;
+    border-bottom: none;
+  }
+
+  .pestana {
+    width: 100%;
+    text-align: center;
+    padding: 12px 6px;
+    font-size: 0.85rem;
+    white-space: normal;
+
+    /* Línea individual para cada pestaña */
+    border-bottom: 1.5px solid var(--gris-borde);
+  }
+
+  /* Línea azul solamente en la pestaña seleccionada */
+  .pestana.activa {
+    border-bottom: 1.5px solid var(--azul-primario);
+  }
+
+  /* Ocultar el indicador que se mueve entre pestañas */
+  .indicador-pestana {
+    display: none;
+  }
+
+  /* Modo oscuro */
+  body.tema-oscuro .pestana.activa {
+    border-bottom-color: var(--blanco);
+  }
+
+}
