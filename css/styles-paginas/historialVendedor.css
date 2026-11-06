@@ -133,3 +133,7 @@ body.tema-oscuro .detalle-info .fila {
 #modalDetalleVenta .tabla-productos td:nth-child(5) {
   text-align: right;
 }
+
+.tabla-historial td:nth-child(-n+2) {
+  white-space: nowrap !important;
+}

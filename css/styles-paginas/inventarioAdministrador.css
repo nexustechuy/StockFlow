@@ -118,6 +118,10 @@ body.tema-oscuro .indicador-pestana {
   text-align: center;
 }
 
+.tabla-productos-inv td:first-child {
+  min-width: 96px;
+}
+
 /* POPUP DE ACCIONES (···) */
 .popup-menu {
   font-family: 'Inter', Arial, sans-serif;
@@ -539,6 +543,17 @@ body.tema-oscuro .tabla-inventario tr.fila-activa {
   align-items: start;
 }
 
+@media (min-width: 993px) and (max-width: 1279px) {
+  .venta-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .venta-grid > .panel:first-child {
+    grid-row: span 2;
+  }
+}
+
 @media (max-width: 992px) {
   .venta-grid {
     grid-template-columns: 1fr;
@@ -610,6 +625,9 @@ body.tema-oscuro .tabla-inventario tr.fila-activa {
 .producto-item .info-producto .categoria {
   font-size: 0.76rem;
   color: var(--texto-gris);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .producto-item .precio {

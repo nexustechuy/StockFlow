@@ -103,3 +103,47 @@
   text-overflow: clip !important;
   padding-right: 24px !important;
 }
+
+@media (min-width: 1024px) {
+  .panel table,
+  .tabla-historial,
+  .tabla-productos,
+  .tabla-stock,
+  .tabla-usuarios,
+  .tabla-ventas,
+  .tabla-inventario,
+  .tabla-fija {
+    min-width: 0;
+  }
+
+  .panel table th,
+  .panel table td,
+  .tabla-historial th,
+  .tabla-historial td,
+  .tabla-productos th,
+  .tabla-productos td,
+  .tabla-stock th,
+  .tabla-stock td,
+  .tabla-usuarios th,
+  .tabla-usuarios td,
+  .tabla-ventas th,
+  .tabla-ventas td,
+  .tabla-inventario th,
+  .tabla-inventario td,
+  .tabla-fija th,
+  .tabla-fija td {
+    white-space: normal !important;
+    padding-right: 16px !important;
+  }
+
+  .panel table td :is(span, button, a),
+  .tabla-historial td :is(span, button, a),
+  .tabla-productos td :is(span, button, a),
+  .tabla-stock td :is(span, button, a),
+  .tabla-usuarios td :is(span, button, a),
+  .tabla-ventas td :is(span, button, a),
+  .tabla-inventario td :is(span, button, a),
+  .tabla-fija td :is(span, button, a) {
+    white-space: nowrap;
+  }
+}

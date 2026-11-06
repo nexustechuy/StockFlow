@@ -94,3 +94,7 @@
   font-weight: 700;
   text-align: right;
 }
+
+.tabla-ventas td:nth-child(2) {
+  white-space: nowrap !important;
+}

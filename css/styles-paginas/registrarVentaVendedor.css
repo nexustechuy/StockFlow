@@ -54,6 +54,17 @@
   align-items: start;
 }
 
+@media (min-width: 993px) and (max-width: 1279px) {
+  .venta-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .venta-grid > .panel:first-child {
+    grid-row: span 2;
+  }
+}
+
 @media (max-width: 992px) {
   .venta-grid {
     grid-template-columns: 1fr;
@@ -126,6 +137,9 @@
 .producto-item .info-producto .stock {
   font-size: 0.76rem;
   color: var(--texto-gris);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .producto-item .precio {
